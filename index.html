@@ -1,0 +1,683 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <script src="https://code.jquery.com/jquery-latest.js"></script>
+        <script src="https://unpkg.com/ag-grid-enterprise/dist/ag-grid-enterprise.min.noStyle.js"></script>
+        <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-grid.css">
+        <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+    </head>
+    <body>
+        <h1>Book Catalogue</h1>
+
+        <div id="divBookDataForm">
+            <form id="bookDataForm" name="bookDataForm" enctype="multipart/form-data" method="post">
+                <input type="file" id="fileinputCat">
+                <input type="button" id="btnLoad" value="Load catalogue">
+                <input type="button" id="btnProcessUpdates" value="Save updated catalogue">
+            </form>
+        </div>
+
+        <div id="testDiv"></div>
+
+        <div id="catGrid" style="height:600px;width:100%;" class="ag-theme-balham"></div>
+
+
+        <script type="text/javascript" charset="utf-8">
+            const BCK_FLAG_BIT_OPENLIB_SYNCED   = 0;
+            const BCK_FLAG_BIT_IN_OPENLIB       = 1;
+            const BCK_FLAG_BIT_INVALID_ISBN13   = 2;
+            const BCK_FLAG_BIT_INVALID_ISBN10   = 3;
+            const ISBN13_DIGITS = 13;
+            const ISBN10_DIGITS = 10;
+
+            // Mapping between currency codes and symbols
+            const CURRENCY_PREFIXES =
+            {
+                'AUD':  '$',
+                'EUR':  '€',
+                'GBP':  '£',
+                'SGD':  '$SGD',
+                'USD':  '$US',
+                'VND':  '₫'
+            };
+
+            const REGEX_EXT = new RegExp(/[.][^.]*$/);  // File extension regular expression
+            const UPDATED_CAT_EXT = ".updated";
+
+            // Default column options
+            const defaultBookCol =
+            {
+                sortable:   true,
+                filter:     true,
+                resizable:  true,
+                editable:   true
+            };
+
+            // Column definitions
+            let bookColumns =
+            [
+                {
+                    headerName:         "Resynch",
+                    checkboxSelection:  true,
+                    headerTooltip:      "Check for updated openlib details",
+                },
+                {
+                    headerName: "In openlib",
+                    valueGetter: function(params)
+                    {
+                        if (params.data.hasOwnProperty('flags'))
+                        {
+                            if (params.data.flags & (1 << BCK_FLAG_BIT_IN_OPENLIB))
+                            {
+                                return "✓";
+                            }
+                        }
+                        return "";
+                    },
+                    headerTooltip: "Book exists in openlib",
+                },
+                {
+                    headerName: "Purchase Details",
+                    children:
+                    [
+                        {
+                            headerName: "Purchase Date",
+                            field: "purchase_date"
+                        },
+                        {
+                            headerName: "Arrival Date",
+                            valueGetter: function(params)
+                            {
+                                if (params.data.hasOwnProperty('arrival_date'))
+                                {
+                                    return params.data.arrival_date;
+                                }
+                                return params.data.purchase_date;
+                            }
+                        },
+                        {headerName: "Seller", field: "seller"},
+                        {headerName: "Seller Branch", field: "seller_branch", hide: true},
+                        {headerName: "Purchaser", field: "purchaser", hide: true},
+                        {headerName: "#", field: "number_in_order", hide: true},
+                        {
+                            headerName: "Price",
+                            valueGetter: function(params)
+                            {
+                                let price_string = "";
+                                let price = parseFloat(params.data.purchase_price);
+                                if (params.data.hasOwnProperty('shipping_price'))
+                                {
+                                    price += parseFloat(params.data.shipping_price);
+                                }
+
+                                if (price)
+                                {
+                                    if (params.data.purchase_currency == 'VND')
+                                    {
+                                        price_string = price + CURRENCY_PREFIXES[params.data.purchase_currency];
+                                    }
+                                    else
+                                    {
+                                        price_string = CURRENCY_PREFIXES[params.data.purchase_currency] + formatAsCurrency(price);
+                                    }
+                                }
+
+                                return price_string;
+                            }
+                        }
+                    ]
+                },
+                {
+                    headerName: "Book Identifiers",
+                    children:
+                    [
+                        {
+                            headerName: "ISBN 13",
+                            field:      "isbn_13",
+                            cellRenderer: function(params)
+                            {
+                                return(formatISBN(params, ISBN13_DIGITS));
+                            }
+                        },
+                        {
+                            headerName: "ISBN 10",
+                            field:      "isbn_10",
+                            cellRenderer: function(params)
+                            {
+                                return(formatISBN(params, ISBN10_DIGITS));
+                            },
+                            hide:       true
+                        }
+                    ]
+                },
+                {
+                    headerName: "Author/Editor",
+                    children:
+                    [
+                        {
+                            headerName: "Surname",
+                            valueGetter: function(params)
+                            {
+                                if (params.data.hasOwnProperty('authors'))
+                                {
+                                    return params.data.authors[0].surname;
+                                }
+                                else if (params.data.hasOwnProperty('alt_authors'))
+                                {
+                                    return params.data.alt_authors[0].surname;
+                                }
+                            }
+                        },
+                        {
+                            headerName: "Given Name(s)",
+                            valueGetter: function(params)
+                            {
+                                if (params.data.hasOwnProperty('authors'))
+                                {
+                                    return params.data.authors[0].given_names.join(" ");
+                                }
+                                else if (params.data.hasOwnProperty('alt_authors'))
+                                {
+                                    return params.data.alt_authors[0].given_names.join(" ");
+                                }
+                            }
+                        }
+                    ]
+                },
+                {
+                    headerName: "Title",
+                    valueGetter: function(params)
+                    {
+                        if (params.data.hasOwnProperty('title'))
+                        {
+                            return params.data.title;
+                        }
+                        return params.data.alt_title;
+                    },
+                    cellRenderer: function(params)
+                    {
+                        cellString = params.value;
+                        if (params.data.hasOwnProperty('info_url'))
+                        {
+                            cellString = '<a href="' + params.data.info_url + '" target="_blank">' + cellString + '</a>';
+                        }
+                        return cellString;
+                    },
+                },
+                {
+                    headerName: "Publisher",
+                    valueGetter: function(params)
+                    {
+                        if (params.data.hasOwnProperty('publishers'))
+                        {
+                            return params.data.publishers[0];
+                        }
+                        else if (params.data.hasOwnProperty('alt_publishers'))
+                        {
+                            return params.data.alt_publishers[0];
+                        }
+                    },
+                },
+                {
+                    headerName: "Dimensions",
+                    valueGetter: function(params)
+                    {
+                        dimString = ''
+                        if (params.data.hasOwnProperty('dimensions'))
+                        {
+                            dimSource = null
+                            if (params.data.dimensions['actual'])
+                            {
+                                dimSource = params.data.dimensions['actual'];
+                            }
+                            else if (params.data.dimensions['amazon'])
+                            {
+                                dimSource = params.data.dimensions['amazon'];
+                            }
+                            else
+                            {
+                                dimSource = params.data.dimensions['openlib'];
+                            }
+                            if (dimSource)
+                            {
+                                dimString =  dimSource['height'] + " x " + dimSource['width'] + " x " + dimSource['thickness'] + "mm";
+                            }
+                        }
+                        return dimString;
+                    },
+                    hide: true
+                },
+                {
+                    headerName: "Length",
+                    valueGetter: function(params)
+                    {
+                        if (params.data.hasOwnProperty('length'))
+                        {
+                            if (params.data.length['actual'])
+                            {
+                                return params.data.length['actual'];
+                            }
+                            else if (params.data.length['amazon'])
+                            {
+                                return params.data.length['amazon'];
+                            }
+                            else if (params.data.length['openlib'])
+                            {
+                                return params.data.length['openlib'];
+                            }
+                        }
+                    },
+                    hide: true
+                }
+            ];
+
+            // Grid configuration (empty data)
+            let gridOptions =
+            {
+                defaultColDef:          defaultBookCol,
+                columnDefs:             bookColumns,
+                rowSelection:           'multiple',
+                enableRangeSelection:   true,           // Allow multiple values in the same column to be selected/copied
+                suppressRowTransform:   true,           // Allow row spanning
+                rowData:                [],
+                onRowSelected: function(params)
+                {
+                    // Toggle selected item's openlib (re)synch flag
+                    params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
+                }
+            };
+
+            let catFilename = '';
+            let catData     = [];
+
+            $(document).ready(function()
+            {
+                // Initialise the catalogue grid
+                let gridDiv = document.querySelector('#catGrid');
+                new agGrid.Grid(gridDiv, gridOptions);
+
+                let xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function()
+                {
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                        let catData = JSON.parse(this.responseText);
+                        populateGrid(catData);
+                    }
+                };
+                xmlhttp.open("GET", "Books.all.cat", true);
+                xmlhttp.send();
+
+                // Load/display selected catalogue data
+                $("#btnLoad").click(function()
+                {
+                    let fileinput, fileReader;
+
+                    // Parse file input element
+                    fileinput = document.getElementById("fileinputCat");
+                    if (!fileinput)
+                    {
+                        alert("Couldn't find the catalogue file HTML element.");
+                    }
+                    else if (!fileinput.files)
+                    {
+                        alert("This browser doesn't seem to support the `files` property of file inputs.");
+                    }
+                    else if (!fileinput.files[0])
+                    {
+                        alert("Please select a catalogue file before clicking 'Load'");
+                    }
+                    else
+                    {
+                        catFilename = fileinput.files[0].name;
+                        catFile = fileinput.files[0];
+                        fileReader = new FileReader();
+                        fileReader.onload = receivedText;
+                        fileReader.readAsText(catFile);
+                    }
+
+                    // Proceess catalogue file contents
+                    function receivedText(e)
+                    {
+                        catData = JSON.parse(e.target.result);
+                        populateGrid(catData);
+                    }
+                });
+
+                // Save a version of the catalogue file with selected items flagged
+                // for resynch with openlib
+                $("#btnProcessUpdates").click(function()
+                {
+                    let catDataString = JSON.stringify(catData, null, 4);
+                    let updatedCatFile = new Blob([catDataString], {type: "text/plain"});
+                    let updatedCatFileElem = document.createElement("a");
+                    updatedCatFileElem.href = URL.createObjectURL(updatedCatFile);
+
+                    // Generate updated catalogue filename
+                    let catFilenameExt  = REGEX_EXT.exec(catFilename);
+                    let updatedCatFilename = catFilename.replace(catFilenameExt, UPDATED_CAT_EXT + catFilenameExt);
+                    updatedCatFileElem.download = updatedCatFilename;
+
+                    updatedCatFileElem.click();
+                });
+            });
+
+            // Populate the catalogue grid
+            function populateGrid(catData)
+            {
+                gridOptions.api.setRowData(catData);
+                gridOptions.columnApi.autoSizeColumns();
+                gridOptions.api.sizeColumnsToFit();
+            }
+
+            // Format a numerical input as a currency string
+            function formatAsCurrency(price)
+            {
+                return (Number.parseFloat(price).toFixed(2));
+            }
+
+            // Format ISBNs so that invalid ISBNs are highlighted
+            function formatISBN(params, digits)
+            {
+                let isbnError = false;
+                let cellString = params.value;
+                if (params.data.hasOwnProperty('flags'))
+                {
+                    switch(digits)
+                    {
+                        case ISBN13_DIGITS:
+                            isbnError = params.data.flags & (1 << BCK_FLAG_BIT_INVALID_ISBN13);
+                            break;
+
+                        case ISBN10_DIGITS:
+                            isbnError = params.data.flags & (1 << BCK_FLAG_BIT_INVALID_ISBN10);
+                            break;
+
+                        default:
+                    }
+                }
+
+                if (isbnError)
+                {
+                    cellString = '<span style="background-color:red;">' + cellString + '</span>';
+                }
+
+                return cellString;
+            }
+
+            // Test catalogue data
+            let testCat =
+            [
+                {
+                    "purchase_date": "2019-09-30",
+                    "isbn_13": "9781408886809",
+                    "item_within_order": "1",
+                    "alt_authors": [
+                        {
+                            "surname": "Gaiman",
+                            "given_names": [
+                                "Neil"
+                            ]
+                        }
+                    ],
+                    "alt_title": "Norse Mythology",
+                    "alt_publishers": [
+                        {
+                            "name": "Bloomsbury"
+                        }
+                    ],
+                    "seller_id": "LL",
+                    "purchase_price": "4.00",
+                    "purchase_currency": "AUD"
+                },
+                {
+                    "purchase_date": "2019-09-30",
+                    "isbn_13": "9780312427245",
+                    "item_within_order": "2",
+                    "alt_authors": [
+                        {
+                            "surname": "Vargos Llosa",
+                            "given_names": [
+                                "Mario"
+                            ]
+                        },
+                        {
+                            "surname": "Lane",
+                            "given_names": [
+                                "Helen",
+                                "R."
+                            ]
+                        }
+                    ],
+                    "alt_title": "Aunt Julia and the Scriptwriter",
+                    "alt_publishers": [
+                        {
+                            "name": "Picador"
+                        }
+                    ],
+                    "seller_id": "LL",
+                    "purchase_price": "4.00",
+                    "purchase_currency": "AUD",
+                    "ignored_fields": [
+                        "authors"
+                    ],
+                    "isbn_10": [
+                        "0312427247"
+                    ],
+                    "publishers": [
+                        {
+                            "name": "Picador"
+                        }
+                    ],
+                    "publish_date": "October 2, 2007",
+                    "number_of_pages": 384,
+                    "title": "Aunt Julia and the Scriptwriter"
+                },
+                {
+                    "purchase_date": "2019-09-30",
+                    "isbn_13": "9781780746357",
+                    "item_within_order": "3",
+                    "alt_authors": [
+                        {
+                            "surname": "James",
+                            "given_names": [
+                                "Marlon"
+                            ]
+                        }
+                    ],
+                    "alt_title": "A Brief History of Seven Killings",
+                    "alt_publishers": [
+                        {
+                            "name": "Oneworld"
+                        }
+                    ],
+                    "seller_id": "LL",
+                    "purchase_price": "3.00",
+                    "purchase_currency": "AUD"
+                },
+                {
+                    "purchase_date": "2019-11-29",
+                    "isbn_13": "9788891244390",
+                    "alt_authors": [
+                        {
+                            "surname": "Manara",
+                            "given_names": [
+                                "Milo"
+                            ]
+                        }
+                    ],
+                    "alt_title": "Aunt Julia and the Scriptwriter",
+                    "seller_id": "AmazonAU",
+                    "purchase_price": "36.15",
+                    "shipping_price": "0.00",
+                    "purchase_currency": "AUD"
+                },
+                {
+                    "arrival_date": "2019-12-01",
+                    "isbn_13": "9783462043235",
+                    "item_within_order": "1",
+                    "alt_authors": [
+                        {
+                            "surname": "Kutscher",
+                            "given_names": [
+                                "Volker"
+                            ]
+                        }
+                    ],
+                    "alt_title": "Goldstein",
+                    "alt_publishers": [
+                        {
+                            "name": "Kiepenhauer & Witsch"
+                        }
+                    ],
+                    "notes": "Gift",
+                    "authors": [
+                        {
+                            "given_names": [
+                                "Volker"
+                            ],
+                            "surname": "Kutscher"
+                        }
+                    ],
+                    "isbn_10": [
+                        "3462043234"
+                    ],
+                    "publishers": [
+                        {
+                            "name": "Kiepenheuer & Witsch GmbH"
+                        }
+                    ],
+                    "publish_date": "1822",
+                    "title": "Goldstein"
+                },
+                {
+                    "arrival_date": "2019-12-01",
+                    "isbn_13": "9783462046465",
+                    "item_within_order": "2",
+                    "alt_authors": [
+                        {
+                            "surname": "Kutscher",
+                            "given_names": [
+                                "Volker"
+                            ]
+                        }
+                    ],
+                    "alt_title": "Die Akte Vaterland",
+                    "alt_publishers": [
+                        {
+                            "name": "Kiepenhauer & Witsch"
+                        }
+                    ],
+                    "notes": "Gift"
+                },
+                {
+                    "purchase_date": "2019-12-06",
+                    "isbn_13": "9781786070609",
+                    "alt_authors": [
+                        {
+                            "surname": "Sadawi",
+                            "given_names": [
+                                "Ahmed"
+                            ]
+                        }
+                    ],
+                    "alt_title": "Frankenstein in Baghdad",
+                    "alt_publishers": [
+                        {
+                            "name": "Oneworld"
+                        }
+                    ],
+                    "seller_id": "KinokuniyaSyd",
+                    "purchase_price": "9.95",
+                    "purchase_currency": "AUD",
+                    "publishers": [
+                        {
+                            "name": "Oneworld Publications"
+                        }
+                    ],
+                    "publish_date": "2018",
+                    "title": "Frankenstein in Baghdad"
+                },
+                {
+                    "purchase_date": "2019-12-09",
+                    "isbn_13": "9780008132576",
+                    "alt_authors": [
+                        {
+                            "surname": "Stephenson",
+                            "given_names": [
+                                "Neal"
+                            ]
+                        },
+                        {
+                            "surname": "Galland",
+                            "given_names": [
+                                "Nicole"
+                            ]
+                        }
+                    ],
+                    "alt_title": "The Rise and Fall of D.O.D.O",
+                    "alt_publishers": [
+                        {
+                            "name": "Harper Collins"
+                        }
+                    ],
+                    "seller_id": "DymocksGeorgeSt",
+                    "purchase_price": "10.00",
+                    "purchase_currency": "AUD"
+                },
+                {
+                    "purchase_date": "2019-12-10",
+                    "isbn_13": "9780730324218",
+                    "alt_authors": [
+                        {
+                            "surname": "Pape",
+                            "given_names": [
+                                "Scott"
+                            ]
+                        }
+                    ],
+                    "alt_title": "The Barefoot Investor",
+                    "alt_publishers": [
+                        {
+                            "name": "Wiley"
+                        }
+                    ],
+                    "seller_id": "DymocksGeorgeSt",
+                    "notes": "Gift",
+                    "authors": [
+                        {
+                            "given_names": [
+                                "Scott"
+                            ],
+                            "surname": "Pape"
+                        }
+                    ],
+                    "isbn_10": [
+                        "0730324214"
+                    ],
+                    "publish_date": "2017",
+                    "number_of_pages": 264,
+                    "title": "The barefoot investor"
+                },
+                {
+                    "purchase_date": "2019-12-16",
+                    "isbn_13": "9780692181065",
+                    "alt_authors": [
+                        {
+                            "surname": "McAuliffe",
+                            "given_names": [
+                                "Callan"
+                            ]
+                        }
+                    ],
+                    "alt_title": "The Hill Ghost",
+                    "seller_id": "HH_BJ",
+                    "purchase_price": "19.95",
+                    "purchase_currency": "AUD"
+                }
+            ];
+
+            //document.getElementById('testDiv').innerHTML = CURRENCY_PREFIXES['AUD'];
+        </script>
+    </body>
+</html>
