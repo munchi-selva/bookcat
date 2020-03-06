@@ -42,29 +42,38 @@
             const ISBN13_DIGITS = 13;
             const ISBN10_DIGITS = 10;
 
-            const CAT_FLD_AMAZON        = 'amazon';
-            const CAT_FLD_OPENLIB       = 'openlib';
-            const CAT_FLD_AUTHORS       = 'authors';
-            const CAT_FLD_TITLE         = 'title';
-            const CAT_FLD_PUBLISHERS    = 'publishers';
-            const CAT_FLD_FLAGS         = 'flags';
-            const CAT_FLD_DIM           = 'dimensions';
-            const CAT_FLD_DIM_HEIGHT    = 'height';
-            const CAT_FLD_DIM_WIDTH     = 'width';
-            const CAT_FLD_DIM_THICKNESS = 'thickness';
-            const CAT_FLD_DIM_LENGTH    = 'length';
-            const CAT_FLD_DIM_MASS      = 'mass';
-            const CAT_FLD_INFO_URL      = 'info_url';
+            const CAT_FLD_AMAZON        = "amazon";
+            const CAT_FLD_OPENLIB       = "openlib";
+            const CAT_FLD_PURCH_DATE    = "purchase_date";
+            const CAT_FLD_ARR_DATE      = "arrival_date";
+            const CAT_FLD_SELLER        = "seller";
+            const CAT_FLD_SELLER_BRANCH = "seller_branch";
+            const CAT_FLD_PURCHASER     = "purchaser";
+            const CAT_FLD_PURCH_PRICE   = "purchase_price";
+            const CAT_FLD_SHIP_PRICE    = "shipping_price";
+            const CAT_FLD_CURRENCY      = "purchase_currency";
+            const CAT_FLD_NUM_IN_ORDER  = "number_in_order";
+            const CAT_FLD_AUTHORS       = "authors";
+            const CAT_FLD_TITLE         = "title";
+            const CAT_FLD_PUBLISHERS    = "publishers";
+            const CAT_FLD_FLAGS         = "flags";
+            const CAT_FLD_DIM           = "dimensions";
+            const CAT_FLD_DIM_HEIGHT    = "height";
+            const CAT_FLD_DIM_WIDTH     = "width";
+            const CAT_FLD_DIM_THICKNESS = "thickness";
+            const CAT_FLD_DIM_LENGTH    = "length";
+            const CAT_FLD_DIM_MASS      = "mass";
+            const CAT_FLD_INFO_URL      = "info_url";
 
             // Mapping between currency codes and symbols
             const CURRENCY_PREFIXES =
             {
-                'AUD':  '$',
-                'EUR':  '€',
-                'GBP':  '£',
-                'SGD':  '$SGD',
-                'USD':  '$US',
-                'VND':  '₫'
+                "AUD":  "$",
+                "EUR":  "€",
+                "GBP":  "£",
+                "SGD":  "$SGD",
+                "USD":  "$US",
+                "VND":  "₫"
             };
 
             // Faking an enum
@@ -109,43 +118,43 @@
                     [
                         {
                             headerName: "Purchase Date",
-                            field: "purchase_date"
+                            field: CAT_FLD_PURCH_DATE
                         },
                         {
                             headerName: "Arrival Date",
                             valueGetter: function(params)
                             {
-                                if (params.data.hasOwnProperty('arrival_date'))
+                                if (hasKeyChain(params.data, []))
                                 {
-                                    return params.data.arrival_date;
+                                    return params.data[CAT_FLD_ARR_DATE];
                                 }
-                                return params.data.purchase_date;
+                                return params.data[CAT_FLD_PURCH_DATE];
                             }
                         },
-                        {headerName: "Seller", field: "seller"},
-                        {headerName: "Seller Branch", field: "seller_branch", hide: true},
-                        {headerName: "Purchaser", field: "purchaser", hide: true},
-                        {headerName: "#", field: "number_in_order", hide: true},
+                        {headerName: "Seller", field: CAT_FLD_SELLER},
+                        {headerName: "Seller Branch", field: CAT_FLD_SELLER_BRANCH, hide: true},
+                        {headerName: "Purchaser", field: CAT_FLD_PURCHASER, hide: true},
+                        {headerName: "#", field: CAT_FLD_NUM_IN_ORDER, hide: true},
                         {
                             headerName: "Price",
                             valueGetter: function(params)
                             {
                                 let price_string = "";
-                                let price = parseFloat(params.data.purchase_price);
-                                if (params.data.hasOwnProperty('shipping_price'))
+                                let price = parseFloat(params.data[CAT_FLD_PURCH_PRICE]);
+                                if (hasKeyChain(params.data, CAT_FLD_SHIP_PRICE))
                                 {
-                                    price += parseFloat(params.data.shipping_price);
+                                    price += parseFloat(params.data[CAT_FLD_SHIP_PRICE]);
                                 }
 
                                 if (price)
                                 {
-                                    if (params.data.purchase_currency == 'VND')
+                                    if (params.data[CAT_FLD_CURRENCY] == 'VND')
                                     {
-                                        price_string = price + CURRENCY_PREFIXES[params.data.purchase_currency];
+                                        price_string = price + CURRENCY_PREFIXES[params.data[CAT_FLD_CURRENCY]];
                                     }
                                     else
                                     {
-                                        price_string = CURRENCY_PREFIXES[params.data.purchase_currency] + formatAsCurrency(price);
+                                        price_string = CURRENCY_PREFIXES[params.data[CAT_FLD_CURRENCY]] + formatAsCurrency(price);
                                     }
                                 }
 
@@ -335,6 +344,7 @@
                 // Initialise the catalogue grid
                 let gridDiv = document.querySelector('#catGrid');
                 new agGrid.Grid(gridDiv, gridOptions);
+                catFilename = "Books.cat";
 
                 let xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function()
@@ -345,7 +355,7 @@
                         populateGrid(catData);
                     }
                 };
-                xmlhttp.open("GET", "Books.cat", true);
+                xmlhttp.open("GET", catFilename, true);
                 xmlhttp.send();
 
                 // Load/display selected catalogue data
@@ -409,7 +419,7 @@
                 gridOptions.columnApi.autoSizeColumns();
                 gridOptions.api.sizeColumnsToFit();
 
-                document.getElementById('divCatInfo').innerHTML = "Displaying catalogue: '" + catFilename + "'";
+                document.getElementById("divCatInfo").innerHTML = "Displaying catalogue: '" + catFilename + "'";
             }
 
             // Format a numerical input as a currency string
