@@ -1,25 +1,37 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
         <script src="https://code.jquery.com/jquery-latest.js"></script>
         <script src="https://unpkg.com/ag-grid-enterprise/dist/ag-grid-enterprise.min.noStyle.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-grid.css">
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     </head>
     <body>
-        <h1>Book Catalogue</h1>
-
-        <div id="divBookDataForm">
-            <form id="bookDataForm" name="bookDataForm" enctype="multipart/form-data" method="post">
-                <input type="file" id="fileinputCat">
-                <input type="button" id="btnLoad" value="Load catalogue">
-                <input type="button" id="btnProcessUpdates" value="Save updated catalogue">
-            </form>
-        </div>
 
         <div id="testDiv"></div>
 
-        <div id="catGrid" style="height:600px;width:100%;" class="ag-theme-balham"></div>
+        <div id="catGrid" style="height:600px;width:100%;" class="ag-theme-balham" class=".container">
+            <h1>Ex libris ... munchi</h1>
+            <div id="divCatSelect" class="panel-group">
+                <div class="panel-heading">
+                    <h4 class="panel-title">
+                        <a id="divCatInfo" data-toggle="collapse" href="#divCatSelectForm">Select a catalogue</a>
+                    </h4>
+                </div>
+                <div id="divCatSelectForm" class="panel-collapse in">
+                    <div class="panel-body">
+                        <form id="catDataForm" name="catDataForm" enctype="multipart/form-data" method="post">
+                            <input type="file" id="fileinputCat" value="Hello">
+                            <input type="button" id="btnLoad" value="Load catalogue">
+                            <input type="button" id="btnProcessUpdates" value="Save updated catalogue">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
 
 
         <script type="text/javascript" charset="utf-8">
@@ -29,6 +41,20 @@
             const BCK_FLAG_BIT_INVALID_ISBN10   = 3;
             const ISBN13_DIGITS = 13;
             const ISBN10_DIGITS = 10;
+
+            const CAT_FLD_AMAZON        = 'amazon';
+            const CAT_FLD_OPENLIB       = 'openlib';
+            const CAT_FLD_AUTHORS       = 'authors';
+            const CAT_FLD_TITLE         = 'title';
+            const CAT_FLD_PUBLISHERS    = 'publishers';
+            const CAT_FLD_FLAGS         = 'flags';
+            const CAT_FLD_DIM           = 'dimensions';
+            const CAT_FLD_DIM_HEIGHT    = 'height';
+            const CAT_FLD_DIM_WIDTH     = 'width';
+            const CAT_FLD_DIM_THICKNESS = 'thickness';
+            const CAT_FLD_DIM_LENGTH    = 'length';
+            const CAT_FLD_DIM_MASS      = 'mass';
+            const CAT_FLD_INFO_URL      = 'info_url';
 
             // Mapping between currency codes and symbols
             const CURRENCY_PREFIXES =
@@ -40,6 +66,14 @@
                 'USD':  '$US',
                 'VND':  '₫'
             };
+
+            // Faking an enum
+            const NameEnum =
+            {
+                "NAME_SUR":  0,
+                "NAME_GIVEN":    1
+            };
+            Object.freeze(NameEnum);
 
             const REGEX_EXT = new RegExp(/[.][^.]*$/);  // File extension regular expression
             const UPDATED_CAT_EXT = ".updated";
@@ -65,14 +99,7 @@
                     headerName: "In openlib",
                     valueGetter: function(params)
                     {
-                        if (params.data.hasOwnProperty('flags'))
-                        {
-                            if (params.data.flags & (1 << BCK_FLAG_BIT_IN_OPENLIB))
-                            {
-                                return "✓";
-                            }
-                        }
-                        return "";
+                        return inOpenLib(params) ? "✓" : "";
                     },
                     headerTooltip: "Book exists in openlib",
                 },
@@ -158,28 +185,14 @@
                             headerName: "Surname",
                             valueGetter: function(params)
                             {
-                                if (params.data.hasOwnProperty('authors'))
-                                {
-                                    return params.data.authors[0].surname;
-                                }
-                                else if (params.data.hasOwnProperty('alt_authors'))
-                                {
-                                    return params.data.alt_authors[0].surname;
-                                }
+                                return getAuthorNames(params, NameEnum.NAME_SUR);
                             }
                         },
                         {
                             headerName: "Given Name(s)",
                             valueGetter: function(params)
                             {
-                                if (params.data.hasOwnProperty('authors'))
-                                {
-                                    return params.data.authors[0].given_names.join(" ");
-                                }
-                                else if (params.data.hasOwnProperty('alt_authors'))
-                                {
-                                    return params.data.alt_authors[0].given_names.join(" ");
-                                }
+                                return getAuthorNames(params, NameEnum.NAME_GIVEN);
                             }
                         }
                     ]
@@ -188,18 +201,18 @@
                     headerName: "Title",
                     valueGetter: function(params)
                     {
-                        if (params.data.hasOwnProperty('title'))
+                        if (hasOpenlibFld(params, CAT_FLD_TITLE))
                         {
-                            return params.data.title;
+                            return params.data[CAT_FLD_OPENLIB][CAT_FLD_TITLE];
                         }
-                        return params.data.alt_title;
+                        return params.data[CAT_FLD_TITLE];
                     },
                     cellRenderer: function(params)
                     {
                         cellString = params.value;
-                        if (params.data.hasOwnProperty('info_url'))
+                        if (hasOpenlibFld(params, CAT_FLD_INFO_URL))
                         {
-                            cellString = '<a href="' + params.data.info_url + '" target="_blank">' + cellString + '</a>';
+                            cellString = '<a href="' + params.data[CAT_FLD_OPENLIB][CAT_FLD_INFO_URL] + '" target="_blank">' + cellString + '</a>';
                         }
                         return cellString;
                     },
@@ -208,65 +221,92 @@
                     headerName: "Publisher",
                     valueGetter: function(params)
                     {
-                        if (params.data.hasOwnProperty('publishers'))
+                        pubSource = [];
+                        if (hasOpenlibFld(params, CAT_FLD_PUBLISHERS))
                         {
-                            return params.data.publishers[0];
+                            pubSource = params.data[CAT_FLD_OPENLIB][CAT_FLD_PUBLISHERS];
                         }
-                        else if (params.data.hasOwnProperty('alt_publishers'))
+                        else if (CAT_FLD_PUBLISHERS in params.data)
                         {
-                            return params.data.alt_publishers[0];
+                            pubSource = params.data[CAT_FLD_PUBLISHERS];
                         }
+                        return pubSource.join(";");
                     },
                 },
                 {
                     headerName: "Dimensions",
-                    valueGetter: function(params)
-                    {
-                        dimString = ''
-                        if (params.data.hasOwnProperty('dimensions'))
+                    children:
+                    [
                         {
-                            dimSource = null
-                            if (params.data.dimensions['actual'])
+                            headerName: "H x W x T",
+                            valueGetter: function(params)
                             {
-                                dimSource = params.data.dimensions['actual'];
+                                dimString = ''
+                                dimSource = null
+                                if (hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
+                                    hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
+                                    hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
+                                {
+                                    dimSource = params.data[CAT_FLD_DIM];
+                                }
+                                else if (hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
+                                    hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
+                                    hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
+                                {
+                                    dimSource = params.data[CAT_FLD_AMAZON][CAT_FLD_DIM];
+                                }
+                                else if (hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
+                                    hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
+                                    hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
+                                {
+                                    dimSource = params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM];
+                                }
+                                if (dimSource)
+                                {
+                                    dimString =  dimSource[CAT_FLD_DIM_HEIGHT] + " x " +
+                                        dimSource[CAT_FLD_DIM_WIDTH] + " x " +
+                                        dimSource[CAT_FLD_DIM_THICKNESS] + "mm";
+                                }
+                                return dimString;
+                            },
+                        },
+                        {
+                            headerName: "Length",
+                            valueGetter: function(params)
+                            {
+                                if (hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]))
+                                {
+                                    return (params.data[CAT_FLD_DIM][CAT_FLD_DIM_LENGTH]);
+                                }
+                                else if (hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]))
+                                {
+                                    return (params.data[CAT_FLD_AMAZON][CAT_FLD_DIM][CAT_FLD_DIM_LENGTH]);
+                                }
+                                else if (hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]))
+                                {
+                                    return (params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM][CAT_FLD_DIM_LENGTH]);
+                                }
                             }
-                            else if (params.data.dimensions['amazon'])
+                        },
+                        {
+                            headerName: "Mass",
+                            valueGetter: function(params)
                             {
-                                dimSource = params.data.dimensions['amazon'];
-                            }
-                            else
-                            {
-                                dimSource = params.data.dimensions['openlib'];
-                            }
-                            if (dimSource)
-                            {
-                                dimString =  dimSource['height'] + " x " + dimSource['width'] + " x " + dimSource['thickness'] + "mm";
+                                if (hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]))
+                                {
+                                    return (params.data[CAT_FLD_DIM][CAT_FLD_DIM_MASS]);
+                                }
+                                else if (hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_MASS]))
+                                {
+                                    return (params.data[CAT_FLD_AMAZON][CAT_FLD_DIM][CAT_FLD_DIM_MASS]);
+                                }
+                                else if (hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]))
+                                {
+                                    return (params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM][CAT_FLD_DIM_MASS]);
+                                }
                             }
                         }
-                        return dimString;
-                    },
-                    hide: true
-                },
-                {
-                    headerName: "Length",
-                    valueGetter: function(params)
-                    {
-                        if (params.data.hasOwnProperty('length'))
-                        {
-                            if (params.data.length['actual'])
-                            {
-                                return params.data.length['actual'];
-                            }
-                            else if (params.data.length['amazon'])
-                            {
-                                return params.data.length['amazon'];
-                            }
-                            else if (params.data.length['openlib'])
-                            {
-                                return params.data.length['openlib'];
-                            }
-                        }
-                    },
+                    ],
                     hide: true
                 }
             ];
@@ -368,6 +408,8 @@
                 gridOptions.api.setRowData(catData);
                 gridOptions.columnApi.autoSizeColumns();
                 gridOptions.api.sizeColumnsToFit();
+
+                document.getElementById('divCatInfo').innerHTML = "Displaying catalogue: '" + catFilename + "'";
             }
 
             // Format a numerical input as a currency string
@@ -376,21 +418,76 @@
                 return (Number.parseFloat(price).toFixed(2));
             }
 
+            function inOpenLib(params)
+            {
+                return (params.data.hasOwnProperty('flags') &&
+                        params.data.flags & (1 << BCK_FLAG_BIT_IN_OPENLIB));
+            }
+
+            function hasOpenlibFld(params, key)
+            {
+                return (hasKeyChain(params.data, [CAT_FLD_OPENLIB, key]));
+            }
+
+            function hasKeyChain(obj, keys)
+            {
+                for (objLevel = 0; objLevel < keys.length; objLevel++)
+                {
+                    key = keys[objLevel]
+                    if (!obj || !(key in obj))
+                    {
+                        return false;
+                    }
+                    obj = obj[key];
+                }
+                return true;
+            }
+
+            function getAuthorNames(params, nameType)
+            {
+                authSource = [];
+                namesString = "";
+                if (hasOpenlibFld(params, CAT_FLD_AUTHORS))
+                {
+                    authSource = params.data[CAT_FLD_OPENLIB][CAT_FLD_AUTHORS];
+                }
+                else if (CAT_FLD_AUTHORS in params.data)
+                {
+                    authSource = params.data[CAT_FLD_AUTHORS];
+                }
+                for (authIdx = 0; authIdx < authSource.length; authIdx++)
+                {
+                    if (namesString)
+                    {
+                        namesString += "; ";
+                    }
+                    if (nameType == NameEnum.NAME_SUR)
+                    {
+                        namesString += authSource[authIdx].surname;
+                    }
+                    else if (nameType == NameEnum.NAME_GIVEN)
+                    {
+                        namesString += authSource[authIdx].given_names.join(" ");
+                    }
+                }
+                return namesString;
+            }
+
             // Format ISBNs so that invalid ISBNs are highlighted
             function formatISBN(params, digits)
             {
                 let isbnError = false;
                 let cellString = params.value;
-                if (params.data.hasOwnProperty('flags'))
+                if (CAT_FLD_FLAGS in params.data)
                 {
                     switch(digits)
                     {
                         case ISBN13_DIGITS:
-                            isbnError = params.data.flags & (1 << BCK_FLAG_BIT_INVALID_ISBN13);
+                            isbnError = params.data[CAT_FLD_FLAGS] & (1 << BCK_FLAG_BIT_INVALID_ISBN13);
                             break;
 
                         case ISBN10_DIGITS:
-                            isbnError = params.data.flags & (1 << BCK_FLAG_BIT_INVALID_ISBN10);
+                            isbnError = params.data[CAT_FLD_FLAGS] & (1 << BCK_FLAG_BIT_INVALID_ISBN10);
                             break;
 
                         default:
