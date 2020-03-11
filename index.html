@@ -24,8 +24,9 @@
                 <div id="divCatSelectForm" class="panel-collapse in">
                     <div class="panel-body">
                         <form id="catDataForm" name="catDataForm" enctype="multipart/form-data" method="post">
-                            <input type="file" id="fileinputCat" value="Hello">
+                            <input type="file" id="fileinputCat">
                             <input type="button" id="btnLoad" value="Load catalogue">
+                            <input type="button" id="btnLoadDefault" value="Load default catalogue">
                             <input type="button" id="btnProcessUpdates" value="Save updated catalogue">
                         </form>
                     </div>
@@ -55,6 +56,7 @@
             const CAT_FLD_NUM_IN_ORDER  = "number_in_order";
             const CAT_FLD_AUTHORS       = "authors";
             const CAT_FLD_TITLE         = "title";
+            const CAT_FLD_SUBTITLE      = "subtitle";
             const CAT_FLD_PUBLISHERS    = "publishers";
             const CAT_FLD_FLAGS         = "flags";
             const CAT_FLD_DIM           = "dimensions";
@@ -79,8 +81,8 @@
             // Faking an enum
             const NameEnum =
             {
-                "NAME_SUR":  0,
-                "NAME_GIVEN":    1
+                "NAME_SUR":     0,
+                "NAME_GIVEN":   1
             };
             Object.freeze(NameEnum);
 
@@ -129,7 +131,8 @@
                                     return params.data[CAT_FLD_ARR_DATE];
                                 }
                                 return params.data[CAT_FLD_PURCH_DATE];
-                            }
+                            },
+                            hide: true
                         },
                         {headerName: "Seller", field: CAT_FLD_SELLER},
                         {headerName: "Seller Branch", field: CAT_FLD_SELLER_BRANCH, hide: true},
@@ -212,7 +215,12 @@
                     {
                         if (hasOpenlibFld(params, CAT_FLD_TITLE))
                         {
-                            return params.data[CAT_FLD_OPENLIB][CAT_FLD_TITLE];
+                            title = params.data[CAT_FLD_OPENLIB][CAT_FLD_TITLE];
+                            if (hasOpenlibFld(params, CAT_FLD_SUBTITLE))
+                            {
+                                title += ": " + params.data[CAT_FLD_OPENLIB][CAT_FLD_SUBTITLE];
+                            }
+                            return title;
                         }
                         return params.data[CAT_FLD_TITLE];
                     },
@@ -278,6 +286,7 @@
                                 }
                                 return dimString;
                             },
+                            hide: true
                         },
                         {
                             headerName: "Length",
@@ -295,7 +304,8 @@
                                 {
                                     return (params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM][CAT_FLD_DIM_LENGTH]);
                                 }
-                            }
+                            },
+                            hide: true
                         },
                         {
                             headerName: "Mass",
@@ -313,10 +323,10 @@
                                 {
                                     return (params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM][CAT_FLD_DIM_MASS]);
                                 }
-                            }
+                            },
+                            hide: true
                         }
-                    ],
-                    hide: true
+                    ]
                 }
             ];
 
@@ -344,19 +354,7 @@
                 // Initialise the catalogue grid
                 let gridDiv = document.querySelector('#catGrid');
                 new agGrid.Grid(gridDiv, gridOptions);
-                catFilename = "Books.cat";
-
-                let xmlhttp = new XMLHttpRequest();
-                xmlhttp.onreadystatechange = function()
-                {
-                    if (this.readyState == 4 && this.status == 200)
-                    {
-                        let catData = JSON.parse(this.responseText);
-                        populateGrid(catData);
-                    }
-                };
-                xmlhttp.open("GET", catFilename, true);
-                xmlhttp.send();
+                loadDefaultCat();
 
                 // Load/display selected catalogue data
                 $("#btnLoad").click(function()
@@ -394,6 +392,11 @@
                     }
                 });
 
+                $("#btnLoadDefault").click(function()
+                {
+                    loadDefaultCat();
+                });
+
                 // Save a version of the catalogue file with selected items flagged
                 // for resynch with openlib
                 $("#btnProcessUpdates").click(function()
@@ -411,6 +414,23 @@
                     updatedCatFileElem.click();
                 });
             });
+
+            function loadDefaultCat()
+            {
+                catFilename = "Books.cat";
+
+                let xmlhttp = new XMLHttpRequest();
+                xmlhttp.onreadystatechange = function()
+                {
+                    if (this.readyState == 4 && this.status == 200)
+                    {
+                        let catData = JSON.parse(this.responseText);
+                        populateGrid(catData);
+                    }
+                };
+                xmlhttp.open("GET", catFilename, true);
+                xmlhttp.send();
+            }
 
             // Populate the catalogue grid
             function populateGrid(catData)
