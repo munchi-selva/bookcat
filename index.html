@@ -1,7 +1,7 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
         <script src="https://code.jquery.com/jquery-latest.js"></script>
         <script src="https://unpkg.com/ag-grid-enterprise/dist/ag-grid-enterprise.min.noStyle.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
@@ -9,31 +9,64 @@
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     </head>
-    <body>
+    <style>
+        .main-div
+        {
+            height: 550px;
+            width:  100%;
+        }
 
+        .info
+        {
+            font-size:  large;
+            font-style: italic;
+        }
+
+        .panel-heading
+        {
+            font-size:  medium;
+        }
+
+        .panel-collapse
+        {
+            margin: 0.5em 0em 0em;
+        }
+
+        .grid-settings
+        {
+            padding:    2em 0.5em 0.5em;
+        }
+    </style>
+    <body>
         <div id="testDiv"></div>
 
-        <div id="catGrid" style="height:600px;width:100%;" class="ag-theme-balham" class=".container">
+        <div id="catGrid" class="main-div ag-theme-balham container">
             <h1>Ex libris ... munchi</h1>
-            <div id="divCatSelect" class="panel-group">
+            <div class="panel-group">
+                <div id="divCatInfo" class="info"></div>
                 <div class="panel-heading">
-                    <h4 class="panel-title">
-                        <a id="divCatInfo" data-toggle="collapse" href="#divCatSelectForm">Select a catalogue</a>
-                    </h4>
+                    <!-- Click to show/hide catalogue file selection and editing options -->
+                    <a data-toggle="collapse" href="#divCatSelectForm">Catalogue file options</a>
                 </div>
-                <div id="divCatSelectForm" class="panel-collapse in">
+                <div id="divCatSelectForm" class="panel-collapse collapse">
                     <div class="panel-body">
-                        <form id="catDataForm" name="catDataForm" enctype="multipart/form-data" method="post">
-                            <input type="file" id="fileinputCat">
-                            <input type="button" id="btnLoad" value="Load catalogue">
-                            <input type="button" id="btnLoadDefault" value="Load default catalogue">
-                            <input type="button" id="btnProcessUpdates" value="Save updated catalogue">
+                        <form id="catDataForm" class="form-inline">
+                            <button type="button" id="btnLoadDefault" class="btn btn-primary">Load default catalogue</button>
+                            <span style="padding:0em 2em;">
+                                <input type="file" id="fileinputCat" class="form-control">
+                                <button type="button" id="btnLoad" class="btn btn-primary">Load catalogue</button>
+                            </span>
+                            <button type="button" id="btnProcessUpdates" class="btn btn-primary">Save updated catalogue</button>
                         </form>
+                        <hr/>
                     </div>
                 </div>
             </div>
+            <div id="catOptDiv" class="grid-settings form-check form-check-inline">
+                <input type="checkbox" id="chkUseOpenlib" class="form-check-input" value="useOpenlib">
+                <label for="chkUseOpenlib" class="form-check-label">Use openlib data</label>
+            </div>
         </div>
-
 
         <script type="text/javascript" charset="utf-8">
             const BCK_FLAG_BIT_OPENLIB_SYNCED   = 0;
@@ -213,16 +246,12 @@
                     headerName: "Title",
                     valueGetter: function(params)
                     {
-                        if (hasOpenlibFld(params, CAT_FLD_TITLE))
+                        title = getOpenlibFld(params, CAT_FLD_TITLE);
+                        if (!title)
                         {
-                            title = params.data[CAT_FLD_OPENLIB][CAT_FLD_TITLE];
-                            if (hasOpenlibFld(params, CAT_FLD_SUBTITLE))
-                            {
-                                title += ": " + params.data[CAT_FLD_OPENLIB][CAT_FLD_SUBTITLE];
-                            }
-                            return title;
+                            title = params.data[CAT_FLD_TITLE];
                         }
-                        return params.data[CAT_FLD_TITLE];
+                        return title;
                     },
                     cellRenderer: function(params)
                     {
@@ -238,16 +267,17 @@
                     headerName: "Publisher",
                     valueGetter: function(params)
                     {
-                        pubSource = [];
-                        if (hasOpenlibFld(params, CAT_FLD_PUBLISHERS))
-                        {
-                            pubSource = params.data[CAT_FLD_OPENLIB][CAT_FLD_PUBLISHERS];
-                        }
-                        else if (CAT_FLD_PUBLISHERS in params.data)
+                        pubString = null;
+                        pubSource = getOpenlibFld(params, CAT_FLD_PUBLISHERS);
+                        if (!pubSource)
                         {
                             pubSource = params.data[CAT_FLD_PUBLISHERS];
                         }
-                        return pubSource.join(";");
+                        if (pubSource)
+                        {
+                            pubString = pubSource.join(";");
+                        }
+                        return pubString;
                     },
                 },
                 {
@@ -330,7 +360,7 @@
                 }
             ];
 
-            // Grid configuration (empty data)
+            // Default grid configuration (empty data)
             let gridOptions =
             {
                 defaultColDef:          defaultBookCol,
@@ -359,41 +389,18 @@
                 // Load/display selected catalogue data
                 $("#btnLoad").click(function()
                 {
-                    let fileinput, fileReader;
+                    loadSelectedCat();
+                });
 
-                    // Parse file input element
-                    fileinput = document.getElementById("fileinputCat");
-                    if (!fileinput)
-                    {
-                        alert("Couldn't find the catalogue file HTML element.");
-                    }
-                    else if (!fileinput.files)
-                    {
-                        alert("This browser doesn't seem to support the `files` property of file inputs.");
-                    }
-                    else if (!fileinput.files[0])
-                    {
-                        alert("Please select a catalogue file before clicking 'Load'");
-                    }
-                    else
-                    {
-                        catFilename = fileinput.files[0].name;
-                        catFile = fileinput.files[0];
-                        fileReader = new FileReader();
-                        fileReader.onload = receivedText;
-                        fileReader.readAsText(catFile);
-                    }
-
-                    // Proceess catalogue file contents
-                    function receivedText(e)
-                    {
-                        catData = JSON.parse(e.target.result);
-                        populateGrid(catData);
-                    }
+                $("#fileinputCat").change(function()
+                {
+                    // Load catalogue data in response to file selection
+                    loadSelectedCat();
                 });
 
                 $("#btnLoadDefault").click(function()
                 {
+                    // Load catalogue data in response to button click
                     loadDefaultCat();
                 });
 
@@ -413,6 +420,11 @@
 
                     updatedCatFileElem.click();
                 });
+
+                $("#chkUseOpenlib").click(function()
+                {
+                    gridOptions.api.redrawRows();
+                });
             });
 
             function loadDefaultCat()
@@ -430,6 +442,41 @@
                 };
                 xmlhttp.open("GET", catFilename, true);
                 xmlhttp.send();
+            }
+
+            function loadSelectedCat()
+            {
+                let fileinput, fileReader;
+
+                // Parse file input element
+                fileinput = document.getElementById("fileinputCat");
+                if (!fileinput)
+                {
+                    alert("Couldn't find the catalogue file HTML element.");
+                }
+                else if (!fileinput.files)
+                {
+                    alert("This browser doesn't seem to support the `files` property of file inputs.");
+                }
+                else if (!fileinput.files[0])
+                {
+                    alert("Please select a catalogue file before clicking 'Load'");
+                }
+                else
+                {
+                    catFilename = fileinput.files[0].name;
+                    catFile = fileinput.files[0];
+                    fileReader = new FileReader();
+                    fileReader.onload = receivedText;
+                    fileReader.readAsText(catFile);
+                }
+
+                // Proceess catalogue file contents
+                function receivedText(e)
+                {
+                    catData = JSON.parse(e.target.result);
+                    populateGrid(catData);
+                }
             }
 
             // Populate the catalogue grid
@@ -459,6 +506,20 @@
                 return (hasKeyChain(params.data, [CAT_FLD_OPENLIB, key]));
             }
 
+            function useOpenlibData()
+            {
+                return chkUseOpenlib.checked;
+            }
+
+            function getOpenlibFld(params, key)
+            {
+                if (useOpenlibData() && hasOpenlibFld(params, key))
+                {
+                    return params.data[CAT_FLD_OPENLIB][key];
+                }
+                return null;
+            }
+
             function hasKeyChain(obj, keys)
             {
                 for (objLevel = 0; objLevel < keys.length; objLevel++)
@@ -477,27 +538,28 @@
             {
                 authSource = [];
                 namesString = "";
-                if (hasOpenlibFld(params, CAT_FLD_AUTHORS))
-                {
-                    authSource = params.data[CAT_FLD_OPENLIB][CAT_FLD_AUTHORS];
-                }
-                else if (CAT_FLD_AUTHORS in params.data)
+
+                authSource = getOpenlibFld(params, CAT_FLD_AUTHORS);
+                if (!authSource)
                 {
                     authSource = params.data[CAT_FLD_AUTHORS];
                 }
-                for (authIdx = 0; authIdx < authSource.length; authIdx++)
+                if (authSource)
                 {
-                    if (namesString)
+                    for (authIdx = 0; authIdx < authSource.length; authIdx++)
                     {
-                        namesString += "; ";
-                    }
-                    if (nameType == NameEnum.NAME_SUR)
-                    {
-                        namesString += authSource[authIdx].surname;
-                    }
-                    else if (nameType == NameEnum.NAME_GIVEN)
-                    {
-                        namesString += authSource[authIdx].given_names.join(" ");
+                        if (namesString)
+                        {
+                            namesString += "; ";
+                        }
+                        if (nameType == NameEnum.NAME_SUR)
+                        {
+                            namesString += authSource[authIdx].surname;
+                        }
+                        else if (nameType == NameEnum.NAME_GIVEN)
+                        {
+                            namesString += authSource[authIdx].given_names.join(" ");
+                        }
                     }
                 }
                 return namesString;
