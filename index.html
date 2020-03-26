@@ -41,7 +41,7 @@
         <div id="testDiv"></div>
 
         <div id="catGrid" class="main-div ag-theme-balham container-fluid">
-            <h1>Ex libris ... munchi</h1>
+            <h2>Ex libris ... munchi</h2>
             <div class="panel-group">
                 <div id="divCatInfo" class="info"></div>
                 <div class="panel-heading">
@@ -69,36 +69,9 @@
         </div>
 
         <script type="text/javascript" charset="utf-8">
-            const BCK_FLAG_BIT_OPENLIB_SYNCED   = 0;
-            const BCK_FLAG_BIT_IN_OPENLIB       = 1;
-            const BCK_FLAG_BIT_INVALID_ISBN13   = 2;
-            const BCK_FLAG_BIT_INVALID_ISBN10   = 3;
+            // ISBN handling
             const ISBN13_DIGITS = 13;
             const ISBN10_DIGITS = 10;
-
-            const CAT_FLD_AMAZON        = "amazon";
-            const CAT_FLD_OPENLIB       = "openlib";
-            const CAT_FLD_PURCH_DATE    = "purchase_date";
-            const CAT_FLD_ARR_DATE      = "arrival_date";
-            const CAT_FLD_SELLER        = "seller";
-            const CAT_FLD_SELLER_BRANCH = "seller_branch";
-            const CAT_FLD_PURCHASER     = "purchaser";
-            const CAT_FLD_PURCH_PRICE   = "purchase_price";
-            const CAT_FLD_SHIP_PRICE    = "shipping_price";
-            const CAT_FLD_CURRENCY      = "purchase_currency";
-            const CAT_FLD_NUM_IN_ORDER  = "number_in_order";
-            const CAT_FLD_AUTHORS       = "authors";
-            const CAT_FLD_TITLE         = "title";
-            const CAT_FLD_SUBTITLE      = "subtitle";
-            const CAT_FLD_PUBLISHERS    = "publishers";
-            const CAT_FLD_FLAGS         = "flags";
-            const CAT_FLD_DIM           = "dimensions";
-            const CAT_FLD_DIM_HEIGHT    = "height";
-            const CAT_FLD_DIM_WIDTH     = "width";
-            const CAT_FLD_DIM_THICKNESS = "thickness";
-            const CAT_FLD_DIM_LENGTH    = "length";
-            const CAT_FLD_DIM_MASS      = "mass";
-            const CAT_FLD_INFO_URL      = "info_url";
 
             // Mapping between currency codes and symbols
             const CURRENCY_PREFIXES =
@@ -110,6 +83,43 @@
                 "USD":  "$US",
                 "VND":  "₫"
             };
+
+            // Mass conversions
+            const LB_TO_OZ  = 16;
+            const OZ_TO_KG  = 0.028;
+            const LB_TO_KG  = LB_TO_OZ * OZ_TO_KG;
+            const G_TO_KG   = 0.001;
+
+            const BCK_FLAG_BIT_OPENLIB_SYNCED   = 0;
+            const BCK_FLAG_BIT_IN_OPENLIB       = 1;
+            const BCK_FLAG_BIT_INVALID_ISBN13   = 2;
+            const BCK_FLAG_BIT_INVALID_ISBN10   = 3;
+
+            const CAT_FLD_AMAZON            = "amazon";
+            const CAT_FLD_OPENLIB           = "openlib";
+            const CAT_FLD_ID                = "id";
+            const CAT_FLD_PURCH_DATE        = "purchase_date";
+            const CAT_FLD_ARR_DATE          = "arrival_date";
+            const CAT_FLD_SELLER            = "seller";
+            const CAT_FLD_SELLER_BRANCH     = "seller_branch";
+            const CAT_FLD_PURCHASER         = "purchaser";
+            const CAT_FLD_PURCH_PRICE       = "purchase_price";
+            const CAT_FLD_SHIP_PRICE        = "shipping_price";
+            const CAT_FLD_CURRENCY          = "purchase_currency";
+            const CAT_FLD_NUM_IN_ORDER      = "number_in_order";
+            const CAT_FLD_AUTHORS           = "authors";
+            const CAT_FLD_TITLE             = "title";
+            const CAT_FLD_SUBTITLE          = "subtitle";
+            const CAT_FLD_PUBLISHERS        = "publishers";
+            const CAT_FLD_FLAGS             = "flags";
+            const CAT_FLD_DIM               = "dimensions";
+            const CAT_FLD_DIM_HEIGHT        = "height";
+            const CAT_FLD_DIM_WIDTH         = "width";
+            const CAT_FLD_DIM_THICKNESS     = "thickness";
+            const CAT_FLD_DIM_LENGTH        = "length";
+            const CAT_FLD_DIM_MASS          = "mass";
+            const CAT_FLD_DIM_MASS_UNITS    = "mass_units";
+            const CAT_FLD_INFO_URL          = "info_url";
 
             // Faking an enum
             const NameEnum =
@@ -135,6 +145,12 @@
             let bookColumns =
             [
                 {
+                    headerName: "ID",
+                    field:      CAT_FLD_ID,
+                    editable:   false,
+                    hide:       false
+                },
+                {
                     headerName:         "Resynch",
                     checkboxSelection:  true,
                     headerTooltip:      "Check for updated openlib details",
@@ -143,9 +159,10 @@
                     headerName: "In openlib",
                     valueGetter: function(params)
                     {
-                        return inOpenLib(params) ? "✓" : "";
+                        return inOpenLib(params.data) ? "✓" : "";
                     },
                     headerTooltip: "Book exists in openlib",
+                    editable:       false
                 },
                 {
                     headerName: "Purchase Details",
@@ -153,13 +170,14 @@
                     [
                         {
                             headerName: "Purchase Date",
-                            field: CAT_FLD_PURCH_DATE
+                            field: CAT_FLD_PURCH_DATE,
+                            hide:true
                         },
                         {
                             headerName: "Arrival Date",
                             valueGetter: function(params)
                             {
-                                if (hasKeyChain(params.data, []))
+                                if (hasFld(params.data, []))
                                 {
                                     return params.data[CAT_FLD_ARR_DATE];
                                 }
@@ -167,7 +185,7 @@
                             },
                             hide: true
                         },
-                        {headerName: "Seller", field: CAT_FLD_SELLER},
+                        {headerName: "Seller", field: CAT_FLD_SELLER, hide: true},
                         {headerName: "Seller Branch", field: CAT_FLD_SELLER_BRANCH, hide: true},
                         {headerName: "Purchaser", field: CAT_FLD_PURCHASER, hide: true},
                         {headerName: "#", field: CAT_FLD_NUM_IN_ORDER, hide: true},
@@ -177,7 +195,7 @@
                             {
                                 let price_string = "";
                                 let price = parseFloat(params.data[CAT_FLD_PURCH_PRICE]);
-                                if (hasKeyChain(params.data, CAT_FLD_SHIP_PRICE))
+                                if (hasFld(params.data, CAT_FLD_SHIP_PRICE))
                                 {
                                     price += parseFloat(params.data[CAT_FLD_SHIP_PRICE]);
                                 }
@@ -195,7 +213,8 @@
                                 }
 
                                 return price_string;
-                            }
+                            },
+                            hide:true
                         }
                     ]
                 },
@@ -209,7 +228,8 @@
                             cellRenderer: function(params)
                             {
                                 return(formatISBN(params, ISBN13_DIGITS));
-                            }
+                            },
+                            hide:   true
                         },
                         {
                             headerName: "ISBN 10",
@@ -246,19 +266,28 @@
                     headerName: "Title",
                     valueGetter: function(params)
                     {
-                        title = getOpenlibFld(params, CAT_FLD_TITLE);
-                        if (!title)
+                        if (useOpenlibData())
                         {
-                            title = params.data[CAT_FLD_TITLE];
+                            title = getOpenlibFld(params.data, [CAT_FLD_TITLE]);
+                            subtitle = getOpenlibFld(params.data, [CAT_FLD_SUBTITLE]);
+                            if (subtitle)
+                            {
+                                title += ": " + subtitle;
+                            }
+                        }
+                        else
+                        {
+                            title = getFld(params.data, [CAT_FLD_TITLE]);
                         }
                         return title;
                     },
                     cellRenderer: function(params)
                     {
                         cellString = params.value;
-                        if (hasOpenlibFld(params, CAT_FLD_INFO_URL))
+                        infoUrl = getOpenlibFld(params.data, [CAT_FLD_INFO_URL]);
+                        if (infoUrl)
                         {
-                            cellString = '<a href="' + params.data[CAT_FLD_OPENLIB][CAT_FLD_INFO_URL] + '" target="_blank">' + cellString + '</a>';
+                            cellString = '<a href="' + infoUrl + '" target="_blank">' + cellString + '</a>';
                         }
                         return cellString;
                     },
@@ -268,10 +297,14 @@
                     valueGetter: function(params)
                     {
                         pubString = null;
-                        pubSource = getOpenlibFld(params, CAT_FLD_PUBLISHERS);
-                        if (!pubSource)
+                        pubSource = null;
+                        if (useOpenlibData())
                         {
-                            pubSource = params.data[CAT_FLD_PUBLISHERS];
+                            pubSource = getOpenlibFld(params.data, [CAT_FLD_PUBLISHERS]);
+                        }
+                        else
+                        {
+                            pubSource = getFld(params.data, [CAT_FLD_PUBLISHERS]);
                         }
                         if (pubSource)
                         {
@@ -285,76 +318,106 @@
                     children:
                     [
                         {
-                            headerName: "H x W x T",
+                            headerName: "H (cm)",
                             valueGetter: function(params)
                             {
-                                dimString = ''
-                                dimSource = null
-                                if (hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
-                                    hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
-                                    hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
-                                {
-                                    dimSource = params.data[CAT_FLD_DIM];
-                                }
-                                else if (hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
-                                    hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
-                                    hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
-                                {
-                                    dimSource = params.data[CAT_FLD_AMAZON][CAT_FLD_DIM];
-                                }
-                                else if (hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
-                                    hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
-                                    hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
-                                {
-                                    dimSource = params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM];
-                                }
+                                dimSource = getDimSource(params);
                                 if (dimSource)
                                 {
-                                    dimString =  dimSource[CAT_FLD_DIM_HEIGHT] + " x " +
-                                        dimSource[CAT_FLD_DIM_WIDTH] + " x " +
-                                        dimSource[CAT_FLD_DIM_THICKNESS] + "mm";
+                                    return dimSource[CAT_FLD_DIM_HEIGHT];
                                 }
-                                return dimString;
                             },
-                            hide: true
+                            hide: false
                         },
                         {
-                            headerName: "Length",
+                            headerName: "W (cm)",
                             valueGetter: function(params)
                             {
-                                if (hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]))
+                                dimSource = getDimSource(params);
+                                if (dimSource)
                                 {
-                                    return (params.data[CAT_FLD_DIM][CAT_FLD_DIM_LENGTH]);
-                                }
-                                else if (hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]))
-                                {
-                                    return (params.data[CAT_FLD_AMAZON][CAT_FLD_DIM][CAT_FLD_DIM_LENGTH]);
-                                }
-                                else if (hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]))
-                                {
-                                    return (params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM][CAT_FLD_DIM_LENGTH]);
+                                    return dimSource[CAT_FLD_DIM_WIDTH];
                                 }
                             },
-                            hide: true
+                            hide: false
                         },
                         {
-                            headerName: "Mass",
+                            headerName: "T (cm)",
                             valueGetter: function(params)
                             {
-                                if (hasKeyChain(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]))
+                                dimSource = getDimSource(params);
+                                if (dimSource)
                                 {
-                                    return (params.data[CAT_FLD_DIM][CAT_FLD_DIM_MASS]);
-                                }
-                                else if (hasKeyChain(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_MASS]))
-                                {
-                                    return (params.data[CAT_FLD_AMAZON][CAT_FLD_DIM][CAT_FLD_DIM_MASS]);
-                                }
-                                else if (hasKeyChain(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]))
-                                {
-                                    return (params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM][CAT_FLD_DIM_MASS]);
+                                    return dimSource[CAT_FLD_DIM_THICKNESS];
                                 }
                             },
-                            hide: true
+                            hide: false
+                        },
+                        {
+                            headerName: "Length (pp)",
+                            valueGetter: function(params)
+                            {
+                                len = null;
+                                if (useOpenlibData())
+                                {
+                                    len = getOpenlibFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
+                                }
+                                else
+                                {
+                                    len = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
+                                    if (!len)
+                                    {
+                                        len = getFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
+                                    }
+                                }
+                                return len;
+                            },
+                            hide: false
+                        },
+                        {
+                            headerName: "Mass (kg)",
+                            valueGetter: function(params)
+                            {
+                                mass = null;
+                                if (useOpenlibData())
+                                {
+                                    openlibMass = getOpenlibFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
+                                    openlibMassUnit = getOpenlibFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS]);
+                                    if (openlibMass)
+                                    {
+                                        mass = parseFloat(openlibMass);
+                                        if (openlibMassUnit == "ounces")
+                                        {
+                                            mass *= OZ_TO_KG;
+                                        }
+                                        else if (openlibMassUnit == "pounds")
+                                        {
+                                            mass *= LB_TO_KG;
+                                        }
+                                        else
+                                        {
+                                            mass *= G_TO_KG;
+                                        }
+                                    }
+                                }
+                                else
+                                {
+                                    mass = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
+                                    if (!mass)
+                                    {
+                                        mass = getFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
+                                    }
+                                }
+                                return mass;
+                            },
+                            cellRenderer: function(params)
+                            {
+                                if (mass)
+                                {
+                                    return (formatAsMass(mass));
+                                }
+                            },
+                            hide: false
                         }
                     ]
                 }
@@ -371,8 +434,11 @@
                 rowData:                [],
                 onRowSelected: function(params)
                 {
-                    // Toggle selected item's openlib (re)synch flag
-                    params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
+                    if (getFld(params.data, [CAT_FLD_FLAGS]))
+                    {
+                        // Toggle selected item's openlib (re)synch flag
+                        params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
+                    }
                 }
             };
 
@@ -409,7 +475,7 @@
                 $("#btnProcessUpdates").click(function()
                 {
                     let catDataString = JSON.stringify(catData, null, 4);
-                    let updatedCatFile = new Blob([catDataString], {type: "text/plain"});
+                    let updatedCatFile = new Blob([catDataString], {type: "text/plain;charset=UTF-8"});
                     let updatedCatFileElem = document.createElement("a");
                     updatedCatFileElem.href = URL.createObjectURL(updatedCatFile);
 
@@ -436,7 +502,7 @@
                 {
                     if (this.readyState == 4 && this.status == 200)
                     {
-                        let catData = JSON.parse(this.responseText);
+                        catData = JSON.parse(this.responseText);
                         populateGrid(catData);
                     }
                 };
@@ -495,15 +561,55 @@
                 return (Number.parseFloat(price).toFixed(2));
             }
 
-            function inOpenLib(params)
+            function formatAsMass(mass)
             {
-                return (params.data.hasOwnProperty('flags') &&
-                        params.data.flags & (1 << BCK_FLAG_BIT_IN_OPENLIB));
+                return (Number.parseFloat(mass).toFixed(3));
+            }
+
+            // Checks if a catalogue record includes a field, which is
+            // represented by a chain of keys,
+            //  e.g. hasFld(catRec, ["openlib", "dimensions", "thickness"])
+            //       returns true if catRec["openlib"]["dimensions"]["thickness"] exists
+            function hasFld(catRec, keyChain)
+            {
+                for (catRecLevel = 0; catRecLevel < keyChain.length; catRecLevel++)
+                {
+                    key = keyChain[catRecLevel]
+                    if (!catRec || !(key in catRec))
+                    {
+                        return false;
+                    }
+                    catRec = catRec[key];
+                }
+                return true;
+            }
+
+            // Fetches a field from a catalogue record
+            function getFld(catRec, keyChain)
+            {
+                if (hasFld(catRec, keyChain))
+                {
+                    // Recursive fetching of object properties...
+                    obj = catRec;
+                    while (keyChain.length > 0)
+                    {
+                        obj = obj[keyChain.shift()];
+                    }
+                    return obj;
+                }
+                return null;
+            }
+
+            // Return true if a given catalogue record has an openlib entry
+            function inOpenLib(catRec)
+            {
+                return (hasFld(catRec, [CAT_FLD_FLAGS]) &&
+                        getFld(catRec, [CAT_FLD_FLAGS]) & (1 << BCK_FLAG_BIT_IN_OPENLIB));
             }
 
             function hasOpenlibFld(params, key)
             {
-                return (hasKeyChain(params.data, [CAT_FLD_OPENLIB, key]));
+                return (hasFld(params.data, [CAT_FLD_OPENLIB, key]));
             }
 
             function useOpenlibData()
@@ -511,27 +617,10 @@
                 return chkUseOpenlib.checked;
             }
 
-            function getOpenlibFld(params, key)
+            function getOpenlibFld(catRec, keyChain)
             {
-                if (useOpenlibData() && hasOpenlibFld(params, key))
-                {
-                    return params.data[CAT_FLD_OPENLIB][key];
-                }
-                return null;
-            }
-
-            function hasKeyChain(obj, keys)
-            {
-                for (objLevel = 0; objLevel < keys.length; objLevel++)
-                {
-                    key = keys[objLevel]
-                    if (!obj || !(key in obj))
-                    {
-                        return false;
-                    }
-                    obj = obj[key];
-                }
-                return true;
+                keyChain = [CAT_FLD_OPENLIB].concat(keyChain);
+                return (getFld(catRec, keyChain));
             }
 
             function getAuthorNames(params, nameType)
@@ -539,10 +628,13 @@
                 authSource = [];
                 namesString = "";
 
-                authSource = getOpenlibFld(params, CAT_FLD_AUTHORS);
-                if (!authSource)
+                if (useOpenlibData())
                 {
-                    authSource = params.data[CAT_FLD_AUTHORS];
+                    authSource = getOpenlibFld(params.data, [CAT_FLD_AUTHORS]);
+                }
+                else
+                {
+                    authSource = getFld(params.data, [CAT_FLD_AUTHORS]);
                 }
                 if (authSource)
                 {
@@ -570,16 +662,17 @@
             {
                 let isbnError = false;
                 let cellString = params.value;
-                if (CAT_FLD_FLAGS in params.data)
+                let flags = getFld(params.data, [CAT_FLD_FLAGS])
+                if (flags)
                 {
                     switch(digits)
                     {
                         case ISBN13_DIGITS:
-                            isbnError = params.data[CAT_FLD_FLAGS] & (1 << BCK_FLAG_BIT_INVALID_ISBN13);
+                            isbnError = flags & (1 << BCK_FLAG_BIT_INVALID_ISBN13);
                             break;
 
                         case ISBN10_DIGITS:
-                            isbnError = params.data[CAT_FLD_FLAGS] & (1 << BCK_FLAG_BIT_INVALID_ISBN10);
+                            isbnError = flags & (1 << BCK_FLAG_BIT_INVALID_ISBN10);
                             break;
 
                         default:
@@ -592,6 +685,37 @@
                 }
 
                 return cellString;
+            }
+
+            function getDimSource(params)
+            {
+                dimSource = null;
+                if (useOpenlibData())
+                {
+                    if (hasFld(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
+                        hasFld(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
+                        hasFld(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
+                    {
+                        dimSource = params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM];
+                    }
+                }
+                else
+                {
+                    if (hasFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
+                        hasFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
+                        hasFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
+                    {
+                        dimSource = params.data[CAT_FLD_DIM];
+                    }
+                    else if (hasFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
+                        hasFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
+                        hasFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
+                    {
+                        dimSource = params.data[CAT_FLD_AMAZON][CAT_FLD_DIM];
+                    }
+                }
+
+                return dimSource;
             }
 
             // Test catalogue data
