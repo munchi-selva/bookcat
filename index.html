@@ -3,10 +3,10 @@
     <head>
         <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
         <script src="https://code.jquery.com/jquery-latest.js"></script>
-        <script src="https://unpkg.com/ag-grid-enterprise/dist/ag-grid-enterprise.min.noStyle.js"></script>
+        <script src="https://unpkg.com/@ag-grid-enterprise/all-modules/dist/ag-grid-enterprise.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-grid.css">
-        <link rel="stylesheet" href="https://unpkg.com/ag-grid-community/dist/styles/ag-theme-balham.css">
+        <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-theme-balham.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
     </head>
     <style>
@@ -36,6 +36,11 @@
         {
             padding:    2em 0.5em 0.5em;
         }
+
+        .invalid-data
+        {
+            background-color:   red;
+        }
     </style>
     <body>
         <div id="testDiv"></div>
@@ -62,16 +67,43 @@
                     </div>
                 </div>
             </div>
-            <div id="catOptDiv" class="grid-settings form-check form-check-inline">
-                <input type="checkbox" id="chkUseOpenlib" class="form-check-input" value="useOpenlib">
-                <label for="chkUseOpenlib" class="form-check-label">Use openlib data</label>
+            <div class="grid-settings">
+                <!-- Selection of data source -->
+                <div class="form-check-inline">
+                    <label class="form-check-label">Data source:</label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label" for="srcComb">
+                        <input type="radio" class="form-check-input" id="srcComb" name="optSrc" value="combined">combined
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label" for="srcMC">
+                        <input type="radio" class="form-check-input" id="srcMC" name="optSrc" value="base" checked>munchi
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label" for="srcOL">
+                        <input type="radio" class="form-check-input" id="srcOL" name="optSrc" value="openlib">openlib
+                    </label>
+                </div>
+                <div class="form-check-inline">
+                    <label class="form-check-label" for="srcAma">
+                        <input type="radio" class="form-check-input" id="srcAma" name="optSrc" value="amazon">amazon
+                    </label>
+                </div>
             </div>
         </div>
 
         <script type="text/javascript" charset="utf-8">
             // ISBN handling
-            const ISBN13_DIGITS = 13;
-            const ISBN10_DIGITS = 10;
+            const REGEX_ISBN13              = new RegExp(/^978[0-9]{9}[0-9X]$/);
+            const REGEX_ISBN10              = new RegExp(/^[0-9]{9}[0-9X]$/);
+            const ISBN13_DIGITS             = 13;
+            const ISBN13_MOD_FACTOR         = 10;
+            const ISBN10_DIGITS             = 10;
+            const ISBN10_MAX_DIGIT_WEIGHT   = 10;
+            const ISBN10_MOD_FACTOR         = 11;
 
             // Mapping between currency codes and symbols
             const CURRENCY_PREFIXES =
@@ -95,31 +127,38 @@
             const BCK_FLAG_BIT_INVALID_ISBN13   = 2;
             const BCK_FLAG_BIT_INVALID_ISBN10   = 3;
 
-            const CAT_FLD_AMAZON            = "amazon";
-            const CAT_FLD_OPENLIB           = "openlib";
-            const CAT_FLD_ID                = "id";
-            const CAT_FLD_PURCH_DATE        = "purchase_date";
-            const CAT_FLD_ARR_DATE          = "arrival_date";
-            const CAT_FLD_SELLER            = "seller";
-            const CAT_FLD_SELLER_BRANCH     = "seller_branch";
-            const CAT_FLD_PURCHASER         = "purchaser";
-            const CAT_FLD_PURCH_PRICE       = "purchase_price";
-            const CAT_FLD_SHIP_PRICE        = "shipping_price";
-            const CAT_FLD_CURRENCY          = "purchase_currency";
-            const CAT_FLD_NUM_IN_ORDER      = "number_in_order";
-            const CAT_FLD_AUTHORS           = "authors";
-            const CAT_FLD_TITLE             = "title";
-            const CAT_FLD_SUBTITLE          = "subtitle";
-            const CAT_FLD_PUBLISHERS        = "publishers";
-            const CAT_FLD_FLAGS             = "flags";
-            const CAT_FLD_DIM               = "dimensions";
-            const CAT_FLD_DIM_HEIGHT        = "height";
-            const CAT_FLD_DIM_WIDTH         = "width";
-            const CAT_FLD_DIM_THICKNESS     = "thickness";
-            const CAT_FLD_DIM_LENGTH        = "length";
-            const CAT_FLD_DIM_MASS          = "mass";
-            const CAT_FLD_DIM_MASS_UNITS    = "mass_units";
-            const CAT_FLD_INFO_URL          = "info_url";
+            const CAT_FLD_SRC_BASE          = "base";
+            const CAT_FLD_SRC_AMAZON        = "amazon";
+            const CAT_FLD_SRC_OPENLIB       = "openlib";
+            const CAT_FLD_SRC_COMB          = "combined";
+
+            const CAT_FLD_ID                    = "id";
+            const CAT_FLD_ISBN13                = "isbn_13";
+            const CAT_FLD_ISBN10                = "isbn_10";
+            const CAT_FLD_PURCH_DATE            = "purchase_date";
+            const CAT_FLD_ARR_DATE              = "arrival_date";
+            const CAT_FLD_SELLER                = "seller";
+            const CAT_FLD_SELLER_BRANCH         = "seller_branch";
+            const CAT_FLD_PURCHASER             = "purchaser";
+            const CAT_FLD_PURCH_PRICE           = "purchase_price";
+            const CAT_FLD_SHIP_PRICE            = "shipping_price";
+            const CAT_FLD_CURRENCY              = "purchase_currency";
+            const CAT_FLD_NUM_IN_ORDER          = "number_in_order";
+            const CAT_FLD_AUTHORS               = "authors";
+            const CAT_FLD_AUTHOR_SURNAME        = "surname";
+            const CAT_FLD_AUTHOR_GIVEN_NAMES    = "given_names";
+            const CAT_FLD_TITLE                 = "title";
+            const CAT_FLD_SUBTITLE              = "subtitle";
+            const CAT_FLD_PUBLISHERS            = "publishers";
+            const CAT_FLD_FLAGS                 = "flags";
+            const CAT_FLD_DIM                   = "dimensions";
+            const CAT_FLD_DIM_HEIGHT            = "height";
+            const CAT_FLD_DIM_WIDTH             = "width";
+            const CAT_FLD_DIM_THICKNESS         = "thickness";
+            const CAT_FLD_DIM_LENGTH            = "length";
+            const CAT_FLD_DIM_MASS              = "mass";
+            const CAT_FLD_DIM_MASS_UNITS        = "mass_units";
+            const CAT_FLD_INFO_URL              = "info_url";
 
             // Faking an enum
             const NameEnum =
@@ -129,8 +168,13 @@
             };
             Object.freeze(NameEnum);
 
-            const REGEX_EXT = new RegExp(/[.][^.]*$/);  // File extension regular expression
-            const UPDATED_CAT_EXT = ".updated";
+            // Delimiters in fields that represent lists
+            const AUTH_SEP  = ";";
+            const TITLE_SEP = ":";
+            const PUB_SEP   = ";";
+
+            const REGEX_EXT         = new RegExp(/[.][^.]*$/);  // File extension regular expression
+            const UPDATED_CAT_EXT   = ".updated";
 
             // Default column options
             const defaultBookCol =
@@ -148,7 +192,7 @@
                     headerName: "ID",
                     field:      CAT_FLD_ID,
                     editable:   false,
-                    hide:       false
+                    hide:       true
                 },
                 {
                     headerName:         "Resynch",
@@ -170,51 +214,104 @@
                     [
                         {
                             headerName: "Purchase Date",
-                            field: CAT_FLD_PURCH_DATE,
-                            hide:true
+                            field:      CAT_FLD_PURCH_DATE,
+                            hide:       false
                         },
                         {
                             headerName: "Arrival Date",
                             valueGetter: function(params)
                             {
-                                if (hasFld(params.data, []))
+                                arrDate = getFld(params.data, [CAT_FLD_ARR_DATE], CAT_FLD_SRC_BASE);
+                                if (!arrDate)
                                 {
-                                    return params.data[CAT_FLD_ARR_DATE];
+                                    arrDate = getFld(params.data, [CAT_FLD_PURCH_DATE], CAT_FLD_SRC_BASE);
                                 }
-                                return params.data[CAT_FLD_PURCH_DATE];
+                                return arrDate;
                             },
-                            hide: true
+                            valueSetter: function(params)
+                            {
+                                setFld(params.data, [CAT_FLD_ARR_DATE], params.newValue, CAT_FLD_SRC_BASE);
+                                return true;
+                            },
+                            hide    : true
                         },
-                        {headerName: "Seller", field: CAT_FLD_SELLER, hide: true},
+                        {headerName: "Seller", field: CAT_FLD_SELLER, hide: false},
                         {headerName: "Seller Branch", field: CAT_FLD_SELLER_BRANCH, hide: true},
                         {headerName: "Purchaser", field: CAT_FLD_PURCHASER, hide: true},
                         {headerName: "#", field: CAT_FLD_NUM_IN_ORDER, hide: true},
                         {
+                            headerName: "Currency",
+                            field: CAT_FLD_CURRENCY,
+                            cellEditor: 'agRichSelectCellEditor',
+                            cellEditorParams:
+                            {
+                                values: ["AUD", "EUR", "GBP", "SGD", "USD", "VND", ""]
+                            },
+                            onCellValueChanged: function(params)
+                            {
+                                gridOptions.api.redrawRows();
+                            },
+                            hide: true
+                        },
+                        {
                             headerName: "Price",
+                            field: CAT_FLD_PURCH_PRICE,
+                            cellRenderer: function(params)
+                            {
+                                if (params.value)
+                                {
+                                    cellString = isCatFldValid(params) ? formatAsCurrency(params) : params.value;
+                                    return markFldValidity(params, cellString);
+                                }
+                            },
+
+                            hide: false
+                        },
+                        {
+                            headerName: "Shipping",
+                            field: CAT_FLD_SHIP_PRICE,
+                            cellRenderer: function(params)
+                            {
+                                if (params.value)
+                                {
+                                    cellString = isCatFldValid(params) ? formatAsCurrency(params) : params.value;
+                                    return markFldValidity(params, cellString);
+                                }
+                            },
+
+                            hide: false
+                        },
+                        {
+                            headerName: "Total Price",
                             valueGetter: function(params)
                             {
-                                let price_string = "";
-                                let price = parseFloat(params.data[CAT_FLD_PURCH_PRICE]);
-                                if (hasFld(params.data, CAT_FLD_SHIP_PRICE))
-                                {
-                                    price += parseFloat(params.data[CAT_FLD_SHIP_PRICE]);
-                                }
+                                let price = getFld(params.data, [CAT_FLD_PURCH_PRICE], CAT_FLD_SRC_BASE);
+                                let shippingPrice = getFld(params.data, [CAT_FLD_SHIP_PRICE], CAT_FLD_SRC_BASE);
 
-                                if (price)
+                                if (!isNaN(price))
                                 {
-                                    if (params.data[CAT_FLD_CURRENCY] == 'VND')
+                                    price = parseFloat(price);
+                                    if (shippingPrice && !isNaN(shippingPrice))
                                     {
-                                        price_string = price + CURRENCY_PREFIXES[params.data[CAT_FLD_CURRENCY]];
-                                    }
-                                    else
-                                    {
-                                        price_string = CURRENCY_PREFIXES[params.data[CAT_FLD_CURRENCY]] + formatAsCurrency(price);
+                                        price += parseFloat(shippingPrice);
                                     }
                                 }
 
-                                return price_string;
+                                return price;
                             },
-                            hide:true
+                            cellRenderer: function(params)
+                            {
+                                if (params.value)
+                                {
+                                    if (isCatFldValid(params))
+                                    {
+                                        currency = getFld(params.data, [CAT_FLD_CURRENCY])
+                                        return (formatAsCurrency(params));
+                                    }
+                                }
+                            },
+                            editable: false,
+                            hide: false
                         }
                     ]
                 },
@@ -224,19 +321,21 @@
                     [
                         {
                             headerName: "ISBN 13",
-                            field:      "isbn_13",
+                            field:      CAT_FLD_ISBN13,
                             cellRenderer: function(params)
                             {
-                                return(formatISBN(params, ISBN13_DIGITS));
+                                cellString = params.value;
+                                return markFldValidity(params, cellString);
                             },
-                            hide:   true
+                            hide:   false
                         },
                         {
                             headerName: "ISBN 10",
-                            field:      "isbn_10",
+                            field:      CAT_FLD_ISBN10,
                             cellRenderer: function(params)
                             {
-                                return(formatISBN(params, ISBN10_DIGITS));
+                                cellString = params.value;
+                                return markFldValidity(params, cellString);
                             },
                             hide:       true
                         }
@@ -244,6 +343,7 @@
                 },
                 {
                     headerName: "Author/Editor",
+                    suppressMenu: false,
                     children:
                     [
                         {
@@ -251,6 +351,10 @@
                             valueGetter: function(params)
                             {
                                 return getAuthorNames(params, NameEnum.NAME_SUR);
+                            },
+                            valueSetter: function(params)
+                            {
+                                return setAuthorNames(params, NameEnum.NAME_SUR);
                             }
                         },
                         {
@@ -258,7 +362,12 @@
                             valueGetter: function(params)
                             {
                                 return getAuthorNames(params, NameEnum.NAME_GIVEN);
+                            },
+                            valueSetter: function(params)
+                            {
+                                return setAuthorNames(params, NameEnum.NAME_GIVEN);
                             }
+
                         }
                     ]
                 },
@@ -266,25 +375,27 @@
                     headerName: "Title",
                     valueGetter: function(params)
                     {
-                        if (useOpenlibData())
+                        let title       = getFld(params.data, [CAT_FLD_TITLE]);
+                        let subtitle    = getFld(params.data, [CAT_FLD_SUBTITLE]);
+                        if (subtitle)
                         {
-                            title = getOpenlibFld(params.data, [CAT_FLD_TITLE]);
-                            subtitle = getOpenlibFld(params.data, [CAT_FLD_SUBTITLE]);
-                            if (subtitle)
-                            {
-                                title += ": " + subtitle;
-                            }
-                        }
-                        else
-                        {
-                            title = getFld(params.data, [CAT_FLD_TITLE]);
+                            title += TITLE_SEP + " " + subtitle;
                         }
                         return title;
+                    },
+                    valueSetter: function(params)
+                    {
+                        // Split the input value into title and subtitle
+                        let titleComponents = (params.newValue.split(TITLE_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});;
+                        let title           = titleComponents.shift();
+                        let subtitle        = titleComponents.length > 0 ? titleComponents.join(TITLE_SEP + " ") : null;
+                        return (setFld(params.data, [CAT_FLD_TITLE], title) &&
+                                setFld(params.data, [CAT_FLD_SUBTITLE], subtitle));
                     },
                     cellRenderer: function(params)
                     {
                         cellString = params.value;
-                        infoUrl = getOpenlibFld(params.data, [CAT_FLD_INFO_URL]);
+                        infoUrl = getFld(params.data, [CAT_FLD_INFO_URL], CAT_FLD_SRC_OPENLIB);
                         if (infoUrl)
                         {
                             cellString = '<a href="' + infoUrl + '" target="_blank">' + cellString + '</a>';
@@ -296,22 +407,15 @@
                     headerName: "Publisher",
                     valueGetter: function(params)
                     {
-                        pubString = null;
-                        pubSource = null;
-                        if (useOpenlibData())
-                        {
-                            pubSource = getOpenlibFld(params.data, [CAT_FLD_PUBLISHERS]);
-                        }
-                        else
-                        {
-                            pubSource = getFld(params.data, [CAT_FLD_PUBLISHERS]);
-                        }
-                        if (pubSource)
-                        {
-                            pubString = pubSource.join(";");
-                        }
+                        pubSrc      = getFld(params.data, [CAT_FLD_PUBLISHERS]);
+                        pubString   = pubSrc ? pubSrc.join(PUB_SEP + " ") : null;
                         return pubString;
                     },
+                    valueSetter: function(params)
+                    {
+                        let pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                        return(setFld(params.data, [CAT_FLD_PUBLISHERS], pubs));
+                    }
                 },
                 {
                     headerName: "Dimensions",
@@ -321,103 +425,100 @@
                             headerName: "H (cm)",
                             valueGetter: function(params)
                             {
-                                dimSource = getDimSource(params);
-                                if (dimSource)
-                                {
-                                    return dimSource[CAT_FLD_DIM_HEIGHT];
-                                }
+                                return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]);
                             },
-                            hide: false
+                            valueSetter: function(params)
+                            {
+                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], params.newValue));
+                            },
+                            hide: true
                         },
                         {
                             headerName: "W (cm)",
                             valueGetter: function(params)
                             {
-                                dimSource = getDimSource(params);
-                                if (dimSource)
-                                {
-                                    return dimSource[CAT_FLD_DIM_WIDTH];
-                                }
+                                return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]);
                             },
-                            hide: false
+                            valueSetter: function(params)
+                            {
+                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], params.newValue));
+                            },
+                            hide: true
                         },
                         {
                             headerName: "T (cm)",
                             valueGetter: function(params)
                             {
-                                dimSource = getDimSource(params);
-                                if (dimSource)
-                                {
-                                    return dimSource[CAT_FLD_DIM_THICKNESS];
-                                }
+                                return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]);
                             },
-                            hide: false
+                            valueSetter: function(params)
+                            {
+                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], params.newValue));
+                            },
+                            hide: true
                         },
                         {
                             headerName: "Length (pp)",
                             valueGetter: function(params)
                             {
-                                len = null;
-                                if (useOpenlibData())
-                                {
-                                    len = getOpenlibFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
-                                }
-                                else
-                                {
-                                    len = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
-                                    if (!len)
-                                    {
-                                        len = getFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
-                                    }
-                                }
-                                return len;
+                                return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
                             },
-                            hide: false
+                            valueSetter: function(params)
+                            {
+                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], params.newValue));
+                            },
+                            hide: true
                         },
                         {
                             headerName: "Mass (kg)",
                             valueGetter: function(params)
                             {
-                                mass = null;
-                                if (useOpenlibData())
+                                mass    = null;
+                                rawMass = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
+                                if (rawMass)
                                 {
-                                    openlibMass = getOpenlibFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
-                                    openlibMassUnit = getOpenlibFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS]);
-                                    if (openlibMass)
+                                    mass = parseFloat(rawMass);
+                                    units = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS]);
+                                    if (units)
                                     {
-                                        mass = parseFloat(openlibMass);
-                                        if (openlibMassUnit == "ounces")
+                                        switch (units)
                                         {
-                                            mass *= OZ_TO_KG;
+                                            case "ounces":
+                                            {
+                                                mass *= OZ_TO_KG;
+                                                break;
+                                            }
+                                            case "pounds":
+                                            {
+                                                mass *= LB_TO_KG;
+                                                break;
+                                            }
+                                            default:
+                                            {
+                                                mass *= G_TO_KG;
+                                                break;
+                                            }
                                         }
-                                        else if (openlibMassUnit == "pounds")
-                                        {
-                                            mass *= LB_TO_KG;
-                                        }
-                                        else
-                                        {
-                                            mass *= G_TO_KG;
-                                        }
-                                    }
-                                }
-                                else
-                                {
-                                    mass = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
-                                    if (!mass)
-                                    {
-                                        mass = getFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
                                     }
                                 }
                                 return mass;
                             },
+                            valueSetter: function(params)
+                            {
+                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], params.newValue));
+                            },
                             cellRenderer: function(params)
                             {
-                                if (mass)
+                                if (params.value)
                                 {
-                                    return (formatAsMass(mass));
+                                    cellString = formatAsMass(params.value);
+                                    if (!isCatFldValid(params))
+                                    {
+                                    }
+                                    return (formatAsMass(params.value));
                                 }
                             },
-                            hide: false
+                            hide: true
                         }
                     ]
                 }
@@ -434,7 +535,7 @@
                 rowData:                [],
                 onRowSelected: function(params)
                 {
-                    if (getFld(params.data, [CAT_FLD_FLAGS]))
+                    if (getFld(params.data, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE))
                     {
                         // Toggle selected item's openlib (re)synch flag
                         params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
@@ -489,6 +590,12 @@
 
                 $("#chkUseOpenlib").click(function()
                 {
+                    gridOptions.api.redrawRows();
+                });
+
+                $("[name='optSrc']").click(function()
+                {
+                    //console.log($("[name='optSrc']:checked").val());
                     gridOptions.api.redrawRows();
                 });
             });
@@ -555,10 +662,24 @@
                 document.getElementById("divCatInfo").innerHTML = "Displaying catalogue: '" + catFilename + "'";
             }
 
-            // Format a numerical input as a currency string
-            function formatAsCurrency(price)
+            // Format a field as a currency string
+            function formatAsCurrency(fldParams)
             {
-                return (Number.parseFloat(price).toFixed(2));
+                priceString = Number.parseFloat(fldParams.value).toFixed(2);
+                currency = getFld(fldParams.data, [CAT_FLD_CURRENCY], CAT_FLD_SRC_BASE);
+                if (currency)
+                {
+                    if (currency == 'VND')
+                    {
+                        priceString += CURRENCY_PREFIXES[currency];
+                    }
+                    else
+                    {
+                        priceString = CURRENCY_PREFIXES[currency] + priceString;
+                    }
+                }
+
+                return (priceString);
             }
 
             function formatAsMass(mass)
@@ -585,31 +706,69 @@
             }
 
             // Fetches a field from a catalogue record
-            function getFld(catRec, keyChain)
+            function getFld(catRec, keyChain, dataSrc = getDataSrc())
             {
-                if (hasFld(catRec, keyChain))
+                let dataSrcList = dataSrc == CAT_FLD_SRC_COMB ? [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON] : [dataSrc];
+                let fld = null;
+                while(dataSrcList.length > 0 && !fld)
                 {
-                    // Recursive fetching of object properties...
-                    obj = catRec;
-                    while (keyChain.length > 0)
+                    let fldSrc = dataSrcList.shift();
+                    let fldKeyChain = (fldSrc == CAT_FLD_SRC_BASE) ? keyChain : [fldSrc].concat(keyChain);
+                    if (hasFld(catRec, fldKeyChain))
                     {
-                        obj = obj[keyChain.shift()];
+                        // Recursive fetching of object properties...
+                        let obj = catRec;
+                        while (fldKeyChain.length > 0)
+                        {
+                            obj = obj[fldKeyChain.shift()];
+                        }
+                        fld = obj;
                     }
-                    return obj;
                 }
-                return null;
+
+                return fld;
+            }
+
+            // Sets a field value
+            function setFld(catRec, keyChain, value, dataSrc = getDataSrc())
+            {
+                if (dataSrc == CAT_FLD_SRC_COMB)
+                {
+                    return false;
+                }
+
+                let fldKeyChain = (dataSrc == CAT_FLD_SRC_BASE) ? keyChain : [dataSrc].concat(keyChain);
+                let obj = catRec;
+                let key = null;
+                while (fldKeyChain.length > 1)
+                {
+                    key = fldKeyChain.shift();
+                    if (key in obj)
+                    {
+                        obj = obj[key];
+                    }
+                    else
+                    {
+                        // Initialise...
+                        obj[key] = {};
+                        obj = obj[key];
+                    }
+                }
+                obj[fldKeyChain.shift()] = value;
+
+                return true;
             }
 
             // Return true if a given catalogue record has an openlib entry
             function inOpenLib(catRec)
             {
                 return (hasFld(catRec, [CAT_FLD_FLAGS]) &&
-                        getFld(catRec, [CAT_FLD_FLAGS]) & (1 << BCK_FLAG_BIT_IN_OPENLIB));
+                        getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE) & (1 << BCK_FLAG_BIT_IN_OPENLIB));
             }
 
             function hasOpenlibFld(params, key)
             {
-                return (hasFld(params.data, [CAT_FLD_OPENLIB, key]));
+                return (hasFld(params.data, [CAT_FLD_SRC_OPENLIB, key]));
             }
 
             function useOpenlibData()
@@ -617,105 +776,178 @@
                 return chkUseOpenlib.checked;
             }
 
-            function getOpenlibFld(catRec, keyChain)
+            function getDataSrc()
             {
-                keyChain = [CAT_FLD_OPENLIB].concat(keyChain);
-                return (getFld(catRec, keyChain));
+                return ($("[name='optSrc']:checked").val());
             }
 
             function getAuthorNames(params, nameType)
             {
-                authSource = [];
+                authData = getFld(params.data, [CAT_FLD_AUTHORS]);
                 namesString = "";
 
-                if (useOpenlibData())
+                if (authData)
                 {
-                    authSource = getOpenlibFld(params.data, [CAT_FLD_AUTHORS]);
-                }
-                else
-                {
-                    authSource = getFld(params.data, [CAT_FLD_AUTHORS]);
-                }
-                if (authSource)
-                {
-                    for (authIdx = 0; authIdx < authSource.length; authIdx++)
+                    for (authIdx = 0; authIdx < authData.length; authIdx++)
                     {
                         if (namesString)
                         {
-                            namesString += "; ";
+                            namesString += AUTH_SEP + " ";
                         }
                         if (nameType == NameEnum.NAME_SUR)
                         {
-                            namesString += authSource[authIdx].surname;
+                            if (CAT_FLD_AUTHOR_SURNAME in authData[authIdx])
+                            {
+                                namesString += authData[authIdx][CAT_FLD_AUTHOR_SURNAME];
+                            }
                         }
                         else if (nameType == NameEnum.NAME_GIVEN)
                         {
-                            namesString += authSource[authIdx].given_names.join(" ");
+                            if (CAT_FLD_AUTHOR_GIVEN_NAMES in authData[authIdx])
+                            {
+                                namesString += authData[authIdx][CAT_FLD_AUTHOR_GIVEN_NAMES].join(" ");
+                            }
                         }
                     }
                 }
                 return namesString;
             }
 
-            // Format ISBNs so that invalid ISBNs are highlighted
-            function formatISBN(params, digits)
+            function setAuthorNames(params, nameType)
             {
-                let isbnError = false;
-                let cellString = params.value;
-                let flags = getFld(params.data, [CAT_FLD_FLAGS])
-                if (flags)
+                authData = JSON.parse(JSON.stringify(getFld(params.data, [CAT_FLD_AUTHORS])));
+                if (!authData)
                 {
-                    switch(digits)
+                    authData = {};
+                }
+
+                newNames = params.newValue ? (params.newValue.split(AUTH_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);}) : [];
+                console.log(newNames);
+
+                for (authIdx = newNames.length; authIdx < authData.length; authIdx++)
+                {
+                    if (nameType == NameEnum.NAME_SUR)
                     {
-                        case ISBN13_DIGITS:
-                            isbnError = flags & (1 << BCK_FLAG_BIT_INVALID_ISBN13);
-                            break;
-
-                        case ISBN10_DIGITS:
-                            isbnError = flags & (1 << BCK_FLAG_BIT_INVALID_ISBN10);
-                            break;
-
-                        default:
+                        delete(authData[authIdx][CAT_FLD_AUTHOR_SURNAME]);
+                    }
+                    else
+                    {
+                        delete(authData[authIdx][CAT_FLD_AUTHOR_GIVEN_NAMES]);
                     }
                 }
 
-                if (isbnError)
+                for (nameIdx = 0; nameIdx < newNames.length && nameIdx < authData.length; nameIdx++)
                 {
-                    cellString = '<span style="background-color:red;">' + cellString + '</span>';
+                    if (nameType == NameEnum.NAME_SUR)
+                    {
+                        authData[nameIdx][CAT_FLD_AUTHOR_SURNAME] = newNames[nameIdx];
+                    }
+                    else
+                    {
+                        authData[nameIdx][CAT_FLD_AUTHOR_GIVEN_NAMES] = newNames[nameIdx].split();
+                    }
                 }
 
-                return cellString;
+                for (; nameIdx < newNames.length; nameIdx++)
+                {
+                    newAuth = {};
+                    if (nameType == NameEnum.NAME_SUR)
+                    {
+                        newAuth[CAT_FLD_AUTHOR_SURNAME] = newNames[nameIdx];
+                        newAuth[CAT_FLD_AUTHOR_GIVEN_NAMES] = [];
+                    }
+                    else
+                    {
+                        newAuth[CAT_FLD_AUTHOR_SURNAME] = "";
+                        newAuth[CAT_FLD_AUTHOR_GIVEN_NAMES] = newNames[nameIdx].split();
+                    }
+                    authData.push(newAuth);
+                }
+
+                /*
+                for (authIdx = newNames.length; authIdx < authData.length; authIdx++)
+                {
+                    if (Object.keys(authData[authIdx]).length == 0)
+                    {
+                    }
+                }
+                */
+                return setFld(params.data, [CAT_FLD_AUTHORS], authData);
             }
 
-            function getDimSource(params)
+            // Computes the expected check digit for a candidate ISBN
+            function calcISBNCheckDigit(isbnCandidate)
             {
-                dimSource = null;
-                if (useOpenlibData())
+                let checkDigit = -1;
+                if (REGEX_ISBN10.test(isbnCandidate))
                 {
-                    if (hasFld(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
-                        hasFld(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
-                        hasFld(params.data, [CAT_FLD_OPENLIB, CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
+                    checkDigit = 0;
+                    for (let idx = 0; idx < ISBN10_DIGITS - 1; idx++)
                     {
-                        dimSource = params.data[CAT_FLD_OPENLIB][CAT_FLD_DIM];
+                        checkDigit += (ISBN10_MAX_DIGIT_WEIGHT - idx) * parseInt(isbnCandidate[idx]);
                     }
+                    checkDigit %= ISBN10_MOD_FACTOR;
+                    if (checkDigit > 0)
+                    {
+                        checkDigit = ISBN10_MOD_FACTOR - checkDigit;
+                    }
+                    return checkDigit < 10 ? checkDigit.toString() : 'X';
                 }
-                else
+                else if (REGEX_ISBN13.test(isbnCandidate))
                 {
-                    if (hasFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
-                        hasFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
-                        hasFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
+                    checkDigit = 0
+                    for (let idx = 0; idx < ISBN13_DIGITS - 1; idx++)
                     {
-                        dimSource = params.data[CAT_FLD_DIM];
+                        if (idx % 2 == 0)
+                        {
+                            checkDigit += parseInt(isbnCandidate[idx]);
+                        }
+                        else
+                        {
+                            checkDigit += 3 * parseInt(isbnCandidate[idx]);
+                        }
                     }
-                    else if (hasFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]) &&
-                        hasFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]) && 
-                        hasFld(params.data, [CAT_FLD_AMAZON, CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]))
-                    {
-                        dimSource = params.data[CAT_FLD_AMAZON][CAT_FLD_DIM];
-                    }
+                    checkDigit = ISBN13_MOD_FACTOR - checkDigit % ISBN13_MOD_FACTOR;
+                    return checkDigit < 10 ? checkDigit.toString() : '0';
+                }
+                return checkDigit.toString();
+            }
+
+            // Checks if a given catalogue record field's contents are valid:
+            // validation steps depend on the field's expected data type, etc.
+            function isCatFldValid(fldParams)
+            {
+                let valid = true;
+                let fldId = fldParams.column.colId;
+                switch (fldId)
+                {
+                    case CAT_FLD_ISBN13:
+                    case CAT_FLD_ISBN10:
+                        let isbnCandidate = fldParams.value;
+                        if (isbnCandidate)
+                        {
+                            let isbnRegexMatch = fldId == CAT_FLD_ISBN13 ? REGEX_ISBN13.test(isbnCandidate) : REGEX_ISBN10.test(isbnCandidate);
+                            valid = isbnRegexMatch && (calcISBNCheckDigit(isbnCandidate) == isbnCandidate[isbnCandidate.length - 1]);
+                        }
+                        break;
+
+                    case CAT_FLD_PURCH_PRICE:
+                    case CAT_FLD_SHIP_PRICE:
+                        let priceCandidate = fldParams.value;
+                        if (priceCandidate)
+                        {
+                            valid = !isNaN(priceCandidate);
+                        }
+
+                    default:
                 }
 
-                return dimSource;
+                return valid;
+            }
+
+            function markFldValidity(fldParams, cellString)
+            {
+                return isCatFldValid(fldParams) ? cellString : '<span class="invalid-data">' + cellString + '</span>';
             }
 
             // Test catalogue data
