@@ -1,8 +1,12 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <!--meta name="viewport" content="width=device-width, initial-scale=1"-->
-        <script src="https://code.jquery.com/jquery-latest.js"></script>
+	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+
+        <!--script src="https://code.jquery.com/jquery-latest.js"></script-->
         <script src="https://unpkg.com/@ag-grid-enterprise/all-modules/dist/ag-grid-enterprise.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-grid.css">
@@ -68,7 +72,7 @@
                 </div>
             </div>
             <div class="grid-settings">
-                <!-- Selection of data source -->
+                
                 <div class="form-check-inline">
                     <label class="form-check-label">Data source:</label>
                 </div>
@@ -105,15 +109,37 @@
             const ISBN10_MAX_DIGIT_WEIGHT   = 10;
             const ISBN10_MOD_FACTOR         = 11;
 
+            // Date handling
+            const REGEX_YEAR    = new RegExp(/^[1-9][0-9]*$/);
+            const REGEX_MONTH   = new RegExp(/^(1[0-2]|0?[1-9])$/);
+            const REGEX_DAY     = new RegExp(/^(0?[1-9]|[1-2][0-9]|3[01])$/);
+            const STD_MONTH_LENGTHS =
+            {
+                1:  31,
+                2:  28,
+                3:  31,
+                4:  30,
+                5:  31,
+                6:  30,
+                7:  31,
+                8:  31,
+                9:  30,
+                10: 31,
+                11: 30,
+                12: 31
+            };
+            const FEB_LEAP_YEAR_DAYS    = 29;
+
             // Mapping between currency codes and symbols
-            const CURRENCY_PREFIXES =
+            const CURRENCY_SYMBOLS =
             {
                 "AUD":  "$",
                 "EUR":  "€",
                 "GBP":  "£",
                 "SGD":  "$SGD",
                 "USD":  "$US",
-                "VND":  "₫"
+                "VND":  "₫",
+                "":     ""
             };
 
             // Mass conversions
@@ -124,19 +150,23 @@
 
             const BCK_FLAG_BIT_OPENLIB_SYNCED   = 0;
             const BCK_FLAG_BIT_IN_OPENLIB       = 1;
-            const BCK_FLAG_BIT_INVALID_ISBN13   = 2;
-            const BCK_FLAG_BIT_INVALID_ISBN10   = 3;
 
-            const CAT_FLD_SRC_BASE          = "base";
-            const CAT_FLD_SRC_AMAZON        = "amazon";
-            const CAT_FLD_SRC_OPENLIB       = "openlib";
-            const CAT_FLD_SRC_COMB          = "combined";
+            // Catalogue field keys
+            const CAT_FLD_SRC_BASE              = "base";
+            const CAT_FLD_SRC_AMAZON            = "amazon";
+            const CAT_FLD_SRC_OPENLIB           = "openlib";
+            const CAT_FLD_SRC_COMB              = "combined";
 
             const CAT_FLD_ID                    = "id";
             const CAT_FLD_ISBN13                = "isbn_13";
             const CAT_FLD_ISBN10                = "isbn_10";
+
             const CAT_FLD_PURCH_DATE            = "purchase_date";
             const CAT_FLD_ARR_DATE              = "arrival_date";
+            const CAT_FLD_DATE_YEAR             = "year";
+            const CAT_FLD_DATE_MONTH            = "month";
+            const CAT_FLD_DATE_DAY              = "day";
+
             const CAT_FLD_SELLER                = "seller";
             const CAT_FLD_SELLER_BRANCH         = "seller_branch";
             const CAT_FLD_PURCHASER             = "purchaser";
@@ -169,6 +199,7 @@
             Object.freeze(NameEnum);
 
             // Delimiters in fields that represent lists
+            const DATE_SEP  = "-";
             const AUTH_SEP  = ";";
             const TITLE_SEP = ":";
             const PUB_SEP   = ";";
@@ -185,22 +216,52 @@
                 editable:   true
             };
 
+            // Column header names
+            const COL_HDR_ID                = "ID";
+            const COL_HDR_RESYNCH           = "Resynch";
+            const COL_HDR_IN_OPENLIB        = "In openlib";
+            const COL_GRP_HDR_PURCHASE      = "Purchase Details";
+            const COL_HDR_PURCH_DATE        = "Purchase Date";
+            const COL_HDR_ARR_DATE          = "Arrival Date";
+            const COL_HDR_SELLER            = "Seller";
+            const COL_HDR_SELLER_BRANCH     = "Seller Branch";
+            const COL_HDR_PURCHASER         = "Purchaser";
+            const COL_HDR_NUM_IN_ORDER      = "#";
+            const COL_HDR_CURRENCY          = "Currency";
+            const COL_HDR_PURCH_PRICE       = "Price";
+            const COL_HDR_SHIP_PRICE        = "Shipping";
+            const COL_HDR_TOTAL_PRICE       = "Total Price";
+            const COL_GRP_HDR_IDENTIFIERS   = "Identifiers";
+            const COL_HDR_ISBN_13           = "ISBN 13";
+            const COL_HDR_ISBN_10           = "ISBN 10";
+            const COL_GRP_HDR_AUTHOR        = "Author/Editor";
+            const COL_HDR_SURNAME           = "Surname";
+            const COL_HDR_GIVEN_NAMES       = "Given Name(s)";
+            const COL_HDR_TITLE             = "Title";
+            const COL_HDR_PUBLISHER         = "Publisher";
+            const COL_GRP_HDR_DIM           = "Dimensions";
+            const COL_HDR_DIM_HEIGHT        = "H (cm)";
+            const COL_HDR_DIM_WIDTH         = "W (cm)";
+            const COL_HDR_DIM_THICKNESS     = "T (cm)";
+            const COL_HDR_DIM_LENGTH        = "Length (pp)";
+            const COL_HDR_DIM_MASS          = "Mass (kg)";
+
             // Column definitions
             let bookColumns =
             [
                 {
-                    headerName: "ID",
+                    headerName: COL_HDR_ID,
                     field:      CAT_FLD_ID,
                     editable:   false,
                     hide:       true
                 },
                 {
-                    headerName:         "Resynch",
+                    headerName:         COL_HDR_RESYNCH,
                     checkboxSelection:  true,
                     headerTooltip:      "Check for updated openlib details",
                 },
                 {
-                    headerName: "In openlib",
+                    headerName: COL_HDR_IN_OPENLIB,
                     valueGetter: function(params)
                     {
                         return inOpenLib(params.data) ? "✓" : "";
@@ -209,16 +270,28 @@
                     editable:       false
                 },
                 {
-                    headerName: "Purchase Details",
+                    headerName: COL_GRP_HDR_PURCHASE,
                     children:
                     [
                         {
-                            headerName: "Purchase Date",
-                            field:      CAT_FLD_PURCH_DATE,
-                            hide:       false
+                            headerName: COL_HDR_PURCH_DATE,
+                            cellEditor: "datePicker",
+                            editable: true,
+                            field:  CAT_FLD_PURCH_DATE,
+                            valueSetter: function(params)
+                            {
+                                setDateFld(params, [CAT_FLD_PURCH_DATE]);
+                            },
+                            cellRenderer: function(params)
+                            {
+                                return renderDateFld(params);
+                            },
+                            hide: false
                         },
                         {
-                            headerName: "Arrival Date",
+                            headerName: COL_HDR_ARR_DATE,
+                            cellEditor: "datePicker",
+                            editable: true,
                             valueGetter: function(params)
                             {
                                 arrDate = getFld(params.data, [CAT_FLD_ARR_DATE], CAT_FLD_SRC_BASE);
@@ -230,22 +303,25 @@
                             },
                             valueSetter: function(params)
                             {
-                                setFld(params.data, [CAT_FLD_ARR_DATE], params.newValue, CAT_FLD_SRC_BASE);
-                                return true;
+                                setDateFld(params, [CAT_FLD_ARR_DATE]);
                             },
-                            hide    : true
+                            cellRenderer: function(params)
+                            {
+                                return renderDateFld(params);
+                            },
+                            hide: true
                         },
-                        {headerName: "Seller", field: CAT_FLD_SELLER, hide: false},
-                        {headerName: "Seller Branch", field: CAT_FLD_SELLER_BRANCH, hide: true},
-                        {headerName: "Purchaser", field: CAT_FLD_PURCHASER, hide: true},
-                        {headerName: "#", field: CAT_FLD_NUM_IN_ORDER, hide: true},
+                        {headerName: COL_HDR_SELLER, field: CAT_FLD_SELLER, hide: false},
+                        {headerName: COL_HDR_SELLER_BRANCH, field: CAT_FLD_SELLER_BRANCH, hide: true},
+                        {headerName: COL_HDR_PURCHASER, field: CAT_FLD_PURCHASER, hide: true},
+                        {headerName: COL_HDR_NUM_IN_ORDER, field: CAT_FLD_NUM_IN_ORDER, hide: true},
                         {
-                            headerName: "Currency",
+                            headerName: COL_HDR_CURRENCY,
                             field: CAT_FLD_CURRENCY,
                             cellEditor: 'agRichSelectCellEditor',
                             cellEditorParams:
                             {
-                                values: ["AUD", "EUR", "GBP", "SGD", "USD", "VND", ""]
+                                values: Object.keys(CURRENCY_SYMBOLS)
                             },
                             onCellValueChanged: function(params)
                             {
@@ -254,61 +330,55 @@
                             hide: true
                         },
                         {
-                            headerName: "Price",
+                            headerName: COL_HDR_PURCH_PRICE,
                             field: CAT_FLD_PURCH_PRICE,
                             cellRenderer: function(params)
                             {
-                                if (params.value)
-                                {
-                                    cellString = isCatFldValid(params) ? formatAsCurrency(params) : params.value;
-                                    return markFldValidity(params, cellString);
-                                }
+                                cellString = isFldValid(params) ? formatAsCurrency(params) : params.value;
+                                return markFldValidity(params, cellString);
                             },
 
                             hide: false
                         },
                         {
-                            headerName: "Shipping",
+                            headerName: COL_HDR_SHIP_PRICE,
                             field: CAT_FLD_SHIP_PRICE,
                             cellRenderer: function(params)
                             {
-                                if (params.value)
-                                {
-                                    cellString = isCatFldValid(params) ? formatAsCurrency(params) : params.value;
-                                    return markFldValidity(params, cellString);
-                                }
+                                cellString = isFldValid(params) ? formatAsCurrency(params) : params.value;
+                                return markFldValidity(params, cellString);
                             },
 
                             hide: false
                         },
                         {
-                            headerName: "Total Price",
+                            headerName: COL_HDR_TOTAL_PRICE,
                             valueGetter: function(params)
                             {
+                                let totalPrice = null;
+
                                 let price = getFld(params.data, [CAT_FLD_PURCH_PRICE], CAT_FLD_SRC_BASE);
                                 let shippingPrice = getFld(params.data, [CAT_FLD_SHIP_PRICE], CAT_FLD_SRC_BASE);
 
-                                if (!isNaN(price))
+                                if ((price || !isNaN(price)) && (shippingPrice || !isNaN(price)))
                                 {
-                                    price = parseFloat(price);
-                                    if (shippingPrice && !isNaN(shippingPrice))
+                                    totalPrice = 0;
+                                    if (price)
                                     {
-                                        price += parseFloat(shippingPrice);
+                                        totalPrice += parseFloat(price);
+                                    }
+
+                                    if (shippingPrice)
+                                    {
+                                        totalPrice += parseFloat(shippingPrice);
                                     }
                                 }
 
-                                return price;
+                                return totalPrice;
                             },
                             cellRenderer: function(params)
                             {
-                                if (params.value)
-                                {
-                                    if (isCatFldValid(params))
-                                    {
-                                        currency = getFld(params.data, [CAT_FLD_CURRENCY])
-                                        return (formatAsCurrency(params));
-                                    }
-                                }
+                                return (formatAsCurrency(params));
                             },
                             editable: false,
                             hide: false
@@ -316,38 +386,38 @@
                     ]
                 },
                 {
-                    headerName: "Book Identifiers",
+                    headerName: COL_GRP_HDR_IDENTIFIERS,
                     children:
                     [
                         {
-                            headerName: "ISBN 13",
+                            headerName: COL_HDR_ISBN_13,
                             field:      CAT_FLD_ISBN13,
                             cellRenderer: function(params)
                             {
                                 cellString = params.value;
                                 return markFldValidity(params, cellString);
                             },
-                            hide:   false
+                            hide: false
                         },
                         {
-                            headerName: "ISBN 10",
+                            headerName: COL_HDR_ISBN_10,
                             field:      CAT_FLD_ISBN10,
                             cellRenderer: function(params)
                             {
                                 cellString = params.value;
                                 return markFldValidity(params, cellString);
                             },
-                            hide:       true
+                            hide: true
                         }
                     ]
                 },
                 {
-                    headerName: "Author/Editor",
+                    headerName: COL_GRP_HDR_AUTHOR,
                     suppressMenu: false,
                     children:
                     [
                         {
-                            headerName: "Surname",
+                            headerName: COL_HDR_SURNAME,
                             valueGetter: function(params)
                             {
                                 return getAuthorNames(params, NameEnum.NAME_SUR);
@@ -358,7 +428,7 @@
                             }
                         },
                         {
-                            headerName: "Given Name(s)",
+                            headerName: COL_HDR_GIVEN_NAMES,
                             valueGetter: function(params)
                             {
                                 return getAuthorNames(params, NameEnum.NAME_GIVEN);
@@ -372,7 +442,7 @@
                     ]
                 },
                 {
-                    headerName: "Title",
+                    headerName: COL_HDR_TITLE,
                     valueGetter: function(params)
                     {
                         let title       = getFld(params.data, [CAT_FLD_TITLE]);
@@ -404,7 +474,7 @@
                     },
                 },
                 {
-                    headerName: "Publisher",
+                    headerName: COL_HDR_PUBLISHER,
                     valueGetter: function(params)
                     {
                         pubSrc      = getFld(params.data, [CAT_FLD_PUBLISHERS]);
@@ -415,14 +485,15 @@
                     {
                         let pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
                         return(setFld(params.data, [CAT_FLD_PUBLISHERS], pubs));
-                    }
+                    },
+                    hide: false
                 },
                 {
-                    headerName: "Dimensions",
+                    headerName: COL_GRP_HDR_DIM,
                     children:
                     [
                         {
-                            headerName: "H (cm)",
+                            headerName: COL_HDR_DIM_HEIGHT,
                             valueGetter: function(params)
                             {
                                 return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]);
@@ -434,7 +505,7 @@
                             hide: true
                         },
                         {
-                            headerName: "W (cm)",
+                            headerName: COL_HDR_DIM_WIDTH,
                             valueGetter: function(params)
                             {
                                 return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]);
@@ -446,7 +517,7 @@
                             hide: true
                         },
                         {
-                            headerName: "T (cm)",
+                            headerName: COL_HDR_DIM_THICKNESS,
                             valueGetter: function(params)
                             {
                                 return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]);
@@ -458,7 +529,7 @@
                             hide: true
                         },
                         {
-                            headerName: "Length (pp)",
+                            headerName: COL_HDR_DIM_LENGTH,
                             valueGetter: function(params)
                             {
                                 return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
@@ -470,7 +541,7 @@
                             hide: true
                         },
                         {
-                            headerName: "Mass (kg)",
+                            headerName: COL_HDR_DIM_MASS,
                             valueGetter: function(params)
                             {
                                 mass    = null;
@@ -512,7 +583,7 @@
                                 if (params.value)
                                 {
                                     cellString = formatAsMass(params.value);
-                                    if (!isCatFldValid(params))
+                                    if (!isFldValid(params))
                                     {
                                     }
                                     return (formatAsMass(params.value));
@@ -540,6 +611,10 @@
                         // Toggle selected item's openlib (re)synch flag
                         params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
                     }
+                },
+                components:
+                {
+                    datePicker: getDatePicker()
                 }
             };
 
@@ -665,17 +740,22 @@
             // Format a field as a currency string
             function formatAsCurrency(fldParams)
             {
-                priceString = Number.parseFloat(fldParams.value).toFixed(2);
-                currency = getFld(fldParams.data, [CAT_FLD_CURRENCY], CAT_FLD_SRC_BASE);
-                if (currency)
+                priceString = null;
+
+                if (fldParams.value)
                 {
-                    if (currency == 'VND')
+                    priceString = Number.parseFloat(fldParams.value).toFixed(2);
+                    currency = getFld(fldParams.data, [CAT_FLD_CURRENCY], CAT_FLD_SRC_BASE);
+                    if (currency)
                     {
-                        priceString += CURRENCY_PREFIXES[currency];
-                    }
-                    else
-                    {
-                        priceString = CURRENCY_PREFIXES[currency] + priceString;
+                        if (currency == 'VND')
+                        {
+                            priceString += CURRENCY_SYMBOLS[currency];
+                        }
+                        else
+                        {
+                            priceString = CURRENCY_SYMBOLS[currency] + priceString;
+                        }
                     }
                 }
 
@@ -705,11 +785,16 @@
                 return true;
             }
 
-            // Fetches a field from a catalogue record
+            // Fetches a field from a catalogue record, assuming the data
+            // source specified by the dataSrc parameter and returning null
+            // if the field doesn't exist.
+            // If the "combined" data source is selected, the function
+            // checks each of the three data sources in turn for a non-null
+            // field.
             function getFld(catRec, keyChain, dataSrc = getDataSrc())
             {
-                let dataSrcList = dataSrc == CAT_FLD_SRC_COMB ? [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON] : [dataSrc];
                 let fld = null;
+                let dataSrcList = dataSrc == CAT_FLD_SRC_COMB ? [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON] : [dataSrc];
                 while(dataSrcList.length > 0 && !fld)
                 {
                     let fldSrc = dataSrcList.shift();
@@ -743,16 +828,12 @@
                 while (fldKeyChain.length > 1)
                 {
                     key = fldKeyChain.shift();
-                    if (key in obj)
-                    {
-                        obj = obj[key];
-                    }
-                    else
+                    if (!(key in obj))
                     {
                         // Initialise...
                         obj[key] = {};
-                        obj = obj[key];
                     }
+                    obj = obj[key];
                 }
                 obj[fldKeyChain.shift()] = value;
 
@@ -815,6 +896,7 @@
 
             function setAuthorNames(params, nameType)
             {
+                // Create a copy of the authors field to work with below
                 authData = JSON.parse(JSON.stringify(getFld(params.data, [CAT_FLD_AUTHORS])));
                 if (!authData)
                 {
@@ -875,10 +957,11 @@
                 return setFld(params.data, [CAT_FLD_AUTHORS], authData);
             }
 
-            // Computes the expected check digit for a candidate ISBN
+            // Computes the expected check digit for a candidate ISBN, using
+            // steps described at https://bisg.org/page/conversionscalculat
             function calcISBNCheckDigit(isbnCandidate)
             {
-                let checkDigit = -1;
+                let checkDigit = -1;  // Initialise to an invalid digit
                 if (REGEX_ISBN10.test(isbnCandidate))
                 {
                     checkDigit = 0;
@@ -913,25 +996,134 @@
                 return checkDigit.toString();
             }
 
-            // Checks if a given catalogue record field's contents are valid:
-            // validation steps depend on the field's expected data type, etc.
-            function isCatFldValid(fldParams)
+            // Sets a date field
+            function setDateFld(fldParams, keyChain)
+            {
+                dateString = fldParams.newValue;
+                if (dateString)
+                {
+                    dateComponents = dateString.split(DATE_SEP);
+                    if (dateComponents.length > 0 && dateComponents.length <= 3)
+                    {
+                        year    = dateComponents.shift();
+                        month   = dateComponents.length > 0 ? dateComponents.shift() : null;
+                        day     = dateComponents.length > 0 ? dateComponents.shift() : null;
+
+                        setFld(fldParams.data, keyChain.concat([CAT_FLD_DATE_YEAR]), year, CAT_FLD_SRC_BASE);
+                        setFld(fldParams.data, keyChain.concat([CAT_FLD_DATE_MONTH]), month, CAT_FLD_SRC_BASE);
+                        setFld(fldParams.data, keyChain.concat([CAT_FLD_DATE_DAY]), day, CAT_FLD_SRC_BASE);
+                    }
+                }
+                else
+                {
+                    setFld(fldParams.data, keyChain, null, CAT_FLD_SRC_BASE);
+                }
+            }
+
+            function renderDateFld(fldParams)
+            {
+                let cellString = "";
+                let dateObj = fldParams.value;
+                if (dateObj)
+                {
+                    let yearString  = dateObj[CAT_FLD_DATE_YEAR];
+                    let monthString = dateObj[CAT_FLD_DATE_MONTH];
+                    let dayString   = dateObj[CAT_FLD_DATE_DAY];
+
+                    if (yearString)
+                    {
+                        cellString = yearString;
+                        if (monthString)
+                        {
+                            if (REGEX_MONTH.test(monthString))
+                            {
+                                let month = Number.parseInt(monthString);
+                                monthString = (month < 10 ? "0" : "") + month.toString();
+                            }
+                            cellString += DATE_SEP + monthString;
+                            if (dayString)
+                            {
+                                if (REGEX_DAY.test(dayString))
+                                {
+                                    let day = Number.parseInt(dayString);
+                                    dayString = (day < 10 ? "0": "") + day.toString();
+                                }
+                                cellString += DATE_SEP + dayString;
+                            }
+                        }
+                    }
+                }
+                return markFldValidity(fldParams, cellString);
+            }
+
+            // Checks if a date (specified as year, month, day strings) is valid
+            function isDateValid(year, month, day)
             {
                 let valid = true;
-                let fldId = fldParams.column.colId;
-                switch (fldId)
+                if (year)
                 {
-                    case CAT_FLD_ISBN13:
-                    case CAT_FLD_ISBN10:
+                    valid = REGEX_YEAR.test(year);
+                    if (month && valid)
+                    {
+                        valid = REGEX_MONTH.test(month);
+                        if (day && valid)
+                        {
+                            valid = REGEX_DAY.test(day);
+                            if (valid)
+                            {
+                                year    = parseInt(year);
+                                month   = parseInt(month);
+                                day     = parseInt(day);
+
+                                let day_max = STD_MONTH_LENGTHS[month];
+                                if (month == 2 &&
+                                    (year % 400 == 0 ||
+                                    (year % 4 == 0 && year % 100 != 0)))
+                                {
+                                    day_max = FEB_LEAP_YEAR_DAYS;
+                                }
+
+                                valid = day <= day_max;
+                            }
+                        }
+                    }
+                }
+
+                return valid;
+            }
+
+            // Checks if a given catalogue record field's contents are valid:
+            // validation steps depend on the field's expected data type, etc.
+            function isFldValid(fldParams)
+            {
+                let valid = true;
+                let fldHdr = fldParams.colDef.headerName;
+                switch (fldHdr)
+                {
+                    case COL_HDR_ISBN_13:
+                    case COL_HDR_ISBN_10:
                         let isbnCandidate = fldParams.value;
                         if (isbnCandidate)
                         {
-                            let isbnRegexMatch = fldId == CAT_FLD_ISBN13 ? REGEX_ISBN13.test(isbnCandidate) : REGEX_ISBN10.test(isbnCandidate);
+                            // The ISBN field must match the relevant pattern
+                            // and have a sensible check digit
+                            let isbnRegexMatch = fldHdr == COL_HDR_ISBN_13 ? REGEX_ISBN13.test(isbnCandidate) : REGEX_ISBN10.test(isbnCandidate);
                             valid = isbnRegexMatch && (calcISBNCheckDigit(isbnCandidate) == isbnCandidate[isbnCandidate.length - 1]);
                         }
                         break;
 
-                    case CAT_FLD_PURCH_PRICE:
+                    case COL_HDR_PURCH_DATE:
+                    case COL_HDR_ARR_DATE:
+                        let dateCandidate = fldParams.value;
+                        if (dateCandidate)
+                        {
+                            valid = isDateValid(dateCandidate[CAT_FLD_DATE_YEAR],
+                                                dateCandidate[CAT_FLD_DATE_MONTH],
+                                                dateCandidate[CAT_FLD_DATE_DAY]);
+                        }
+                        break;
+
+                    case COL_HDR_PURCH_PRICE:
                     case CAT_FLD_SHIP_PRICE:
                         let priceCandidate = fldParams.value;
                         if (priceCandidate)
@@ -947,8 +1139,61 @@
 
             function markFldValidity(fldParams, cellString)
             {
-                return isCatFldValid(fldParams) ? cellString : '<span class="invalid-data">' + cellString + '</span>';
+                return isFldValid(fldParams) ? cellString : '<span class="invalid-data">' + cellString + '</span>';
             }
+
+            // Date picker implementation, stolen from:
+            // https://www.ag-grid.com/javascript-grid-cell-editing/#example-datepicker-cell-editing
+            function getDatePicker()
+            {
+                function Datepicker() {}
+
+                // Constructor... I think
+                Datepicker.prototype.init = function(params)
+                {
+                    // Create the cell
+                    this.eInput = document.createElement('input');
+                    this.eInput.value = params.value;
+
+                    // From: https://jqueryui.com/datepicker/
+                    $(this.eInput).datepicker({dateFormat: 'yy-mm-dd'});
+                };
+
+                // Called once when the grid is ready to insert the element
+                Datepicker.prototype.getGui = function()
+                {
+                    return this.eInput;
+                };
+
+                // Focus and select: possible after the gui is attached
+                Datepicker.prototype.afterGuiAttached = function()
+                {
+                    this.eInput.focus();
+                    this.eInput.select();
+                };
+
+                // Returns the new value after editing
+                Datepicker.prototype.getValue = function()
+                {
+                    return this.eInput.value;
+                };
+
+                // Cleanup
+                Datepicker.prototype.destroy = function()
+                {
+                    // Nothing to do
+                };
+
+                // if true, then this editor will appear in a popup
+                Datepicker.prototype.isPopup = function()
+                {
+                    // and we could leave this method out also, false is the default
+                    return true;
+                };
+
+                return Datepicker;
+            }
+
 
             // Test catalogue data
             let testCat =
@@ -957,7 +1202,7 @@
                     "purchase_date": "2019-09-30",
                     "isbn_13": "9781408886809",
                     "item_within_order": "1",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "Gaiman",
                             "given_names": [
@@ -965,8 +1210,8 @@
                             ]
                         }
                     ],
-                    "alt_title": "Norse Mythology",
-                    "alt_publishers": [
+                    "title": "Norse Mythology",
+                    "publishers": [
                         {
                             "name": "Bloomsbury"
                         }
@@ -979,7 +1224,7 @@
                     "purchase_date": "2019-09-30",
                     "isbn_13": "9780312427245",
                     "item_within_order": "2",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "Vargos Llosa",
                             "given_names": [
@@ -994,8 +1239,8 @@
                             ]
                         }
                     ],
-                    "alt_title": "Aunt Julia and the Scriptwriter",
-                    "alt_publishers": [
+                    "title": "Aunt Julia and the Scriptwriter",
+                    "publishers": [
                         {
                             "name": "Picador"
                         }
@@ -1022,7 +1267,7 @@
                     "purchase_date": "2019-09-30",
                     "isbn_13": "9781780746357",
                     "item_within_order": "3",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "James",
                             "given_names": [
@@ -1030,8 +1275,8 @@
                             ]
                         }
                     ],
-                    "alt_title": "A Brief History of Seven Killings",
-                    "alt_publishers": [
+                    "title": "A Brief History of Seven Killings",
+                    "publishers": [
                         {
                             "name": "Oneworld"
                         }
@@ -1043,7 +1288,7 @@
                 {
                     "purchase_date": "2019-11-29",
                     "isbn_13": "9788891244390",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "Manara",
                             "given_names": [
@@ -1051,7 +1296,7 @@
                             ]
                         }
                     ],
-                    "alt_title": "Aunt Julia and the Scriptwriter",
+                    "title": "Aunt Julia and the Scriptwriter",
                     "seller_id": "AmazonAU",
                     "purchase_price": "36.15",
                     "shipping_price": "0.00",
@@ -1061,7 +1306,7 @@
                     "arrival_date": "2019-12-01",
                     "isbn_13": "9783462043235",
                     "item_within_order": "1",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "Kutscher",
                             "given_names": [
@@ -1069,8 +1314,8 @@
                             ]
                         }
                     ],
-                    "alt_title": "Goldstein",
-                    "alt_publishers": [
+                    "title": "Goldstein",
+                    "publishers": [
                         {
                             "name": "Kiepenhauer & Witsch"
                         }
@@ -1099,7 +1344,7 @@
                     "arrival_date": "2019-12-01",
                     "isbn_13": "9783462046465",
                     "item_within_order": "2",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "Kutscher",
                             "given_names": [
@@ -1107,8 +1352,8 @@
                             ]
                         }
                     ],
-                    "alt_title": "Die Akte Vaterland",
-                    "alt_publishers": [
+                    "title": "Die Akte Vaterland",
+                    "publishers": [
                         {
                             "name": "Kiepenhauer & Witsch"
                         }
@@ -1118,7 +1363,7 @@
                 {
                     "purchase_date": "2019-12-06",
                     "isbn_13": "9781786070609",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "Sadawi",
                             "given_names": [
@@ -1126,8 +1371,8 @@
                             ]
                         }
                     ],
-                    "alt_title": "Frankenstein in Baghdad",
-                    "alt_publishers": [
+                    "title": "Frankenstein in Baghdad",
+                    "publishers": [
                         {
                             "name": "Oneworld"
                         }
@@ -1146,7 +1391,7 @@
                 {
                     "purchase_date": "2019-12-09",
                     "isbn_13": "9780008132576",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "Stephenson",
                             "given_names": [
@@ -1160,8 +1405,8 @@
                             ]
                         }
                     ],
-                    "alt_title": "The Rise and Fall of D.O.D.O",
-                    "alt_publishers": [
+                    "title": "The Rise and Fall of D.O.D.O",
+                    "publishers": [
                         {
                             "name": "Harper Collins"
                         }
@@ -1173,7 +1418,7 @@
                 {
                     "purchase_date": "2019-12-10",
                     "isbn_13": "9780730324218",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "Pape",
                             "given_names": [
@@ -1181,8 +1426,8 @@
                             ]
                         }
                     ],
-                    "alt_title": "The Barefoot Investor",
-                    "alt_publishers": [
+                    "title": "The Barefoot Investor",
+                    "publishers": [
                         {
                             "name": "Wiley"
                         }
@@ -1207,7 +1452,7 @@
                 {
                     "purchase_date": "2019-12-16",
                     "isbn_13": "9780692181065",
-                    "alt_authors": [
+                    "authors": [
                         {
                             "surname": "McAuliffe",
                             "given_names": [
@@ -1215,14 +1460,14 @@
                             ]
                         }
                     ],
-                    "alt_title": "The Hill Ghost",
+                    "title": "The Hill Ghost",
                     "seller_id": "HH_BJ",
                     "purchase_price": "19.95",
                     "purchase_currency": "AUD"
                 }
             ];
 
-            //document.getElementById('testDiv').innerHTML = CURRENCY_PREFIXES['AUD'];
+            //document.getElementById('testDiv').innerHTML = CURRENCY_SYMBOLS['AUD'];
         </script>
     </body>
 </html>
