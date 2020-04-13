@@ -28,27 +28,6 @@ from typing import Dict, List
 ###############################################################################
 # Input catalogue handling
 ###############################################################################
-CatRange = namedtuple('CatRange', ['range_id', 'first_rec', 'last_rec'])
-CATALOGUE_RANGES = [
-    CatRange('1991-2006',   1,  24),
-    CatRange('2007',       25,  92),
-    CatRange('2008',       93, 133),
-    CatRange('2009',      133, 239),
-    CatRange('2010',      240, 318),
-    CatRange('2011',      319, 476),
-    CatRange('2012',      477, 604),
-    CatRange('2013',      605, 712),
-    CatRange('2014',      713, 766),
-    CatRange('2015',      767, 840),
-    CatRange('2016',      841, 914),
-    CatRange('2017',      915, 991),
-    CatRange('2018',      992, 1015),
-    CatRange('2019',     1016, 1026),
-    CatRange('2020',     1027, 1027)
-]
-
-EXCEL_HEADER_LINES  = 2
-EXCEL_BASE_ROW      = 3
 TSV_HEADER_LINES    = 4
 TSV_ROW_OFFSET      = TSV_HEADER_LINES
 TSV_BASE_ROW        = TSV_ROW_OFFSET + 1
@@ -580,25 +559,6 @@ def flatToMappedRec(flat_rec: list,
 
 
 ###############################################################################
-def genDateString(day,
-                  month,
-                  year):
-    date = None
-
-    if year:
-        date = str(year)
-
-        if month:
-            date += DATE_SEP + f'{int(month):02}'
-
-            if day:
-                date += DATE_SEP + f'{int(day):02}'
-
-    return date
-###############################################################################
-
-
-###############################################################################
 def setMappedRecFld(mapped_rec, key_chain, value, force: bool = False):
     """
     Sets the value of a record field
@@ -948,24 +908,6 @@ def main():
                                     inter_filename,
                                     verbose,
                                     populate)
-                                  
-#                   for cat_range in CATALOGUE_RANGES:
-#                       first_rec = cat_range.first_rec
-#                       last_rec = cat_range.last_rec
-#                       output_filename = '{}_{}.{}'.format(CAT_FILE_PREFIX,
-#                                                           cat_range.range_id,
-#                                                           CAT_FILE_SUFFIX)
-#                       inter_filename = None
-#                       if gen_inter_cat:
-#                           inter_filename = '{}_{}.{}'.format(CAT_FILE_PREFIX,
-#                                                              cat_range.range_id,
-#                                                              CAT_FILE_INTER_SUFFIX)
-#                       flatToMappedCat(input_cat_file,
-#                                     first_rec,
-#                                     last_rec,
-#                                     output_filename,
-#                                     inter_filename,
-#                                     verbose)
                 else:
                     inter_filename = None if not gen_inter_cat else \
                                     '{}_recs_{}-{}.{}'.format(CAT_FILE_PREFIX,
