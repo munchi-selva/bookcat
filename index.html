@@ -72,7 +72,6 @@
                 </div>
             </div>
             <div class="grid-settings">
-                
                 <div class="form-check-inline">
                     <label class="form-check-label">Data source:</label>
                 </div>
@@ -96,6 +95,9 @@
                         <input type="radio" class="form-check-input" id="srcAma" name="optSrc" value="amazon">amazon
                     </label>
                 </div>
+                <form class="form-inline">
+                    <button type="button" id="btnAddRecord">Add catalogue record</button>
+                </form>
             </div>
         </div>
 
@@ -253,7 +255,7 @@
                     headerName: COL_HDR_ID,
                     field:      CAT_FLD_ID,
                     editable:   false,
-                    hide:       true
+                    hide:       false
                 },
                 {
                     headerName:         COL_HDR_RESYNCH,
@@ -663,10 +665,30 @@
                     updatedCatFileElem.click();
                 });
 
-                $("#chkUseOpenlib").click(function()
+                // Add a new record to catalogue
+                $("#btnAddRecord").click(function()
                 {
-                    gridOptions.api.redrawRows();
+                    // Assign a new ID to the record (one larger than the
+                    // current maximum)
+                    let maxId = 0;
+                    for (let idx = 0; idx < catData.length; idx++)
+                    {
+                        maxId = Math.max(maxId, catData[idx][CAT_FLD_ID]);
+                    }
+
+                    // Create new record
+                    let catRec = {};
+                    catRec[CAT_FLD_ID] = maxId + 1;
+
+                    // Add record to the underlying data array and synch this
+                    // with the grid's row data
+                    catData.push(catRec);
+                    gridOptions.api.updateRowData({add:[catRec]});
+
+                    // Scroll to the end of the catalogue/grid
+                    gridOptions.api.ensureIndexVisible(gridOptions.api.rowModel.getRowCount()-1);
                 });
+
 
                 $("[name='optSrc']").click(function()
                 {
@@ -850,11 +872,6 @@
             function hasOpenlibFld(params, key)
             {
                 return (hasFld(params.data, [CAT_FLD_SRC_OPENLIB, key]));
-            }
-
-            function useOpenlibData()
-            {
-                return chkUseOpenlib.checked;
             }
 
             function getDataSrc()
