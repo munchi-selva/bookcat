@@ -189,7 +189,7 @@ def parseDimensions(dim_string: str):
 
 
 ###############################################################################
-def popMappedCatRec(mapped_rec: dict,
+def popMappedRec(mapped_rec: dict,
                     verbose: bool = False):
     """
     Populates a mapped catalogue record with its OpenLibrary details
@@ -287,7 +287,7 @@ def popMappedCatRec(mapped_rec: dict,
         openlib_mass_str = openlib_record[OLK_DETAILS][OLK_WEIGHT]
         openlib_mass_match = re.search(r'\d+([.]\d+)?', openlib_mass_str)
         if openlib_mass_match:
-            openlib_dim[BCK_DIM_MASS] = openlib_mass_match.group(0)
+            openlib_dim[BCK_DIM_MASS] = float(openlib_mass_match.group(0))
 
         openlib_mass_units_match = re.search(r'[a-z]+', openlib_mass_str)
         if openlib_mass_units_match:
@@ -315,7 +315,7 @@ def popMappedRecs(mapped_recs: dict,
                      output_cat_filename: str = None,
                      verbose: bool = False):
     for mapped_rec in mapped_recs:
-        popMappedCatRec(mapped_rec, verbose)
+        popMappedRec(mapped_rec, verbose)
         if BCK_SRC_OPENLIB in mapped_rec.keys() and OLK_TITLE in mapped_rec[BCK_SRC_OPENLIB].keys():
             setMappedRecFlag(mapped_rec, BCK_FLAG_BIT_IN_OPENLIB)
             print('ISBN {} matches OpenLibrary title:\n\t{}'.format(mapped_rec[OLK_ISBN13], mapped_rec[OLK_TITLE]))
@@ -380,9 +380,9 @@ CatCol   = IntEnum('CatCol',  'CC_ID                        \
                                CC_THICKNESS_AM_CM           \
                                CC_MASS_AM_KG                \
                                CC_LENGTH_ACT                \
-                               CC_HEIGHT_ACT_CM             \
-                               CC_WIDTH_ACT_CM              \
-                               CC_THICKNESS_ACT_CM          \
+                               CC_HEIGHT_ACT                \
+                               CC_WIDTH_ACT                 \
+                               CC_THICKNESS_ACT             \
                                CC_MASS_ACT_KG               \
                                CC_ELECTRONIC_DOWNLOAD_DATE  \
                                CC_ELECTRONIC_FORMAT         \
@@ -394,26 +394,43 @@ CatCol   = IntEnum('CatCol',  'CC_ID                        \
 
                                start = 0
                                )
+###############################################################################
 
 
 ###############################################################################
-def getFlatRecFld(flat_rec:    list,
-                  itemID:       int,
-                  formatting:   str = 'STR'):
+# Catalogue field data types enum
+###############################################################################
+CatFldType = IntEnum('CatFldType', 'CFT_STRING \
+                                    CFT_INT    \
+                                    CFT_FLOAT  \
+                                    CFT_CURR   \
+                                    CFT_COUNT',
+
+                                    start = 0
+                                    )
+###############################################################################
+
+
+###############################################################################
+def getFlatRecFld(flat_rec:     list,
+                  item_id:      int,
+                  type:         CatFldType = CatFldType.CFT_STRING):
     """
     Retrieves a field from a flat catalogue record
 
     :param flat_rec:    The catalogue record represented as a list of items
-    :param itemID:      ID of the required field
-    :param formatting:  Required formatting of the field
+    :param item_id:     ID of the required field
+    :param type:        Required data type of the field
     :returns:           The catalogue record field value
     """
-    if itemID < len(flat_rec) and flat_rec[itemID]:
-        if formatting == 'CURR':
-            return round(float(flat_rec[itemID]), 2)
-        elif formatting == 'FLOAT':
-            return float(flat_rec[itemID])
-        return flat_rec[itemID]
+    if item_id < len(flat_rec) and flat_rec[item_id]:
+        if type == CatFldType.CFT_INT:
+            return int(flat_rec[item_id])
+        elif type == CatFldType.CFT_FLOAT:
+            return float(flat_rec[item_id])
+        elif type == CatFldType.CFT_CURR:
+            return round(float(flat_rec[item_id]), 2)
+        return flat_rec[item_id]
 
     return None
 ###############################################################################
@@ -429,9 +446,9 @@ def flatToMappedRec(flat_rec: list,
     :param mapped_rec:  The equivalent mapped catalogue record
     :returns:           None
     """
-    rec_id          = getFlatRecFld(flat_rec, CatCol.CC_ID)
+    rec_id          = getFlatRecFld(flat_rec, CatCol.CC_ID, CatFldType.CFT_INT)
 
-    purch_day       = getFlatRecFld(flat_rec, CatCol.CC_PURCH_DAY)
+    purch_day       = getFlatRecFld(flat_rec, CatCol.CC_PURCH_DAY)  # TODO: Change to integer type
     purch_month     = getFlatRecFld(flat_rec, CatCol.CC_PURCH_MON)
     purch_year      = getFlatRecFld(flat_rec, CatCol.CC_PURCH_YEAR)
 
@@ -439,7 +456,7 @@ def flatToMappedRec(flat_rec: list,
     arrival_month   = getFlatRecFld(flat_rec, CatCol.CC_ARRIVAL_MON)
     arrival_year    = getFlatRecFld(flat_rec, CatCol.CC_ARRIVAL_YEAR)
 
-    number_in_order = getFlatRecFld(flat_rec, CatCol.CC_NUM_IN_ORDER)
+    number_in_order = getFlatRecFld(flat_rec, CatCol.CC_NUM_IN_ORDER, CatFldType.CFT_INT)
 
     isbn13          = getFlatRecFld(flat_rec, CatCol.CC_ISBN13)
     isbn10          = getFlatRecFld(flat_rec, CatCol.CC_ISBN10)
@@ -456,17 +473,17 @@ def flatToMappedRec(flat_rec: list,
     seller          = getFlatRecFld(flat_rec, CatCol.CC_SELLER)
     seller_branch   = getFlatRecFld(flat_rec, CatCol.CC_SELLER_BRANCH)
     purchaser       = getFlatRecFld(flat_rec, CatCol.CC_PURCHASER)
-    price           = getFlatRecFld(flat_rec, CatCol.CC_PRICE, 'CURR')
-    shipping        = getFlatRecFld(flat_rec, CatCol.CC_SHIPPING, 'CURR')
+    price           = getFlatRecFld(flat_rec, CatCol.CC_PRICE, CatFldType.CFT_CURR)
+    shipping        = getFlatRecFld(flat_rec, CatCol.CC_SHIPPING, CatFldType.CFT_CURR)
     currency        = getFlatRecFld(flat_rec, CatCol.CC_CURRENCY)
-    conversion      = getFlatRecFld(flat_rec, CatCol.CC_CONVERSION)
+    conversion      = getFlatRecFld(flat_rec, CatCol.CC_CONVERSION, CatFldType.CFT_FLOAT)
 
-    length_am       = getFlatRecFld(flat_rec, CatCol.CC_LENGTH_AM)
-    height_am       = getFlatRecFld(flat_rec, CatCol.CC_HEIGHT_AM_CM, 'FLOAT')
-    width_am        = getFlatRecFld(flat_rec, CatCol.CC_WIDTH_AM_CM, 'FLOAT')
-    thickness_am    = getFlatRecFld(flat_rec, CatCol.CC_THICKNESS_AM_CM, 'FLOAT')
-    mass_am_lb      = getFlatRecFld(flat_rec, CatCol.CC_MASS_AM_LB, 'FLOAT')
-    mass_am_oz      = getFlatRecFld(flat_rec, CatCol.CC_MASS_AM_OZ, 'FLOAT')
+    length_am       = getFlatRecFld(flat_rec, CatCol.CC_LENGTH_AM, CatFldType.CFT_FLOAT)
+    height_am       = getFlatRecFld(flat_rec, CatCol.CC_HEIGHT_AM_CM, CatFldType.CFT_FLOAT)
+    width_am        = getFlatRecFld(flat_rec, CatCol.CC_WIDTH_AM_CM, CatFldType.CFT_FLOAT)
+    thickness_am    = getFlatRecFld(flat_rec, CatCol.CC_THICKNESS_AM_CM, CatFldType.CFT_FLOAT)
+    mass_am_lb      = getFlatRecFld(flat_rec, CatCol.CC_MASS_AM_LB, CatFldType.CFT_FLOAT)
+    mass_am_oz      = getFlatRecFld(flat_rec, CatCol.CC_MASS_AM_OZ, CatFldType.CFT_FLOAT)
 
     mass_am         = 0
     if mass_am_lb:
@@ -474,11 +491,11 @@ def flatToMappedRec(flat_rec: list,
     if mass_am_oz:
         mass_am += mass_am_oz * OZ_TO_KG
 
-    length_act      = getFlatRecFld(flat_rec, CatCol.CC_LENGTH_ACT)
-    height_act      = getFlatRecFld(flat_rec, CatCol.CC_HEIGHT_ACT_CM, 'FLOAT')
-    width_act       = getFlatRecFld(flat_rec, CatCol.CC_WIDTH_ACT_CM, 'FLOAT')
-    thickness_act   = getFlatRecFld(flat_rec, CatCol.CC_THICKNESS_ACT_CM, 'FLOAT')
-    mass_act        = getFlatRecFld(flat_rec, CatCol.CC_MASS_ACT_KG, 'FLOAT')
+    length_act      = getFlatRecFld(flat_rec, CatCol.CC_LENGTH_ACT, CatFldType.CFT_FLOAT)
+    height_act      = getFlatRecFld(flat_rec, CatCol.CC_HEIGHT_ACT, CatFldType.CFT_FLOAT)
+    width_act       = getFlatRecFld(flat_rec, CatCol.CC_WIDTH_ACT, CatFldType.CFT_FLOAT)
+    thickness_act   = getFlatRecFld(flat_rec, CatCol.CC_THICKNESS_ACT, CatFldType.CFT_FLOAT)
+    mass_act        = getFlatRecFld(flat_rec, CatCol.CC_MASS_ACT_KG, CatFldType.CFT_FLOAT)
 
     electronic_fmt  = getFlatRecFld(flat_rec, CatCol.CC_ELECTRONIC_FORMAT)
     cover_required  = getFlatRecFld(flat_rec, CatCol.CC_COVER_REQ)
