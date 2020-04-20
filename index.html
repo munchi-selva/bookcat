@@ -1,13 +1,13 @@
 <!DOCTYPE html>
 <html>
     <head>
-	<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
-	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
-	<script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
-        <!--script src="https://code.jquery.com/jquery-latest.js"></script-->
         <script src="https://unpkg.com/@ag-grid-enterprise/all-modules/dist/ag-grid-enterprise.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
         <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-grid.css">
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-theme-balham.css">
@@ -95,9 +95,17 @@
                         <input type="radio" class="form-check-input" id="srcAma" name="optSrc" value="amazon">amazon
                     </label>
                 </div>
-                <form class="form-inline">
-                    <button type="button" id="btnAddRecord">Add catalogue record</button>
-                </form>
+                <div class="dropdown dropright">
+                    <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                        Add catalogue record
+                    </button>
+                    <div class="dropdown-menu">
+                        <span class="dropdown-item" id="itmAddCatEnd">At end of catalogue</span>
+                        <span class="dropdown-item" id="itmAddCatBeg">At start of catalogue</span>
+                        <span class="dropdown-item" id="itmAddAfterSel">After selected record</span>
+                        <span class="dropdown-item" id="itmAddBeforeSel">Before selected record</span>
+                    </div>
+                </div>
             </div>
         </div>
 
@@ -603,6 +611,7 @@
                 defaultColDef:          defaultBookCol,
                 columnDefs:             bookColumns,
                 rowSelection:           'multiple',
+                rowDeselection:         true,           // Allow deselecting rows with Ctrl-click
                 enableRangeSelection:   true,           // Allow multiple values in the same column to be selected/copied
                 suppressRowTransform:   true,           // Allow row spanning
                 rowData:                [],
@@ -665,41 +674,69 @@
                     updatedCatFileElem.click();
                 });
 
-                // Add a new record to catalogue
-                $("#btnAddRecord").click(function()
-                {
-                    // Assign a new ID to the record (one larger than the
-                    // current maximum)
-                    let maxId = 0;
-                    for (let idx = 0; idx < catData.length; idx++)
-                    {
-                        maxId = Math.max(maxId, catData[idx][CAT_FLD_ID]);
-                    }
-
-                    // Create new record
-                    let catRec = {};
-                    catRec[CAT_FLD_ID] = maxId + 1;
-
-                    // Add record to the underlying data array and synch this
-                    // with the grid's row data
-                    catData.push(catRec);
-                    gridOptions.api.updateRowData({add:[catRec]});
-
-                    // Scroll to the end of the catalogue/grid
-                    gridOptions.api.ensureIndexVisible(gridOptions.api.rowModel.getRowCount()-1);
-                });
-
-
+                // Toggle the catalogue data source
                 $("[name='optSrc']").click(function()
                 {
-                    //console.log($("[name='optSrc']:checked").val());
                     gridOptions.api.redrawRows();
                 });
+
+                // Add record at end of catalogue
+                $("#itmAddCatEnd").click(function()
+                {
+                    addCatRec(getMaxGridIdx(), getMaxDataIdx(), getMaxRecId() + 1, true);
+                });
+
+                // Add record at beginning of catalogue
+                $("#itmAddCatBeg").click(function()
+                {
+                    addCatRec(0, 0, getMinRecId(), false);
+                });
+
+                // Add record after first selected grid row
+                $("#itmAddAfterSel").click(function()
+                {
+                    // Defaults if nothing is selected (add record at end)
+                    let gridRefIdx  = getMaxGridIdx();
+                    let dataRefIdx  = getMaxDataIdx();
+                    let newId       = getMaxRecId() + 1;
+
+                    let gridSelections = gridOptions.api.getSelectedNodes();
+                    let firstGridSelection = gridSelections.length > 0 ? gridSelections[0] : null;
+                    if (firstGridSelection)
+                    {
+                        gridRefIdx = firstGridSelection.rowIndex;
+                        dataRefIdx = catData.indexOf(firstGridSelection.data);
+                        newId = firstGridSelection.data[CAT_FLD_ID] + 1;
+                    }
+                
+                    addCatRec(gridRefIdx, dataRefIdx, newId, true);
+                });
+
+                // Add record before first selected grid row
+                $("#itmAddBeforeSel").click(function()
+                {
+                    // Defaults if nothing is selected (add record at beginning)
+                    let gridRefIdx  = 0;
+                    let dataRefIdx  = 0;
+                    let newId       = getMinRecId();
+
+                    let gridSelections = gridOptions.api.getSelectedNodes();
+                    let firstGridSelection = gridSelections.length > 0 ? gridSelections[0] : null;
+                    if (firstGridSelection)
+                    {
+                        gridRefIdx = firstGridSelection.rowIndex;
+                        dataRefIdx = catData.indexOf(firstGridSelection.data);
+                        newId = firstGridSelection.data[CAT_FLD_ID];
+                    }
+                
+                    addCatRec(gridRefIdx, dataRefIdx, newId, false);
+                });
+
             });
 
             function loadDefaultCat()
             {
-                catFilename = "Books.cat";
+                catFilename = "Books.icat";
 
                 let xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function()
@@ -752,11 +789,80 @@
             // Populate the catalogue grid
             function populateGrid(catData)
             {
+                catData.sort(compareRecs);
                 gridOptions.api.setRowData(catData);
                 gridOptions.columnApi.autoSizeColumns();
                 gridOptions.api.sizeColumnsToFit();
 
                 document.getElementById("divCatInfo").innerHTML = "Displaying catalogue: '" + catFilename + "'";
+            }
+
+            // Returns the minimum catalogue record ID
+            function getMinRecId()
+            {
+                let minId = catData.length > 0 ? catData[0][CAT_FLD_ID] : 0;
+                for (let idx = 0; idx < catData.length; idx++)
+                {
+                    minId = Math.min(minId, catData[idx][CAT_FLD_ID]);
+                }
+                return (minId);
+            }
+
+            function getMaxGridIdx()
+            {
+                let gridRows = gridOptions.api.rowModel.rowsToDisplay;
+                return gridRows.length > 0 ? gridRows.length - 1 : -1;
+            }
+
+            function getMaxDataIdx()
+            {
+                return catData.length > 0 ? catData.length - 1 : -1;
+            }
+
+            // Returns the maximum catalogue record ID
+            function getMaxRecId()
+            {
+                let maxId = 0;
+                for (let idx = 0; idx < catData.length; idx++)
+                {
+                    maxId = Math.max(maxId, catData[idx][CAT_FLD_ID]);
+                }
+                return (maxId);
+            }
+
+            // Adds a catalogue record relative to the positions given in the
+            // grid (i.e. the catalogue as displayed) and the underlying data.
+            // Note that the grid insertion does not work as desired if sorting
+            // on a field other than the ID has been applied.
+            function addCatRec(gridRefIdx, dataRefIdx, recId, addAfterRefIdx = true)
+            {
+                let gridAddIdx = addAfterRefIdx ? gridRefIdx + 1 : gridRefIdx;
+                let dataAddIdx = addAfterRefIdx ? dataRefIdx + 1 : dataRefIdx;
+
+                // Create new record with required ID
+                let catRec = {};
+                catRec[CAT_FLD_ID] = recId;
+
+                // Add record to the underlying data array, and update IDs
+                // of all following records
+                catData.splice(dataAddIdx, 0, catRec);
+                for (let idx = dataAddIdx + 1; idx < catData.length; idx++)
+                {
+                    catData[idx][CAT_FLD_ID]++;
+                }
+
+                // Synch changes with the grid's row data
+                gridOptions.api.updateRowData({add: [catRec], addIndex: gridAddIdx});
+                //gridOptions.api.selectIndex(gridAddIdx);
+
+                // Scroll to the added record
+                gridOptions.api.ensureIndexVisible(gridAddIdx);
+            }
+
+            // Function for comparing two catalogue records
+            function compareRecs(catRec1, catRec2)
+            {
+                return (catRec1[CAT_FLD_ID] - catRec2[CAT_FLD_ID]);
             }
 
             // Format a field as a currency string
@@ -917,7 +1023,7 @@
                 authData = JSON.parse(JSON.stringify(getFld(params.data, [CAT_FLD_AUTHORS])));
                 if (!authData)
                 {
-                    authData = {};
+                    authData = [];
                 }
 
                 newNames = params.newValue ? (params.newValue.split(AUTH_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);}) : [];
