@@ -190,7 +190,7 @@ def parseDimensions(dim_string: str):
 
 ###############################################################################
 def popMappedRec(mapped_rec: dict,
-                    verbose: bool = False):
+                 verbose: bool = False):
     """
     Populates a mapped catalogue record with its OpenLibrary details
 
@@ -266,43 +266,32 @@ def popMappedRec(mapped_rec: dict,
             openlib_authors.append(openlib_author)
         setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, OLK_AUTHORS], openlib_authors)
 
-    #if OLK_ISBN10 in openlib_record[OLK_DETAILS].keys():
-        #mapped_rec[OLK_ISBN10] = openlib_record[OLK_DETAILS][OLK_ISBN10][0]
-
-
     #
     # Process dimensions, length and mass
     #
-    openlib_dim = {}
     if OLK_DIMENSIONS in openlib_record[OLK_DETAILS].keys():
         height, width, thickness = parseDimensions(openlib_record[OLK_DETAILS][OLK_DIMENSIONS])
-        openlib_dim[BCK_DIM_HEIGHT] = height
-        openlib_dim[BCK_DIM_WIDTH]  = width
-        openlib_dim[BCK_DIM_THICKNESS] = thickness
+        setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_HEIGHT], height)
+        setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_WIDTH], width)
+        setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_THICKNESS], thickness)
 
-    if OLK_PAGES in openlib_record[OLK_DETAILS].keys():
-        openlib_dim[BCK_DIM_LENGTH] = openlib_record[OLK_DETAILS][OLK_PAGES]
+    openlib_pages = openlib_record[OLK_DETAILS].get(OLK_PAGES, None)
+    setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM_LENGTH, BCK_DIM_LENGTH], openlib_pages)
 
-    if OLK_WEIGHT in openlib_record[OLK_DETAILS].keys():
-        openlib_mass_str = openlib_record[OLK_DETAILS][OLK_WEIGHT]
+    openlib_mass_str = openlib_record[OLK_DETAILS].get(OLK_WEIGHT, None)
+    if openlib_mass_str:
         openlib_mass_match = re.search(r'\d+([.]\d+)?', openlib_mass_str)
         if openlib_mass_match:
-            openlib_dim[BCK_DIM_MASS] = float(openlib_mass_match.group(0))
+            setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_MASS], float(openlib_mass_match.group(0)))
 
         openlib_mass_units_match = re.search(r'[a-z]+', openlib_mass_str)
         if openlib_mass_units_match:
-            openlib_dim[BCK_DIM_MASS_UNITS] = openlib_mass_units_match.group(0)
-
-        #openlib_dim[BCK_DIM_MASS] = openlib_record[OLK_DETAILS][OLK_WEIGHT]
-
-    setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM], openlib_dim)
+            setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_MASS_UNITS], openlib_mass_match.group(0))
 
     for subkey in [OLK_FORMAT, OLK_KEY, OLK_PUBLISHERS, OLK_PUBLISH_PLACES, OLK_PUBLISH_DATE, OLK_SUBTITLE, OLK_TITLE]:
-        #if subkey not in ignored_fields and subkey in openlib_record[OLK_DETAILS].keys():
         if subkey in openlib_record[OLK_DETAILS].keys():
             setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, subkey], openlib_record[OLK_DETAILS][subkey])
 
-    #if OLK_URL not in ignored_fields and OLK_URL in openlib_record.keys():
     if OLK_URL in openlib_record.keys():
         setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, OLK_URL], openlib_record[OLK_URL])
 
@@ -478,7 +467,7 @@ def flatToMappedRec(flat_rec: list,
     currency        = getFlatRecFld(flat_rec, CatCol.CC_CURRENCY)
     conversion      = getFlatRecFld(flat_rec, CatCol.CC_CONVERSION, CatFldType.CFT_FLOAT)
 
-    length_am       = getFlatRecFld(flat_rec, CatCol.CC_LENGTH_AM, CatFldType.CFT_FLOAT)
+    length_am       = getFlatRecFld(flat_rec, CatCol.CC_LENGTH_AM, CatFldType.CFT_INT)
     height_am       = getFlatRecFld(flat_rec, CatCol.CC_HEIGHT_AM_CM, CatFldType.CFT_FLOAT)
     width_am        = getFlatRecFld(flat_rec, CatCol.CC_WIDTH_AM_CM, CatFldType.CFT_FLOAT)
     thickness_am    = getFlatRecFld(flat_rec, CatCol.CC_THICKNESS_AM_CM, CatFldType.CFT_FLOAT)
@@ -491,7 +480,7 @@ def flatToMappedRec(flat_rec: list,
     if mass_am_oz:
         mass_am += mass_am_oz * OZ_TO_KG
 
-    length_act      = getFlatRecFld(flat_rec, CatCol.CC_LENGTH_ACT, CatFldType.CFT_FLOAT)
+    length_act      = getFlatRecFld(flat_rec, CatCol.CC_LENGTH_ACT, CatFldType.CFT_INT)
     height_act      = getFlatRecFld(flat_rec, CatCol.CC_HEIGHT_ACT, CatFldType.CFT_FLOAT)
     width_act       = getFlatRecFld(flat_rec, CatCol.CC_WIDTH_ACT, CatFldType.CFT_FLOAT)
     thickness_act   = getFlatRecFld(flat_rec, CatCol.CC_THICKNESS_ACT, CatFldType.CFT_FLOAT)
@@ -549,19 +538,11 @@ def flatToMappedRec(flat_rec: list,
     setMappedRecFld(mapped_rec, [BCK_DIM, BCK_DIM_LENGTH],      length_act)
     setMappedRecFld(mapped_rec, [BCK_DIM, BCK_DIM_MASS],        mass_act)
 
-
-    am_dim = {}
-    if height_am:
-        am_dim[BCK_DIM_HEIGHT] = height_am;
-    if width_am:
-        am_dim[BCK_DIM_WIDTH] = width_am;
-    if thickness_am:
-        am_dim[BCK_DIM_THICKNESS] = thickness_am;
-    if length_am:
-        am_dim[BCK_DIM_LENGTH] = length_am;
-    if mass_am:
-        am_dim[BCK_DIM_MASS] = round(mass_am, 2)
-    setMappedRecFld(mapped_rec, [BCK_SRC_AMAZON, BCK_DIM], am_dim)
+    setMappedRecFld(mapped_rec, [BCK_SRC_AMAZON, BCK_DIM, BCK_DIM_HEIGHT],      height_am)
+    setMappedRecFld(mapped_rec, [BCK_SRC_AMAZON, BCK_DIM, BCK_DIM_WIDTH],       width_am)
+    setMappedRecFld(mapped_rec, [BCK_SRC_AMAZON, BCK_DIM, BCK_DIM_THICKNESS],   thickness_am)
+    setMappedRecFld(mapped_rec, [BCK_SRC_AMAZON, BCK_DIM, BCK_DIM_LENGTH],      length_am)
+    setMappedRecFld(mapped_rec, [BCK_SRC_AMAZON, BCK_DIM, BCK_DIM_MASS],        mass_am)
 
     setMappedRecFld(mapped_rec, [BCK_ELEC_FORMAT], electronic_fmt)
     setMappedRecFld(mapped_rec, [BCK_COVER_REQUIRED], cover_required)
