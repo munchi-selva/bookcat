@@ -190,6 +190,7 @@
             const CAT_FLD_TITLE                 = "title";
             const CAT_FLD_SUBTITLE              = "subtitle";
             const CAT_FLD_PUBLISHERS            = "publishers";
+            const CAT_FLD_PUBLISH_PLACES        = "publish_places";
             const CAT_FLD_FLAGS                 = "flags";
             const CAT_FLD_DIM                   = "dimensions";
             const CAT_FLD_DIM_HEIGHT            = "height";
@@ -198,6 +199,9 @@
             const CAT_FLD_DIM_LENGTH            = "length";
             const CAT_FLD_DIM_MASS              = "mass";
             const CAT_FLD_DIM_MASS_UNITS        = "mass_units";
+            const CAT_FLD_LOCATION              = "location";
+            const CAT_FLD_COVER_REQUIRED        = "cover_required";
+            const CAT_FLD_NOTES                 = "notes";
             const CAT_FLD_INFO_URL              = "info_url";
 
             // Faking an enum
@@ -248,13 +252,19 @@
             const COL_HDR_SURNAME           = "Surname";
             const COL_HDR_GIVEN_NAMES       = "Given Name(s)";
             const COL_HDR_TITLE             = "Title";
-            const COL_HDR_PUBLISHER         = "Publisher";
-            const COL_GRP_HDR_DIM           = "Dimensions";
+            const COL_GRP_HDR_PUB           = "Publiser Details";
+            const COL_HDR_PUB_NAME          = "Name(s)";
+            const COL_HDR_PUB_PLACE         = "Place(s)";
+            const COL_HDR_PUB_DATE          = "Date";
+            const COL_GRP_HDR_PHYS          = "Physical Details";
             const COL_HDR_DIM_HEIGHT        = "H (cm)";
             const COL_HDR_DIM_WIDTH         = "W (cm)";
             const COL_HDR_DIM_THICKNESS     = "T (cm)";
             const COL_HDR_DIM_LENGTH        = "Length (pp)";
             const COL_HDR_DIM_MASS          = "Mass (kg)";
+            const COL_HDR_LOCATION          = "Shelf Location";
+            const COL_HDR_COVER_REQUIRED    = "Cover Required?";
+            const COL_HDR_NOTES             = "Notes";
 
             // Column definitions
             let bookColumns =
@@ -392,7 +402,7 @@
                             },
                             editable: false,
                             hide: false
-                        }
+                        },
                     ]
                 },
                 {
@@ -484,22 +494,43 @@
                     },
                 },
                 {
-                    headerName: COL_HDR_PUBLISHER,
-                    valueGetter: function(params)
-                    {
-                        pubSrc      = getFld(params.data, [CAT_FLD_PUBLISHERS]);
-                        pubString   = pubSrc ? pubSrc.join(PUB_SEP + " ") : null;
-                        return pubString;
-                    },
-                    valueSetter: function(params)
-                    {
-                        let pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
-                        return(setFld(params.data, [CAT_FLD_PUBLISHERS], pubs));
-                    },
-                    hide: false
+                    headerName: COL_GRP_HDR_PUB,
+                    children:
+                    [
+                        {
+                            headerName: COL_HDR_PUB_NAME,
+                            valueGetter: function(params)
+                            {
+                                pubSrc      = getFld(params.data, [CAT_FLD_PUBLISHERS]);
+                                pubString   = pubSrc ? pubSrc.join(PUB_SEP + " ") : null;
+                                return pubString;
+                            },
+                            valueSetter: function(params)
+                            {
+                                let pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                                return(setFld(params.data, [CAT_FLD_PUBLISHERS], pubs));
+                            },
+                            hide: false
+                        },
+                        {
+                            headerName: COL_HDR_PUB_PLACE,
+                            valueGetter: function(params)
+                            {
+                                plcSrc      = getFld(params.data, [CAT_FLD_PUBLISH_PLACES]);
+                                plcString   = plcSrc ? plcSrc.join(PUB_SEP + " ") : null;
+                                return plcString;
+                            },
+                            valueSetter: function(params)
+                            {
+                                let plcs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                                return(setFld(params.data, [CAT_FLD_PUBLISH_PLACES], plcs));
+                            },
+                            hide: true
+                        }
+                    ]
                 },
                 {
-                    headerName: COL_GRP_HDR_DIM,
+                    headerName: COL_GRP_HDR_PHYS,
                     children:
                     [
                         {
@@ -600,7 +631,10 @@
                                 }
                             },
                             hide: true
-                        }
+                        },
+                        {headerName: COL_HDR_LOCATION, field: CAT_FLD_LOCATION, hide: false},
+                        {headerName: COL_HDR_COVER_REQUIRED, field: CAT_FLD_COVER_REQUIRED, hide: true},
+                        {headerName: COL_HDR_NOTES, field: CAT_FLD_NOTES, hide: false}
                     ]
                 }
             ];
@@ -736,7 +770,7 @@
 
             function loadDefaultCat()
             {
-                catFilename = "Books.icat";
+                catFilename = "Books.cat";
 
                 let xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function()
