@@ -276,7 +276,7 @@ def popMappedRec(mapped_rec: dict,
         setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_THICKNESS], thickness)
 
     openlib_pages = openlib_record[OLK_DETAILS].get(OLK_PAGES, None)
-    setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM_LENGTH, BCK_DIM_LENGTH], openlib_pages)
+    setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_LENGTH], openlib_pages)
 
     openlib_mass_str = openlib_record[OLK_DETAILS].get(OLK_WEIGHT, None)
     if openlib_mass_str:
@@ -437,13 +437,13 @@ def flatToMappedRec(flat_rec: list,
     """
     rec_id          = getFlatRecFld(flat_rec, CatCol.CC_ID, CatFldType.CFT_INT)
 
-    purch_day       = getFlatRecFld(flat_rec, CatCol.CC_PURCH_DAY)  # TODO: Change to integer type
-    purch_month     = getFlatRecFld(flat_rec, CatCol.CC_PURCH_MON)
-    purch_year      = getFlatRecFld(flat_rec, CatCol.CC_PURCH_YEAR)
+    purch_day       = getFlatRecFld(flat_rec, CatCol.CC_PURCH_DAY, CatFldType.CFT_INT)
+    purch_month     = getFlatRecFld(flat_rec, CatCol.CC_PURCH_MON, CatFldType.CFT_INT)
+    purch_year      = getFlatRecFld(flat_rec, CatCol.CC_PURCH_YEAR, CatFldType.CFT_INT)
 
-    arrival_day     = getFlatRecFld(flat_rec, CatCol.CC_ARRIVAL_DAY)
-    arrival_month   = getFlatRecFld(flat_rec, CatCol.CC_ARRIVAL_MON)
-    arrival_year    = getFlatRecFld(flat_rec, CatCol.CC_ARRIVAL_YEAR)
+    arrival_day     = getFlatRecFld(flat_rec, CatCol.CC_ARRIVAL_DAY, CatFldType.CFT_INT)
+    arrival_month   = getFlatRecFld(flat_rec, CatCol.CC_ARRIVAL_MON, CatFldType.CFT_INT)
+    arrival_year    = getFlatRecFld(flat_rec, CatCol.CC_ARRIVAL_YEAR, CatFldType.CFT_INT)
 
     number_in_order = getFlatRecFld(flat_rec, CatCol.CC_NUM_IN_ORDER, CatFldType.CFT_INT)
 
@@ -714,7 +714,6 @@ def mappedToFlatRec(mapped_rec: dict,
 
     flat_rec[CatCol.CC_ID] = rec_id
 
-    # Split date strings into date components
     if purchase_date:
         flat_rec[CatCol.CC_PURCH_YEAR] = purchase_date.get(BCK_DATE_YEAR, '')
         flat_rec[CatCol.CC_PURCH_MON] = purchase_date.get(BCK_DATE_MONTH, '')
