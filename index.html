@@ -123,6 +123,10 @@
             const REGEX_YEAR    = new RegExp(/^[1-9][0-9]*$/);
             const REGEX_MONTH   = new RegExp(/^(1[0-2]|0?[1-9])$/);
             const REGEX_DAY     = new RegExp(/^(0?[1-9]|[1-2][0-9]|3[01])$/);
+            const YEAR_MIN  = 1;    // Not dealing with BCE items... :)
+            const MONTH_MIN = 1;
+            const MONTH_MAX = 12;
+            const DAY_MIN   = 1;
             const STD_MONTH_LENGTHS =
             {
                 1:  31,
@@ -138,7 +142,7 @@
                 11: 30,
                 12: 31
             };
-            const FEB_LEAP_YEAR_DAYS    = 29;
+            const FEB_LEAP_YEAR_DAYS = 29;
 
             // Mapping between currency codes and symbols
             const CURRENCY_SYMBOLS =
@@ -1162,9 +1166,13 @@
                     dateComponents = dateString.split(DATE_SEP);
                     if (dateComponents.length > 0 && dateComponents.length <= 3)
                     {
-                        year    = dateComponents.shift();
-                        month   = dateComponents.length > 0 ? dateComponents.shift() : null;
-                        day     = dateComponents.length > 0 ? dateComponents.shift() : null;
+                        yearString  = dateComponents.shift();
+                        monthString = dateComponents.length > 0 ? dateComponents.shift() : null;
+                        dayString   = dateComponents.length > 0 ? dateComponents.shift() : null;
+
+                        year    = (yearString && REGEX_YEAR.test(yearString)) ? parseInt(yearString) : null;
+                        month   = (monthString && REGEX_MONTH.test(monthString)) ? parseInt(monthString) : null;
+                        day     = (dayString && REGEX_DAY.test(dayString)) ? parseInt(dayString) : null;
 
                         setFld(fldParams.data, keyChain.concat([CAT_FLD_DATE_YEAR]), year, CAT_FLD_SRC_BASE);
                         setFld(fldParams.data, keyChain.concat([CAT_FLD_DATE_MONTH]), month, CAT_FLD_SRC_BASE);
@@ -1183,29 +1191,20 @@
                 let dateObj = fldParams.value;
                 if (dateObj)
                 {
-                    let yearString  = dateObj[CAT_FLD_DATE_YEAR];
-                    let monthString = dateObj[CAT_FLD_DATE_MONTH];
-                    let dayString   = dateObj[CAT_FLD_DATE_DAY];
+                    let year  = dateObj[CAT_FLD_DATE_YEAR];
+                    let month = dateObj[CAT_FLD_DATE_MONTH];
+                    let day   = dateObj[CAT_FLD_DATE_DAY];
 
-                    if (yearString)
+                    if (year)
                     {
-                        cellString = yearString;
-                        if (monthString)
+                        cellString = year;
+                        if (month)
                         {
-                            if (REGEX_MONTH.test(monthString))
+                            cellString += DATE_SEP + (month < 10 ? "0" : "") + month.toString();
+
+                            if (day)
                             {
-                                let month = Number.parseInt(monthString);
-                                monthString = (month < 10 ? "0" : "") + month.toString();
-                            }
-                            cellString += DATE_SEP + monthString;
-                            if (dayString)
-                            {
-                                if (REGEX_DAY.test(dayString))
-                                {
-                                    let day = Number.parseInt(dayString);
-                                    dayString = (day < 10 ? "0": "") + day.toString();
-                                }
-                                cellString += DATE_SEP + dayString;
+                                cellString += DATE_SEP + (day < 10 ? "0": "") + day.toString();
                             }
                         }
                     }
@@ -1213,39 +1212,31 @@
                 return markFldValidity(fldParams, cellString);
             }
 
-            // Checks if a date (specified as year, month, day strings) is valid
+            // Checks if a date (specified as year, month, day values) is valid
             function isDateValid(year, month, day)
             {
                 let valid = true;
                 if (year)
                 {
-                    valid = REGEX_YEAR.test(year);
-                    if (month && valid)
+                    valid = (year >= YEAR_MIN);
+                    if (valid && month)
                     {
-                        valid = REGEX_MONTH.test(month);
-                        if (day && valid)
+                        valid = (month >= MONTH_MIN && month <= MONTH_MAX);
+                        if (valid && day)
                         {
-                            valid = REGEX_DAY.test(day);
-                            if (valid)
+                            let day_max = STD_MONTH_LENGTHS[month];
+                            // Special handling for February... bloody February
+                            if (month == 2 &&
+                               (year % 400 == 0 ||
+                               (year % 4 == 0 && year % 100 != 0)))
                             {
-                                year    = parseInt(year);
-                                month   = parseInt(month);
-                                day     = parseInt(day);
-
-                                let day_max = STD_MONTH_LENGTHS[month];
-                                if (month == 2 &&
-                                    (year % 400 == 0 ||
-                                    (year % 4 == 0 && year % 100 != 0)))
-                                {
-                                    day_max = FEB_LEAP_YEAR_DAYS;
-                                }
-
-                                valid = day <= day_max;
+                                day_max = FEB_LEAP_YEAR_DAYS;
                             }
+
+                            valid = day <= day_max;
                         }
                     }
                 }
-
                 return valid;
             }
 
