@@ -77,12 +77,12 @@
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label" for="srcComb">
-                        <input type="radio" class="form-check-input" id="srcComb" name="optSrc" value="combined">combined
+                        <input type="radio" class="form-check-input" id="srcComb" name="optSrc" value="combined" checked>combined
                     </label>
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label" for="srcMC">
-                        <input type="radio" class="form-check-input" id="srcMC" name="optSrc" value="base" checked>munchi
+                        <input type="radio" class="form-check-input" id="srcMC" name="optSrc" value="base">munchi
                     </label>
                 </div>
                 <div class="form-check-inline">
@@ -95,16 +95,21 @@
                         <input type="radio" class="form-check-input" id="srcAma" name="optSrc" value="amazon">amazon
                     </label>
                 </div>
-                <div class="dropdown dropright">
-                    <button type="button" class="dropdown-toggle" data-toggle="dropdown">
-                        Add catalogue record
-                    </button>
-                    <div class="dropdown-menu">
-                        <span class="dropdown-item" id="itmAddCatEnd">At end of catalogue</span>
-                        <span class="dropdown-item" id="itmAddCatBeg">At start of catalogue</span>
-                        <span class="dropdown-item" id="itmAddAfterSel">After selected record</span>
-                        <span class="dropdown-item" id="itmAddBeforeSel">Before selected record</span>
+                <div class="form-inline">
+                    <div class="dropdown dropright">
+                        <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                            Add catalogue record
+                        </button>
+                        <div class="dropdown-menu">
+                            <span class="dropdown-item" id="itmAddCatEnd">At end of catalogue</span>
+                            <span class="dropdown-item" id="itmAddCatBeg">At start of catalogue</span>
+                            <span class="dropdown-item" id="itmAddAfterSel">After selected record</span>
+                            <span class="dropdown-item" id="itmAddBeforeSel">Before selected record</span>
+                        </div>
                     </div>
+                    <button type="button" id="btnResynch" style="margin: 0em 1em;">
+                        Resynch
+                    </button>
                 </div>
             </div>
         </div>
@@ -156,7 +161,8 @@
                 "":     ""
             };
 
-            // Mass conversions
+            // Dimension conversions
+            const IN_TO_CM  = 2.54
             const LB_TO_OZ  = 16;
             const OZ_TO_KG  = 0.028;
             const LB_TO_KG  = LB_TO_OZ * OZ_TO_KG;
@@ -207,6 +213,22 @@
             const CAT_FLD_COVER_REQUIRED        = "cover_required";
             const CAT_FLD_NOTES                 = "notes";
             const CAT_FLD_INFO_URL              = "info_url";
+
+            // Open library field keys
+            const OLK_DETAILS           = "details";
+            const OLK_AUTHORS           = 'authors'
+            const OLK_AUTHOR_NAME       = 'name'
+            const OLK_KEY               = 'key';
+            const OLK_FORMAT            = 'physical_format';
+            const OLK_DIMENSIONS        = 'physical_dimensions';
+            const OLK_WEIGHT            = 'weight';
+            const OLK_PAGES             = 'number_of_pages';
+            const OLK_PUBLISHERS        = 'publishers';
+            const OLK_PUBLISH_PLACES    = 'publish_places';
+            const OLK_PUBLISH_DATE      = 'publish_date';
+            const OLK_SUBTITLE          = 'subtitle';
+            const OLK_TITLE             = 'title';
+            const OLK_URL               = 'info_url';
 
             // Faking an enum
             const NameEnum =
@@ -770,8 +792,13 @@
                     addCatRec(gridRefIdx, dataRefIdx, newId, false);
                 });
 
+                $("#btnResynch").click(function()
+                {
+                    gridOptions.api.getSelectedNodes().forEach(synchWithOpenlib);
+                });
             });
 
+            // Loads the default catalogue
             function loadDefaultCat()
             {
                 catFilename = "Books.cat";
@@ -789,6 +816,7 @@
                 xmlhttp.send();
             }
 
+            // Loads a selected catalogue
             function loadSelectedCat()
             {
                 let fileinput, fileReader;
@@ -833,6 +861,98 @@
                 gridOptions.api.sizeColumnsToFit();
 
                 document.getElementById("divCatInfo").innerHTML = "Displaying catalogue: '" + catFilename + "'";
+            }
+
+            // Synch the record associated with a grid node with openlib
+            function synchWithOpenlib(gridNode)
+            {
+                let isbn = gridNode.data[CAT_FLD_ISBN13];
+                if (isbn)
+                {
+                    $.ajax(
+                    {
+                        url: "https://openlibrary.org/api/books?bibkeys=" + isbn + "&jscmd=details&format=json",
+                        dataType: "json",
+                        success: function(queryRes)
+                        {
+                            let catRec = gridNode.data;
+
+                            // Clear any existing openlib data for the record
+                            setFld(catRec, [CAT_FLD_SRC_OPENLIB], {}, CAT_FLD_SRC_BASE);
+
+                            let olRec = queryRes[isbn];
+                            if (olRec && olRec[OLK_DETAILS])
+                            {
+                                // Process author data
+                                let auths = [];
+                                let olRecAuths = olRec[OLK_DETAILS][CAT_FLD_AUTHORS];
+                                if (olRecAuths)
+                                {
+                                    for (let idx = 0; idx < olRecAuths.length; idx++)
+                                    {
+                                        let authNames = olRecAuths[idx][OLK_AUTHOR_NAME].split(" ");
+                                        let openlibAuth = {};
+                                        openlibAuth[CAT_FLD_AUTHOR_SURNAME] = authNames.length > 0 ? authNames.pop() : null;
+                                        openlibAuth[CAT_FLD_AUTHOR_GIVEN_NAMES] = authNames;
+                                        auths.push(openlibAuth);
+                                    }
+                                    setFld(catRec, [CAT_FLD_AUTHORS], auths, CAT_FLD_SRC_OPENLIB);
+                                }
+
+                                // Process dimensions, length and mass
+                                let olDimStr = olRec[OLK_DETAILS][OLK_DIMENSIONS];
+                                if (olDimStr)
+                                {
+                                    // Assume OL dimensions are in inches
+                                    let dimComponents = olDimStr.split(new RegExp(/\s+x\s+|\s+/));
+                                    let olHeight = parseFloat(dimComponents.shift()) * IN_TO_CM;
+                                    let olWidth = parseFloat(dimComponents.shift()) * IN_TO_CM;
+                                    let olThickness = parseFloat(dimComponents.shift()) * IN_TO_CM;
+                                    setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], olHeight, CAT_FLD_SRC_OPENLIB);
+                                    setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], olWidth, CAT_FLD_SRC_OPENLIB);
+                                    setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], olThickness, CAT_FLD_SRC_OPENLIB);
+                                }
+
+                                setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], olRec[OLK_DETAILS][OLK_PAGES], CAT_FLD_SRC_OPENLIB);
+
+                                let olMassStr = olRec[OLK_DETAILS][OLK_WEIGHT];
+                                if (olMassStr)
+                                {
+                                    let olMassComponents = olMassStr.trim().split(new RegExp(/\s+/));
+                                    let olMass = olMassComponents.shift();
+                                    let olMassUnits = olMassComponents.length > 0 ? olMassComponents.shift() : null;
+                                    if (!isNaN(olMass))
+                                    {
+                                        setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], parseFloat(olMass), CAT_FLD_SRC_OPENLIB);
+                                    }
+                                    setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS], olMassUnits, CAT_FLD_SRC_OPENLIB);
+                                }
+
+                                // Process miscellaneous details
+                                let olSubkeys = [OLK_FORMAT, OLK_KEY, OLK_PUBLISHERS, OLK_PUBLISH_PLACES, OLK_PUBLISH_DATE, OLK_SUBTITLE, OLK_TITLE];
+                                for (let idx = 0; idx < olSubkeys.length; idx++)
+                                {
+                                    subkey = olSubkeys[idx];
+                                    setFld(catRec, [subkey], olRec[OLK_DETAILS][subkey], CAT_FLD_SRC_OPENLIB);
+                                }
+
+                                setFld(catRec, [OLK_URL], olRec[OLK_DETAILS][OLK_URL], CAT_FLD_SRC_OPENLIB);
+
+                                // Mark the record as having an openlib equivalent
+                                setFlag(catRec, BCK_FLAG_BIT_IN_OPENLIB);
+                            }
+                            else
+                            {
+                                clearFlag(catRec, BCK_FLAG_BIT_IN_OPENLIB);
+                            }
+
+                            // Mark the record as in synch
+                            setFlag(catRec, BCK_FLAG_BIT_OPENLIB_SYNCED);
+
+                            gridOptions.api.refreshCells(gridNode);
+                        }
+                    });
+                }
             }
 
             // Returns the minimum catalogue record ID
@@ -952,14 +1072,14 @@
             }
 
             // Fetches a field from a catalogue record, assuming the data
-            // source specified by the dataSrc parameter and returning null
-            // if the field doesn't exist.
+            // source specified by the dataSrc parameter and returning a
+            // default value if the field doesn't exist.
             // If the "combined" data source is selected, the function
             // checks each of the three data sources in turn for a non-null
             // field.
-            function getFld(catRec, keyChain, dataSrc = getDataSrc())
+            function getFld(catRec, keyChain, dataSrc = getDataSrc(), defVal = null)
             {
-                let fld = null;
+                let fld = defVal;
                 let dataSrcList = dataSrc == CAT_FLD_SRC_COMB ? [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON] : [dataSrc];
                 while(dataSrcList.length > 0 && !fld)
                 {
@@ -1006,16 +1126,26 @@
                 return true;
             }
 
+            // Sets a flag
+            function setFlag(catRec, flagPos)
+            {
+                let flags = getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0);
+                flags |= (1 << flagPos);
+                setFld(catRec, [CAT_FLD_FLAGS], flags, CAT_FLD_SRC_BASE);
+            }
+
+            // Clears a flag
+            function clearFlag(catRec, flagPos)
+            {
+                let flags = getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0);
+                flags |= (1 << flagPos);
+                setFld(catRec, [CAT_FLD_FLAGS], flags, CAT_FLD_SRC_BASE);
+            }
+
             // Return true if a given catalogue record has an openlib entry
             function inOpenLib(catRec)
             {
-                return (hasFld(catRec, [CAT_FLD_FLAGS]) &&
-                        getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE) & (1 << BCK_FLAG_BIT_IN_OPENLIB));
-            }
-
-            function hasOpenlibFld(params, key)
-            {
-                return (hasFld(params.data, [CAT_FLD_SRC_OPENLIB, key]));
+                return (getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0) & (1 << BCK_FLAG_BIT_IN_OPENLIB));
             }
 
             function getDataSrc()
