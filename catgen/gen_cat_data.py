@@ -286,7 +286,7 @@ def popMappedRec(mapped_rec: dict,
 
         openlib_mass_units_match = re.search(r'[a-z]+', openlib_mass_str)
         if openlib_mass_units_match:
-            setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_MASS_UNITS], openlib_mass_match.group(0))
+            setMappedRecFld(mapped_rec, [BCK_SRC_OPENLIB, BCK_DIM, BCK_DIM_MASS_UNITS], openlib_mass_units_match.group(0))
 
     for subkey in [OLK_FORMAT, OLK_KEY, OLK_PUBLISHERS, OLK_PUBLISH_PLACES, OLK_PUBLISH_DATE, OLK_SUBTITLE, OLK_TITLE]:
         if subkey in openlib_record[OLK_DETAILS].keys():
@@ -307,7 +307,7 @@ def popMappedRecs(mapped_recs: dict,
         popMappedRec(mapped_rec, verbose)
         if BCK_SRC_OPENLIB in mapped_rec.keys() and OLK_TITLE in mapped_rec[BCK_SRC_OPENLIB].keys():
             setMappedRecFlag(mapped_rec, BCK_FLAG_BIT_IN_OPENLIB)
-            print('ISBN {} matches OpenLibrary title:\n\t{}'.format(mapped_rec[OLK_ISBN13], mapped_rec[OLK_TITLE]))
+            print('ISBN {} matches OpenLibrary title:\n\t{}'.format(mapped_rec[OLK_ISBN13], mapped_rec[BCK_SRC_OPENLIB][OLK_TITLE]))
 
     if verbose:
         for mapped_rec in mapped_recs:
