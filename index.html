@@ -45,6 +45,16 @@
         {
             background-color:   red;
         }
+
+        .cat-dropdown
+        {
+            font-size:  inherit;
+        }
+
+        .cat-dropdown-item
+        {
+            padding:    0.25em 0em 0.5em 1em;
+        }
     </style>
     <body>
         <div id="testDiv"></div>
@@ -100,15 +110,15 @@
                         <button type="button" class="dropdown-toggle" data-toggle="dropdown">
                             Add catalogue record
                         </button>
-                        <div class="dropdown-menu">
-                            <span class="dropdown-item" id="itmAddCatEnd">At end of catalogue</span>
-                            <span class="dropdown-item" id="itmAddCatBeg">At start of catalogue</span>
-                            <span class="dropdown-item" id="itmAddAfterSel">After selected record</span>
-                            <span class="dropdown-item" id="itmAddBeforeSel">Before selected record</span>
+                        <div class="dropdown-menu cat-dropdown" style="padding: 0.5em">
+                            <span class="dropdown-item cat-dropdown-item" id="itmAddCatEnd">At end of catalogue</span>
+                            <span class="dropdown-item cat-dropdown-item" id="itmAddCatBeg">At start of catalogue</span>
+                            <span class="dropdown-item cat-dropdown-item" id="itmAddAfterSel">After selected record</span>
+                            <span class="dropdown-item cat-dropdown-item" id="itmAddBeforeSel">Before selected record</span>
                         </div>
                     </div>
                     <button type="button" id="btnResynch" style="margin: 0em 1em;">
-                        Resynch
+                        Synch with openlib
                     </button>
                 </div>
             </div>
@@ -249,17 +259,18 @@
             const UPDATED_CAT_EXT   = ".updated";
 
             // Default column options
-            const defaultBookCol =
+            const defaultCatCol =
             {
                 sortable:   true,
                 filter:     true,
                 resizable:  true,
-                editable:   true
+                editable:   true,
+                menuTabs:   ["filterMenuTab", "columnsMenuTab"]
             };
 
             // Column header names
             const COL_HDR_ID                = "ID";
-            const COL_HDR_RESYNCH           = "Resynch";
+            const COL_HDR_SYNCH           = "Synch needed";
             const COL_HDR_IN_OPENLIB        = "In openlib";
             const COL_GRP_HDR_PURCHASE      = "Purchase Details";
             const COL_HDR_PURCH_DATE        = "Purchase Date";
@@ -303,7 +314,7 @@
                     hide:       false
                 },
                 {
-                    headerName:         COL_HDR_RESYNCH,
+                    headerName:         COL_HDR_SYNCH,
                     checkboxSelection:  true,
                     headerTooltip:      "Check for updated openlib details",
                 },
@@ -669,13 +680,12 @@
             // Default grid configuration (empty data)
             let gridOptions =
             {
-                defaultColDef:          defaultBookCol,
+                defaultColDef:          defaultCatCol,
                 columnDefs:             bookColumns,
                 rowSelection:           "multiple",
                 rowDeselection:         true,           // Allow deselecting rows with Ctrl-click
                 enableRangeSelection:   true,           // Allow multiple values in the same column to be selected/copied
                 suppressRowTransform:   true,           // Allow row spanning
-                rowData:                [],
                 getContextMenuItems:    getCatContextMenu,
                 onRowSelected: function(params)
                 {
@@ -688,7 +698,8 @@
                 components:
                 {
                     datePicker: getDatePicker()
-                }
+                },
+                rowData:                []
             };
 
             let catFilename = ""
@@ -874,6 +885,7 @@
                     "copy",
                     "export",
                     "separator",
+                    "autoSizeAll",
                     "resetColumns"
                 ];
 
