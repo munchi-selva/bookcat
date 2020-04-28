@@ -118,6 +118,7 @@
             // ISBN handling
             const REGEX_ISBN13              = new RegExp(/^978[0-9]{9}[0-9X]$/);
             const REGEX_ISBN10              = new RegExp(/^[0-9]{9}[0-9X]$/);
+            const ISBN13_PREFIX             = "978";
             const ISBN13_DIGITS             = 13;
             const ISBN13_MOD_FACTOR         = 10;
             const ISBN10_DIGITS             = 10;
@@ -216,19 +217,19 @@
 
             // Open library field keys
             const OLK_DETAILS           = "details";
-            const OLK_AUTHORS           = 'authors'
-            const OLK_AUTHOR_NAME       = 'name'
-            const OLK_KEY               = 'key';
-            const OLK_FORMAT            = 'physical_format';
-            const OLK_DIMENSIONS        = 'physical_dimensions';
-            const OLK_WEIGHT            = 'weight';
-            const OLK_PAGES             = 'number_of_pages';
-            const OLK_PUBLISHERS        = 'publishers';
-            const OLK_PUBLISH_PLACES    = 'publish_places';
-            const OLK_PUBLISH_DATE      = 'publish_date';
-            const OLK_SUBTITLE          = 'subtitle';
-            const OLK_TITLE             = 'title';
-            const OLK_URL               = 'info_url';
+            const OLK_AUTHORS           = "authors"
+            const OLK_AUTHOR_NAME       = "name"
+            const OLK_KEY               = "key";
+            const OLK_FORMAT            = "physical_format";
+            const OLK_DIMENSIONS        = "physical_dimensions";
+            const OLK_WEIGHT            = "weight";
+            const OLK_PAGES             = "number_of_pages";
+            const OLK_PUBLISHERS        = "publishers";
+            const OLK_PUBLISH_PLACES    = "publish_places";
+            const OLK_PUBLISH_DATE      = "publish_date";
+            const OLK_SUBTITLE          = "subtitle";
+            const OLK_TITLE             = "title";
+            const OLK_URL               = "info_url";
 
             // Faking an enum
             const NameEnum =
@@ -364,7 +365,7 @@
                         {
                             headerName: COL_HDR_CURRENCY,
                             field: CAT_FLD_CURRENCY,
-                            cellEditor: 'agRichSelectCellEditor',
+                            cellEditor: "agRichSelectCellEditor",
                             cellEditorParams:
                             {
                                 values: Object.keys(CURRENCY_SYMBOLS)
@@ -453,7 +454,7 @@
                                 cellString = params.value;
                                 return markFldValidity(params, cellString);
                             },
-                            hide: true
+                            hide: false
                         }
                     ]
                 },
@@ -514,7 +515,7 @@
                         infoUrl = getFld(params.data, [CAT_FLD_INFO_URL], CAT_FLD_SRC_OPENLIB);
                         if (infoUrl)
                         {
-                            cellString = '<a href="' + infoUrl + '" target="_blank">' + cellString + '</a>';
+                            cellString = "<a href='" + infoUrl + "' target='_blank'>" + cellString + "</a>";
                         }
                         return cellString;
                     },
@@ -670,11 +671,12 @@
             {
                 defaultColDef:          defaultBookCol,
                 columnDefs:             bookColumns,
-                rowSelection:           'multiple',
+                rowSelection:           "multiple",
                 rowDeselection:         true,           // Allow deselecting rows with Ctrl-click
                 enableRangeSelection:   true,           // Allow multiple values in the same column to be selected/copied
                 suppressRowTransform:   true,           // Allow row spanning
                 rowData:                [],
+                getContextMenuItems:    getCatContextMenu,
                 onRowSelected: function(params)
                 {
                     if (getFld(params.data, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE))
@@ -689,13 +691,13 @@
                 }
             };
 
-            let catFilename = '';
+            let catFilename = ""
             let catData     = [];
 
             $(document).ready(function()
             {
                 // Initialise the catalogue grid
-                let gridDiv = document.querySelector('#catGrid');
+                let gridDiv = document.querySelector("#catGrid");
                 new agGrid.Grid(gridDiv, gridOptions);
                 loadDefaultCat();
 
@@ -768,7 +770,7 @@
                         dataRefIdx = catData.indexOf(firstGridSelection.data);
                         newId = firstGridSelection.data[CAT_FLD_ID] + 1;
                     }
-                
+
                     addCatRec(gridRefIdx, dataRefIdx, newId, true);
                 });
 
@@ -788,7 +790,7 @@
                         dataRefIdx = catData.indexOf(firstGridSelection.data);
                         newId = firstGridSelection.data[CAT_FLD_ID];
                     }
-                
+
                     addCatRec(gridRefIdx, dataRefIdx, newId, false);
                 });
 
@@ -861,6 +863,55 @@
                 gridOptions.api.sizeColumnsToFit();
 
                 document.getElementById("divCatInfo").innerHTML = "Displaying catalogue: '" + catFilename + "'";
+            }
+
+            // Defines the menu that appears when a cell is right-clicked
+            function getCatContextMenu(params)
+            {
+                // Default items
+                let menuItems =
+                [
+                    "copy",
+                    "export",
+                    "separator",
+                    "resetColumns"
+                ];
+
+                let colId = params.column.colId;
+                switch (colId)
+                {
+                    // For the ISBN13/10 columns, add an item for filling in
+                    // the value by converting the counterpart ("source") ISBN
+                    case CAT_FLD_ISBN13:
+                    case CAT_FLD_ISBN10:
+                    {
+                        let isbnSourceName      = colId == CAT_FLD_ISBN13 ? COL_HDR_ISBN_10 : COL_HDR_ISBN_13;
+                        let isbnSource          = colId == CAT_FLD_ISBN13 ? CAT_FLD_ISBN10 : CAT_FLD_ISBN13;
+                        let isbnSourceDigits    = colId == CAT_FLD_ISBN13 ? ISBN10_DIGITS : ISBN13_DIGITS;
+                        let menuItemAutofillISBN =
+                        {
+                            name: "Fill in based on " + isbnSourceName,
+
+                            // Disable fill-in if the source ISBN is invalid
+                            disabled: !isISBNValid(getFld(params.node.data, [isbnSource], CAT_FLD_SRC_BASE), isbnSourceDigits),
+
+                            action: function()
+                            {
+                                let newISBN = convISBN(getFld(params.node.data, [isbnSource], CAT_FLD_SRC_BASE));
+                                if (newISBN)
+                                {
+                                    setFld(params.node.data, [colId], newISBN, CAT_FLD_SRC_BASE);
+                                    gridOptions.api.refreshCells(params.node);
+                                }
+                            }
+                        };
+                        menuItems.push("separator");
+                        menuItems.push(menuItemAutofillISBN);
+                        break;
+                    }
+                }
+
+                return menuItems;
             }
 
             // Synch the record associated with a grid node with openlib
@@ -1023,34 +1074,10 @@
                 return (catRec1[CAT_FLD_ID] - catRec2[CAT_FLD_ID]);
             }
 
-            // Format a field as a currency string
-            function formatAsCurrency(fldParams)
+            // Identifies the catalogue data source
+            function getDataSrc()
             {
-                priceString = null;
-
-                if (fldParams.value)
-                {
-                    priceString = Number.parseFloat(fldParams.value).toFixed(2);
-                    currency = getFld(fldParams.data, [CAT_FLD_CURRENCY], CAT_FLD_SRC_BASE);
-                    if (currency)
-                    {
-                        if (currency == 'VND')
-                        {
-                            priceString += CURRENCY_SYMBOLS[currency];
-                        }
-                        else
-                        {
-                            priceString = CURRENCY_SYMBOLS[currency] + priceString;
-                        }
-                    }
-                }
-
-                return (priceString);
-            }
-
-            function formatAsMass(mass)
-            {
-                return (Number.parseFloat(mass).toFixed(3));
+                return ($("[name='optSrc']:checked").val());
             }
 
             // Checks if a catalogue record includes a field, which is
@@ -1148,9 +1175,34 @@
                 return (getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0) & (1 << BCK_FLAG_BIT_IN_OPENLIB));
             }
 
-            function getDataSrc()
+            // Format a field as a currency string
+            function formatAsCurrency(fldParams)
             {
-                return ($("[name='optSrc']:checked").val());
+                priceString = null;
+
+                if (fldParams.value)
+                {
+                    priceString = Number.parseFloat(fldParams.value).toFixed(2);
+                    currency = getFld(fldParams.data, [CAT_FLD_CURRENCY], CAT_FLD_SRC_BASE);
+                    if (currency)
+                    {
+                        if (currency == "VND")
+                        {
+                            priceString += CURRENCY_SYMBOLS[currency];
+                        }
+                        else
+                        {
+                            priceString = CURRENCY_SYMBOLS[currency] + priceString;
+                        }
+                    }
+                }
+
+                return (priceString);
+            }
+
+            function formatAsMass(mass)
+            {
+                return (Number.parseFloat(mass).toFixed(3));
             }
 
             function getAuthorNames(params, nameType)
@@ -1248,6 +1300,19 @@
                 return setFld(params.data, [CAT_FLD_AUTHORS], authData);
             }
 
+            // Checks if a candidate ISBN is valid, i.e. matches the relevant
+            // pattern for the required number of digits
+            function isISBNValid(isbnCandidate, requiredDigits)
+            {
+                let valid = false;
+                if (requiredDigits == ISBN10_DIGITS || requiredDigits == ISBN13_DIGITS)
+                {
+                    let isbnRegexMatch = requiredDigits == ISBN10_DIGITS ? REGEX_ISBN10.test(isbnCandidate) : REGEX_ISBN13.test(isbnCandidate);
+                    valid = isbnRegexMatch && (calcISBNCheckDigit(isbnCandidate) == isbnCandidate[isbnCandidate.length - 1]);
+                }
+                return valid;
+            }
+
             // Computes the expected check digit for a candidate ISBN, using
             // steps described at https://bisg.org/page/conversionscalculat
             function calcISBNCheckDigit(isbnCandidate)
@@ -1265,7 +1330,7 @@
                     {
                         checkDigit = ISBN10_MOD_FACTOR - checkDigit;
                     }
-                    return checkDigit < 10 ? checkDigit.toString() : 'X';
+                    return checkDigit < 10 ? checkDigit.toString() : "X";
                 }
                 else if (REGEX_ISBN13.test(isbnCandidate))
                 {
@@ -1282,9 +1347,56 @@
                         }
                     }
                     checkDigit = ISBN13_MOD_FACTOR - checkDigit % ISBN13_MOD_FACTOR;
-                    return checkDigit < 10 ? checkDigit.toString() : '0';
+                    return checkDigit < 10 ? checkDigit.toString() : "0";
                 }
                 return checkDigit.toString();
+            }
+
+            // Converts between ISBN formats
+            function convISBN(isbn)
+            {
+                let isbnConv = null;
+                if (REGEX_ISBN10.test(isbn) || REGEX_ISBN13.test(isbn))
+                {
+                    if (REGEX_ISBN10.test(isbn))
+                    {
+                        isbnConv = ISBN13_PREFIX + isbn;
+                    }
+                    else if (REGEX_ISBN13.test(isbn))
+                    {
+                        isbnConv = isbn.replace(ISBN13_PREFIX, "");
+                    }
+                    isbnConv = isbnConv.substr(0, isbnConv.length - 1) + calcISBNCheckDigit(isbnConv);
+                }
+                return isbnConv;
+            }
+
+            // Checks if a date (specified as year, month, day values) is valid
+            function isDateValid(year, month, day)
+            {
+                let valid = true;
+                if (year)
+                {
+                    valid = (year >= YEAR_MIN);
+                    if (valid && month)
+                    {
+                        valid = (month >= MONTH_MIN && month <= MONTH_MAX);
+                        if (valid && day)
+                        {
+                            let day_max = STD_MONTH_LENGTHS[month];
+                            // Special handling for February... bloody February
+                            if (month == 2 &&
+                               (year % 400 == 0 ||
+                               (year % 4 == 0 && year % 100 != 0)))
+                            {
+                                day_max = FEB_LEAP_YEAR_DAYS;
+                            }
+
+                            valid = day <= day_max;
+                        }
+                    }
+                }
+                return valid;
             }
 
             // Sets a date field
@@ -1342,34 +1454,6 @@
                 return markFldValidity(fldParams, cellString);
             }
 
-            // Checks if a date (specified as year, month, day values) is valid
-            function isDateValid(year, month, day)
-            {
-                let valid = true;
-                if (year)
-                {
-                    valid = (year >= YEAR_MIN);
-                    if (valid && month)
-                    {
-                        valid = (month >= MONTH_MIN && month <= MONTH_MAX);
-                        if (valid && day)
-                        {
-                            let day_max = STD_MONTH_LENGTHS[month];
-                            // Special handling for February... bloody February
-                            if (month == 2 &&
-                               (year % 400 == 0 ||
-                               (year % 4 == 0 && year % 100 != 0)))
-                            {
-                                day_max = FEB_LEAP_YEAR_DAYS;
-                            }
-
-                            valid = day <= day_max;
-                        }
-                    }
-                }
-                return valid;
-            }
-
             // Checks if a given catalogue record field's contents are valid:
             // validation steps depend on the field's expected data type, etc.
             function isFldValid(fldParams)
@@ -1385,8 +1469,8 @@
                         {
                             // The ISBN field must match the relevant pattern
                             // and have a sensible check digit
-                            let isbnRegexMatch = fldHdr == COL_HDR_ISBN_13 ? REGEX_ISBN13.test(isbnCandidate) : REGEX_ISBN10.test(isbnCandidate);
-                            valid = isbnRegexMatch && (calcISBNCheckDigit(isbnCandidate) == isbnCandidate[isbnCandidate.length - 1]);
+                            let requiredDigits = fldHdr == COL_HDR_ISBN_13 ? ISBN13_DIGITS : ISBN10_DIGITS;
+                            valid = isISBNValid(isbnCandidate, requiredDigits);
                         }
                         break;
 
@@ -1417,7 +1501,7 @@
 
             function markFldValidity(fldParams, cellString)
             {
-                return isFldValid(fldParams) ? cellString : '<span class="invalid-data">' + cellString + '</span>';
+                return isFldValid(fldParams) ? cellString : "<span class='invalid-data'>" + cellString + "</span>";
             }
 
             // Date picker implementation, stolen from:
@@ -1430,11 +1514,11 @@
                 Datepicker.prototype.init = function(params)
                 {
                     // Create the cell
-                    this.eInput = document.createElement('input');
+                    this.eInput = document.createElement("input");
                     this.eInput.value = params.value;
 
                     // From: https://jqueryui.com/datepicker/
-                    $(this.eInput).datepicker({dateFormat: 'yy-mm-dd'});
+                    $(this.eInput).datepicker({dateFormat: "yy-mm-dd"});
                 };
 
                 // Called once when the grid is ready to insert the element
@@ -1471,279 +1555,6 @@
 
                 return Datepicker;
             }
-
-
-            // Test catalogue data
-            let testCat =
-            [
-                {
-                    "purchase_date": "2019-09-30",
-                    "isbn_13": "9781408886809",
-                    "item_within_order": "1",
-                    "authors": [
-                        {
-                            "surname": "Gaiman",
-                            "given_names": [
-                                "Neil"
-                            ]
-                        }
-                    ],
-                    "title": "Norse Mythology",
-                    "publishers": [
-                        {
-                            "name": "Bloomsbury"
-                        }
-                    ],
-                    "seller_id": "LL",
-                    "purchase_price": "4.00",
-                    "purchase_currency": "AUD"
-                },
-                {
-                    "purchase_date": "2019-09-30",
-                    "isbn_13": "9780312427245",
-                    "item_within_order": "2",
-                    "authors": [
-                        {
-                            "surname": "Vargos Llosa",
-                            "given_names": [
-                                "Mario"
-                            ]
-                        },
-                        {
-                            "surname": "Lane",
-                            "given_names": [
-                                "Helen",
-                                "R."
-                            ]
-                        }
-                    ],
-                    "title": "Aunt Julia and the Scriptwriter",
-                    "publishers": [
-                        {
-                            "name": "Picador"
-                        }
-                    ],
-                    "seller_id": "LL",
-                    "purchase_price": "4.00",
-                    "purchase_currency": "AUD",
-                    "ignored_fields": [
-                        "authors"
-                    ],
-                    "isbn_10": [
-                        "0312427247"
-                    ],
-                    "publishers": [
-                        {
-                            "name": "Picador"
-                        }
-                    ],
-                    "publish_date": "October 2, 2007",
-                    "number_of_pages": 384,
-                    "title": "Aunt Julia and the Scriptwriter"
-                },
-                {
-                    "purchase_date": "2019-09-30",
-                    "isbn_13": "9781780746357",
-                    "item_within_order": "3",
-                    "authors": [
-                        {
-                            "surname": "James",
-                            "given_names": [
-                                "Marlon"
-                            ]
-                        }
-                    ],
-                    "title": "A Brief History of Seven Killings",
-                    "publishers": [
-                        {
-                            "name": "Oneworld"
-                        }
-                    ],
-                    "seller_id": "LL",
-                    "purchase_price": "3.00",
-                    "purchase_currency": "AUD"
-                },
-                {
-                    "purchase_date": "2019-11-29",
-                    "isbn_13": "9788891244390",
-                    "authors": [
-                        {
-                            "surname": "Manara",
-                            "given_names": [
-                                "Milo"
-                            ]
-                        }
-                    ],
-                    "title": "Aunt Julia and the Scriptwriter",
-                    "seller_id": "AmazonAU",
-                    "purchase_price": "36.15",
-                    "shipping_price": "0.00",
-                    "purchase_currency": "AUD"
-                },
-                {
-                    "arrival_date": "2019-12-01",
-                    "isbn_13": "9783462043235",
-                    "item_within_order": "1",
-                    "authors": [
-                        {
-                            "surname": "Kutscher",
-                            "given_names": [
-                                "Volker"
-                            ]
-                        }
-                    ],
-                    "title": "Goldstein",
-                    "publishers": [
-                        {
-                            "name": "Kiepenhauer & Witsch"
-                        }
-                    ],
-                    "notes": "Gift",
-                    "authors": [
-                        {
-                            "given_names": [
-                                "Volker"
-                            ],
-                            "surname": "Kutscher"
-                        }
-                    ],
-                    "isbn_10": [
-                        "3462043234"
-                    ],
-                    "publishers": [
-                        {
-                            "name": "Kiepenheuer & Witsch GmbH"
-                        }
-                    ],
-                    "publish_date": "1822",
-                    "title": "Goldstein"
-                },
-                {
-                    "arrival_date": "2019-12-01",
-                    "isbn_13": "9783462046465",
-                    "item_within_order": "2",
-                    "authors": [
-                        {
-                            "surname": "Kutscher",
-                            "given_names": [
-                                "Volker"
-                            ]
-                        }
-                    ],
-                    "title": "Die Akte Vaterland",
-                    "publishers": [
-                        {
-                            "name": "Kiepenhauer & Witsch"
-                        }
-                    ],
-                    "notes": "Gift"
-                },
-                {
-                    "purchase_date": "2019-12-06",
-                    "isbn_13": "9781786070609",
-                    "authors": [
-                        {
-                            "surname": "Sadawi",
-                            "given_names": [
-                                "Ahmed"
-                            ]
-                        }
-                    ],
-                    "title": "Frankenstein in Baghdad",
-                    "publishers": [
-                        {
-                            "name": "Oneworld"
-                        }
-                    ],
-                    "seller_id": "KinokuniyaSyd",
-                    "purchase_price": "9.95",
-                    "purchase_currency": "AUD",
-                    "publishers": [
-                        {
-                            "name": "Oneworld Publications"
-                        }
-                    ],
-                    "publish_date": "2018",
-                    "title": "Frankenstein in Baghdad"
-                },
-                {
-                    "purchase_date": "2019-12-09",
-                    "isbn_13": "9780008132576",
-                    "authors": [
-                        {
-                            "surname": "Stephenson",
-                            "given_names": [
-                                "Neal"
-                            ]
-                        },
-                        {
-                            "surname": "Galland",
-                            "given_names": [
-                                "Nicole"
-                            ]
-                        }
-                    ],
-                    "title": "The Rise and Fall of D.O.D.O",
-                    "publishers": [
-                        {
-                            "name": "Harper Collins"
-                        }
-                    ],
-                    "seller_id": "DymocksGeorgeSt",
-                    "purchase_price": "10.00",
-                    "purchase_currency": "AUD"
-                },
-                {
-                    "purchase_date": "2019-12-10",
-                    "isbn_13": "9780730324218",
-                    "authors": [
-                        {
-                            "surname": "Pape",
-                            "given_names": [
-                                "Scott"
-                            ]
-                        }
-                    ],
-                    "title": "The Barefoot Investor",
-                    "publishers": [
-                        {
-                            "name": "Wiley"
-                        }
-                    ],
-                    "seller_id": "DymocksGeorgeSt",
-                    "notes": "Gift",
-                    "authors": [
-                        {
-                            "given_names": [
-                                "Scott"
-                            ],
-                            "surname": "Pape"
-                        }
-                    ],
-                    "isbn_10": [
-                        "0730324214"
-                    ],
-                    "publish_date": "2017",
-                    "number_of_pages": 264,
-                    "title": "The barefoot investor"
-                },
-                {
-                    "purchase_date": "2019-12-16",
-                    "isbn_13": "9780692181065",
-                    "authors": [
-                        {
-                            "surname": "McAuliffe",
-                            "given_names": [
-                                "Callan"
-                            ]
-                        }
-                    ],
-                    "title": "The Hill Ghost",
-                    "seller_id": "HH_BJ",
-                    "purchase_price": "19.95",
-                    "purchase_currency": "AUD"
-                }
-            ];
 
             //document.getElementById('testDiv').innerHTML = CURRENCY_SYMBOLS['AUD'];
         </script>
