@@ -2,10 +2,10 @@
     {
         "isbn_13": "9780863079153",
         "isbn_10": "0863079156",
-        "flags": 0,
+        "flags": 1,
         "authors": [
             {
-                "surname": "Dickie",
+                "surname": "Dickens",
                 "given_names": [
                     "Charles"
                 ]
@@ -44971,6 +44971,12 @@
                 "given_names": [
                     "Guy"
                 ]
+            },
+            {
+                "surname": "Davis",
+                "given_names": [
+                    "Dan M."
+                ]
             }
         ],
         "title": "Turn Left at Orion",
@@ -44994,11 +45000,6 @@
                 "thickness": 2.3,
                 "length": 256
             }
-        },
-        "arrival_date": {
-            "year": 2020,
-            "month": 4,
-            "day": 20
         }
     },
     {
