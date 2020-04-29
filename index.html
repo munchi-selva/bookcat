@@ -1210,15 +1210,14 @@
                 return fld;
             }
 
-            // Sets a field value
+            // Sets a field value.
+            // If the catalogue is currently viewed with combined data sources,
+            // edits are directed to the base source.
             function setFld(catRec, keyChain, value, dataSrc = getDataSrc())
             {
-                if (dataSrc == CAT_FLD_SRC_COMB)
-                {
-                    return false;
-                }
+                let dataDest = dataSrc == CAT_FLD_SRC_COMB ? CAT_FLD_SRC_BASE : dataSrc;
 
-                let fldKeyChain = (dataSrc == CAT_FLD_SRC_BASE) ? keyChain : [dataSrc].concat(keyChain);
+                let fldKeyChain = (dataDest == CAT_FLD_SRC_BASE) ? keyChain : [dataDest].concat(keyChain);
                 let obj = catRec;
                 let key = null;
                 while (fldKeyChain.length > 1)
