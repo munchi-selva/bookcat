@@ -265,9 +265,13 @@
             {
                 sortable:   true,
                 filter:     true,
+                filterParams:
+                {
+                    resetButton: true
+                },
                 resizable:  true,
                 editable:   true,
-                menuTabs:   ["filterMenuTab", "columnsMenuTab"]
+                menuTabs:   ["columnsMenuTab"]
             };
 
             // Column header names
@@ -313,7 +317,7 @@
                     headerName: COL_HDR_ID,
                     field:      CAT_FLD_ID,
                     editable:   false,
-                    hide:       false
+                    filter:     "agNumberColumnFilter"
                 },
                 {
                     headerName:         COL_HDR_SYNCH,
@@ -345,8 +349,7 @@
                             cellRenderer: function(params)
                             {
                                 return renderDateFld(params);
-                            },
-                            hide: false
+                            }
                         },
                         {
                             headerName: COL_HDR_ARR_DATE,
@@ -371,7 +374,7 @@
                             },
                             hide: true
                         },
-                        {headerName: COL_HDR_SELLER, field: CAT_FLD_SELLER, hide: false},
+                        {headerName: COL_HDR_SELLER, field: CAT_FLD_SELLER},
                         {headerName: COL_HDR_SELLER_BRANCH, field: CAT_FLD_SELLER_BRANCH, hide: true},
                         {headerName: COL_HDR_PURCHASER, field: CAT_FLD_PURCHASER, hide: true},
                         {headerName: COL_HDR_NUM_IN_ORDER, field: CAT_FLD_NUM_IN_ORDER, hide: true},
@@ -397,8 +400,7 @@
                                 cellString = isFldValid(params) ? formatAsCurrency(params) : params.value;
                                 return markFldValidity(params, cellString);
                             },
-
-                            hide: false
+                            filter: "agNumberColumnFilter"
                         },
                         {
                             headerName: COL_HDR_SHIP_PRICE,
@@ -408,8 +410,7 @@
                                 cellString = isFldValid(params) ? formatAsCurrency(params) : params.value;
                                 return markFldValidity(params, cellString);
                             },
-
-                            hide: false
+                            filter: "agNumberColumnFilter"
                         },
                         {
                             headerName: COL_HDR_TOTAL_PRICE,
@@ -441,7 +442,7 @@
                                 return (formatAsCurrency(params));
                             },
                             editable: false,
-                            hide: false
+                            filter:   "agNumberColumnFilter"
                         },
                     ]
                 },
@@ -456,8 +457,7 @@
                             {
                                 cellString = params.value;
                                 return markFldValidity(params, cellString);
-                            },
-                            hide: false
+                            }
                         },
                         {
                             headerName: COL_HDR_ISBN_10,
@@ -466,8 +466,7 @@
                             {
                                 cellString = params.value;
                                 return markFldValidity(params, cellString);
-                            },
-                            hide: false
+                            }
                         }
                     ]
                 },
@@ -531,7 +530,7 @@
                             cellString = "<a href='" + infoUrl + "' target='_blank'>" + cellString + "</a>";
                         }
                         return cellString;
-                    },
+                    }
                 },
                 {
                     headerName: COL_GRP_HDR_PUB,
@@ -549,8 +548,7 @@
                             {
                                 let pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
                                 return(setFld(params.data, [CAT_FLD_PUBLISHERS], pubs));
-                            },
-                            hide: false
+                            }
                         },
                         {
                             headerName: COL_HDR_PUB_PLACE,
@@ -583,6 +581,7 @@
                             {
                                 return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], params.newValue));
                             },
+                            filter: "agNumberColumnFilter",
                             hide: true
                         },
                         {
@@ -595,6 +594,7 @@
                             {
                                 return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], params.newValue));
                             },
+                            filter: "agNumberColumnFilter",
                             hide: true
                         },
                         {
@@ -607,6 +607,7 @@
                             {
                                 return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], params.newValue));
                             },
+                            filter: "agNumberColumnFilter",
                             hide: true
                         },
                         {
@@ -619,6 +620,7 @@
                             {
                                 return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], params.newValue));
                             },
+                            filter: "agNumberColumnFilter",
                             hide: true
                         },
                         {
@@ -670,11 +672,12 @@
                                     return (formatAsMass(params.value));
                                 }
                             },
+                            filter: "agNumberColumnFilter",
                             hide: true
                         },
-                        {headerName: COL_HDR_LOCATION, field: CAT_FLD_LOCATION, hide: false},
+                        {headerName: COL_HDR_LOCATION, field: CAT_FLD_LOCATION},
                         {headerName: COL_HDR_COVER_REQUIRED, field: CAT_FLD_COVER_REQUIRED, hide: true},
-                        {headerName: COL_HDR_NOTES, field: CAT_FLD_NOTES, hide: false}
+                        {headerName: COL_HDR_NOTES, field: CAT_FLD_NOTES}
                     ]
                 }
             ];
@@ -697,6 +700,8 @@
                         params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
                     }
                 },
+
+                floatingFilter:         true,
 
                 undoRedoCellEditing:    true,
 
