@@ -182,6 +182,8 @@
             const BCK_FLAG_BIT_OPENLIB_SYNCED   = 0;
             const BCK_FLAG_BIT_IN_OPENLIB       = 1;
 
+            const FLD_ID_MIN                    = 1;
+
             // Catalogue field keys
             const CAT_FLD_SRC_BASE              = "base";
             const CAT_FLD_SRC_AMAZON            = "amazon";
@@ -682,11 +684,11 @@
             {
                 defaultColDef:          defaultCatCol,
                 columnDefs:             bookColumns,
+
                 rowSelection:           "multiple",
                 rowDeselection:         true,           // Allow deselecting rows with Ctrl-click
                 enableRangeSelection:   true,           // Allow multiple values in the same column to be selected/copied
                 suppressRowTransform:   true,           // Allow row spanning
-                getContextMenuItems:    getCatContextMenu,
                 onRowSelected: function(params)
                 {
                     if (getFld(params.data, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE))
@@ -695,6 +697,11 @@
                         params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
                     }
                 },
+
+                undoRedoCellEditing:    true,
+
+                getContextMenuItems:    getCatContextMenu,
+
                 components:
                 {
                     datePicker: getDatePicker()
@@ -884,12 +891,34 @@
                 [
                     "copy",
                     "export",
+                    {
+                        name:   "Delete",
+                        action: function()
+                        {
+                            let currSelectedNodes = gridOptions.api.getSelectedNodes();
+                            // Select the node to be deleted
+                            params.node.setSelected(true, true);
+                            delSelectedRecs();
+                            currSelectedNodes.forEach(function(node)
+                                {
+                                    node.setSelected(true);
+                                }
+                            );
+                        }
+                    },
+                    {
+                        name:   "Delete selected records",
+                        action: function()
+                        {
+                            delSelectedRecs();
+                        }
+                    },
                     "separator",
                     "autoSizeAll",
                     "resetColumns"
                 ];
 
-                let colId = params.column.colId;
+                let colId = params.column ? params.column.colId : null;
                 switch (colId)
                 {
                     // For the ISBN13/10 columns, add an item for filling in
@@ -1078,6 +1107,48 @@
 
                 // Scroll to the added record
                 gridOptions.api.ensureIndexVisible(gridAddIdx);
+            }
+
+            // Deletes the selected records
+            function delSelectedRecs()
+            {
+                // Identify the rows in the grid and the underlying data array
+                // elements to be deleted
+                let delRows = gridOptions.api.getSelectedRows();
+                let delDataIdxes = [];
+                for (let idx = 0; idx < delRows.length; idx++)
+                {
+                    delDataIdxes.push(catData.indexOf(delRows[idx]));
+                }
+                delDataIdxes.sort();
+                let minDelIdx = delDataIdxes.length > 0 ? delDataIdxes[0] : 0;
+
+                // Delete selected records from the underlying data array.
+                // This is done in descending index order, since deleting in
+                // the other direction shifts the correspondence between
+                // indexes and catalogue records and causes the wrong records
+                // to be deleted. :)
+                // TODO: implement batched deletion.
+                for (let idx = delDataIdxes.length - 1; idx >= 0; idx--)
+                {
+                    let delDataIdx = delDataIdxes[idx];
+                    catData = catData.slice(0, delDataIdx).concat(catData.slice(delDataIdx + 1));
+                }
+
+                // Ensure the IDs are contiguous.
+                // Special handling of deletion of first record.
+                if (minDelIdx == 0)
+                {
+                    catData[0][CAT_FLD_ID]--;
+                }
+
+                for (let idx = 1; idx < catData.length; idx++)
+                {
+                    catData[idx][CAT_FLD_ID] = catData[idx-1][CAT_FLD_ID] + 1;
+                }
+
+                // Synch changes with the grid's row data
+                gridOptions.api.updateRowData({remove: delRows});
             }
 
             // Function for comparing two catalogue records
