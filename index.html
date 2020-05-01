@@ -1029,6 +1029,11 @@
                 let colId = params.column ? params.column.colId : null;
                 switch (colId)
                 {
+                    case null:
+                    {
+                        break;
+                    }
+
                     // For the ISBN13/10 columns, add an item for filling in
                     // the value by converting the counterpart ("source") ISBN
                     case CAT_FLD_ISBN13:
@@ -1056,6 +1061,27 @@
                         };
                         menuItems.push("separator");
                         menuItems.push(menuItemAutofillISBN);
+                    }
+
+                    default:
+                    {
+                        if (params.column.colDef.editable)
+                        {
+                            let menuItemEdit =
+                            {
+                                name: "Edit",
+                                action: function()
+                                {
+                                    let cellDetails =
+                                    {
+                                        rowIndex:   gridOptions.api.rowModel.rowsToDisplay.indexOf(params.node),
+                                        colKey:     colId
+                                    };
+                                    gridOptions.api.startEditingCell(cellDetails);
+                                }
+                            }
+                            menuItems.splice(0, 0, menuItemEdit);
+                        }
                         break;
                     }
                 }
