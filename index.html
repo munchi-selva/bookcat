@@ -70,6 +70,9 @@
                 <div id="divCatSelectForm" class="panel-collapse collapse">
                     <div class="panel-body">
                         <form id="catDataForm" class="form-inline">
+                            <span style="padding:0em 1em 0em 0em;">
+                                <button type="button" id="btnNew" class="btn btn-primary">Create new catalogue</button>
+                            </span>
                             <button type="button" id="btnLoadDefault" class="btn btn-primary">Load default catalogue</button>
                             <span style="padding:0em 2em;">
                                 <input type="file" id="fileinputCat" class="form-control">
@@ -228,6 +231,8 @@
             const CAT_FLD_ELEC_FORMAT           = "electronic_format";
             const CAT_FLD_INFO_URL              = "info_url";
 
+            const CAT_FLD_OPENLIB_SYNCH_TIME    = "openlib_synch_time";
+
             // Open library field keys
             const OLK_DETAILS           = "details";
             const OLK_AUTHORS           = "authors"
@@ -276,8 +281,10 @@
             };
 
             // Column header names
-            const COL_HDR_ID                = "ID";
-            const COL_HDR_SYNCH           = "Synch needed";
+            const COL_HDR_ID                = "Cat ID";
+            const COL_GRP_HDR_SYNCH         = "Openlib synch status";
+            const COL_HDR_SYNCH_STATUS      = "In synch";
+            const COL_HDR_RESYNCH           = "Resynch";
             const COL_HDR_IN_OPENLIB        = "In openlib";
             const COL_GRP_HDR_PURCHASE      = "Purchase Details";
             const COL_HDR_PURCH_DATE        = "Purchase Date";
@@ -316,24 +323,48 @@
             let bookColumns =
             [
                 {
-                    headerName: COL_HDR_ID,
-                    field:      CAT_FLD_ID,
-                    editable:   false,
-                    filter:     "agNumberColumnFilter"
+                    headerName:     COL_HDR_ID,
+                    headerTooltip:  "Master identifier for the catalogue record (automatically generated)",
+                    field:          CAT_FLD_ID,
+                    editable:       false,
+                    filter:         "agNumberColumnFilter"
                 },
                 {
-                    headerName:         COL_HDR_SYNCH,
-                    checkboxSelection:  true,
-                    headerTooltip:      "Check for updated openlib details",
-                },
-                {
-                    headerName: COL_HDR_IN_OPENLIB,
-                    valueGetter: function(params)
-                    {
-                        return inOpenLib(params.data) ? "✓" : "";
-                    },
-                    headerTooltip: "Book exists in openlib",
-                    editable:       false
+                    headerName: COL_GRP_HDR_SYNCH,
+                    children:
+                    [
+                        {
+                            headerName:     COL_HDR_SYNCH_STATUS,
+                            headerTooltip:  "Is the record synched with openlib?",
+                            editable:       false,
+                            valueGetter: function(params)
+                            {
+                                return isFlagSet(params.data, BCK_FLAG_BIT_OPENLIB_SYNCED) ? "✓" : "";
+                            },
+                            tooltipValueGetter: function(params)
+                            {
+                                let lastSynchTime = getFld(params.data, [CAT_FLD_OPENLIB_SYNCH_TIME], CAT_FLD_SRC_BASE);
+                                if (lastSynchTime)
+                                {
+                                    return "Last synched with openlib: " + lastSynchTime;
+                                }
+                            }
+                        },
+                        {
+                            headerName:         COL_HDR_RESYNCH,
+                            checkboxSelection:  true,
+                            headerTooltip:      "Check for updated openlib details"
+                        },
+                        {
+                            headerName: COL_HDR_IN_OPENLIB,
+                            headerTooltip: "Book exists in openlib",
+                            valueGetter: function(params)
+                            {
+                                return isFlagSet(params.data, BCK_FLAG_BIT_IN_OPENLIB) ? "✓" : "";
+                            },
+                            editable:       false
+                        }
+                    ]
                 },
                 {
                     headerName: COL_GRP_HDR_PURCHASE,
@@ -428,7 +459,8 @@
                                 cellString = isFldValid(params) ? formatAsCurrency(params) : params.value;
                                 return markFldValidity(params, cellString);
                             },
-                            filter: "agNumberColumnFilter"
+                            filter: "agNumberColumnFilter",
+                            hide: true
                         },
                         {
                             headerName: COL_HDR_TOTAL_PRICE,
@@ -465,30 +497,6 @@
                     ]
                 },
                 {
-                    headerName: COL_GRP_HDR_IDENTIFIERS,
-                    children:
-                    [
-                        {
-                            headerName: COL_HDR_ISBN_13,
-                            field:      CAT_FLD_ISBN13,
-                            cellRenderer: function(params)
-                            {
-                                cellString = params.value;
-                                return markFldValidity(params, cellString);
-                            }
-                        },
-                        {
-                            headerName: COL_HDR_ISBN_10,
-                            field:      CAT_FLD_ISBN10,
-                            cellRenderer: function(params)
-                            {
-                                cellString = params.value;
-                                return markFldValidity(params, cellString);
-                            }
-                        }
-                    ]
-                },
-                {
                     headerName: COL_GRP_HDR_AUTHOR,
                     suppressMenu: false,
                     children:
@@ -519,36 +527,63 @@
                     ]
                 },
                 {
-                    headerName: COL_HDR_TITLE,
-                    valueGetter: function(params)
-                    {
-                        let title       = getFld(params.data, [CAT_FLD_TITLE]);
-                        let subtitle    = getFld(params.data, [CAT_FLD_SUBTITLE]);
-                        if (subtitle)
+                    headerName: COL_GRP_HDR_IDENTIFIERS,
+                    children:
+                    [
+
                         {
-                            title += TITLE_SEP + " " + subtitle;
-                        }
-                        return title;
-                    },
-                    valueSetter: function(params)
-                    {
-                        // Split the input value into title and subtitle
-                        let titleComponents = (params.newValue.split(TITLE_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});;
-                        let title           = titleComponents.shift();
-                        let subtitle        = titleComponents.length > 0 ? titleComponents.join(TITLE_SEP + " ") : null;
-                        return (setFld(params.data, [CAT_FLD_TITLE], title) &&
-                                setFld(params.data, [CAT_FLD_SUBTITLE], subtitle));
-                    },
-                    cellRenderer: function(params)
-                    {
-                        cellString = params.value;
-                        infoUrl = getFld(params.data, [CAT_FLD_INFO_URL], CAT_FLD_SRC_OPENLIB);
-                        if (infoUrl)
+                            headerName:     COL_HDR_ISBN_13,
+                            headerToolTip:  "13 digit international standard book number",
+                            field:          CAT_FLD_ISBN13,
+                            cellRenderer: function(params)
+                            {
+                                cellString = params.value;
+                                return markFldValidity(params, cellString);
+                            }
+                        },
                         {
-                            cellString = "<a href='" + infoUrl + "' target='_blank'>" + cellString + "</a>";
-                        }
-                        return cellString;
-                    }
+                            headerName:     COL_HDR_ISBN_10,
+                            headerToolTip:  "10 digit international standard book number",
+                            field:          CAT_FLD_ISBN10,
+                            cellRenderer: function(params)
+                            {
+                                cellString = params.value;
+                                return markFldValidity(params, cellString);
+                            }
+                        },
+                        {
+                            headerName: COL_HDR_TITLE,
+                            valueGetter: function(params)
+                            {
+                                let title       = getFld(params.data, [CAT_FLD_TITLE]);
+                                let subtitle    = getFld(params.data, [CAT_FLD_SUBTITLE]);
+                                if (subtitle)
+                                {
+                                    title += TITLE_SEP + " " + subtitle;
+                                }
+                                return title;
+                            },
+                            valueSetter: function(params)
+                            {
+                                // Split the input value into title and subtitle
+                                let titleComponents = (params.newValue.split(TITLE_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});;
+                                let title           = titleComponents.shift();
+                                let subtitle        = titleComponents.length > 0 ? titleComponents.join(TITLE_SEP + " ") : null;
+                                return (setFld(params.data, [CAT_FLD_TITLE], title) &&
+                                    setFld(params.data, [CAT_FLD_SUBTITLE], subtitle));
+                            },
+                            cellRenderer: function(params)
+                            {
+                                cellString = params.value;
+                                infoUrl = getFld(params.data, [CAT_FLD_INFO_URL], CAT_FLD_SRC_OPENLIB);
+                                if (infoUrl)
+                                {
+                                    cellString = "<a href='" + infoUrl + "' target='_blank'>" + cellString + "</a>";
+                                }
+                                return cellString;
+                            }
+                        },
+                    ]
                 },
                 {
                     headerName: COL_GRP_HDR_PUB,
@@ -733,8 +768,8 @@
                 rowData:                []
             };
 
-            let catFilename = ""
-            let catData     = [];
+            let catFilename = "";   // Catalogue file name
+            let catData     = [];   // Catalogue data array
 
             $(document).ready(function()
             {
@@ -753,6 +788,13 @@
                 {
                     // Load catalogue data in response to file selection
                     loadSelectedCat();
+                });
+
+                $("#btnNew").click(function()
+                {
+                    // Clear existing data and repopulate the grid
+                    catData.length = 0;
+                    populateGrid(catData);
                 });
 
                 $("#btnLoadDefault").click(function()
@@ -1065,6 +1107,14 @@
                             // Mark the record as in synch
                             setFlag(catRec, BCK_FLAG_BIT_OPENLIB_SYNCED);
 
+                            // Set the synch time
+                            let synchTime = new Date();
+                            let synchTimeString = formatAsDate(synchTime.getFullYear(),
+                                                               synchTime.getMonth() + 1,
+                                                               synchTime.getDay()) + " " +
+                                                  synchTime.toTimeString();
+                            setFld(catRec, [CAT_FLD_OPENLIB_SYNCH_TIME], synchTimeString, CAT_FLD_SRC_BASE);
+
                             gridOptions.api.refreshCells(gridNode);
                         }
                     });
@@ -1082,12 +1132,14 @@
                 return (minId);
             }
 
+            // Returns the maximum grid index
             function getMaxGridIdx()
             {
                 let gridRows = gridOptions.api.rowModel.rowsToDisplay;
                 return gridRows.length > 0 ? gridRows.length - 1 : -1;
             }
 
+            // Returns the maximum data array index
             function getMaxDataIdx()
             {
                 return catData.length > 0 ? catData.length - 1 : -1;
@@ -1110,6 +1162,7 @@
             // on a field other than the ID has been applied.
             function addCatRec(gridRefIdx, dataRefIdx, recId, addAfterRefIdx = true)
             {
+                // The grid/data positions where the new rcord will be added
                 let gridAddIdx = addAfterRefIdx ? gridRefIdx + 1 : gridRefIdx;
                 let dataAddIdx = addAfterRefIdx ? dataRefIdx + 1 : dataRefIdx;
 
@@ -1127,7 +1180,6 @@
 
                 // Synch changes with the grid's row data
                 gridOptions.api.updateRowData({add: [catRec], addIndex: gridAddIdx});
-                //gridOptions.api.selectIndex(gridAddIdx);
 
                 // Scroll to the added record
                 gridOptions.api.ensureIndexVisible(gridAddIdx);
@@ -1161,7 +1213,7 @@
 
                 // Ensure the IDs are contiguous.
                 // Special handling of deletion of first record.
-                if (minDelIdx == 0)
+                if (minDelIdx == 0 && catData.length > 0)
                 {
                     catData[0][CAT_FLD_ID]--;
                 }
@@ -1271,14 +1323,14 @@
             function clearFlag(catRec, flagPos)
             {
                 let flags = getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0);
-                flags |= (1 << flagPos);
+                flags |= ~(1 << flagPos);
                 setFld(catRec, [CAT_FLD_FLAGS], flags, CAT_FLD_SRC_BASE);
             }
 
-            // Return true if a given catalogue record has an openlib entry
-            function inOpenLib(catRec)
+            // Checks if a flag is set
+            function isFlagSet(catRec, flagPos)
             {
-                return (getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0) & (1 << BCK_FLAG_BIT_IN_OPENLIB));
+                return (getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0) & (1 << flagPos));
             }
 
             // Format a field as a currency string
@@ -1477,6 +1529,26 @@
                 return isbnConv;
             }
 
+            // Format a year, month and day as a date string
+            function formatAsDate(year, month, day)
+            {
+                let dateString = "";
+                if (year)
+                {
+                    dateString = year.toString();
+                    if (month)
+                    {
+                        dateString += DATE_SEP + (month < 10 ? "0" : "") + month.toString();
+
+                        if (day)
+                        {
+                            dateString += DATE_SEP + (day < 10 ? "0": "") + day.toString();
+                        }
+                    }
+                }
+                return dateString;
+            }
+
             // Checks if a date (specified as year, month, day values) is valid
             function isDateValid(year, month, day)
             {
@@ -1535,29 +1607,14 @@
 
             function renderDateFld(fldParams)
             {
-                let cellString = "";
                 let dateObj = fldParams.value;
                 if (dateObj)
                 {
-                    let year  = dateObj[CAT_FLD_DATE_YEAR];
-                    let month = dateObj[CAT_FLD_DATE_MONTH];
-                    let day   = dateObj[CAT_FLD_DATE_DAY];
-
-                    if (year)
-                    {
-                        cellString = year;
-                        if (month)
-                        {
-                            cellString += DATE_SEP + (month < 10 ? "0" : "") + month.toString();
-
-                            if (day)
-                            {
-                                cellString += DATE_SEP + (day < 10 ? "0": "") + day.toString();
-                            }
-                        }
-                    }
+                    let cellString = formatAsDate(dateObj[CAT_FLD_DATE_YEAR],
+                                                  dateObj[CAT_FLD_DATE_MONTH],
+                                                  dateObj[CAT_FLD_DATE_DAY]);
+                    return markFldValidity(fldParams, cellString);
                 }
-                return markFldValidity(fldParams, cellString);
             }
 
             // Compares a reference date (formatted as a JS Date object) with a
