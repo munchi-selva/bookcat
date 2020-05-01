@@ -121,7 +121,7 @@
                         </div>
                     </div>
                     <button type="button" id="btnResynch" style="margin: 0em 1em;">
-                        Synch with openlib
+                        (Re)synch with openlib
                     </button>
                 </div>
             </div>
@@ -283,8 +283,8 @@
             // Column header names
             const COL_HDR_ID                = "Cat ID";
             const COL_GRP_HDR_SYNCH         = "Openlib synch status";
-            const COL_HDR_SYNCH_STATUS      = "In synch";
-            const COL_HDR_RESYNCH           = "Resynch";
+            const COL_HDR_RESYNCH           = "(Re)synch";
+            const COL_HDR_SYNCH_STATUS      = "Synched";
             const COL_HDR_IN_OPENLIB        = "In openlib";
             const COL_GRP_HDR_PURCHASE      = "Purchase Details";
             const COL_HDR_PURCH_DATE        = "Purchase Date";
@@ -334,6 +334,14 @@
                     children:
                     [
                         {
+                            headerName:         COL_HDR_RESYNCH,
+                            headerCheckboxSelection:                true,   // Allow selection of all rows
+                            headerCheckboxSelectionFilteredOnly:    true,   // included by filtering
+                            checkboxSelection:  true,
+                            headerTooltip:      "Check for updated openlib details",
+                            filter:             false
+                        },
+                        {
                             headerName:     COL_HDR_SYNCH_STATUS,
                             headerTooltip:  "Is the record synched with openlib?",
                             editable:       false,
@@ -346,14 +354,9 @@
                                 let lastSynchTime = getFld(params.data, [CAT_FLD_OPENLIB_SYNCH_TIME], CAT_FLD_SRC_BASE);
                                 if (lastSynchTime)
                                 {
-                                    return "Last synched with openlib: " + lastSynchTime;
+                                    return "Last synched: " + lastSynchTime;
                                 }
                             }
-                        },
-                        {
-                            headerName:         COL_HDR_RESYNCH,
-                            checkboxSelection:  true,
-                            headerTooltip:      "Check for updated openlib details"
                         },
                         {
                             headerName: COL_HDR_IN_OPENLIB,
@@ -599,7 +602,11 @@
                             },
                             valueSetter: function(params)
                             {
-                                let pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                                let pubs = null
+                                if (params.newValue)
+                                {
+                                    pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                                }
                                 return(setFld(params.data, [CAT_FLD_PUBLISHERS], pubs));
                             }
                         },
@@ -880,7 +887,7 @@
 
                 $("#btnResynch").click(function()
                 {
-                    gridOptions.api.getSelectedNodes().forEach(synchWithOpenlib);
+                    synchSelectedRecs();
                 });
             });
 
@@ -958,13 +965,19 @@
                     "copy",
                     "export",
                     {
-                        name:   "Delete",
+                        name:   "Synch With Openlib",
                         action: function()
                         {
+                            // Save grid selection(s)
                             let currSelectedNodes = gridOptions.api.getSelectedNodes();
-                            // Select the node to be deleted
+
+                            // Set the clicked node as the sole selection
                             params.node.setSelected(true, true);
-                            delSelectedRecs();
+
+                            // Synch!
+                            synchSelectedRecs();
+
+                            // Restore grid selection(s)
                             currSelectedNodes.forEach(function(node)
                                 {
                                     node.setSelected(true);
@@ -973,7 +986,36 @@
                         }
                     },
                     {
-                        name:   "Delete selected records",
+                        name:   "Delete",
+                        action: function()
+                        {
+                            // Save grid selection(s)
+                            let currSelectedNodes = gridOptions.api.getSelectedNodes();
+
+                            // Set the clicked node as the sole selection
+                            params.node.setSelected(true, true);
+
+                            // Delete!
+                            delSelectedRecs();
+
+                            // Restore grid selection(s)
+                            currSelectedNodes.forEach(function(node)
+                                {
+                                    node.setSelected(true);
+                                }
+                            );
+                        }
+                    },
+                    "separator",
+                    {
+                        name:   "Synch Selected With Openlib",
+                        action: function()
+                        {
+                            synchSelectedRecs();
+                        }
+                    },
+                    {
+                        name:   "Delete Selected",
                         action: function()
                         {
                             delSelectedRecs();
@@ -1019,6 +1061,12 @@
                 }
 
                 return menuItems;
+            }
+
+            // Synch the selected records
+            function synchSelectedRecs()
+            {
+                gridOptions.api.getSelectedNodes().forEach(synchWithOpenlib);
             }
 
             // Synch the record associated with a grid node with openlib
@@ -1111,7 +1159,7 @@
                             let synchTime = new Date();
                             let synchTimeString = formatAsDate(synchTime.getFullYear(),
                                                                synchTime.getMonth() + 1,
-                                                               synchTime.getDay()) + " " +
+                                                               synchTime.getDate()) + " " +
                                                   synchTime.toTimeString();
                             setFld(catRec, [CAT_FLD_OPENLIB_SYNCH_TIME], synchTimeString, CAT_FLD_SRC_BASE);
 
