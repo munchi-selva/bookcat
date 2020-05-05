@@ -269,15 +269,16 @@
             // Default column options
             const defaultCatCol =
             {
-                sortable:   true,
-                filter:     true,
+                sortable:       true,
+                filter:         true,
+                floatingFilter: true,
                 filterParams:
                 {
                     resetButton: true
                 },
-                resizable:  true,
-                editable:   true,
-                menuTabs:   ["columnsMenuTab"]
+                resizable:      true,
+                editable:       true,
+                menuTabs:       ["columnsMenuTab"]
             };
 
             // Column header names
@@ -762,7 +763,6 @@
                     }
                 },
 
-                floatingFilter:         true,
 
                 undoRedoCellEditing:    true,
 
@@ -1023,7 +1023,15 @@
                     },
                     "separator",
                     "autoSizeAll",
-                    "resetColumns"
+                    "resetColumns",
+                    {
+                        name:   "Clear filters",
+                        action: function()
+                        {
+                            gridOptions.api.setFilterModel(null);
+                            gridOptions.api.onFilterChanged();
+                        }
+                    }
                 ];
 
                 let colId = params.column ? params.column.colId : null;
