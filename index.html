@@ -2,7 +2,6 @@
 <html>
     <head>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.12.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
@@ -12,6 +11,12 @@
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-grid.css">
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-theme-balham.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+
+        <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
+        <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
+
+        <script type="text/javascript" src="bookcat_comp.js"></script>
+        <script type="text/javascript" src="bookcat_utils.js"></script>
     </head>
     <style>
         .main-div
@@ -36,6 +41,13 @@
             margin: 0.5em 0em 0em;
         }
 
+        .grid-container
+        {
+            display: grid;
+            grid-template-columns: auto;
+            text-align: center;
+        }
+
         .grid-settings
         {
             padding:    2em 0.5em 0.5em;
@@ -54,6 +66,13 @@
         .cat-dropdown-item
         {
             padding:    0.25em 0em 0.5em 1em;
+        }
+
+        .hidden-date-input
+        {
+            height: 0;
+            width: 0;
+            border: 0
         }
     </style>
     <body>
@@ -271,14 +290,14 @@
             {
                 sortable:       true,
                 filter:         true,
-                floatingFilter: true,
+                //floatingFilter: true,
                 filterParams:
                 {
                     resetButton: true
                 },
                 resizable:      true,
                 editable:       true,
-                menuTabs:       ["columnsMenuTab"]
+                menuTabs:       ["filterMenuTab", "columnsMenuTab"]
             };
 
             // Column header names
@@ -387,7 +406,7 @@
                             {
                                 return renderDateFld(params);
                             },
-                            filter: "agDateColumnFilter",
+                            filter: "dateFilterComponent",
                             filterParams:
                             {
                                 comparator: function(filterDate, recFld)
@@ -770,6 +789,8 @@
 
                 components:
                 {
+                    dateFilterComponent: getDateFilterComponent(),
+                    agDateInput: getDateComponent(),
                     datePicker: getDatePicker()
                 },
                 rowData:                []
@@ -1771,58 +1792,6 @@
             function markFldValidity(fldParams, cellString)
             {
                 return isFldValid(fldParams) ? cellString : "<span class='invalid-data'>" + cellString + "</span>";
-            }
-
-            // Date picker implementation, stolen from:
-            // https://www.ag-grid.com/javascript-grid-cell-editing/#example-datepicker-cell-editing
-            function getDatePicker()
-            {
-                function Datepicker() {}
-
-                // Constructor... I think
-                Datepicker.prototype.init = function(params)
-                {
-                    // Create the cell
-                    this.eInput = document.createElement("input");
-                    this.eInput.value = params.value;
-
-                    // From: https://jqueryui.com/datepicker/
-                    $(this.eInput).datepicker({dateFormat: "yy-mm-dd"});
-                };
-
-                // Called once when the grid is ready to insert the element
-                Datepicker.prototype.getGui = function()
-                {
-                    return this.eInput;
-                };
-
-                // Focus and select: possible after the gui is attached
-                Datepicker.prototype.afterGuiAttached = function()
-                {
-                    this.eInput.focus();
-                    this.eInput.select();
-                };
-
-                // Returns the new value after editing
-                Datepicker.prototype.getValue = function()
-                {
-                    return this.eInput.value;
-                };
-
-                // Cleanup
-                Datepicker.prototype.destroy = function()
-                {
-                    // Nothing to do
-                };
-
-                // if true, then this editor will appear in a popup
-                Datepicker.prototype.isPopup = function()
-                {
-                    // and we could leave this method out also, false is the default
-                    return true;
-                };
-
-                return Datepicker;
             }
 
             //document.getElementById('testDiv').innerHTML = CURRENCY_SYMBOLS['AUD'];
