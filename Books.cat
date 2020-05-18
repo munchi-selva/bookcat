@@ -44810,7 +44810,7 @@
     {
         "isbn_13": "9780340963098",
         "isbn_10": "0340963093",
-        "flags": 1,
+        "flags": 0,
         "authors": [
             {
                 "surname": "Fforde",
@@ -44848,7 +44848,8 @@
                 "length": 416
             }
         },
-        "cover_required": "Y (Done)"
+        "cover_required": "Y (Done)",
+        "electronic_format": "txt"
     },
     {
         "isbn_13": "9780340963135",
@@ -45048,7 +45049,7 @@
     {
         "isbn_13": "9781784873639",
         "isbn_10": "1784873632",
-        "flags": 1,
+        "flags": 0,
         "authors": [
             {
                 "surname": "Diamond",
@@ -45087,5 +45088,139 @@
             }
         },
         "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1033,
+        "purchase_date": {
+            "year": 2020,
+            "month": 5,
+            "day": 5
+        },
+        "arrival_date": {
+            "year": 2020,
+            "month": 5,
+            "day": 18
+        },
+        "seller": "Boomerang Books",
+        "purchaser": "Patrick",
+        "authors": [
+            {
+                "surname": "Hašek",
+                "given_names": [
+                    "Jaroslav"
+                ]
+            }
+        ],
+        "title": "The Good Soldier Švejk",
+        "subtitle": null,
+        "isbn_13": "9780140449914",
+        "isbn_10": "0140449914",
+        "publishers": [
+            "Penguin"
+        ],
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Hasek",
+                    "given_names": [
+                        "Jaroslav"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 752
+            },
+            "key": "/books/OL7355521M",
+            "publishers": [
+                "Penguin Classics"
+            ],
+            "publish_date": "December 27, 2005",
+            "subtitle": "and His Fortunes in the World War (Penguin Classics)",
+            "title": "The Good Soldier Svejk",
+            "info_url": "https://openlibrary.org/books/OL7355521M/The_Good_Soldier_Svejk"
+        },
+        "flags": 2,
+        "openlib_synch_time": "2020-05-19 09:22:16 GMT+1000 (Australian Eastern Standard Time)",
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1034,
+        "purchase_date": {
+            "year": 2020,
+            "month": 5,
+            "day": 16
+        },
+        "arrival_date": null,
+        "seller": "Kinokuniya",
+        "number_in_order": "1",
+        "purchase_currency": "AUD",
+        "purchase_price": "9.98",
+        "shipping_price": "3.50",
+        "authors": [
+            {
+                "surname": "Alighieri",
+                "given_names": [
+                    "Dante"
+                ]
+            },
+            {
+                "surname": "Nichols",
+                "given_names": [
+                    "J.P."
+                ]
+            }
+        ],
+        "isbn_13": "9781847496119",
+        "isbn_10": "1847496113",
+        "title": "Purgatorio",
+        "subtitle": null,
+        "publishers": [
+            "Alma Classics"
+        ],
+        "openlib": {},
+        "flags": -3,
+        "openlib_synch_time": "2020-05-19 09:28:11 GMT+1000 (Australian Eastern Standard Time)"
+    },
+    {
+        "id": 1035,
+        "purchase_date": {
+            "year": 2020,
+            "month": 5,
+            "day": 16
+        },
+        "arrival_date": {
+            "year": null,
+            "month": null,
+            "day": null
+        },
+        "seller": "Kinokuniya",
+        "number_in_order": "2",
+        "purchase_currency": "AUD",
+        "purchase_price": "9.98",
+        "shipping_price": "3.50",
+        "authors": [
+            {
+                "surname": "Alighieri",
+                "given_names": [
+                    "Dante"
+                ]
+            },
+            {
+                "surname": "Nichols",
+                "given_names": [
+                    "J.P."
+                ]
+            }
+        ],
+        "isbn_13": "9781847496478",
+        "isbn_10": "1847496474",
+        "title": "Paradiso",
+        "subtitle": null,
+        "publishers": [
+            "Alma Classics"
+        ],
+        "openlib": {},
+        "flags": -3,
+        "openlib_synch_time": "2020-05-19 09:28:11 GMT+1000 (Australian Eastern Standard Time)"
     }
 ]
