@@ -436,7 +436,7 @@
                             {
                                 return renderDateFld(params);
                             },
-                            filter: "agDateColumnFilter",
+                            filter: "dateFilterComponent",
                             filterParams:
                             {
                                 comparator: function(filterDate, recFld)
@@ -560,7 +560,7 @@
                             field:          CAT_FLD_ISBN13,
                             cellRenderer: function(params)
                             {
-                                cellString = params.value;
+                                let cellString = params.value;
                                 return markFldValidity(params, cellString);
                             }
                         },
@@ -570,7 +570,7 @@
                             field:          CAT_FLD_ISBN10,
                             cellRenderer: function(params)
                             {
-                                cellString = params.value;
+                                let cellString = params.value;
                                 return markFldValidity(params, cellString);
                             }
                         },
@@ -597,8 +597,8 @@
                             },
                             cellRenderer: function(params)
                             {
-                                cellString = params.value;
-                                infoUrl = getFld(params.data, [CAT_FLD_INFO_URL], CAT_FLD_SRC_OPENLIB);
+                                let cellString = params.value;
+                                let infoUrl = getFld(params.data, [CAT_FLD_INFO_URL], CAT_FLD_SRC_OPENLIB);
                                 if (infoUrl)
                                 {
                                     cellString = "<a href='" + infoUrl + "' target='_blank'>" + cellString + "</a>";
@@ -613,16 +613,17 @@
                     children:
                     [
                         {
+                            hide: false,
                             headerName: COL_HDR_PUB_NAME,
                             valueGetter: function(params)
                             {
-                                pubSrc      = getFld(params.data, [CAT_FLD_PUBLISHERS]);
-                                pubString   = pubSrc ? pubSrc.join(PUB_SEP + " ") : null;
+                                let pubs        = getFld(params.data, [CAT_FLD_PUBLISHERS]);
+                                let pubString   = pubs ? pubs.join(PUB_SEP + " ") : null;
                                 return pubString;
                             },
                             valueSetter: function(params)
                             {
-                                let pubs = null
+                                let pubs = null;
                                 if (params.newValue)
                                 {
                                     pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
@@ -634,13 +635,17 @@
                             headerName: COL_HDR_PUB_PLACE,
                             valueGetter: function(params)
                             {
-                                plcSrc      = getFld(params.data, [CAT_FLD_PUBLISH_PLACES]);
-                                plcString   = plcSrc ? plcSrc.join(PUB_SEP + " ") : null;
+                                let plcs        = getFld(params.data, [CAT_FLD_PUBLISH_PLACES]);
+                                let plcString   = plcs ? plcs.join(PUB_SEP + " ") : null;
                                 return plcString;
                             },
                             valueSetter: function(params)
                             {
-                                let plcs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                                let plcs = null;
+                                if (params.newValue)
+                                {
+                                    plcs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                                }
                                 return(setFld(params.data, [CAT_FLD_PUBLISH_PLACES], plcs));
                             },
                             hide: true
@@ -707,12 +712,12 @@
                             headerName: COL_HDR_DIM_MASS,
                             valueGetter: function(params)
                             {
-                                mass    = null;
-                                rawMass = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
+                                let mass    = null;
+                                let rawMass = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
                                 if (rawMass)
                                 {
                                     mass = parseFloat(rawMass);
-                                    units = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS]);
+                                    let units = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS]);
                                     if (units)
                                     {
                                         switch (units)
@@ -1348,7 +1353,7 @@
             //       returns true if catRec["openlib"]["dimensions"]["thickness"] exists
             function hasFld(catRec, keyChain)
             {
-                for (catRecLevel = 0; catRecLevel < keyChain.length; catRecLevel++)
+                for (let catRecLevel = 0; catRecLevel < keyChain.length; catRecLevel++)
                 {
                     key = keyChain[catRecLevel]
                     if (!catRec || !(key in catRec))
@@ -1373,7 +1378,8 @@
                 while(dataSrcList.length > 0 && !fld)
                 {
                     let fldSrc = dataSrcList.shift();
-                    let fldKeyChain = (fldSrc == CAT_FLD_SRC_BASE) ? keyChain : [fldSrc].concat(keyChain);
+                    let fldKeyPrefix = (fldSrc == CAT_FLD_SRC_BASE) ? [] : [fldSrc];
+                    let fldKeyChain = fldKeyPrefix.concat(keyChain);
                     if (hasFld(catRec, fldKeyChain))
                     {
                         // Recursive fetching of object properties...
@@ -1508,7 +1514,6 @@
                 }
 
                 newNames = params.newValue ? (params.newValue.split(AUTH_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);}) : [];
-                console.log(newNames);
 
                 for (authIdx = newNames.length; authIdx < authData.length; authIdx++)
                 {
