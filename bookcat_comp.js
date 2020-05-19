@@ -163,18 +163,20 @@ function getDateComponent()
 //
 function getDateFilterComponent()
 {
-    const REFILTER_EVENT_TYPE = "change";
-    const REFILTER_EVENT_DETAILS = "detail";
-    const REFILTER_EVENT_UPDATE_PICKER = "updateDatePicker";
+    const DEFAULT_TYPE_INDEX    = 0;
+    const DEFAULT_DATE_STR      = "";
+    const DATE_CHANGE_EVENT_TYPE           = "change";
+    const DATE_CHANGE_EVENT_DETAILS        = "detail";
+    const DATE_CHANGE_EVENT_UPDATE_PICKER  = "updateDatePicker";
 
     function DateFilterComponent() {}
 
     DateFilterComponent.prototype.init = function(params)
     {
-        let that = this;
-        this.params = params;
-        this.gui = document.createElement("div");
+        //this.params = params;
 
+        // Set up the HTML markup and the logic that sits behind it
+        this.gui = document.createElement("div");
         this.gui.classList.add("grid-container");
         this.gui.innerHTML = "<select>" +
                                 "<option value='on'>On/in</option>" +
@@ -182,9 +184,10 @@ function getDateFilterComponent()
                                 "<option value='before'>Before</option>" +
                                 "<option value='not'>Not on/in</option>" +
                                 "<option value='between'>Between</option>" +
+                                "<option value='unknown'>Unknown</option>" +
                              "</select>" +
 
-                             "<div class='date-input-wrapper'>" +
+                             "<div class='date-input-wrapper start-date'>" +
                                 "<div class='grid-container' style='grid-template-columns: auto auto'>" +
                                     "<input type='text' class='date-input start-date'></input>" +
                                     "<button class='btn-date-launcher'>" +
@@ -202,13 +205,22 @@ function getDateFilterComponent()
 
                              "<div style='text-align: right'>"+
                                 "<button class='btn-filter-clear'>Clear</button>" +
+                                "<button class='btn-filter-reset'>Reset</button>" +
                              "</div>";
-
         this.setupGuiHooks(params);
+
+        // Set up the function that retrieves the value of a row for testing
+        // against the filter
+        this.valueGetter = params.valueGetter;
+        if (!this.valueGetter)
+        {
+            let fieldName = params.colDef.field;
+            this.valueGetter = function(rowFilterParams) { return (rowFilterParams.data[fieldName]); };
+        }
     }
 
     //
-    // Does the main work of setting up the GUI's event handlers and hooks
+    // Sets up the GUI's event handlers and hooks
     //
     DateFilterComponent.prototype.setupGuiHooks = function(params)
     {
@@ -217,8 +229,8 @@ function getDateFilterComponent()
         {
             let dateInputWrapper    = dateInputWrappers[idx];
             let dateInput           = dateInputWrapper.querySelector(".date-input");
-            let launcherBtn         = dateInputWrapper.querySelector(".btn-date-launcher");
             let hiddenDateInput     = dateInputWrapper.querySelector(".hidden-date-input");
+            let launcherBtn         = dateInputWrapper.querySelector(".btn-date-launcher");
 
             // Set up a change event handler on the visible date input
             dateInput.addEventListener("change", dateInputChanged);
@@ -244,22 +256,33 @@ function getDateFilterComponent()
             launcherBtn.addEventListener("click", function() { datePicker.open(); });
         }
 
+        // For convenience, save the filter type as a member variable.
+        // Trigger refiltering when the filter type changes (see below);
         this.filterType = this.gui.querySelector("select");
         this.filterType.addEventListener("change", filterTypeChanged);
 
+        // Set up the buttons for clearing/resetting the filter
         let clearButton = this.gui.querySelector(".btn-filter-clear");
         clearButton.addEventListener("click", clearDates);
 
-        // Make a copy of the this pointer for use in following local functions
+        let resetButton = this.gui.querySelector(".btn-filter-reset");
+        resetButton.addEventListener("click", resetFilter);
+
+        this.applyDefaults();
+        this.configVisibility();
+
+        // Make a copy of the this pointer for use in following functions,
+        // which have a different definition of this.
         let filterComp = this;
 
-        // Sets the value of a date input, then raises a change event
+        // 1. [Optional] Sets the value of the manual date input
+        // 2. Raises a change event on the manual date input
         function raiseDateInputChange(dateInput, dateStr, updateDatePicker)
         {
             let changeEventDetails = {};
-            changeEventDetails[REFILTER_EVENT_DETAILS] = {};
-            changeEventDetails[REFILTER_EVENT_DETAILS][REFILTER_EVENT_UPDATE_PICKER] = false;
-            let changeEvent = new CustomEvent(REFILTER_EVENT_TYPE, changeEventDetails);
+            changeEventDetails[DATE_CHANGE_EVENT_DETAILS] = {};
+            changeEventDetails[DATE_CHANGE_EVENT_DETAILS][DATE_CHANGE_EVENT_UPDATE_PICKER] = updateDatePicker;
+            let changeEvent = new CustomEvent(DATE_CHANGE_EVENT_TYPE, changeEventDetails);
 
             if (dateStr != null)
             {
@@ -268,15 +291,15 @@ function getDateFilterComponent()
             dateInput.dispatchEvent(changeEvent);
         }
 
-        // If required, synch the manual date input and date picker, then
-        // recalculate the filter results
+        // 1. [Optional] Synchs the manual date input and date picker
+        // 2. Recalculates the filter results
         function dateInputChanged(event)
         {
             let dateStr             = this.value;
             let dateComponents      = parseDateComponents(dateStr);
             let updateDatePicker    = true;
 
-            // Temporary validation code (mark invalid date inputs in red)
+            // Temporary validation code
             if (dateStr && !dateComponents)
             {
                 this.style.setProperty("background-color", "red");
@@ -287,10 +310,10 @@ function getDateFilterComponent()
             }
 
             // Check whether the picker should be updated
-            let eventDetail = event[REFILTER_EVENT_DETAILS];
+            let eventDetail = event[DATE_CHANGE_EVENT_DETAILS];
             if (eventDetail)
             {
-                updateDatePicker = eventDetail[REFILTER_EVENT_UPDATE_PICKER];
+                updateDatePicker = eventDetail[DATE_CHANGE_EVENT_UPDATE_PICKER];
             }
 
             if (updateDatePicker)
@@ -322,33 +345,51 @@ function getDateFilterComponent()
             params.filterChangedCallback();
         }
 
-        // Show/hide the end date input wrapper per the filter type.
-        // Fire a date input change.
+        // 1. Update visibility of filter options
+        // 2. Raise a change event on one of the manual date inputs.
         function filterTypeChanged(event)
         {
-            if (this.value == "between")
-            {
-                filterComp.gui.querySelector(".date-input-wrapper.end-date").hidden = false;
-            }
-            else
-            {
-                filterComp.gui.querySelector(".date-input-wrapper.end-date").hidden = true;
-            }
+            filterComp.configVisibility();
 
             let dateInput = filterComp.gui.querySelector(".date-input")
-
-            raiseDateInputChange(dateInput, null, false);
+            raiseDateInputChange(dateInput, null, true);
         }
 
-
-        // Clear each of the date inputs
+        // Clear the manual date inputs
         function clearDates(event)
         {
             filterComp.gui.querySelectorAll(".date-input").forEach(function(dateInput)
                                                                   {
-                                                                      raiseDateInputChange(dateInput, "", true);
+                                                                      raiseDateInputChange(dateInput, DEFAULT_DATE_STR, true);
                                                                   });
         }
+
+        // Restore the default filter settings
+        function resetFilter(event)
+        {
+            filterComp.applyDefaults();
+            filterComp.configVisibility();
+            filterComp.gui.querySelectorAll(".date-input").forEach(function(dateInput)
+                                                                  {
+                                                                      raiseDateInputChange(dateInput, null, true);
+                                                                  });
+        }
+    }
+
+    // Apply default filter settings
+    DateFilterComponent.prototype.applyDefaults = function()
+    {
+        this.filterType.selectedIndex = DEFAULT_TYPE_INDEX;
+        this.gui.querySelectorAll(".date-input").forEach(function(dateInput) { dateInput.value = DEFAULT_DATE_STR; });
+    }
+
+    // Show/hide filter options according to the filter type selected
+    DateFilterComponent.prototype.configVisibility = function()
+    {
+        let hideStartDate   = (this.filterType.value == "unknown");
+        let hideEndDate     = (this.filterType.value != "between");
+        this.gui.querySelector(".date-input-wrapper.start-date").hidden = hideStartDate;
+        this.gui.querySelector(".date-input-wrapper.end-date").hidden = hideEndDate;
     }
 
     DateFilterComponent.prototype.getGui = function()
@@ -361,6 +402,11 @@ function getDateFilterComponent()
     //
     DateFilterComponent.prototype.isFilterActive = function()
     {
+        if (this.filterType.value == "unknown")
+        {
+            return true;
+        }
+
         let startDate   = parseDateComponents(this.gui.querySelector(".date-input.start-date").value);
         let endDate     = parseDateComponents(this.gui.querySelector(".date-input.end-date").value);
 
@@ -379,10 +425,15 @@ function getDateFilterComponent()
 
         if (this.isFilterActive())
         {
-            let rowDate = rowFilterParams.data[this.params.colDef.field];
-            if (rowDate)
+            let rowDate     = this.valueGetter(rowFilterParams);
+            let filterType  = this.filterType.value;
+
+            if (filterType == "unknown")
             {
-                let filterType  = this.filterType.value;
+                pass = (!rowDate || !Object.keys(rowDate).length);
+            }
+            else if (rowDate)
+            {
                 let startDate   = parseDateComponents(this.gui.querySelector(".date-input.start-date").value);
                 let endDate     = parseDateComponents(this.gui.querySelector(".date-input.end-date").value);
 
