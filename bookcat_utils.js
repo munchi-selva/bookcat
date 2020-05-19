@@ -38,7 +38,11 @@ function parseDateComponents(dateString)
 
 
 //
-// Compares two dates represented in component form
+// Compares two dates represented in component form, with return values
+// according to JavaScript array sort comparator conventions, i.e.
+//  < 0 => refDate < compDate
+//   0  => refDate == compDate
+//  > 0 => refDate > compDate
 //
 function compareDateComponents(refDate, compDate)
 {
