@@ -40,9 +40,17 @@ function parseDateComponents(dateString)
 //
 // Compares two dates represented in component form, with return values
 // according to JavaScript array sort comparator conventions, i.e.
-//  < 0 => refDate < compDate
-//   0  => refDate == compDate
-//  > 0 => refDate > compDate
+//  < 0 => refDate comes before compDate
+//   0  => refDate is equal to (includes) compDate
+//  > 0 => refDate comes after compDate
+//
+// The equals condition corresponds to the case where compDate is on/in
+// refDate, so it can be met even if the dates do not have identical component
+// values,
+//      e.g. refDate {year: 2000} "equals"
+//           compDate... {year: 2000},
+//                       {year: 2000; month: 2},
+//                       {year: 2000; month: 2; day: 20}, etc.
 //
 function compareDateComponents(refDate, compDate)
 {
