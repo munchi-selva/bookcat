@@ -163,11 +163,19 @@ function getDateComponent()
 //
 function getDateFilterComponent()
 {
+    // Default settings
     const DEFAULT_TYPE_INDEX    = 0;
     const DEFAULT_DATE_STR      = "";
+
+    // Custom date input change event properties
     const DATE_CHANGE_EVENT_TYPE           = "change";
     const DATE_CHANGE_EVENT_DETAILS        = "detail";
     const DATE_CHANGE_EVENT_UPDATE_PICKER  = "updateDatePicker";
+
+    // Filter model property names
+    const FILTER_MODEL_TYPE         = "type";
+    const FILTER_MODEL_START_DATE   = "start_date";
+    const FILTER_MODEL_END_DATE     = "end_date";
 
     function DateFilterComponent() {}
 
@@ -224,6 +232,10 @@ function getDateFilterComponent()
     //
     DateFilterComponent.prototype.setupGuiHooks = function(params)
     {
+        // Make a copy of the this pointer for use in sub-functions,
+        // which have a different definition of this.
+        let filterComp = this;
+
         let dateInputWrappers = this.gui.querySelectorAll(".date-input-wrapper");
         for (let idx = 0; idx < dateInputWrappers.length; idx++)
         {
@@ -244,7 +256,7 @@ function getDateFilterComponent()
                                             dateFormat:  "Y-m-d",
                                             onChange: function(selectedDates, dateStr, instance)
                                             {
-                                                raiseDateInputChange(dateInput, dateStr, false);
+                                                filterComp.raiseDateInputChange(dateInput, dateStr, false);
                                             }
                                         });
 
@@ -257,39 +269,19 @@ function getDateFilterComponent()
         }
 
         // For convenience, save the filter type as a member variable.
-        // Trigger refiltering when the filter type changes (see below);
+        // Resynch the GUI when the filter type changes.
         this.filterType = this.gui.querySelector("select");
-        this.filterType.addEventListener("change", filterTypeChanged);
+        this.filterType.addEventListener("change", function(event) { filterComp.synchGUI(); });
 
         // Set up the buttons for clearing/resetting the filter
         let clearButton = this.gui.querySelector(".btn-filter-clear");
         clearButton.addEventListener("click", clearDates);
 
         let resetButton = this.gui.querySelector(".btn-filter-reset");
-        resetButton.addEventListener("click", resetFilter);
+        resetButton.addEventListener("click", function(event) { filterComp.resetFilter(); });
 
-        this.applyDefaults();
-        this.configVisibility();
-
-        // Make a copy of the this pointer for use in following functions,
-        // which have a different definition of this.
-        let filterComp = this;
-
-        // 1. [Optional] Sets the value of the manual date input
-        // 2. Raises a change event on the manual date input
-        function raiseDateInputChange(dateInput, dateStr, updateDatePicker)
-        {
-            let changeEventDetails = {};
-            changeEventDetails[DATE_CHANGE_EVENT_DETAILS] = {};
-            changeEventDetails[DATE_CHANGE_EVENT_DETAILS][DATE_CHANGE_EVENT_UPDATE_PICKER] = updateDatePicker;
-            let changeEvent = new CustomEvent(DATE_CHANGE_EVENT_TYPE, changeEventDetails);
-
-            if (dateStr != null)
-            {
-                dateInput.value = dateStr;
-            }
-            dateInput.dispatchEvent(changeEvent);
-        }
+        // Ensure sensible initial settings/appearance
+        this.resetFilter();
 
         // 1. [Optional] Synchs the manual date input and date picker
         // 2. Recalculates the filter results
@@ -345,35 +337,30 @@ function getDateFilterComponent()
             params.filterChangedCallback();
         }
 
-        // 1. Update visibility of filter options
-        // 2. Raise a change event on one of the manual date inputs.
-        function filterTypeChanged(event)
-        {
-            filterComp.configVisibility();
-
-            let dateInput = filterComp.gui.querySelector(".date-input")
-            raiseDateInputChange(dateInput, null, true);
-        }
-
         // Clear the manual date inputs
         function clearDates(event)
         {
             filterComp.gui.querySelectorAll(".date-input").forEach(function(dateInput)
                                                                   {
-                                                                      raiseDateInputChange(dateInput, DEFAULT_DATE_STR, true);
+                                                                      filterComp.raiseDateInputChange(dateInput, DEFAULT_DATE_STR, true);
                                                                   });
         }
+    }
 
-        // Restore the default filter settings
-        function resetFilter(event)
+    // 1. [Optional] Sets the value of the manual date input
+    // 2. Raises a change event on the manual date input
+    DateFilterComponent.prototype.raiseDateInputChange = function(dateInput, dateStr, updateDatePicker)
+    {
+        let changeEventDetails = {};
+        changeEventDetails[DATE_CHANGE_EVENT_DETAILS] = {};
+        changeEventDetails[DATE_CHANGE_EVENT_DETAILS][DATE_CHANGE_EVENT_UPDATE_PICKER] = updateDatePicker;
+        let changeEvent = new CustomEvent(DATE_CHANGE_EVENT_TYPE, changeEventDetails);
+
+        if (dateStr != null)
         {
-            filterComp.applyDefaults();
-            filterComp.configVisibility();
-            filterComp.gui.querySelectorAll(".date-input").forEach(function(dateInput)
-                                                                  {
-                                                                      raiseDateInputChange(dateInput, null, true);
-                                                                  });
+            dateInput.value = dateStr;
         }
+        dateInput.dispatchEvent(changeEvent);
     }
 
     // Apply default filter settings
@@ -383,13 +370,27 @@ function getDateFilterComponent()
         this.gui.querySelectorAll(".date-input").forEach(function(dateInput) { dateInput.value = DEFAULT_DATE_STR; });
     }
 
-    // Show/hide filter options according to the filter type selected
-    DateFilterComponent.prototype.configVisibility = function()
+    // 1. Show/hide filter options according to the filter type selected
+    // 2. Ensure manual date inputs and date pickers are in synch
+    DateFilterComponent.prototype.synchGUI = function()
     {
         let hideStartDate   = (this.filterType.value == "unknown");
         let hideEndDate     = (this.filterType.value != "between");
         this.gui.querySelector(".date-input-wrapper.start-date").hidden = hideStartDate;
         this.gui.querySelector(".date-input-wrapper.end-date").hidden = hideEndDate;
+
+        let dateInputs = this.gui.querySelectorAll(".date-input");
+        for (let idx = 0; idx < dateInputs.length; idx++)
+        {
+            this.raiseDateInputChange(dateInputs[idx], null, true);
+        }
+    }
+
+    // Reset the filter
+    DateFilterComponent.prototype.resetFilter = function()
+    {
+        this.applyDefaults();
+        this.synchGUI();
     }
 
     DateFilterComponent.prototype.getGui = function()
@@ -474,13 +475,78 @@ function getDateFilterComponent()
 
     DateFilterComponent.prototype.getModel = function()
     {
-        //TODO
-        return null;
+        let model = null;
+        if (this.isFilterActive())
+        {
+            model = {};
+            model[FILTER_MODEL_TYPE] = this.filterType.value;
+            if (this.filterType.value != "unknown")
+            {
+                model[FILTER_MODEL_START_DATE] = this.gui.querySelector(".date-input.start-date").value;
+                if (this.filterType.value == "between")
+                {
+                    model[FILTER_MODEL_END_DATE] = this.gui.querySelector(".date-input.end-date").value;
+                }
+            }
+        }
+        return model;
     }
 
     DateFilterComponent.prototype.setModel = function(model)
     {
-        //TODO
+        if (model)
+        {
+            let filterType = model[FILTER_MODEL_TYPE];
+            let filterTypeIndex = this.getFilterTypeIndex(filterType);
+            let filterStartDate = model[FILTER_MODEL_START_DATE];
+            let filterEndDate = model[FILTER_MODEL_END_DATE];
+
+            if (filterTypeIndex != -1)
+            {
+                this.filterType.selectedIndex = filterTypeIndex;
+
+                if (filterTypeIndex != 5)
+                {
+                    this.gui.querySelector(".date-input.start-date").value = filterStartDate;
+
+                    if (filterTypeIndex == 4)
+                    {
+                        this.gui.querySelector(".date-input.end-date").value = filterEndDate;
+                    }
+                }
+            }
+            this.synchGUI();
+        }
+        else
+        {
+            this.resetFilter();
+        }
+    }
+
+    DateFilterComponent.prototype.getFilterTypeIndex = function(filterType)
+    {
+        switch(filterType)
+        {
+            case "on":
+                return 0;
+
+            case "after":
+                return 1;
+
+            case "before":
+                return 2;
+
+            case "not":
+                return 3;
+
+            case "between":
+                return 4;
+
+            case "unknown":
+                return 5;
+        }
+
+        return -1;
     }
 
     return DateFilterComponent;
