@@ -804,6 +804,8 @@
             let catFilename = "";   // Catalogue file name
             let catData     = [];   // Catalogue data array
 
+            let catFilters = null;  // Saved catalogue filters
+
             $(document).ready(function()
             {
                 // Initialise the catalogue grid
@@ -1401,21 +1403,20 @@
             function setFld(catRec, keyChain, value, dataSrc = getDataSrc())
             {
                 let dataDest = dataSrc == CAT_FLD_SRC_COMB ? CAT_FLD_SRC_BASE : dataSrc;
-
-                let fldKeyChain = (dataDest == CAT_FLD_SRC_BASE) ? keyChain : [dataDest].concat(keyChain);
-                let obj = catRec;
-                let key = null;
+                let fldKeyPrefix = (dataDest == CAT_FLD_SRC_BASE) ? [] : [dataDest];
+                let fldKeyChain = fldKeyPrefix.concat(keyChain);
+                let targetObj = catRec;
                 while (fldKeyChain.length > 1)
                 {
-                    key = fldKeyChain.shift();
-                    if (!(key in obj))
+                    let key = fldKeyChain.shift();
+                    if (!(key in targetObj))
                     {
                         // Initialise...
-                        obj[key] = {};
+                        targetObj[key] = {};
                     }
-                    obj = obj[key];
+                    targetObj = targetObj[key];
                 }
-                obj[fldKeyChain.shift()] = value;
+                targetObj[fldKeyChain.shift()] = value;
 
                 return true;
             }
