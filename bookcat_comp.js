@@ -177,44 +177,65 @@ function getDateFilterComponent()
     const FILTER_MODEL_START_DATE   = "start_date";
     const FILTER_MODEL_END_DATE     = "end_date";
 
+    const FilterTypeEnum =
+    {
+        "FT_ON":        0,
+        "FT_BEFORE":    1,
+        "FT_AFTER":     2,
+        "FT_NOT":       3,
+        "FT_BETWEEN":   4,
+        "FT_UNKNOWN":   5
+    };
+    Object.freeze(FilterTypeEnum);
+
+    const filterTypes =
+    [
+        {"ftVal": FilterTypeEnum.FT_ON,         "ftLabel": "On/in"},
+        {"ftVal": FilterTypeEnum.FT_BEFORE,     "ftLabel": "Before"},
+        {"ftVal": FilterTypeEnum.FT_AFTER,      "ftLabel": "After"},
+        {"ftVal": FilterTypeEnum.FT_NOT,        "ftLabel": "Not on/in"},
+        {"ftVal": FilterTypeEnum.FT_BETWEEN,    "ftLabel": "Between"},
+        {"ftVal": FilterTypeEnum.FT_UNKNOWN,    "ftLabel": "Unknown"}
+    ];
+
     function DateFilterComponent() {}
 
     DateFilterComponent.prototype.init = function(params)
     {
-        //this.params = params;
-
         // Set up the HTML markup and the logic that sits behind it
         this.gui = document.createElement("div");
         this.gui.classList.add("grid-container");
-        this.gui.innerHTML = "<select>" +
-                                "<option value='on'>On/in</option>" +
-                                "<option value='after'>After</option>" +
-                                "<option value='before'>Before</option>" +
-                                "<option value='not'>Not on/in</option>" +
-                                "<option value='between'>Between</option>" +
-                                "<option value='unknown'>Unknown</option>" +
-                             "</select>" +
 
-                             "<div class='date-input-wrapper start-date'>" +
-                                "<div class='grid-container' style='grid-template-columns: auto auto'>" +
-                                    "<input type='text' class='date-input start-date'></input>" +
-                                    "<button class='btn-date-launcher'>" +
-                                "</div>" +
-                                "<input type='text' class='hidden-date-input'></input>" +
-                             "</div>" +
+        let innerHTML = "<select>";
+        for (let idx = 0; idx < filterTypes.length; idx++)
+        {
+            innerHTML += "<option value='" + filterTypes[idx].ftVal + "'>" +
+                            filterTypes[idx].ftLabel +
+                         "</option>";
+        }
+        innerHTML += "</select>" +
 
-                             "<div class='date-input-wrapper end-date' hidden='true'>" +
-                                "<div class='grid-container' style='grid-template-columns: auto auto'>" +
-                                    "<input type='text' class='date-input end-date'></input>" +
-                                    "<button class='btn-date-launcher'>" +
-                                "</div>" +
-                                "<input type='text' class='hidden-date-input'></input>" +
-                             "</div>" +
+                     "<div class='date-input-wrapper start-date'>" +
+                        "<div class='grid-container' style='grid-template-columns: auto auto'>" +
+                            "<input type='text' class='date-input start-date'></input>" +
+                            "<button class='btn-date-launcher'>" +
+                        "</div>" +
+                        "<input type='text' class='hidden-date-input'></input>" +
+                     "</div>" +
 
-                             "<div style='text-align: right'>"+
-                                "<button class='btn-filter-clear'>Clear</button>" +
-                                "<button class='btn-filter-reset'>Reset</button>" +
-                             "</div>";
+                     "<div class='date-input-wrapper end-date' hidden='true'>" +
+                        "<div class='grid-container' style='grid-template-columns: auto auto'>" +
+                            "<input type='text' class='date-input end-date'></input>" +
+                            "<button class='btn-date-launcher'>" +
+                        "</div>" +
+                        "<input type='text' class='hidden-date-input'></input>" +
+                     "</div>" +
+
+                     "<div style='text-align: right'>"+
+                        "<button class='btn-filter-clear'>Clear</button>" +
+                        "<button class='btn-filter-reset'>Reset</button>" +
+                     "</div>";
+        this.gui.innerHTML = innerHTML;
         this.setupGuiHooks(params);
 
         // Set up the function that retrieves the value of a row for testing
@@ -374,8 +395,8 @@ function getDateFilterComponent()
     // 2. Ensure manual date inputs and date pickers are in synch
     DateFilterComponent.prototype.synchGUI = function()
     {
-        let hideStartDate   = (this.filterType.value == "unknown");
-        let hideEndDate     = (this.filterType.value != "between");
+        let hideStartDate   = (this.filterType.value == FilterTypeEnum.FT_UNKNOWN);
+        let hideEndDate     = (this.filterType.value != FilterTypeEnum.FT_BETWEEN);
         this.gui.querySelector(".date-input-wrapper.start-date").hidden = hideStartDate;
         this.gui.querySelector(".date-input-wrapper.end-date").hidden = hideEndDate;
 
@@ -403,7 +424,8 @@ function getDateFilterComponent()
     //
     DateFilterComponent.prototype.isFilterActive = function()
     {
-        if (this.filterType.value == "unknown")
+        let filterTypeVal = parseInt(this.filterType.value);
+        if (filterTypeVal == FilterTypeEnum.FT_UNKNOWN);
         {
             return true;
         }
@@ -412,7 +434,7 @@ function getDateFilterComponent()
         let endDate     = parseDateComponents(this.gui.querySelector(".date-input.end-date").value);
 
         return (startDate &&
-               (endDate || this.filterType.value != "between"));
+               (endDate || filterTypeVal != FilterTypeEnum.FT_BETWEEN));
     }
 
     //
@@ -426,10 +448,10 @@ function getDateFilterComponent()
 
         if (this.isFilterActive())
         {
-            let rowDate     = this.valueGetter(rowFilterParams);
-            let filterType  = this.filterType.value;
+            let rowDate         = this.valueGetter(rowFilterParams);
+            let filterTypeVal   = parseInt(this.filterType.value);
 
-            if (filterType == "unknown")
+            if (filterTypeVal == FilterTypeEnum.FT_UNKNOWN)
             {
                 pass = (!rowDate || !Object.keys(rowDate).length);
             }
@@ -441,25 +463,25 @@ function getDateFilterComponent()
                 let startDateComparison = compareDateComponents(startDate, rowDate);
                 let endDateComparison   = compareDateComponents(endDate, rowDate);
 
-                switch(filterType)
+                switch(filterTypeVal)
                 {
-                    case "on":
+                    case FilterTypeEnum.FT_ON:
                         pass = (startDateComparison == 0);
                         break;
 
-                    case "after":
+                    case FilterTypeEnum.FT_AFTER:
                         pass = (startDateComparison < 0);
                         break;
 
-                    case "before":
+                    case FilterTypeEnum.FT_BEFORE:
                         pass = (startDateComparison > 0);
                         break;
 
-                    case "not":
+                    case FilterTypeEnum.FT_NOT:
                         pass = (startDateComparison);
                         break;
 
-                    case "between":
+                    case FilterTypeEnum.FT_BETWEEN:
                         pass = (startDateComparison < 0 && endDateComparison > 0);
                         break;
                 }
@@ -478,12 +500,13 @@ function getDateFilterComponent()
         let model = null;
         if (this.isFilterActive())
         {
+            let filterTypeVal = parseInt(this.filterType.value);
             model = {};
-            model[FILTER_MODEL_TYPE] = this.filterType.value;
-            if (this.filterType.value != "unknown")
+            model[FILTER_MODEL_TYPE] = filterTypeVal;
+            if (this.filterType.value != FilterTypeEnum.FT_UNKNOWN)
             {
                 model[FILTER_MODEL_START_DATE] = this.gui.querySelector(".date-input.start-date").value;
-                if (this.filterType.value == "between")
+                if (filterTypeVal == FilterTypeEnum.FT_BETWEEN)
                 {
                     model[FILTER_MODEL_END_DATE] = this.gui.querySelector(".date-input.end-date").value;
                 }
@@ -496,20 +519,20 @@ function getDateFilterComponent()
     {
         if (model)
         {
-            let filterType = model[FILTER_MODEL_TYPE];
-            let filterTypeIndex = this.getFilterTypeIndex(filterType);
+            let filterTypeVal   = model[FILTER_MODEL_TYPE];
+            let filterTypeIndex = filterTypes.findIndex(function(filterItem) { return filterItem.ftVal == filterTypeVal; });
             let filterStartDate = model[FILTER_MODEL_START_DATE];
-            let filterEndDate = model[FILTER_MODEL_END_DATE];
+            let filterEndDate   = model[FILTER_MODEL_END_DATE];
 
             if (filterTypeIndex != -1)
             {
                 this.filterType.selectedIndex = filterTypeIndex;
 
-                if (filterTypeIndex != 5)
+                if (filterTypeVal != FilterTypeEnum.FT_UNKNOWN)
                 {
                     this.gui.querySelector(".date-input.start-date").value = filterStartDate;
 
-                    if (filterTypeIndex == 4)
+                    if (filterTypeVal == FilterTypeEnum.FT_BETWEEN)
                     {
                         this.gui.querySelector(".date-input.end-date").value = filterEndDate;
                     }
@@ -521,32 +544,6 @@ function getDateFilterComponent()
         {
             this.resetFilter();
         }
-    }
-
-    DateFilterComponent.prototype.getFilterTypeIndex = function(filterType)
-    {
-        switch(filterType)
-        {
-            case "on":
-                return 0;
-
-            case "after":
-                return 1;
-
-            case "before":
-                return 2;
-
-            case "not":
-                return 3;
-
-            case "between":
-                return 4;
-
-            case "unknown":
-                return 5;
-        }
-
-        return -1;
     }
 
     return DateFilterComponent;
