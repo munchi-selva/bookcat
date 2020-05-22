@@ -425,7 +425,7 @@ function getDateFilterComponent()
     DateFilterComponent.prototype.isFilterActive = function()
     {
         let filterTypeVal = parseInt(this.filterType.value);
-        if (filterTypeVal == FilterTypeEnum.FT_UNKNOWN);
+        if (filterTypeVal == FilterTypeEnum.FT_UNKNOWN)
         {
             return true;
         }
