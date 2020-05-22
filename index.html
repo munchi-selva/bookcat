@@ -402,9 +402,19 @@
                             {
                                 setDateFld(params, [CAT_FLD_PURCH_DATE]);
                             },
+                            valueFormatter: function(params)
+                            {
+                                let dateObj = params.value;
+                                if (dateObj)
+                                {
+                                    return formatAsDate(dateObj[CAT_FLD_DATE_YEAR],
+                                                        dateObj[CAT_FLD_DATE_MONTH],
+                                                        dateObj[CAT_FLD_DATE_DAY]);
+                                }
+                            },
                             cellRenderer: function(params)
                             {
-                                return renderDateFld(params);
+                                return markFldValidity(params, params.valueFormatted);
                             },
                             filter: "dateFilterComponent",
                             filterParams:
@@ -432,9 +442,19 @@
                             {
                                 setDateFld(params, [CAT_FLD_ARR_DATE]);
                             },
+                            valueFormatter: function(params)
+                            {
+                                let dateObj = params.value;
+                                if (dateObj)
+                                {
+                                    return formatAsDate(dateObj[CAT_FLD_DATE_YEAR],
+                                                        dateObj[CAT_FLD_DATE_MONTH],
+                                                        dateObj[CAT_FLD_DATE_DAY]);
+                                }
+                            },
                             cellRenderer: function(params)
                             {
-                                return renderDateFld(params);
+                                return markFldValidity(params, params.valueFormatted);
                             },
                             filter: "dateFilterComponent",
                             filterParams:

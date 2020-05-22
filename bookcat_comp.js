@@ -13,7 +13,7 @@ function getDatePicker()
     {
         // Create the cell
         this.eInput = document.createElement("input");
-        this.eInput.value = params.value;
+        this.eInput.value = params.formatValue(params.value);
 
         // From: https://jqueryui.com/datepicker/
         $(this.eInput).datepicker({dateFormat: "yy-mm-dd"});
