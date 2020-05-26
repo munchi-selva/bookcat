@@ -72,7 +72,7 @@
         {
             height: 0;
             width: 0;
-            border: 0
+            border: 0;
         }
     </style>
     <body>
@@ -141,6 +141,9 @@
                     </div>
                     <button type="button" id="btnResynch" style="margin: 0em 1em;">
                         (Re)synch with openlib
+                    </button>
+                    <button type="button" id="btnMinColumns" style="margin: 0em 1em;">
+                        Show minimal columns
                     </button>
                 </div>
             </div>
@@ -252,6 +255,7 @@
 
             const CAT_FLD_OPENLIB_SYNCH_TIME    = "openlib_synch_time";
 
+
             // Open library field keys
             const OLK_DETAILS           = "details";
             const OLK_AUTHORS           = "authors"
@@ -338,6 +342,8 @@
             const COL_HDR_COVER_REQUIRED    = "Cover Required?";
             const COL_HDR_NOTES             = "Notes";
             const COL_HDR_ELEC_FORMAT       = "Electronic Copy";
+
+            const fieldsToShow = [COL_HDR_PURCH_DATE, COL_HDR_TITLE];
 
             // Column definitions
             let bookColumns =
@@ -825,8 +831,7 @@
                 components:
                 {
                     dateFilterComponent: getDateFilterComponent(),
-                    agDateInput: getDateComponent(),
-                    datePicker: getDatePicker()
+                    datePicker: getDateComponent()
                 },
                 rowData:                []
             };
@@ -947,7 +952,13 @@
                 {
                     synchSelectedRecs();
                 });
+
+                $("#btnMinColumns").click(function()
+                {
+                    showMinimalColumns();
+                });
             });
+
 
             // Loads the default catalogue
             function loadDefaultCat()
@@ -1012,6 +1023,20 @@
                 gridOptions.api.sizeColumnsToFit();
 
                 document.getElementById("divCatInfo").innerHTML = "Displaying catalogue: '" + catFilename + "'";
+            }
+
+            // Show a minimal number of columns (useful for debugging)
+            function showMinimalColumns()
+            {
+                let allColumns = gridOptions.columnApi.getAllColumns();
+                for (let idx = 0; idx < allColumns.length; idx++)
+                {
+                    let colHeader = allColumns[idx].colDef.headerName;
+                    let visible = (fieldsToShow.indexOf(colHeader) != -1);
+                    gridOptions.columnApi.setColumnVisible(allColumns[idx].colId, visible);
+                }
+                gridOptions.api.sizeColumnsToFit();
+
             }
 
             // Defines the menu that appears when a cell is right-clicked
@@ -1688,60 +1713,16 @@
                 return dateString;
             }
 
-            // Checks if a date (specified as year, month, day values) is valid
-            function isDateValid(year, month, day)
-            {
-                let valid = true;
-                if (year)
-                {
-                    valid = (year >= YEAR_MIN);
-                    if (valid && month)
-                    {
-                        valid = (month >= MONTH_MIN && month <= MONTH_MAX);
-                        if (valid && day)
-                        {
-                            let day_max = STD_MONTH_LENGTHS[month];
-                            // Special handling for February... bloody February
-                            if (month == 2 &&
-                               (year % 400 == 0 ||
-                               (year % 4 == 0 && year % 100 != 0)))
-                            {
-                                day_max = FEB_LEAP_YEAR_DAYS;
-                            }
-
-                            valid = day <= day_max;
-                        }
-                    }
-                }
-                return valid;
-            }
-
             // Sets a date field
             function setDateFld(fldParams, keyChain)
             {
-                dateString = fldParams.newValue;
+                let dateString = fldParams.newValue;
+                let dateComponents = null;
                 if (dateString)
                 {
-                    dateComponents = dateString.split(DATE_SEP);
-                    if (dateComponents.length > 0 && dateComponents.length <= 3)
-                    {
-                        yearString  = dateComponents.shift();
-                        monthString = dateComponents.length > 0 ? dateComponents.shift() : null;
-                        dayString   = dateComponents.length > 0 ? dateComponents.shift() : null;
-
-                        year    = (yearString && REGEX_YEAR.test(yearString)) ? parseInt(yearString) : null;
-                        month   = (monthString && REGEX_MONTH.test(monthString)) ? parseInt(monthString) : null;
-                        day     = (dayString && REGEX_DAY.test(dayString)) ? parseInt(dayString) : null;
-
-                        setFld(fldParams.data, keyChain.concat([CAT_FLD_DATE_YEAR]), year, CAT_FLD_SRC_BASE);
-                        setFld(fldParams.data, keyChain.concat([CAT_FLD_DATE_MONTH]), month, CAT_FLD_SRC_BASE);
-                        setFld(fldParams.data, keyChain.concat([CAT_FLD_DATE_DAY]), day, CAT_FLD_SRC_BASE);
-                    }
+                    dateComponents = parseDateComponents(dateString, false);
                 }
-                else
-                {
-                    setFld(fldParams.data, keyChain, null, CAT_FLD_SRC_BASE);
-                }
+                setFld(fldParams.data, keyChain, dateComponents, CAT_FLD_SRC_BASE);
             }
 
             function renderDateFld(fldParams)
