@@ -1,7 +1,37 @@
+// Checks if a date (specified as year, month, day values) is valid
+function isDateValid(year, month, day)
+{
+    let valid = true;
+    if (year)
+    {
+        valid = (year >= YEAR_MIN);
+        if (valid && month)
+        {
+            valid = (month >= MONTH_MIN && month <= MONTH_MAX);
+            if (valid && day)
+            {
+                let day_max = STD_MONTH_LENGTHS[month];
+                // Special handling for February... bloody February
+                if (month == 2 &&
+                    (year % 400 == 0 ||
+                        (year % 4 == 0 && year % 100 != 0)))
+                {
+                    day_max = FEB_LEAP_YEAR_DAYS;
+                }
+
+                valid = day <= day_max;
+            }
+        }
+    }
+    return valid;
+}
+
 //
 // Parses a date string into its year/month/day components.
+// If validation is requested, returns a null result if the date string
+// represents an invalid date.
 //
-function parseDateComponents(dateString)
+function parseDateComponents(dateString, validate = true)
 {
     let date = null;
     if (dateString)
@@ -17,7 +47,8 @@ function parseDateComponents(dateString)
                 (!month || REGEX_MONTH.test(month)) &&
                 (!day || REGEX_DAY.test(day)))
             {
-                if (isDateValid(parseInt(year), parseInt(month), parseInt(day)))
+                let dateOkay = (!validate || isDateValid(parseInt(year), parseInt(month), parseInt(day)));
+                if (dateOkay)
                 {
                     date = {};
                     date[CAT_FLD_DATE_YEAR] = parseInt(year);
