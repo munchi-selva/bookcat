@@ -61,26 +61,26 @@ function getDateControl()
         this.root = document.createElement("div");
         this.root.classList.add(CLASS_DATE_INPUT_WRAPPER);
 
-        // Set up the manual date input & launcher button
+        // Set up the manual date input, hidden date input & launcher button
         let inputGrid = document.createElement("div");
+
         inputGrid.classList.add(CLASS_GRID_CONTAINER);
-        inputGrid.style.setProperty("grid-template-columns", "auto 20%");
+        inputGrid.style.setProperty("grid-template-columns", "auto 0% 10%");
 
         let dateInput = document.createElement("input");
         dateInput.classList.add(CLASS_DATE_INPUT);
+
+        let hiddenDateInput = document.createElement("input");
+        hiddenDateInput.classList.add(CLASS_HIDDEN_DATE_INPUT);
 
         let launcherBtn = document.createElement("button");
         launcherBtn.classList.add(CLASS_DATE_LAUNCHER_BTN);
 
         inputGrid.appendChild(dateInput);
+        inputGrid.appendChild(hiddenDateInput);
         inputGrid.appendChild(launcherBtn);
 
-        // Set up the hidden date input
-        let hiddenDateInput = document.createElement("input");
-        hiddenDateInput.classList.add(CLASS_HIDDEN_DATE_INPUT);
-
         this.root.appendChild(inputGrid);
-        this.root.appendChild(hiddenDateInput);
 
         // Cache a reference to the date input for later use
         this.dateInput = dateInput;
@@ -149,8 +149,8 @@ function getDateControl()
 
         if (updateDatePicker)
         {
-            // Dodgy! Find the picker...
-            let datePicker = target.parentElement.nextSibling._flatpickr;
+            // Find the picker...
+            let datePicker = target.nextSibling._flatpickr;
             if (dateStr)
             {
                 if (dateComponents)
@@ -281,6 +281,7 @@ function getDateComponent()
         // Nothing to do
     };
 
+    DateComp.prototype.isPopup = function() { return false; }
     //
     // Other ICellEditorComp optional methods (not implemented)
     //
