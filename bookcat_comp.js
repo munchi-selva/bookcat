@@ -65,7 +65,7 @@ function getDateControl()
         let inputGrid = document.createElement("div");
 
         inputGrid.classList.add(CLASS_GRID_CONTAINER);
-        inputGrid.style.setProperty("grid-template-columns", "auto 0% 10%");
+        inputGrid.style.setProperty("grid-template-columns", "auto 0% auto");
 
         let dateInput = document.createElement("input");
         dateInput.classList.add(CLASS_DATE_INPUT);
@@ -75,6 +75,7 @@ function getDateControl()
 
         let launcherBtn = document.createElement("button");
         launcherBtn.classList.add(CLASS_DATE_LAUNCHER_BTN);
+        launcherBtn.innerHTML = "&#x25BC;";
 
         inputGrid.appendChild(dateInput);
         inputGrid.appendChild(hiddenDateInput);
@@ -116,10 +117,6 @@ function getDateControl()
 
         // Set up the launcher button to launch the date picker
         launcherBtn.addEventListener("click", function() { datePicker.open(); });
-
-        // Temporary -- styling
-        launcherBtn.style.setProperty("background-color", "blue");
-        hiddenDateInput.style.setProperty("background-color", "green");
     }
 
     // Synchs the manual date input and date picker, if required
@@ -281,19 +278,31 @@ function getDateComponent()
         // Nothing to do
     };
 
-    DateComp.prototype.isPopup = function() { return false; }
     //
-    // Other ICellEditorComp optional methods (not implemented)
-    //
-    // isPopup?(): boolean;
+    // [ICellEditorComp]: isPopup?(): boolean;
     //      Gets called once after initialised.
     //      If you return true, the editor will appear in a popup
     //
-    // getPopupPosition?(): string;
+    // Using a popup ensures the entire editor is visible during editing
+    //
+    DateComp.prototype.isPopup = function()
+    {
+        return true;
+    }
+
+    //
+    // [ICellEditorComp]: getPopupPosition?(): string;
     //      Gets called once, only if isPopup() returns true.
-    //      Return "over" if the popup should cover the cell, or "under"
-    //      if it should be positioned below leaving the cell value visible.
-    //      If this method is not present, the default is "over"
+    //      Return "over" (default) if the popup should cover the cell, or
+    //      "under" if it should be positioned below leaving the cell value visible.
+    //
+    DateComp.prototype.getPopupPosition = function()
+    {
+        return "under";
+    }
+
+    //
+    // Other ICellEditorComp optional methods (not implemented)
     //
     // isCancelBeforeStart?(): boolean;
     //      Gets called once before editing starts, to give editor a chance to
