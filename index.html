@@ -295,7 +295,7 @@
             {
                 sortable:       true,
                 filter:         true,
-                //floatingFilter: true,
+                floatingFilter: true,
                 filterParams:
                 {
                     resetButton: true
@@ -344,7 +344,7 @@
             const COL_HDR_NOTES             = "Notes";
             const COL_HDR_ELEC_FORMAT       = "Electronic Copy";
 
-            const fieldsToShow = [COL_HDR_PURCH_DATE, COL_HDR_TITLE];
+            const fieldsToShow = [COL_HDR_ID, COL_HDR_PURCH_DATE, COL_HDR_ARR_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE];
 
             // Column definitions
             let bookColumns =
@@ -424,6 +424,7 @@
                                 return markFldValidity(params, params.valueFormatted);
                             },
                             filter: "dateFilterComponent",
+                            floatingFilterComponent: "dateFloatingFilterComponent",
                             filterParams:
                             {
                                 comparator: function(filterDate, recFld)
@@ -463,7 +464,7 @@
                             {
                                 return markFldValidity(params, params.valueFormatted);
                             },
-                            filter: "dateFilterComponent",
+                            filter: "agDateColumnFilter",
                             filterParams:
                             {
                                 comparator: function(filterDate, recFld)
@@ -832,6 +833,7 @@
                 components:
                 {
                     dateFilterComponent: getDateFilterComponent(),
+                    dateFloatingFilterComponent: getDateFloatingFilterComponent(),
                     datePicker: getDateComponent()
                 },
                 rowData:                []

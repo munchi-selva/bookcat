@@ -7,9 +7,24 @@ const CLASS_GRID_CONTAINER      = "grid-container";
 
 // Custom date input change event properties
 const DATE_CHANGE_EVENT_TYPE            = "change";
-const DATE_CHANGE_EVENT_DETAILS         = "detail";
-const DATE_CHANGE_EVENT_UPDATE_PICKER   = "updateDatePicker";
 const EVENT_BUBBLE_OPTION               = "bubbles";
+
+// Date filter model property names
+const DATE_FILTER_MODEL_TYPE        = "type";
+const DATE_FILTER_MODEL_START_DATE  = "start_date";
+const DATE_FILTER_MODEL_END_DATE    = "end_date";
+
+// An enumeration representing date filter type identifiers
+const FilterTypeEnum =
+{
+    "FT_ON":        0,
+    "FT_BEFORE":    1,
+    "FT_AFTER":     2,
+    "FT_NOT":       3,
+    "FT_BETWEEN":   4,
+    "FT_UNKNOWN":   5
+};
+Object.freeze(FilterTypeEnum);
 
 
 // Macro-ish function that converts the input parameter to a CSS class selector
@@ -18,6 +33,32 @@ function CLASS_SELECTOR(className)
     return "." + className;
 }
 
+// Dumps data about an event target
+function showEventOrigins(event)
+{
+    let eventPath = event.composedPath();
+    for (let idx = 0; idx < eventPath.length; idx++)
+    {
+        let elem = eventPath[idx];
+        let elemString = "<" + elem.localName + ">";
+        let classString = "";
+        if (elem.classList)
+        {
+            for (let classIdx = 0; classIdx < elem.classList.length; classIdx++)
+            {
+                if (classIdx != 0)
+                {
+                    classString += "; ";
+                }
+                classString += elem.classList[classIdx];
+            }
+        }
+        classString = "[classes: " + classString + "]";
+
+        console.log("\t\t[" + idx + "]: " + elemString + " " + classString);
+
+    }
+}
 
 
 
@@ -55,8 +96,6 @@ function getDateControl()
     //
     DateControl.prototype.init = function()
     {
-        let dateControl = this;
-
         // Main element
         this.root = document.createElement("div");
         this.root.classList.add(CLASS_DATE_INPUT_WRAPPER);
@@ -119,13 +158,19 @@ function getDateControl()
         launcherBtn.addEventListener("click", function() { datePicker.open(); });
     }
 
-    // Synchs the manual date input and date picker, if required
+    DateControl.prototype.getGui = function()
+    {
+        return this.root;
+    };
+
+    //
+    // Synchs the manual date input and date picker
+    //
     DateControl.prototype.onDateInputChanged = function(event)
     {
         let target              = event.target;
         let dateStr             = target.value;
         let dateComponents      = parseDateComponents(dateStr);
-        let updateDatePicker    = true;
 
         // Temporary validation code
         if (dateStr && !dateComponents)
@@ -137,80 +182,86 @@ function getDateControl()
             target.style.removeProperty("background-color");
         }
 
-        // Check whether the picker should be updated
-        let eventDetail = event[DATE_CHANGE_EVENT_DETAILS];
-        if (eventDetail)
-        {
-            updateDatePicker = eventDetail[DATE_CHANGE_EVENT_UPDATE_PICKER];
-        }
+        //
+        // Update the date picker, suppressing raising of further change events.
+        // Use setDate() for a fully specified date (including null/empty date),
+        // jumpDate() otherwise.
+        //
+        let fullySpecifiedDate = (!dateStr) ||
+                                 (dateComponents
+                                  &&
+                                  (
+                                      dateComponents[CAT_FLD_DATE_YEAR] &&
+                                      dateComponents[CAT_FLD_DATE_MONTH] &&
+                                      dateComponents[CAT_FLD_DATE_DAY]
+                                  )
+                                 );
+        let datePicker = target.nextSibling._flatpickr;
 
-        if (updateDatePicker)
+        if (fullySpecifiedDate)
         {
-            // Find the picker...
-            let datePicker = target.nextSibling._flatpickr;
-            if (dateStr)
-            {
-                if (dateComponents)
-                {
-                    // setDate() for a fully specifed date, else jumpDate()
-                    if (dateComponents[CAT_FLD_DATE_YEAR] &&
-                        dateComponents[CAT_FLD_DATE_MONTH] &&
-                        dateComponents[CAT_FLD_DATE_DAY])
-                    {
-                        datePicker.setDate(dateStr, false);
-                    }
-                    else
-                    {
-                        datePicker.jumpToDate(dateStr, false);
-                    }
-                }
-            }
-            else
-            {
-                datePicker.clear();
-            }
+            datePicker.setDate(dateStr, false);
+        }
+        else
+        {
+            datePicker.jumpToDate(dateStr, false);
         }
     }
 
-    // 1. [Optional] Sets the value of the manual date input
-    // 2. Raises a bubbling change event on the manual date input
-    DateControl.prototype.raiseDateInputChange = function(dateStr, updateDatePicker)
+    //
+    // Processes a date update by:
+    // 1. Setting the manual date input (if a date string is provided)
+    // 2. [OPTIONAL] Raising a change event on the manual date input
+    //    The final parameter controls bubbling (propagation) of this event
+    //
+    DateControl.prototype.processDateUpdate = function(dateStr, raiseEvent, bubbleEvent = true)
     {
-        let changeEventDetails = {};
-        changeEventDetails[EVENT_BUBBLE_OPTION] = true;
-        changeEventDetails[DATE_CHANGE_EVENT_DETAILS] = {};
-        changeEventDetails[DATE_CHANGE_EVENT_DETAILS][DATE_CHANGE_EVENT_UPDATE_PICKER] = updateDatePicker;
-        let changeEvent = new CustomEvent(DATE_CHANGE_EVENT_TYPE, changeEventDetails);
-
         if (dateStr != null)
         {
             this.dateInput.value = dateStr;
         }
-        this.dateInput.dispatchEvent(changeEvent);
+
+        if (raiseEvent)
+        {
+            let changeEventDetails = {};
+            changeEventDetails[EVENT_BUBBLE_OPTION] = bubbleEvent;
+            let changeEvent = new Event(DATE_CHANGE_EVENT_TYPE, changeEventDetails);
+
+            this.dateInput.dispatchEvent(changeEvent);
+        }
     }
 
-    // Handles selection of a date in the picker selection
+    //
+    // Handles selection of a date in the picker selection by
+    // updating the manual date input, without forcing raising of another event
+    //
     DateControl.prototype.onDatePicked = function(selectedDates, dateStr, instance)
     {
-        this.raiseDateInputChange(dateStr, false);
+        this.processDateUpdate(dateStr, false);
     }
 
+    //
     // Ensures the manual date input and date picker are synched
+    //
     DateControl.prototype.synchGUI = function()
     {
-        this.raiseDateInputChange(null, true);
+        this.processDateUpdate(null, true);
     }
 
+    //
     // Retrieves the date of the control
+    //
     DateControl.prototype.getDate = function()
     {
         return this.dateInput.value;
     }
 
-    // Sets the date of the control
-    DateControl.prototype.setDate = function(dateStr)
+    //
+    // Sets the date of the control, optionally propagating any change events
+    //
+    DateControl.prototype.setDate = function(dateStr, bubble = true)
     {
-        this.raiseDateInputChange(dateStr, true);
+        this.processDateUpdate(dateStr, true, bubble);
     }
 
     return new DateControl();
@@ -235,7 +286,7 @@ function getDateComponent()
         this.dateControl = getDateControl();
 
         // Rig the control's gui to the DateControl and initialise its date
-        this.gui = this.dateControl.root;
+        this.root = this.dateControl.root;
         this.dateControl.setDate(params.formatValue(params.value));
     };
 
@@ -256,7 +307,7 @@ function getDateComponent()
     //
     DateComp.prototype.getGui = function()
     {
-        return this.gui;
+        return this.root;
     };
 
     //
@@ -337,37 +388,25 @@ function getDateFilterComponent()
     const CLASS_CLEAR_BUTTON    = "btn-clear-filter";
     const CLASS_RESET_BUTTON    = "btn-reset-filter";
 
-    // An enumeration representing the filter type identifiers
-    const FilterTypeEnum =
-    {
-        "FT_ON":        0,
-        "FT_BEFORE":    1,
-        "FT_AFTER":     2,
-        "FT_NOT":       3,
-        "FT_BETWEEN":   4,
-        "FT_UNKNOWN":   5
-    };
-    Object.freeze(FilterTypeEnum);
-
     // How the filter types are displayed to the user
-    const filterTypes =
+    const filterTypeDefs =
     [
-        {"ftVal": FilterTypeEnum.FT_ON,         "ftLabel": "On/in"},
-        {"ftVal": FilterTypeEnum.FT_BEFORE,     "ftLabel": "Before"},
-        {"ftVal": FilterTypeEnum.FT_AFTER,      "ftLabel": "After"},
-        {"ftVal": FilterTypeEnum.FT_NOT,        "ftLabel": "Not on/in"},
+        {"ftVal": FilterTypeEnum.FT_ON,         "ftLabel": "On/in",     "ftPrefix": "=="},
+        {"ftVal": FilterTypeEnum.FT_BEFORE,     "ftLabel": "Before",    "ftPrefix": "<"},
+        {"ftVal": FilterTypeEnum.FT_AFTER,      "ftLabel": "After",     "ftPrefix": ">"},
+        {"ftVal": FilterTypeEnum.FT_NOT,        "ftLabel": "Not on/in", "ftPrefix": "!="},
         {"ftVal": FilterTypeEnum.FT_BETWEEN,    "ftLabel": "Between"},
         {"ftVal": FilterTypeEnum.FT_UNKNOWN,    "ftLabel": "Unknown"}
     ];
 
-    // Default filte settings
+    // Default filter settings
     const DEFAULT_TYPE_VALUE    = FilterTypeEnum.FT_ON;
     const DEFAULT_DATE_STR      = "";
 
-    // Filter model property names
-    const FILTER_MODEL_TYPE         = "type";
-    const FILTER_MODEL_START_DATE   = "start_date";
-    const FILTER_MODEL_END_DATE     = "end_date";
+    function getFilterTypeIdx(filterVal)
+    {
+        return filterTypeDefs.findIndex(function(filterItem) { return filterItem.ftVal == filterVal; });
+    }
 
     function DateFilterComponent() {}
 
@@ -387,20 +426,20 @@ function getDateFilterComponent()
 
         // Set up the filter type dropdown
         this.filterType = document.createElement("select");
-        for (let idx = 0; idx < filterTypes.length; idx++)
+        for (let idx = 0; idx < filterTypeDefs.length; idx++)
         {
             let selectOption = document.createElement("option");
-            selectOption.setAttribute("value", filterTypes[idx].ftVal);
-            selectOption.innerHTML = filterTypes[idx].ftLabel;
+            selectOption.setAttribute("value", filterTypeDefs[idx].ftVal);
+            selectOption.innerHTML = filterTypeDefs[idx].ftLabel;
             this.filterType.appendChild(selectOption);
         }
 
         // Set up the start/end date controls
         this.startDateControl = getDateControl();
-        this.startDateControl.root.classList.add(CLASS_START_DATE);
+        this.startDateControl.getGui().classList.add(CLASS_START_DATE);
 
         this.endDateControl = getDateControl();
-        this.endDateControl.root.classList.add(CLASS_END_DATE);
+        this.endDateControl.getGui().classList.add(CLASS_END_DATE);
 
         // Set up the clear/reset button pane
         let buttonPane = document.createElement("div");
@@ -418,8 +457,8 @@ function getDateFilterComponent()
         buttonPane.appendChild(buttonReset);
 
         this.gui.appendChild(this.filterType);
-        this.gui.appendChild(this.startDateControl.root);
-        this.gui.appendChild(this.endDateControl.root);
+        this.gui.appendChild(this.startDateControl.getGui());
+        this.gui.appendChild(this.endDateControl.getGui());
         this.gui.appendChild(buttonPane);
 
         this.setupGuiHooks();
@@ -440,11 +479,11 @@ function getDateFilterComponent()
     DateFilterComponent.prototype.setupGuiHooks = function()
     {
         // Resynch the GUI when the filter type changes.
-        this.filterType.addEventListener("change", this.synchGUI.bind(this));
+        this.filterType.addEventListener("change", this.filterTypeChanged.bind(this));
 
         // Reapply the filter when the start/end date controls signal a change
-        this.startDateControl.root.addEventListener(DATE_CHANGE_EVENT_TYPE, this.reapplyFilter.bind(this));
-        this.endDateControl.root.addEventListener(DATE_CHANGE_EVENT_TYPE, this.reapplyFilter.bind(this));
+        this.startDateControl.getGui().addEventListener(DATE_CHANGE_EVENT_TYPE, this.reapplyFilter.bind(this));
+        this.endDateControl.getGui().addEventListener(DATE_CHANGE_EVENT_TYPE, this.reapplyFilter.bind(this));
 
         // Set up the buttons for clearing/resetting the filter
         let clearButton = this.gui.querySelector(CLASS_SELECTOR(CLASS_CLEAR_BUTTON));
@@ -458,41 +497,64 @@ function getDateFilterComponent()
     }
 
     //
-    // 1. Show/hide date controls according to the filter type selected
-    // 2. Ensure date controls' manual inputs and date pickers are in synch
+    // When the filter type changes, resynch the GUI and refilter
+    //
+    DateFilterComponent.prototype.filterTypeChanged = function(event)
+    {
+        this.synchGUI();
+        this.reapplyFilter();
+    }
+
+    //
+    // Show/hide date controls according to the filter type selected
     //
     DateFilterComponent.prototype.synchGUI = function()
     {
         let hideStartDate   = (this.filterType.value == FilterTypeEnum.FT_UNKNOWN);
         let hideEndDate     = (this.filterType.value != FilterTypeEnum.FT_BETWEEN);
-        this.startDateControl.root.hidden = hideStartDate;
-        this.endDateControl.root.hidden = hideEndDate;
-
-        this.startDateControl.synchGUI();
-        this.endDateControl.synchGUI();
+        this.startDateControl.getGui().hidden = hideStartDate;
+        this.endDateControl.getGui().hidden = hideEndDate;
     }
 
+    //
     // Force recalculation of the filter
+    //
     DateFilterComponent.prototype.reapplyFilter = function(event)
     {
         this.filterParams.filterChangedCallback();
     }
 
-    // Clear the manual date inputs
+    //
+    // Apply default start/end dates with optional bubbling of associated
+    // change events
+    //
+    DateFilterComponent.prototype.applyDefaultDates = function(bubble = true)
+    {
+        this.startDateControl.setDate(DEFAULT_DATE_STR, bubble);
+        this.endDateControl.setDate(DEFAULT_DATE_STR, bubble);
+    }
+
+    //
+    // Apply default filter settings with optional bubbling of associated
+    // change events
+    //
+    DateFilterComponent.prototype.applyDefaults = function(bubble = true)
+    {
+        this.filterType.selectedIndex = getFilterTypeIdx(DEFAULT_TYPE_VALUE);
+        this.applyDefaultDates(bubble);
+    }
+
+    //
+    // Reset start/end date values
+    //
     DateFilterComponent.prototype.clearDates = function(event)
     {
-        this.startDateControl.setDate(DEFAULT_DATE_STR);
-        this.endDateControl.setDate(DEFAULT_DATE_STR);
+        this.applyDefaultDates();
     }
 
-    // Apply default filter settings
-    DateFilterComponent.prototype.applyDefaults = function()
-    {
-        this.filterType.selectedIndex = filterTypes.findIndex(function(filterItem) { return filterItem.ftVal == DEFAULT_TYPE_VALUE; });
-        this.clearDates();
-    }
-
+    //
     // Reset the filter
+    //
     DateFilterComponent.prototype.resetFilter = function()
     {
         this.applyDefaults();
@@ -611,56 +673,297 @@ function getDateFilterComponent()
         if (this.isFilterActive())
         {
             let filterTypeVal = parseInt(this.filterType.value);
+
             model = {};
-            model[FILTER_MODEL_TYPE] = filterTypeVal;
-            if (this.filterType.value != FilterTypeEnum.FT_UNKNOWN)
+            model[DATE_FILTER_MODEL_TYPE] = filterTypeVal;
+
+            if (filterTypeVal != FilterTypeEnum.FT_UNKNOWN)
             {
-                model[FILTER_MODEL_START_DATE] = this.startDateControl.getDate();
+                model[DATE_FILTER_MODEL_START_DATE] = this.startDateControl.getDate();
+
                 if (filterTypeVal == FilterTypeEnum.FT_BETWEEN)
                 {
-                    model[FILTER_MODEL_END_DATE] = this.endDateControl.getDate();
+                    model[DATE_FILTER_MODEL_END_DATE] = this.endDateControl.getDate();
                 }
             }
         }
         return model;
     }
 
+    //
+    // [IFilterComp]: getModelAsString?(model: any): string;
+    //      If floating filters are turned on for the grid, but you have no
+    //      floating filter configured for this column, then the grid will
+    //      check for this method.
+    //      If this method exists, then the grid will provide a read-only
+    //      floating filter for you and display the results of this method.
+    //      For example, if your filter is a simple filter with one string
+    //      input value, you could just return the simple string value here.
+    //
+    DateFilterComponent.prototype.getModelAsString = function(model)
+    {
+        let modelStr = null;
+        if (model)
+        {
+            let filterTypeVal = model[DATE_FILTER_MODEL_TYPE];
+            let filterTypeDef = filterTypeDefs[getFilterTypeIdx(filterTypeVal)];
+            let startDate     = this.startDateControl.getDate();
+            let endDate       = this.endDateControl.getDate();
+
+            switch(filterTypeVal)
+            {
+                case FilterTypeEnum.FT_UNKNOWN:
+                    modelStr = "Unknown";
+                    break;
+
+                case FilterTypeEnum.FT_ON:
+                case FilterTypeEnum.FT_BEFORE:
+                case FilterTypeEnum.FT_AFTER:
+                case FilterTypeEnum.FT_NOT:
+                    modelStr = filterTypeDef["ftPrefix"] + " " + startDate;
+                    break;
+
+                case FilterTypeEnum.FT_BETWEEN:
+                    modelStr = "(" + startDate + ", " + endDate + ")";
+            }
+        }
+
+        return modelStr;
+    }
+
+    //
+    // Updates the filter settings based on a model.
+    // Bubbling of events is suppressed so that recalculation of the filter
+    // can be deferred until the entire model is applied.
+    //
+    DateFilterComponent.prototype.updateModel = function(model)
+    {
+        if (model)
+        {
+            let filterTypeVal   = model[DATE_FILTER_MODEL_TYPE];
+            let filterTypeIndex = getFilterTypeIdx(filterTypeVal);
+            let filterStartDate = model[DATE_FILTER_MODEL_START_DATE];
+            let filterEndDate   = model[DATE_FILTER_MODEL_END_DATE];
+
+            if (filterTypeIndex != -1)
+            {
+                this.filterType.selectedIndex = filterTypeIndex;
+            }
+
+            //
+            // Suppress bubbling of the change events from the date controls,
+            // so that processing of these events by the filter can be deferred
+            // until the whole model is updated.
+            //
+            // TODO: Should I bother to check the filter type before setting?
+            //
+            if (filterTypeVal != FilterTypeEnum.FT_UNKNOWN)
+            {
+                this.startDateControl.setDate(filterStartDate, false);
+            }
+
+            if (filterTypeVal == FilterTypeEnum.FT_BETWEEN)
+            {
+                this.endDateControl.setDate(filterEndDate, false);
+            }
+        }
+        else
+        {
+            this.applyDefaults(false);
+        }
+    }
 
     //
     // [IFilterComp]: setModel(model: any): void;
     //      Restores the filter state.
     //      Called by the grid after gridApi.setFilterModel(model) is called.
     //      The grid will pass undefined/null to clear the filter.
+    //
     DateFilterComponent.prototype.setModel = function(model)
     {
-        if (model)
-        {
-            let filterTypeVal   = model[FILTER_MODEL_TYPE];
-            let filterTypeIndex = filterTypes.findIndex(function(filterItem) { return filterItem.ftVal == filterTypeVal; });
-            let filterStartDate = model[FILTER_MODEL_START_DATE];
-            let filterEndDate   = model[FILTER_MODEL_END_DATE];
+        this.updateModel(model);
+        this.synchGUI();
+        this.reapplyFilter();
+    }
 
-            if (filterTypeIndex != -1)
-            {
-                this.filterType.selectedIndex = filterTypeIndex;
-
-                if (filterTypeVal != FilterTypeEnum.FT_UNKNOWN)
-                {
-                    this.startDateControl.setDate(filterStartDate);
-
-                    if (filterTypeVal == FilterTypeEnum.FT_BETWEEN)
-                    {
-                        this.endDateControl.setDate(filterEndDate);
-                    }
-                }
-            }
-            this.synchGUI();
-        }
-        else
-        {
-            this.resetFilter();
-        }
+    DateFilterComponent.prototype.setStartDate = function(dateStr, bubble)
+    {
+        this.startDateControl.setDate(dateStr, bubble);
+        this.reapplyFilter();
     }
 
     return DateFilterComponent;
+}
+
+
+//
+// Custom floating equivalent for the custom date filter component
+// (implements IFloatingFilterComp).
+// When the filter requires a single date (e.g. condition is "On/in 2003"),
+// the floating filter allows editing of this date.
+// Otherwise, the floating filter displays a read-only representation of the
+// filter condition.
+//
+function getDateFloatingFilterComponent()
+{
+    function DateFloatingFilterComponent() {}
+
+    //
+    // [IFloatingFilterComp]: init(params: IFilterFloatingParams): void;
+    //      Called on the floating filter once.
+    //      IFloatingFilterParams:
+    //      column: Column;
+    //          The column this filter is for
+    //      filterParams: IFilterParams;
+    //          The params object passed to the parent filter.
+    //          Allows access to the configuration of the parent filter.
+    //      currentParentModel(): any;
+    //          A shortcut to getModel() on the parent parent filter.
+    //          If the parent filter doesn't exist (filters are lazily created as needed)
+    //          returns null rather than calling getModel() on the parent filter.
+    //      suppressFilterButton: boolean;
+    //          Boolean flag to indicate if the button in the floating filter that
+    //          opens the parent filter in a popup should be displayed
+    //      parentFilterInstance: (callback: (filterInstance: IFilterComp) => void) => void;
+    //          Gets a reference to the parent filter, returned asynchonously
+    //          via a callback as the parent filter may not exist yet.
+    //
+    //          The floating filter can then call any method on the parent filter.
+    //          The parent filter will typically provide its own method for the
+    //          floating filter to call to set the filter.
+    //          For example, if creating custom filter A, it should have a method your
+    //          floating A can call to set the state when the user updates via the
+    //          floating filter.
+    //      api: any;
+    //          The grid API
+    //
+    DateFloatingFilterComponent.prototype.init = function(params)
+    {
+        // Cache initiation parameters for later use
+        this.filterParams = params;
+
+        // Root HTML element that hosts both date controls
+        this.root = document.createElement("div");
+        this.root.style.setProperty("display", "flex");
+        this.root.style.setProperty("align-items", "center");   // Vertically centre child elements
+
+        // Editable and read-only date controls:
+        // Only one is visible, depending on the underlying filter settings.
+        this.editableDateControl = getDateControl();
+        this.readonlyDateControl = document.createElement("input");
+
+        // Styling that applies to both controls
+        const commonStyleProperties =
+        {
+            "position":     "absolute",
+            "left":         "0",            // Anchor to left of parent element
+            "max-height":   "80%",
+            "max-width":    "100%",
+            "padding":      "0",
+            "margin":       "0",
+            "border":       "0",
+            "overflow":     "hidden"        // Hide parts of the date controls
+                                            // that exceed the parent's boundaries
+        }
+
+        // Apply common styling to controls
+        for (let propName in commonStyleProperties)
+        {
+            let propValue = commonStyleProperties[propName];
+            this.editableDateControl.root.style.setProperty(propName, propValue);
+            this.readonlyDateControl.style.setProperty(propName, propValue);
+        }
+
+        // Configure the read-only date control
+        this.readonlyDateControl.setAttribute("type", "text");
+        this.readonlyDateControl.setAttribute("disabled", "true");
+
+        // Add both controls as child elements
+        this.root.appendChild(this.editableDateControl.root);
+        this.root.appendChild(this.readonlyDateControl);
+
+        this.root.addEventListener(DATE_CHANGE_EVENT_TYPE, this.filterChanged.bind(this));
+
+        this.configureGUI(this.filterParams.currentParentModel());
+    }
+
+    //
+    // Determines which date control to show based on the parent filter's model
+    //
+    DateFloatingFilterComponent.prototype.configureGUI = function(filterModel)
+    {
+        // Local references to the controls (for convenience)
+        let editableControl = this.editableDateControl;
+        let readonlyControl = this.readonlyDateControl;
+
+        if (filterModel != null)
+        {
+            // Display the filter's model string in the read-only control
+            this.filterParams.parentFilterInstance(function(parentFilter) { readonlyControl.placeholder = parentFilter.getModelAsString(filterModel); });
+            switch(filterModel.type)
+            {
+                case FilterTypeEnum.FT_BETWEEN:
+                case FilterTypeEnum.FT_UNKNOWN:
+                    editableControl.root.style.setProperty("visibility", "hidden");
+                    readonlyControl.style.setProperty("visibility", "visible");
+                    return;
+
+                default:
+                    editableControl.setDate(filterModel[DATE_FILTER_MODEL_START_DATE], false);
+            }
+        }
+        else
+        {
+            readonlyControl.placeholder = "";
+            editableControl.setDate("", false);
+        }
+
+        editableControl.root.style.setProperty("visibility", "visible");
+        readonlyControl.style.setProperty("visibility", "hidden");
+
+    }
+
+    //
+    // [IFloatingFilterComp]: onParentModelChanged(parentModel: any, event: FilterChangeEvent): void;
+    //      Gets called every time the parent filter changes.
+    //      The floating filter would typically refresh its UI to reflect the
+    //      new filter state. The provided parentModel is returned by the
+    //      parent filter's getModel() method.
+    //      The event is the FilterChangedEvent that the grid fires.
+    //
+    DateFloatingFilterComponent.prototype.onParentModelChanged = function(parentModel, event)
+    {
+        let modelStr = "";
+        this.filterParams.parentFilterInstance(function(parentFilter) { modelStr = parentFilter.getModelAsString(parentModel); });
+
+        this.configureGUI(parentModel);
+    }
+
+    //
+    // [IFloatingFilterComp]: getGui(): HTMLElement;
+    //      Returns the HTML element for this floating filter.
+    //
+    DateFloatingFilterComponent.prototype.getGui = function()
+    {
+        return this.root;
+    }
+
+    //
+    //
+    //
+    DateFloatingFilterComponent.prototype.filterChanged = function(event)
+    {
+        let currentModel = this.filterParams.currentParentModel() || {};
+        currentModel[DATE_FILTER_MODEL_START_DATE] = this.editableDateControl.getDate();
+
+        this.filterParams.parentFilterInstance(function(parentFilter) { parentFilter.setModel(currentModel); });
+    }
+
+    // Gets called when the floating filter is destroyed. Like column headers,
+    // the floating filter lifespan is only when the column is visible,
+    // so they are destroyed if the column is made not visible or when a user
+    // scrolls the column out of view with horizontal scrolling.
+    //destroy?(): void;
+
+    return DateFloatingFilterComponent;
 }
