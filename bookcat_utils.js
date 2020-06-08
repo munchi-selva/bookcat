@@ -1,4 +1,15 @@
+//
+// Checks if a string is formatted as a date (possibly invalid)
+//
+function isDateString(candidateDateStr)
+{
+    let candidateDate = parseDateComponents(candidateDateStr);
+    return (candidateDate != null);
+}
+
+//
 // Checks if a date (specified as year, month, day values) is valid
+//
 function isDateValid(year, month, day)
 {
     let valid = true;
