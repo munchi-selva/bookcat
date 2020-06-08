@@ -425,13 +425,7 @@
                             },
                             filter: "dateFilterComponent",
                             floatingFilterComponent: "dateFloatingFilterComponent",
-                            filterParams:
-                            {
-                                comparator: function(filterDate, recFld)
-                                {
-                                    return compareDates(filterDate, recFld);
-                                }
-                            }
+                            comparator: compareDateComponents
                         },
                         {
                             headerName: COL_HDR_ARR_DATE,
@@ -464,14 +458,9 @@
                             {
                                 return markFldValidity(params, params.valueFormatted);
                             },
-                            filter: "agDateColumnFilter",
-                            filterParams:
-                            {
-                                comparator: function(filterDate, recFld)
-                                {
-                                    return compareDates(filterDate, recFld);
-                                }
-                            },
+                            filter: "dateFilterComponent",
+                            floatingFilterComponent: "dateFloatingFilterComponent",
+                            comparator: compareDateComponents,
                             hide: true
                         },
                         {headerName: COL_HDR_SELLER, field: CAT_FLD_SELLER},
@@ -1738,30 +1727,6 @@
                                                   dateObj[CAT_FLD_DATE_DAY]);
                     return markFldValidity(fldParams, cellString);
                 }
-            }
-
-            // Compares a reference date (formatted as a JS Date object) with a
-            // record field date (formatted with day/month/year components)
-            function compareDates(refDate, recFld)
-            {
-                let recFldYear  = recFld[CAT_FLD_DATE_YEAR];
-                let recFldMonth = recFld[CAT_FLD_DATE_MONTH];
-                let recFldDay   = recFld[CAT_FLD_DATE_DAY];
-                let recFldDate  = new Date(recFldYear,
-                                           recFldMonth ? recFldMonth - 1 : 0,
-                                           recFldDay ? recFldDay : 1);
-
-                if (recFldDate.getTime() === refDate.getTime())
-                {
-                    return 0;
-                }
-
-                if (recFldDate < refDate)
-                {
-                    return -1;
-                }
-
-                return 1;
             }
 
             // Checks if a given catalogue record field's contents are valid:
