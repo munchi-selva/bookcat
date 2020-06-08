@@ -353,15 +353,23 @@ function getDateComponent()
     }
 
     //
+    // [ICellEditorComp]: isCancelAfterEnd?(): boolean;
+    //      Gets called once when editing is finished (e.g. if enter is pressed).
+    //      If you return true, then the result of the edit will be ignored.
+    //
+    // Cancel the edit if the string entered isn't a date string.
+    //
+    DateComp.prototype.isCancelAfterEnd = function()
+    {
+        return (!isDateString(this.dateControl.getDate()));
+    }
+
+    //
     // Other ICellEditorComp optional methods (not implemented)
     //
     // isCancelBeforeStart?(): boolean;
     //      Gets called once before editing starts, to give editor a chance to
     //      cancel the editing before it even starts.
-    //
-    // isCancelAfterEnd?(): boolean;
-    //      Gets called once when editing is finished (e.g. if enter is pressed).
-    //      If you return true, then the result of the edit will be ignored.
     //
     // focusIn?(): boolean;
     //      If doing full row edit, then gets called when tabbing into the cell.
@@ -740,11 +748,22 @@ function getDateFilterComponent()
     {
         if (model)
         {
-            let filterTypeVal   = model[DATE_FILTER_MODEL_TYPE];
-            let filterTypeIndex = getFilterTypeIdx(filterTypeVal);
-            let filterStartDate = model[DATE_FILTER_MODEL_START_DATE];
-            let filterEndDate   = model[DATE_FILTER_MODEL_END_DATE];
+            let currFilterTypeVal   = parseInt(this.filterType.value);
+            let filterTypeVal       = model[DATE_FILTER_MODEL_TYPE];
+            let filterStartDate     = model[DATE_FILTER_MODEL_START_DATE];
+            let filterEndDate       = model[DATE_FILTER_MODEL_END_DATE];
 
+            // A hack...
+            // If the current filter type is between and the new model only
+            // provides no filter type, a start date, and no end date,
+            // reset the filter type.
+            if (currFilterTypeVal == FilterTypeEnum.FT_BETWEEN &&
+                !filterTypeVal && filterStartDate && !filterEndDate)
+            {
+                filterTypeVal = DEFAULT_TYPE_VALUE;
+            }
+
+            let filterTypeIndex = getFilterTypeIdx(filterTypeVal);
             if (filterTypeIndex != -1)
             {
                 this.filterType.selectedIndex = filterTypeIndex;
@@ -769,6 +788,7 @@ function getDateFilterComponent()
         }
         else
         {
+            // Reset the filter
             this.applyDefaults(false);
         }
     }
@@ -783,12 +803,6 @@ function getDateFilterComponent()
     {
         this.updateModel(model);
         this.synchGUI();
-        this.reapplyFilter();
-    }
-
-    DateFilterComponent.prototype.setStartDate = function(dateStr, bubble)
-    {
-        this.startDateControl.setDate(dateStr, bubble);
         this.reapplyFilter();
     }
 
