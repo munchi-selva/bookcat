@@ -791,6 +791,12 @@
                 defaultColDef:          defaultCatCol,
                 columnDefs:             bookColumns,
 
+                // Unique identifier for each row
+                getRowNodeId: function(data)
+                {
+                    return data[CAT_FLD_ID];
+                },
+
                 rowSelection:           "multiple",
                 rowDeselection:         true,           // Allow deselecting rows with Ctrl-click
                 enableRangeSelection:   true,           // Allow multiple values in the same column to be selected/copied
@@ -1327,16 +1333,19 @@
                 let catRec = {};
                 catRec[CAT_FLD_ID] = recId;
 
-                // Add record to the underlying data array, and update IDs
-                // of all following records
-                catData.splice(dataAddIdx, 0, catRec);
-                for (let idx = dataAddIdx + 1; idx < catData.length; idx++)
+                // Add the new record to a copy of the catalogue data array,
+                // update IDs of the records that followi it, then reassign the
+                // catalogue data array to point to the new data.
+                let updatedCatData = catData.slice();
+                updatedCatData.splice(dataAddIdx, 0, catRec);
+                for (let idx = dataAddIdx + 1; idx < updatedCatData.length; idx++)
                 {
-                    catData[idx][CAT_FLD_ID]++;
+                    updatedCatData[idx][CAT_FLD_ID]++;
                 }
+                catData = updatedCatData;
 
-                // Synch changes with the grid's row data
-                gridOptions.api.updateRowData({add: [catRec], addIndex: gridAddIdx});
+                // Update the grid's row data
+                gridOptions.api.setRowData(catData);
 
                 // Scroll to the added record
                 gridOptions.api.ensureIndexVisible(gridAddIdx);
@@ -1345,43 +1354,39 @@
             // Deletes the selected records
             function delSelectedRecs()
             {
-                // Identify the rows in the grid and the underlying data array
-                // elements to be deleted
                 let delRows = gridOptions.api.getSelectedRows();
-                let delDataIdxes = [];
-                for (let idx = 0; idx < delRows.length; idx++)
+                if (delRows.length > 0)
                 {
-                    delDataIdxes.push(catData.indexOf(delRows[idx]));
-                }
-                delDataIdxes.sort();
-                let minDelIdx = delDataIdxes.length > 0 ? delDataIdxes[0] : 0;
+                    // Copy the data array for updating
+                    let updatedCatData = catData.slice();
 
-                // Delete selected records from the underlying data array.
-                // This is done in descending index order, since deleting in
-                // the other direction shifts the correspondence between
-                // indexes and catalogue records and causes the wrong records
-                // to be deleted. :)
-                // TODO: implement batched deletion.
-                for (let idx = delDataIdxes.length - 1; idx >= 0; idx--)
-                {
-                    let delDataIdx = delDataIdxes[idx];
-                    catData = catData.slice(0, delDataIdx).concat(catData.slice(delDataIdx + 1));
-                }
+                    // Identify the catalogue records to be deleted
+                    let delIds = delRows.map(function(row) { return gridOptions.getRowNodeId(row); }).sort(function(a, b) { return a - b; });
+                    let minDelIdx = updatedCatData.findIndex(function(catRec) { return gridOptions.getRowNodeId(catRec) == delIds[0]; });
 
-                // Ensure the IDs are contiguous.
-                // Special handling of deletion of first record.
-                if (minDelIdx == 0 && catData.length > 0)
-                {
-                    catData[0][CAT_FLD_ID]--;
-                }
+                    // Update the data array by filtering out the deleted IDs
+                    updatedCatData = updatedCatData.filter(function(catRec) { return delIds.indexOf(gridOptions.getRowNodeId(catRec)) < 0; });
 
-                for (let idx = 1; idx < catData.length; idx++)
-                {
-                    catData[idx][CAT_FLD_ID] = catData[idx-1][CAT_FLD_ID] + 1;
-                }
+                    // Ensure remaining IDs are contiguous.
 
-                // Synch changes with the grid's row data
-                gridOptions.api.updateRowData({remove: delRows});
+                    // Special handling of deletion of first record.
+                    if (minDelIdx == 0 && updatedCatData.length > 0)
+                    {
+                        updatedCatData[0][CAT_FLD_ID]--;
+                    }
+
+                    // Compress IDs of records following the first one deleted
+                    for (let idx = Math.max(minDelIdx, 1); idx < updatedCatData.length; idx++)
+                    {
+                        updatedCatData[idx][CAT_FLD_ID] = updatedCatData[idx-1][CAT_FLD_ID] + 1;
+                    }
+
+                    // Synch changes with the grid's row data
+                    catData = updatedCatData;
+
+                    // Update the grid's row data
+                    gridOptions.api.setRowData(catData);
+                }
             }
 
             // Function for comparing two catalogue records
