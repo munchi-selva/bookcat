@@ -65,7 +65,7 @@ function showEventOrigins(event)
 //
 // A custom date control comprising:
 //  * A text input for manual input of dates
-//  * A button that launches a date picker
+//  * A clickable element that launches a date picker
 // The text field and date picker are synched.
 // Dates have the format yyyy-mm-dd.
 // Incomplete dates (yyyy, yyyy-mm) are supported.
@@ -76,7 +76,7 @@ function getDateControl()
     const CLASS_DATE_INPUT_WRAPPER  = "date-input-wrapper";
     const CLASS_DATE_INPUT          = "date-input";
     const CLASS_HIDDEN_DATE_INPUT   = "hidden-date-input";
-    const CLASS_DATE_LAUNCHER_BTN   = "btn-date-launcher";
+    const CLASS_DATE_LAUNCHER       = "date-launcher";
 
     function DateControl()
     {
@@ -89,7 +89,7 @@ function getDateControl()
     // <div class="date-input-wrapper">
     //     <div class="grid-container" style="grid-template-columns: auto 20%">
     //         <input type="text" class="date-input"></input>
-    //         <button class="btn-date-launcher">
+    //         <button class="date-launcher">
     //     </div>
     //     <input type='text' class='hidden-date-input'></input>";
     // </div>
@@ -105,20 +105,24 @@ function getDateControl()
 
         inputGrid.classList.add(CLASS_GRID_CONTAINER);
         inputGrid.style.setProperty("grid-template-columns", "auto 0% auto");
+        inputGrid.style.setProperty("align-items", "center");   // Vertically centre child elements
+        inputGrid.style.setProperty("border", "solid");         // Enclose children with a border
+        inputGrid.style.setProperty("border-width", "thin");
 
         let dateInput = document.createElement("input");
         dateInput.classList.add(CLASS_DATE_INPUT);
+        dateInput.style.setProperty("border", "none");
 
         let hiddenDateInput = document.createElement("input");
         hiddenDateInput.classList.add(CLASS_HIDDEN_DATE_INPUT);
 
-        let launcherBtn = document.createElement("button");
-        launcherBtn.classList.add(CLASS_DATE_LAUNCHER_BTN);
-        launcherBtn.innerHTML = "&#x25BC;";
+        let dateLauncher = document.createElement("div");
+        dateLauncher.classList.add(CLASS_DATE_LAUNCHER);
+        dateLauncher.innerHTML = "&#x1F4C5";                // Unicode calendar character
 
         inputGrid.appendChild(dateInput);
         inputGrid.appendChild(hiddenDateInput);
-        inputGrid.appendChild(launcherBtn);
+        inputGrid.appendChild(dateLauncher);
 
         this.root.appendChild(inputGrid);
 
@@ -135,7 +139,7 @@ function getDateControl()
 
         // Get access to the miscellaneous elements of the control
         let hiddenDateInput = this.root.querySelector(CLASS_SELECTOR(CLASS_HIDDEN_DATE_INPUT));
-        let launcherBtn     = this.root.querySelector(CLASS_SELECTOR(CLASS_DATE_LAUNCHER_BTN));
+        let dateLauncher    = this.root.querySelector(CLASS_SELECTOR(CLASS_DATE_LAUNCHER));
 
         // Set up a change event handler on the visible date input
         this.dateInput.addEventListener(DATE_CHANGE_EVENT_TYPE, this.onDateInputChanged.bind(this));
@@ -155,7 +159,7 @@ function getDateControl()
         datePicker.calendarContainer.classList.add("ag-custom-component-popup");
 
         // Set up the launcher button to launch the date picker
-        launcherBtn.addEventListener("click", function() { datePicker.open(); });
+        dateLauncher.addEventListener("click", function() { datePicker.open(); });
     }
 
     DateControl.prototype.getGui = function()
