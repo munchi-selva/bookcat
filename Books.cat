@@ -44897,7 +44897,7 @@
     {
         "isbn_13": "9780140435368",
         "isbn_10": "0140435360",
-        "flags": 3,
+        "flags": 2,
         "authors": [
             {
                 "surname": "Hardy",
@@ -44963,6 +44963,37 @@
         }
     },
     {
+        "id": 1030,
+        "purchase_date": {
+            "year": 2020,
+            "month": 3,
+            "day": 2
+        },
+        "arrival_date": {
+            "year": 2020,
+            "month": 3,
+            "day": 2
+        },
+        "purchaser": "Stephanie",
+        "authors": [
+            {
+                "surname": "bis Erich Kästner",
+                "given_names": [
+                    "Horaz"
+                ]
+            }
+        ],
+        "title": "Quellen der Heiterkeit",
+        "subtitle": "Gedanken und Gedichte",
+        "publishers": [
+            "Verlagung Leobuchhandlung"
+        ],
+        "publish_places": [
+            "St. Gallen"
+        ],
+        "notes": "Gift"
+    },
+    {
         "isbn_13": "9781108457569",
         "isbn_10": "1108457568",
         "flags": 0,
@@ -44984,7 +45015,7 @@
         "publishers": [
             "Cambridge University Press"
         ],
-        "id": 1030,
+        "id": 1031,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -45019,7 +45050,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 1031,
+        "id": 1032,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -45062,7 +45093,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 1032,
+        "id": 1033,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -45090,7 +45121,7 @@
         "cover_required": "Y (Done)"
     },
     {
-        "id": 1033,
+        "id": 1034,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -45144,7 +45175,7 @@
         "cover_required": "Y (Done)"
     },
     {
-        "id": 1034,
+        "id": 1035,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -45197,7 +45228,7 @@
         ]
     },
     {
-        "id": 1035,
+        "id": 1036,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -45252,7 +45283,7 @@
         ]
     },
     {
-        "id": 1036,
+        "id": 1037,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -45287,19 +45318,20 @@
         ],
         "openlib": {},
         "flags": -3,
-        "openlib_synch_time": "2020-05-19 09:28:11 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-05-19 09:28:11 GMT+1000 (Australian Eastern Standard Time)",
+        "cover_required": "Y (Done)"
     },
     {
-        "id": 1037,
+        "id": 1038,
         "purchase_date": {
             "year": 2020,
             "month": 5,
             "day": 16
         },
         "arrival_date": {
-            "year": null,
-            "month": null,
-            "day": null
+            "year": 2020,
+            "month": 5,
+            "day": 16
         },
         "seller": "Kinokuniya",
         "number_in_order": "2",
@@ -45328,7 +45360,54 @@
             "Alma Classics"
         ],
         "openlib": {},
-        "flags": -3,
-        "openlib_synch_time": "2020-05-19 09:28:11 GMT+1000 (Australian Eastern Standard Time)"
+        "flags": -4,
+        "openlib_synch_time": "2020-05-19 09:28:11 GMT+1000 (Australian Eastern Standard Time)",
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1039,
+        "seller": "Amazon",
+        "seller_branch": ".com.au",
+        "purchase_date": {
+            "year": 2020,
+            "month": 5,
+            "day": 26
+        },
+        "arrival_date": {
+            "year": 2020,
+            "month": 6,
+            "day": 2
+        },
+        "number_in_order": "1",
+        "authors": [],
+        "isbn_13": "9780140435023",
+        "isbn_10": "0140435026",
+        "cover_required": "Y (Done)",
+        "purchase_currency": "AUD",
+        "purchase_price": "8.67",
+        "shipping_price": "0"
+    },
+    {
+        "id": 1040,
+        "purchase_date": {
+            "year": 2020,
+            "month": 5,
+            "day": 26
+        },
+        "arrival_date": {
+            "year": 2020,
+            "month": 6,
+            "day": 5
+        },
+        "seller": "Amazon",
+        "seller_branch": ".com.au",
+        "number_in_order": "2",
+        "authors": [],
+        "isbn_13": "9780486295749",
+        "isbn_10": "0486295745",
+        "cover_required": "Y (Done)",
+        "purchase_price": "16.44",
+        "purchase_currency": "AUD",
+        "shipping_price": "0"
     }
 ]
