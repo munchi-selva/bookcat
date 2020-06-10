@@ -29,7 +29,7 @@
     {
         "isbn_13": "9787819000186",
         "isbn_10": "781900018X",
-        "flags": 1,
+        "flags": 0,
         "authors": [
             {
                 "surname": "Smith",
@@ -45360,8 +45360,8 @@
             "Alma Classics"
         ],
         "openlib": {},
-        "flags": -4,
-        "openlib_synch_time": "2020-05-19 09:28:11 GMT+1000 (Australian Eastern Standard Time)",
+        "flags": -3,
+        "openlib_synch_time": "2020-06-11 08:50:37 GMT+1000 (Australian Eastern Standard Time)",
         "cover_required": "Y (Done)"
     },
     {
@@ -45385,7 +45385,34 @@
         "cover_required": "Y (Done)",
         "purchase_currency": "AUD",
         "purchase_price": "8.67",
-        "shipping_price": "0"
+        "shipping_price": "0",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Hardy",
+                    "given_names": [
+                        "Thomas"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 462
+            },
+            "key": "/books/OL455507M",
+            "publishers": [
+                "Penguin Books"
+            ],
+            "publish_places": [
+                "London",
+                "New York"
+            ],
+            "publish_date": "1996",
+            "subtitle": "a comedy in chapters",
+            "title": "The hand of Ethelberta",
+            "info_url": "https://openlibrary.org/books/OL455507M/The_hand_of_Ethelberta"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2020-06-11 08:50:38 GMT+1000 (Australian Eastern Standard Time)"
     },
     {
         "id": 1040,
@@ -45408,6 +45435,33 @@
         "cover_required": "Y (Done)",
         "purchase_price": "16.44",
         "purchase_currency": "AUD",
-        "shipping_price": "0"
+        "shipping_price": "0",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Fontaine",
+                    "given_names": [
+                        "Jean",
+                        "de",
+                        "La"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 206
+            },
+            "key": "/books/OL996863M",
+            "publishers": [
+                "Dover Publications"
+            ],
+            "publish_places": [
+                "Mineola, N.Y"
+            ],
+            "publish_date": "1997",
+            "title": "Selected fables = Fables choisies",
+            "info_url": "https://openlibrary.org/books/OL996863M/Selected_fables_Fables_choisies"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2020-06-11 08:50:38 GMT+1000 (Australian Eastern Standard Time)"
     }
 ]
