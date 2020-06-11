@@ -3,7 +3,7 @@
 //
 
 // HTML classes shared below
-const CLASS_GRID_CONTAINER      = "grid-container";
+const CLASS_GRID_CONTAINER  = "grid-container";
 
 // Custom date input change event properties
 const DATE_CHANGE_EVENT_TYPE            = "change";
@@ -25,6 +25,9 @@ const FilterTypeEnum =
     "FT_UNKNOWN":   5
 };
 Object.freeze(FilterTypeEnum);
+
+// Non-printable character codes
+const NPC_CR = 13;
 
 
 // Macro-ish function that converts the input parameter to a CSS class selector
@@ -105,6 +108,7 @@ function getDateControl()
 
         inputGrid.classList.add(CLASS_GRID_CONTAINER);
         inputGrid.style.setProperty("grid-template-columns", "auto 0% auto");
+        inputGrid.style.setProperty("resize", "horizontal");
         inputGrid.style.setProperty("align-items", "center");   // Vertically centre child elements
         inputGrid.style.setProperty("border", "solid");         // Enclose children with a border
         inputGrid.style.setProperty("border-width", "thin");
@@ -119,6 +123,7 @@ function getDateControl()
         let dateLauncher = document.createElement("div");
         dateLauncher.classList.add(CLASS_DATE_LAUNCHER);
         dateLauncher.innerHTML = "&#x1F4C5";                // Unicode calendar character
+        dateLauncher.style.setProperty("text-align", "right");
 
         inputGrid.appendChild(dateInput);
         inputGrid.appendChild(hiddenDateInput);
@@ -286,23 +291,30 @@ function getDateComponent()
     //
     DateComp.prototype.init = function(params)
     {
-        // Set up the date control
-        this.dateControl = getDateControl();
+        // Cache the editor parameters
+        this.editorParams = params;
 
-        // Rig the control's gui to the DateControl and initialise its date
+        // Set up the date control and set this up as the editor's root
+        this.dateControl = getDateControl();
         this.root = this.dateControl.root;
-        this.dateControl.setDate(params.formatValue(params.value));
     };
 
     //
     // [ICellEditorComp]: afterGuiAttached?(): void
     //      Gets called once after GUI is attached to DOM.
     //
-    // Focuses on the date input so that editing can be done
+    // Focuses on the date input so that editing can be done.
+    // To be consistent with other ag-grid editors, if editing was launched by
+    // pressing Enter, the existing date should be selected.
     //
     DateComp.prototype.afterGuiAttached = function()
     {
         this.dateControl.dateInput.focus();
+
+        if (this.editorParams.keyPress == NPC_CR)
+        {
+            this.dateControl.dateInput.select();
+        }
     };
 
     //
@@ -357,6 +369,34 @@ function getDateComponent()
     }
 
     //
+    // [ICellEditorComp]: isCancelBeforeStart?(): boolean;
+    //      Gets called once before editing starts, to give editor a chance to
+    //      cancel the editing before it even starts.
+    //
+    // Abort editing if a non-numerical character was entered.
+    // Otherwise initialise the date appropriately.
+    //
+    DateComp.prototype.isCancelBeforeStart = function()
+    {
+        let initialDate = this.editorParams.formatValue(this.editorParams.value);
+        let initialCharString = this.editorParams.charPress;
+        if (initialCharString)
+        {
+            if (isNaN(initialCharString))
+            {
+                return true;
+            }
+            else
+            {
+                initialDate = initialCharString;
+            }
+        }
+
+        this.dateControl.setDate(initialDate);
+        return false;
+    }
+
+    //
     // [ICellEditorComp]: isCancelAfterEnd?(): boolean;
     //      Gets called once when editing is finished (e.g. if enter is pressed).
     //      If you return true, then the result of the edit will be ignored.
@@ -370,10 +410,6 @@ function getDateComponent()
 
     //
     // Other ICellEditorComp optional methods (not implemented)
-    //
-    // isCancelBeforeStart?(): boolean;
-    //      Gets called once before editing starts, to give editor a chance to
-    //      cancel the editing before it even starts.
     //
     // focusIn?(): boolean;
     //      If doing full row edit, then gets called when tabbing into the cell.
@@ -876,7 +912,7 @@ function getDateFloatingFilterComponent()
             "position":     "absolute",
             "left":         "0",            // Anchor to left of parent element
             "max-height":   "80%",
-            "max-width":    "100%",
+            "width":        "100%",
             "padding":      "0",
             "margin":       "0",
             "border":       "0",
@@ -892,9 +928,13 @@ function getDateFloatingFilterComponent()
             this.readonlyDateControl.style.setProperty(propName, propValue);
         }
 
+        //this.editableDateControl.getGui().classList.add("w-100");
+
         // Configure the read-only date control
         this.readonlyDateControl.setAttribute("type", "text");
         this.readonlyDateControl.setAttribute("disabled", "true");
+        this.readonlyDateControl.style.setProperty("border", "solid");
+        this.readonlyDateControl.style.setProperty("border-width", "thin");
 
         // Add both controls as child elements
         this.root.appendChild(this.editableDateControl.root);
