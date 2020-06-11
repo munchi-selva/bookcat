@@ -284,6 +284,7 @@
             // Delimiters in fields that represent lists
             const DATE_SEP  = "-";
             const AUTH_SEP  = ";";
+            const NAME_SEP  = " ";
             const TITLE_SEP = ":";
             const PUB_SEP   = ";";
 
@@ -345,7 +346,7 @@
             const COL_HDR_NOTES             = "Notes";
             const COL_HDR_ELEC_FORMAT       = "Electronic Copy";
 
-            const fieldsToShow = [COL_HDR_ID, COL_HDR_PURCH_DATE, COL_HDR_ARR_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE];
+            const fieldsToShow = [COL_HDR_ID, COL_HDR_SYNCH_STATUS, COL_HDR_SURNAME, COL_HDR_GIVEN_NAMES, COL_HDR_PURCH_DATE, COL_HDR_ARR_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE];
 
             // Column definitions
             let bookColumns =
@@ -1558,65 +1559,61 @@
                 return namesString;
             }
 
+            //
+            // Sets the author's surname or given names
+            //
             function setAuthorNames(params, nameType)
             {
-                // Create a copy of the authors field to work with below
-                authData = JSON.parse(JSON.stringify(getFld(params.data, [CAT_FLD_AUTHORS])));
+                // Copy existing authors field to work with below
+                let authData = JSON.parse(JSON.stringify(getFld(params.data, [CAT_FLD_AUTHORS])));
                 if (!authData)
                 {
                     authData = [];
                 }
 
-                newNames = params.newValue ? (params.newValue.split(AUTH_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);}) : [];
+                // List of new names, filtering out any empty strings
+                let newNames = params.newValue ? (params.newValue.split(AUTH_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);}) : [];
+                newNames = newNames.filter(function(name) { return name && name.length > 0; });
 
-                for (authIdx = newNames.length; authIdx < authData.length; authIdx++)
+                // Name of the field to update
+                let nameField = (nameType == NameEnum.NAME_SUR) ? CAT_FLD_AUTHOR_SURNAME : CAT_FLD_AUTHOR_GIVEN_NAMES;
+
+                // Delete existing names beyond the length of the new list
+                for (let authIdx = newNames.length; authIdx < authData.length; authIdx++)
                 {
-                    if (nameType == NameEnum.NAME_SUR)
-                    {
-                        delete(authData[authIdx][CAT_FLD_AUTHOR_SURNAME]);
-                    }
-                    else
-                    {
-                        delete(authData[authIdx][CAT_FLD_AUTHOR_GIVEN_NAMES]);
-                    }
+                    delete(authData[authIdx][nameField]);
                 }
 
-                for (nameIdx = 0; nameIdx < newNames.length && nameIdx < authData.length; nameIdx++)
+                // Replace existing names with new ones
+                for (let nameIdx = 0; nameIdx < newNames.length && nameIdx < authData.length; nameIdx++)
                 {
-                    if (nameType == NameEnum.NAME_SUR)
-                    {
-                        authData[nameIdx][CAT_FLD_AUTHOR_SURNAME] = newNames[nameIdx];
-                    }
-                    else
-                    {
-                        authData[nameIdx][CAT_FLD_AUTHOR_GIVEN_NAMES] = newNames[nameIdx].split();
-                    }
+                    authData[nameIdx][nameField] = (nameType == NameEnum.NAME_SUR) ? newNames[nameIdx] : newNames[nameIdx].split(NAME_SEP);
                 }
 
-                for (; nameIdx < newNames.length; nameIdx++)
+                // Add names beyond the length of the original list
+                for (let nameIdx = authData.length; nameIdx < newNames.length; nameIdx++)
                 {
-                    newAuth = {};
+                    let newAuth = {};
                     if (nameType == NameEnum.NAME_SUR)
                     {
-                        newAuth[CAT_FLD_AUTHOR_SURNAME] = newNames[nameIdx];
-                        newAuth[CAT_FLD_AUTHOR_GIVEN_NAMES] = [];
+                        newAuth[CAT_FLD_AUTHOR_SURNAME]     = newNames[nameIdx];
                     }
                     else
                     {
-                        newAuth[CAT_FLD_AUTHOR_SURNAME] = "";
-                        newAuth[CAT_FLD_AUTHOR_GIVEN_NAMES] = newNames[nameIdx].split();
+                        newAuth[CAT_FLD_AUTHOR_GIVEN_NAMES] = newNames[nameIdx].split(NAME_SEP);
                     }
                     authData.push(newAuth);
                 }
 
-                /*
-                for (authIdx = newNames.length; authIdx < authData.length; authIdx++)
+                // Final clean up:
+                //  Remove empty authors fields
+                //  Set authData to null if it is now empty
+                authData = authData.filter(function(auth) { return Object.keys(auth).length > 0; });
+                if (authData.length == 0)
                 {
-                    if (Object.keys(authData[authIdx]).length == 0)
-                    {
-                    }
+                    authData = null;
                 }
-                */
+
                 return setFld(params.data, [CAT_FLD_AUTHORS], authData);
             }
 
