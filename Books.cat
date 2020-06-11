@@ -45379,7 +45379,6 @@
             "day": 2
         },
         "number_in_order": "1",
-        "authors": [],
         "isbn_13": "9780140435023",
         "isbn_10": "0140435026",
         "cover_required": "Y (Done)",
@@ -45429,7 +45428,6 @@
         "seller": "Amazon",
         "seller_branch": ".com.au",
         "number_in_order": "2",
-        "authors": [],
         "isbn_13": "9780486295749",
         "isbn_10": "0486295745",
         "cover_required": "Y (Done)",
