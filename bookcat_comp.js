@@ -80,6 +80,7 @@ function getDateControl()
     const CLASS_DATE_INPUT          = "date-input";
     const CLASS_HIDDEN_DATE_INPUT   = "hidden-date-input";
     const CLASS_DATE_LAUNCHER       = "date-launcher";
+    const DATE_LAUNCHER_TEXT        = "&#x1F4C5";           // Unicode calendar character
 
     function DateControl()
     {
@@ -88,13 +89,15 @@ function getDateControl()
 
     //
     // Sets up the control's HTML markup and associated logic.
+    // The size of the date launcher is restricted so that it never uses more
+    // space than is necessary to display the calendar character.
     // The markup looks something like this:
     // <div class="date-input-wrapper">
-    //     <div class="grid-container" style="grid-template-columns: auto 20%">
-    //         <input type="text" class="date-input"></input>
-    //         <button class="date-launcher">
+    //     <div class="grid-container" style="grid-template-columns: minmax(90%, 100%) 0% minmax(min-content, max-content)">
+    //         <input type="text" class="date-input">
+    //         <input type="text" class="hidden-date-input">
+    //         <div class="date-launcher"></div>
     //     </div>
-    //     <input type='text' class='hidden-date-input'></input>";
     // </div>
     //
     DateControl.prototype.init = function()
@@ -107,8 +110,8 @@ function getDateControl()
         let inputGrid = document.createElement("div");
 
         inputGrid.classList.add(CLASS_GRID_CONTAINER);
-        inputGrid.style.setProperty("grid-template-columns", "auto 0% auto");
-        inputGrid.style.setProperty("resize", "horizontal");
+        inputGrid.style.setProperty("grid-template-columns", "minmax(90%, 100%) 0% minmax(min-content, max-content)");
+        inputGrid.style.setProperty("background-color", "white");
         inputGrid.style.setProperty("align-items", "center");   // Vertically centre child elements
         inputGrid.style.setProperty("border", "solid");         // Enclose children with a border
         inputGrid.style.setProperty("border-width", "thin");
@@ -122,7 +125,7 @@ function getDateControl()
 
         let dateLauncher = document.createElement("div");
         dateLauncher.classList.add(CLASS_DATE_LAUNCHER);
-        dateLauncher.innerHTML = "&#x1F4C5";                // Unicode calendar character
+        dateLauncher.innerHTML = DATE_LAUNCHER_TEXT;
         dateLauncher.style.setProperty("text-align", "right");
 
         inputGrid.appendChild(dateInput);
