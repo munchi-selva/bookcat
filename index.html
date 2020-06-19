@@ -1,93 +1,35 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
-        <script src="https://unpkg.com/@ag-grid-enterprise/all-modules/dist/ag-grid-enterprise.min.js"></script>
-        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-grid.css">
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-theme-balham.css">
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css">
+        <script src="https://unpkg.com/@ag-grid-enterprise/all-modules/dist/ag-grid-enterprise.min.js"></script>
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
+        <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js"></script>
 
         <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/flatpickr/dist/flatpickr.min.css">
         <script src="https://cdn.jsdelivr.net/npm/flatpickr"></script>
 
+        <link rel="stylesheet" href="bookcat.css">
+        <link rel="stylesheet" href="bookcat_comp.css">
         <script type="text/javascript" src="bookcat_comp.js"></script>
         <script type="text/javascript" src="bookcat_utils.js"></script>
     </head>
-    <style>
-        .main-div
-        {
-            height: 550px;
-            width:  100%;
-        }
-
-        .info
-        {
-            font-size:  large;
-            font-style: italic;
-        }
-
-        .panel-heading
-        {
-            font-size:  medium;
-        }
-
-        .panel-collapse
-        {
-            margin: 0.5em 0em 0em;
-        }
-
-        .grid-container
-        {
-            display:                grid;
-            grid-template-columns:  auto;
-        }
-
-        .grid-settings
-        {
-            padding:    2em 0.5em 0.5em;
-        }
-
-        .invalid-data
-        {
-            background-color:   red;
-        }
-
-        .cat-dropdown
-        {
-            font-size:  inherit;
-        }
-
-        .cat-dropdown-item
-        {
-            padding:    0.25em 0em 0.5em 1em;
-        }
-
-        .hidden-date-input
-        {
-            height: 0;
-            width: 0;
-            border: 0;
-            margin: 0;
-            padding: 0;
-        }
-    </style>
     <body>
-        <div id="testDiv"></div>
-
-        <div id="catGrid" class="main-div ag-theme-balham container-fluid">
+        <div id="catGrid" class="cat-main-div ag-theme-balham container-fluid">
             <h2>Ex libris ... munchi</h2>
             <div class="panel-group">
-                <div id="divCatInfo" class="info"></div>
-                <div class="panel-heading">
+                <div id="divCatInfo" class="cat-info"></div>
+                <div class="cat-info-panel-heading">
                     <!-- Click to show/hide catalogue file selection and editing options -->
                     <a data-toggle="collapse" href="#divCatSelectForm">Catalogue file options</a>
                 </div>
-                <div id="divCatSelectForm" class="panel-collapse collapse">
+                <div id="divCatSelectForm" class="cat-info-panel-collapse collapse">
                     <div class="panel-body">
                         <form id="catDataForm" class="form-inline">
                             <span style="padding:0em 1em 0em 0em;">
@@ -104,7 +46,7 @@
                     </div>
                 </div>
             </div>
-            <div class="grid-settings">
+            <div class="cat-settings">
                 <div class="form-check-inline">
                     <label class="form-check-label">Data source:</label>
                 </div>
@@ -130,20 +72,20 @@
                 </div>
                 <div class="form-inline">
                     <div class="dropdown dropright">
-                        <button type="button" class="dropdown-toggle" data-toggle="dropdown">
+                        <button type="button" class="dropdown-toggle cat-settings-button" data-toggle="dropdown">
                             Add catalogue record
                         </button>
-                        <div class="dropdown-menu cat-dropdown" style="padding: 0.5em">
-                            <span class="dropdown-item cat-dropdown-item" id="itmAddCatEnd">At end of catalogue</span>
-                            <span class="dropdown-item cat-dropdown-item" id="itmAddCatBeg">At start of catalogue</span>
-                            <span class="dropdown-item cat-dropdown-item" id="itmAddAfterSel">After selected record</span>
-                            <span class="dropdown-item cat-dropdown-item" id="itmAddBeforeSel">Before selected record</span>
+                        <div class="dropdown-menu cat-settings-dropdown">
+                            <span class="dropdown-item cat-settings-dropdown-item" id="itmAddCatEnd">At end of catalogue</span>
+                            <span class="dropdown-item cat-settings-dropdown-item" id="itmAddCatBeg">At start of catalogue</span>
+                            <span class="dropdown-item cat-settings-dropdown-item" id="itmAddAfterSel">After selected record</span>
+                            <span class="dropdown-item cat-settings-dropdown-item" id="itmAddBeforeSel">Before selected record</span>
                         </div>
                     </div>
-                    <button type="button" id="btnResynch" style="margin: 0em 1em;">
+                    <button type="button" id="btnResynch" class="cat-settings-button">
                         (Re)synch with openlib
                     </button>
-                    <button type="button" id="btnMinColumns" style="margin: 0em 1em;">
+                    <button type="button" id="btnMinColumns" class="cat-settings-button">
                         Show minimal columns
                     </button>
                 </div>
@@ -1779,10 +1721,8 @@
 
             function markFldValidity(fldParams, cellString)
             {
-                return isFldValid(fldParams) ? cellString : "<span class='invalid-data'>" + cellString + "</span>";
+                return isFldValid(fldParams) ? cellString : "<span class='cat-invalid-data'>" + cellString + "</span>";
             }
-
-            //document.getElementById('testDiv').innerHTML = CURRENCY_SYMBOLS['AUD'];
         </script>
     </body>
 </html>
