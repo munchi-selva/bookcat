@@ -1,0 +1,97 @@
+/*
+ * Styling for miscellaneous date controls.
+ * Designed to match ag-grid's balham theme.
+ */
+
+.date-input-wrapper
+{
+    /* Arrange child elements in a grid with three columns, vertically centred */
+    display: 		    grid;
+    grid-template-columns:  minmax(90%, 100%) 0% minmax(min-content, max-content);
+    align-items: 	    center;
+
+    /* Enclose children in a border */
+    border-width:	1px;
+    border-style: 	solid;
+    border-color:   	#7F8C8D;
+
+    background-color: 	white;
+}
+
+.date-input-wrapper:focus-within, .date-input-wrapper:active
+{
+    border-color:   #719ECE;    /* Modify border colour when a child is in focus or clicked*/
+}
+
+
+.date-input
+{
+    border: none;
+}
+
+.date-input:focus
+{
+    outline:    none;   /* Suppress appearance of outline when in focus */
+}
+
+
+.hidden-date-input
+{
+    height:     0;      /* Ensure hidden input is really hidden! */
+    width:      0;
+    border:     none;
+    margin:     0;
+    padding:    0;
+}
+
+.date-launcher
+{
+    text-align: right;
+}
+
+.filter-dropdown
+{
+    border-color:   #BDC3C7;
+    border-radius:  5px;
+    padding:        5px;
+}
+
+.filter-dropdown:focus
+{
+    box-shadow: 0 0 2px 1px #719ECE;    /* Fancy pants coloured highlighting when in focus */
+    outline:    none;
+}
+
+
+.date-filter
+{
+    display:                grid;
+    grid-template-columns:  auto;
+}
+
+
+.filter-child:first-child
+{
+    margin: 0.5em 0.5em 0.25em;
+}
+
+.filter-child
+{
+    margin: 0.25em 0.5em;
+}
+
+
+.filter-divider
+{
+    margin: 0.5em 0em;
+}
+
+
+.filter-button-pane
+{
+    display:                grid;
+    grid-template-columns:  auto minmax(max-content, max-content);
+    justify-items:          end;
+    column-gap:             0.5em;
+}
+

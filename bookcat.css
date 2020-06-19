@@ -1,0 +1,51 @@
+/*
+ * Styling for the book catalogue.
+ */
+
+.cat-main-div
+{
+    height: 550px;
+    width:  100%;
+}
+
+.cat-info
+{
+    font-size:  large;
+    font-style: italic;
+}
+
+.cat-info-panel-heading
+{
+    font-size:  medium;
+}
+
+.cat-info-panel-collapse
+{
+    margin: 0.5em 0em 0em;
+}
+
+.cat-settings
+{
+    padding:    2em 0.5em 0.5em;
+}
+
+.cat-settings-button:not(:first-child)
+{
+    margin-left: 1em;
+}
+
+.cat-settings-dropdown
+{
+    font-size:  inherit;
+    padding:    0.5em;
+}
+
+.cat-settings-dropdown-item
+{
+    padding:    0.25em 0em 0.5em 1em;
+}
+
+.cat-invalid-data
+{
+    background-color:   red;
+}
