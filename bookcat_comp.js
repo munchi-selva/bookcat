@@ -2,9 +2,6 @@
 // Miscellaneous components used to display the book catalogue
 //
 
-// HTML classes shared below
-const CLASS_GRID_CONTAINER  = "grid-container";
-
 // Custom date input change event properties
 const DATE_CHANGE_EVENT_TYPE            = "change";
 const EVENT_BUBBLE_OPTION               = "bubbles";
@@ -102,23 +99,13 @@ function getDateControl()
     //
     DateControl.prototype.init = function()
     {
-        // Main element
-        this.root = document.createElement("div");
-        this.root.classList.add(CLASS_DATE_INPUT_WRAPPER);
+        // Root element: as a member variable and a local reference
+        let controlGrid = this.root = document.createElement("div");
+        controlGrid.classList.add(CLASS_DATE_INPUT_WRAPPER);
 
         // Set up the manual date input, hidden date input & launcher button
-        let inputGrid = document.createElement("div");
-
-        inputGrid.classList.add(CLASS_GRID_CONTAINER);
-        inputGrid.style.setProperty("grid-template-columns", "minmax(90%, 100%) 0% minmax(min-content, max-content)");
-        inputGrid.style.setProperty("background-color", "white");
-        inputGrid.style.setProperty("align-items", "center");   // Vertically centre child elements
-        inputGrid.style.setProperty("border", "solid");         // Enclose children with a border
-        inputGrid.style.setProperty("border-width", "thin");
-
-        let dateInput = document.createElement("input");
+        let dateInput = this.dateInput = document.createElement("input");
         dateInput.classList.add(CLASS_DATE_INPUT);
-        dateInput.style.setProperty("border", "none");
 
         let hiddenDateInput = document.createElement("input");
         hiddenDateInput.classList.add(CLASS_HIDDEN_DATE_INPUT);
@@ -126,16 +113,10 @@ function getDateControl()
         let dateLauncher = document.createElement("div");
         dateLauncher.classList.add(CLASS_DATE_LAUNCHER);
         dateLauncher.innerHTML = DATE_LAUNCHER_TEXT;
-        dateLauncher.style.setProperty("text-align", "right");
 
-        inputGrid.appendChild(dateInput);
-        inputGrid.appendChild(hiddenDateInput);
-        inputGrid.appendChild(dateLauncher);
-
-        this.root.appendChild(inputGrid);
-
-        // Cache a reference to the date input for later use
-        this.dateInput = dateInput;
+        controlGrid.appendChild(dateInput);
+        controlGrid.appendChild(hiddenDateInput);
+        controlGrid.appendChild(dateLauncher);
 
         // Attach the event handlers, etc.
         this.setupGuiHooks();
@@ -187,11 +168,11 @@ function getDateControl()
         // Temporary validation code
         if (dateStr && !dateComponents)
         {
-            target.style.setProperty("background-color", "red");
+            target.classList.add("cat-invalid-data");
         }
         else
         {
-            target.style.removeProperty("background-color");
+            target.classList.remove("cat-invalid-data");
         }
 
         //
@@ -434,10 +415,15 @@ function getDateComponent()
 function getDateFilterComponent()
 {
     // CSS classes specific to this component
+    const CLASS_DATE_FILTER     = "date-filter";
+    const CLASS_FILTER_CHILD    = "filter-child";
+    const CLASS_FILTER_DROPDOWN = "filter-dropdown";
     const CLASS_START_DATE      = "start-date";
     const CLASS_END_DATE        = "end-date";
-    const CLASS_CLEAR_BUTTON    = "btn-clear-filter";
-    const CLASS_RESET_BUTTON    = "btn-reset-filter";
+    const CLASS_FILTER_DIVIDER  = "filter-divider";
+    const CLASS_BUTTON_PANE     = "filter-button-pane";
+    const CLASS_BUTTON_CLEAR    = "btn-clear-filter";
+    const CLASS_BUTTON_RESET    = "btn-reset-filter";
 
     // How the filter types are displayed to the user
     const filterTypeDefs =
@@ -473,10 +459,12 @@ function getDateFilterComponent()
         this.filterParams = params;
 
         this.gui = document.createElement("div");
-        this.gui.classList.add(CLASS_GRID_CONTAINER);
+        this.gui.classList.add(CLASS_DATE_FILTER);
 
         // Set up the filter type dropdown
         this.filterType = document.createElement("select");
+        this.filterType.classList.add(CLASS_FILTER_CHILD);
+        this.filterType.classList.add(CLASS_FILTER_DROPDOWN);
         for (let idx = 0; idx < filterTypeDefs.length; idx++)
         {
             let selectOption = document.createElement("option");
@@ -488,21 +476,30 @@ function getDateFilterComponent()
         // Set up the start/end date controls
         this.startDateControl = getDateControl();
         this.startDateControl.getGui().classList.add(CLASS_START_DATE);
+        this.startDateControl.getGui().classList.add(CLASS_FILTER_CHILD);
 
         this.endDateControl = getDateControl();
         this.endDateControl.getGui().classList.add(CLASS_END_DATE);
+        this.endDateControl.getGui().classList.add(CLASS_FILTER_CHILD);
+
+        // Set up a pane that divides the filter settings and button pane
+        let dividerPane = document.createElement("div");
+        let divider = document.createElement("hr");
+        divider.classList.add(CLASS_FILTER_DIVIDER);
+        dividerPane.appendChild(divider);
 
         // Set up the clear/reset button pane
         let buttonPane = document.createElement("div");
-        buttonPane.style.setProperty("text-align", "right");
+        buttonPane.classList.add(CLASS_BUTTON_PANE);
+        buttonPane.classList.add(CLASS_FILTER_CHILD);
 
         let buttonClear = document.createElement("button");
-        buttonClear.classList.add(CLASS_CLEAR_BUTTON);
-        buttonClear.innerHTML = "Clear";
+        buttonClear.classList.add(CLASS_BUTTON_CLEAR);
+        buttonClear.innerHTML = "Clear Filter";
 
         let buttonReset = document.createElement("button");
-        buttonReset.classList.add(CLASS_RESET_BUTTON);
-        buttonReset.innerHTML = "Reset";
+        buttonReset.classList.add(CLASS_BUTTON_RESET);
+        buttonReset.innerHTML = "Reset Filter";
 
         buttonPane.appendChild(buttonClear);
         buttonPane.appendChild(buttonReset);
@@ -510,6 +507,7 @@ function getDateFilterComponent()
         this.gui.appendChild(this.filterType);
         this.gui.appendChild(this.startDateControl.getGui());
         this.gui.appendChild(this.endDateControl.getGui());
+        this.gui.appendChild(dividerPane);
         this.gui.appendChild(buttonPane);
 
         this.setupGuiHooks();
@@ -537,10 +535,10 @@ function getDateFilterComponent()
         this.endDateControl.getGui().addEventListener(DATE_CHANGE_EVENT_TYPE, this.reapplyFilter.bind(this));
 
         // Set up the buttons for clearing/resetting the filter
-        let clearButton = this.gui.querySelector(CLASS_SELECTOR(CLASS_CLEAR_BUTTON));
+        let clearButton = this.gui.querySelector(CLASS_SELECTOR(CLASS_BUTTON_CLEAR));
         clearButton.addEventListener("click", this.clearDates.bind(this));
 
-        let resetButton = this.gui.querySelector(CLASS_SELECTOR(CLASS_RESET_BUTTON));
+        let resetButton = this.gui.querySelector(CLASS_SELECTOR(CLASS_BUTTON_RESET));
         resetButton.addEventListener("click", this.resetFilter.bind(this));
 
         // Ensure sensible initial settings/appearance
@@ -918,7 +916,6 @@ function getDateFloatingFilterComponent()
             "width":        "100%",
             "padding":      "0",
             "margin":       "0",
-            "border":       "0",
             "overflow":     "hidden"        // Hide parts of the date controls
                                             // that exceed the parent's boundaries
         }
