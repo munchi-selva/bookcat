@@ -288,7 +288,11 @@
             const COL_HDR_NOTES             = "Notes";
             const COL_HDR_ELEC_FORMAT       = "Electronic Copy";
 
-            const fieldsToShow = [COL_HDR_ID, COL_HDR_SYNCH_STATUS, COL_HDR_SURNAME, COL_HDR_GIVEN_NAMES, COL_HDR_PURCH_DATE, COL_HDR_ARR_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE];
+            // Properties of a single catalogue field
+            const FLD_SRC   = "source";
+            const FLD_VAL   = "value";
+
+            const fieldsToShow = [COL_HDR_ID, COL_HDR_SURNAME, COL_HDR_GIVEN_NAMES, COL_HDR_PURCH_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE];
 
             // Column definitions
             let bookColumns =
@@ -322,7 +326,7 @@
                             },
                             tooltipValueGetter: function(params)
                             {
-                                let lastSynchTime = getFld(params.data, [CAT_FLD_OPENLIB_SYNCH_TIME], CAT_FLD_SRC_BASE);
+                                let lastSynchTime = getFldVal(params.data, [CAT_FLD_OPENLIB_SYNCH_TIME], CAT_FLD_SRC_BASE);
                                 if (lastSynchTime)
                                 {
                                     return "Last synched: " + lastSynchTime;
@@ -377,10 +381,10 @@
                             editable: true,
                             valueGetter: function(params)
                             {
-                                arrDate = getFld(params.data, [CAT_FLD_ARR_DATE], CAT_FLD_SRC_BASE);
+                                arrDate = getFldVal(params.data, [CAT_FLD_ARR_DATE], CAT_FLD_SRC_BASE);
                                 if (!arrDate)
                                 {
-                                    arrDate = getFld(params.data, [CAT_FLD_PURCH_DATE], CAT_FLD_SRC_BASE);
+                                    arrDate = getFldVal(params.data, [CAT_FLD_PURCH_DATE], CAT_FLD_SRC_BASE);
                                 }
                                 return arrDate;
                             },
@@ -452,8 +456,8 @@
                             {
                                 let totalPrice = null;
 
-                                let price = getFld(params.data, [CAT_FLD_PURCH_PRICE], CAT_FLD_SRC_BASE);
-                                let shippingPrice = getFld(params.data, [CAT_FLD_SHIP_PRICE], CAT_FLD_SRC_BASE);
+                                let price = getFldVal(params.data, [CAT_FLD_PURCH_PRICE], CAT_FLD_SRC_BASE);
+                                let shippingPrice = getFldVal(params.data, [CAT_FLD_SHIP_PRICE], CAT_FLD_SRC_BASE);
 
                                 if ((price || !isNaN(price)) && (shippingPrice || !isNaN(price)))
                                 {
@@ -539,13 +543,24 @@
                             headerName: COL_HDR_TITLE,
                             valueGetter: function(params)
                             {
-                                let title       = getFld(params.data, [CAT_FLD_TITLE]);
-                                let subtitle    = getFld(params.data, [CAT_FLD_SUBTITLE]);
-                                if (subtitle)
+                                // Form the value by concatenating the title
+                                // and subtitle from the same data source
+                                let titleFld = getFld(params.data, [CAT_FLD_TITLE]);
+                                let titleSrc = titleFld[FLD_SRC];
+                                let titleVal = titleFld[FLD_VAL];
+
+                                if (titleSrc && titleVal)
                                 {
-                                    title += TITLE_SEP + " " + subtitle;
+                                    let subtitleFld = getFld(params.data, [CAT_FLD_SUBTITLE], titleSrc);
+                                    let subtitleSrc = subtitleFld[FLD_SRC];
+                                    let subtitleVal = subtitleFld[FLD_VAL];
+
+                                    if (subtitleSrc && subtitleVal)
+                                    {
+                                        titleVal += TITLE_SEP + " " + subtitleVal;
+                                    }
                                 }
-                                return title;
+                                return titleVal;
                             },
                             valueSetter: function(params)
                             {
@@ -553,13 +568,13 @@
                                 let titleComponents = (params.newValue.split(TITLE_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});;
                                 let title           = titleComponents.shift();
                                 let subtitle        = titleComponents.length > 0 ? titleComponents.join(TITLE_SEP + " ") : null;
-                                return (setFld(params.data, [CAT_FLD_TITLE], title) &&
-                                    setFld(params.data, [CAT_FLD_SUBTITLE], subtitle));
+                                return (setFldVal(params.data, [CAT_FLD_TITLE], title) &&
+                                        setFldVal(params.data, [CAT_FLD_SUBTITLE], subtitle));
                             },
                             cellRenderer: function(params)
                             {
                                 let cellString = params.value;
-                                let infoUrl = getFld(params.data, [CAT_FLD_INFO_URL], CAT_FLD_SRC_OPENLIB);
+                                let infoUrl = getFldVal(params.data, [CAT_FLD_INFO_URL], CAT_FLD_SRC_OPENLIB);
                                 if (infoUrl)
                                 {
                                     cellString = "<a href='" + infoUrl + "' target='_blank'>" + cellString + "</a>";
@@ -578,7 +593,7 @@
                             headerName: COL_HDR_PUB_NAME,
                             valueGetter: function(params)
                             {
-                                let pubs        = getFld(params.data, [CAT_FLD_PUBLISHERS]);
+                                let pubs        = getFldVal(params.data, [CAT_FLD_PUBLISHERS]);
                                 let pubString   = pubs ? pubs.join(PUB_SEP + " ") : null;
                                 return pubString;
                             },
@@ -589,14 +604,14 @@
                                 {
                                     pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
                                 }
-                                return(setFld(params.data, [CAT_FLD_PUBLISHERS], pubs));
+                                return(setFldVal(params.data, [CAT_FLD_PUBLISHERS], pubs));
                             }
                         },
                         {
                             headerName: COL_HDR_PUB_PLACE,
                             valueGetter: function(params)
                             {
-                                let plcs        = getFld(params.data, [CAT_FLD_PUBLISH_PLACES]);
+                                let plcs        = getFldVal(params.data, [CAT_FLD_PUBLISH_PLACES]);
                                 let plcString   = plcs ? plcs.join(PUB_SEP + " ") : null;
                                 return plcString;
                             },
@@ -607,7 +622,7 @@
                                 {
                                     plcs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
                                 }
-                                return(setFld(params.data, [CAT_FLD_PUBLISH_PLACES], plcs));
+                                return(setFldVal(params.data, [CAT_FLD_PUBLISH_PLACES], plcs));
                             },
                             hide: true
                         }
@@ -621,11 +636,11 @@
                             headerName: COL_HDR_DIM_HEIGHT,
                             valueGetter: function(params)
                             {
-                                return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]);
+                                return getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], params.newValue));
+                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], params.newValue));
                             },
                             filter: "agNumberColumnFilter",
                             hide: true
@@ -634,11 +649,11 @@
                             headerName: COL_HDR_DIM_WIDTH,
                             valueGetter: function(params)
                             {
-                                return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]);
+                                return getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], params.newValue));
+                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], params.newValue));
                             },
                             filter: "agNumberColumnFilter",
                             hide: true
@@ -647,11 +662,11 @@
                             headerName: COL_HDR_DIM_THICKNESS,
                             valueGetter: function(params)
                             {
-                                return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]);
+                                return getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], params.newValue));
+                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], params.newValue));
                             },
                             filter: "agNumberColumnFilter",
                             hide: true
@@ -660,11 +675,11 @@
                             headerName: COL_HDR_DIM_LENGTH,
                             valueGetter: function(params)
                             {
-                                return getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
+                                return getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], params.newValue));
+                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], params.newValue));
                             },
                             filter: "agNumberColumnFilter",
                             hide: true
@@ -674,11 +689,11 @@
                             valueGetter: function(params)
                             {
                                 let mass    = null;
-                                let rawMass = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
+                                let rawMass = getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
                                 if (rawMass)
                                 {
                                     mass = parseFloat(rawMass);
-                                    let units = getFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS]);
+                                    let units = getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS]);
                                     if (units)
                                     {
                                         switch (units)
@@ -705,7 +720,7 @@
                             },
                             valueSetter: function(params)
                             {
-                                return(setFld(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], params.newValue));
+                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], params.newValue));
                             },
                             cellRenderer: function(params)
                             {
@@ -747,7 +762,7 @@
                 suppressRowTransform:   true,           // Allow row spanning
                 onRowSelected: function(params)
                 {
-                    if (getFld(params.data, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE))
+                    if (getFldVal(params.data, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE))
                     {
                         // Toggle selected item's openlib (re)synch flag
                         params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
@@ -905,7 +920,7 @@
             // Loads the default catalogue
             function loadDefaultCat()
             {
-                catFilename = "Books.cat";
+                catFilename = "Books.backup.cat";
 
                 let xmlhttp = new XMLHttpRequest();
                 xmlhttp.onreadystatechange = function()
@@ -1080,14 +1095,14 @@
                             name: "Fill in based on " + isbnSourceName,
 
                             // Disable fill-in if the source ISBN is invalid
-                            disabled: !isISBNValid(getFld(params.node.data, [isbnSource], CAT_FLD_SRC_BASE), isbnSourceDigits),
+                            disabled: !isISBNValid(getFldVal(params.node.data, [isbnSource], CAT_FLD_SRC_BASE), isbnSourceDigits),
 
                             action: function()
                             {
-                                let newISBN = convISBN(getFld(params.node.data, [isbnSource], CAT_FLD_SRC_BASE));
+                                let newISBN = convISBN(getFldVal(params.node.data, [isbnSource], CAT_FLD_SRC_BASE));
                                 if (newISBN)
                                 {
-                                    setFld(params.node.data, [colId], newISBN, CAT_FLD_SRC_BASE);
+                                    setFldVal(params.node.data, [colId], newISBN, CAT_FLD_SRC_BASE);
                                     gridOptions.api.refreshCells(params.node);
                                 }
                             }
@@ -1143,7 +1158,7 @@
                             let catRec = gridNode.data;
 
                             // Clear any existing openlib data for the record
-                            setFld(catRec, [CAT_FLD_SRC_OPENLIB], {}, CAT_FLD_SRC_BASE);
+                            setFldVal(catRec, [CAT_FLD_SRC_OPENLIB], {}, CAT_FLD_SRC_BASE);
 
                             let olRec = queryRes[isbn];
                             if (olRec && olRec[OLK_DETAILS])
@@ -1161,7 +1176,7 @@
                                         openlibAuth[CAT_FLD_AUTHOR_GIVEN_NAMES] = authNames;
                                         auths.push(openlibAuth);
                                     }
-                                    setFld(catRec, [CAT_FLD_AUTHORS], auths, CAT_FLD_SRC_OPENLIB);
+                                    setFldVal(catRec, [CAT_FLD_AUTHORS], auths, CAT_FLD_SRC_OPENLIB);
                                 }
 
                                 // Process dimensions, length and mass
@@ -1173,12 +1188,12 @@
                                     let olHeight = parseFloat(dimComponents.shift()) * IN_TO_CM;
                                     let olWidth = parseFloat(dimComponents.shift()) * IN_TO_CM;
                                     let olThickness = parseFloat(dimComponents.shift()) * IN_TO_CM;
-                                    setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], olHeight, CAT_FLD_SRC_OPENLIB);
-                                    setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], olWidth, CAT_FLD_SRC_OPENLIB);
-                                    setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], olThickness, CAT_FLD_SRC_OPENLIB);
+                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], olHeight, CAT_FLD_SRC_OPENLIB);
+                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], olWidth, CAT_FLD_SRC_OPENLIB);
+                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], olThickness, CAT_FLD_SRC_OPENLIB);
                                 }
 
-                                setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], olRec[OLK_DETAILS][OLK_PAGES], CAT_FLD_SRC_OPENLIB);
+                                setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], olRec[OLK_DETAILS][OLK_PAGES], CAT_FLD_SRC_OPENLIB);
 
                                 let olMassStr = olRec[OLK_DETAILS][OLK_WEIGHT];
                                 if (olMassStr)
@@ -1188,9 +1203,9 @@
                                     let olMassUnits = olMassComponents.length > 0 ? olMassComponents.shift() : null;
                                     if (!isNaN(olMass))
                                     {
-                                        setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], parseFloat(olMass), CAT_FLD_SRC_OPENLIB);
+                                        setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], parseFloat(olMass), CAT_FLD_SRC_OPENLIB);
                                     }
-                                    setFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS], olMassUnits, CAT_FLD_SRC_OPENLIB);
+                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS], olMassUnits, CAT_FLD_SRC_OPENLIB);
                                 }
 
                                 // Process miscellaneous details
@@ -1198,10 +1213,10 @@
                                 for (let idx = 0; idx < olSubkeys.length; idx++)
                                 {
                                     subkey = olSubkeys[idx];
-                                    setFld(catRec, [subkey], olRec[OLK_DETAILS][subkey], CAT_FLD_SRC_OPENLIB);
+                                    setFldVal(catRec, [subkey], olRec[OLK_DETAILS][subkey], CAT_FLD_SRC_OPENLIB);
                                 }
 
-                                setFld(catRec, [OLK_URL], olRec[OLK_URL], CAT_FLD_SRC_OPENLIB);
+                                setFldVal(catRec, [OLK_URL], olRec[OLK_URL], CAT_FLD_SRC_OPENLIB);
 
                                 // Mark the record as having an openlib equivalent
                                 setFlag(catRec, BCK_FLAG_BIT_IN_OPENLIB);
@@ -1220,7 +1235,7 @@
                                                                synchTime.getMonth() + 1,
                                                                synchTime.getDate()) + " " +
                                                   synchTime.toTimeString();
-                            setFld(catRec, [CAT_FLD_OPENLIB_SYNCH_TIME], synchTimeString, CAT_FLD_SRC_BASE);
+                            setFldVal(catRec, [CAT_FLD_OPENLIB_SYNCH_TIME], synchTimeString, CAT_FLD_SRC_BASE);
 
                             gridOptions.api.refreshCells(gridNode);
                         }
@@ -1345,58 +1360,67 @@
                 return ($("[name='optSrc']:checked").val());
             }
 
-            // Checks if a catalogue record includes a field, which is
-            // represented by a chain of keys,
-            //  e.g. hasFld(catRec, ["openlib", "dimensions", "thickness"])
-            //       returns true if catRec["openlib"]["dimensions"]["thickness"] exists
-            function hasFld(catRec, keyChain)
-            {
-                for (let catRecLevel = 0; catRecLevel < keyChain.length; catRecLevel++)
-                {
-                    key = keyChain[catRecLevel]
-                    if (!catRec || !(key in catRec))
-                    {
-                        return false;
-                    }
-                    catRec = catRec[key];
-                }
-                return true;
-            }
-
             // Fetches a field from a catalogue record, assuming the data
-            // source specified by the dataSrc parameter and returning a
-            // default value if the field doesn't exist.
+            // source specified by the dataSrc parameter and returning the
+            // source and value of any field actually retrieved, with recourse
+            // to a default value if required.
+            //
             // If the "combined" data source is selected, the function
             // checks each of the three data sources in turn for a non-null
             // field.
             function getFld(catRec, keyChain, dataSrc = getDataSrc(), defVal = null)
             {
-                let fld = defVal;
+                let fldFound = false;
+                let fldSrc   = null;
+                let fldVal   = null;
+
+                // Search until the target field is found, or the list of field
+                // sources has been exhausted
                 let dataSrcList = dataSrc == CAT_FLD_SRC_COMB ? [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON] : [dataSrc];
-                while(dataSrcList.length > 0 && !fld)
+                while(dataSrcList.length > 0 && !fldFound)
                 {
-                    let fldSrc = dataSrcList.shift();
+                    fldSrc = dataSrcList.shift();
                     let fldKeyPrefix = (fldSrc == CAT_FLD_SRC_BASE) ? [] : [fldSrc];
                     let fldKeyChain = fldKeyPrefix.concat(keyChain);
-                    if (hasFld(catRec, fldKeyChain))
+
+                    // Recursive fetching of object properties...
+                    let obj = catRec;
+                    while (fldKeyChain.length > 0 && fldKeyChain[0] in obj)
                     {
-                        // Recursive fetching of object properties...
-                        let obj = catRec;
-                        while (fldKeyChain.length > 0)
-                        {
-                            obj = obj[fldKeyChain.shift()];
-                        }
-                        fld = obj;
+                        obj = obj[fldKeyChain.shift()];
                     }
+                    fldFound = (fldKeyChain.length == 0);
+                    fldVal = fldFound ? obj : null;
                 }
 
-                return fld;
+                let fldAndSrc = {};
+                if (fldFound)
+                {
+                    fldAndSrc[FLD_SRC] = fldSrc;
+                    fldAndSrc[FLD_VAL] = fldVal;
+                }
+                else
+                {
+                    fldAndSrc[FLD_SRC] = null;
+                    fldAndSrc[FLD_VAL] = defVal;
+                }
+
+                return fldAndSrc;
+            }
+
+            // Fetches a field value from a catalogue record, assuming the data
+            // source specified by the dataSrc parameter and returning a
+            // default value if the field doesn't exist.
+            function getFldVal(catRec, keyChain, dataSrc = getDataSrc(), defVal = null)
+            {
+                let fld = getFld(catRec, keyChain, dataSrc, defVal);
+                return fld[FLD_VAL];
             }
 
             // Sets a field value.
             // If the catalogue is currently viewed with combined data sources,
             // edits are directed to the base source.
-            function setFld(catRec, keyChain, value, dataSrc = getDataSrc())
+            function setFldVal(catRec, keyChain, value, dataSrc = getDataSrc())
             {
                 let dataDest = dataSrc == CAT_FLD_SRC_COMB ? CAT_FLD_SRC_BASE : dataSrc;
                 let fldKeyPrefix = (dataDest == CAT_FLD_SRC_BASE) ? [] : [dataDest];
@@ -1420,23 +1444,23 @@
             // Sets a flag
             function setFlag(catRec, flagPos)
             {
-                let flags = getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0);
+                let flags = getFldVal(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0);
                 flags |= (1 << flagPos);
-                setFld(catRec, [CAT_FLD_FLAGS], flags, CAT_FLD_SRC_BASE);
+                setFldVal(catRec, [CAT_FLD_FLAGS], flags, CAT_FLD_SRC_BASE);
             }
 
             // Clears a flag
             function clearFlag(catRec, flagPos)
             {
-                let flags = getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0);
+                let flags = getFldVal(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0);
                 flags |= ~(1 << flagPos);
-                setFld(catRec, [CAT_FLD_FLAGS], flags, CAT_FLD_SRC_BASE);
+                setFldVal(catRec, [CAT_FLD_FLAGS], flags, CAT_FLD_SRC_BASE);
             }
 
             // Checks if a flag is set
             function isFlagSet(catRec, flagPos)
             {
-                return (getFld(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0) & (1 << flagPos));
+                return (getFldVal(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0) & (1 << flagPos));
             }
 
             // Format a field as a currency string
@@ -1447,7 +1471,7 @@
                 if (fldParams.value)
                 {
                     priceString = Number.parseFloat(fldParams.value).toFixed(2);
-                    currency = getFld(fldParams.data, [CAT_FLD_CURRENCY], CAT_FLD_SRC_BASE);
+                    currency = getFldVal(fldParams.data, [CAT_FLD_CURRENCY], CAT_FLD_SRC_BASE);
                     if (currency)
                     {
                         if (currency == "VND")
@@ -1471,7 +1495,7 @@
 
             function getAuthorNames(params, nameType)
             {
-                authData = getFld(params.data, [CAT_FLD_AUTHORS]);
+                authData = getFldVal(params.data, [CAT_FLD_AUTHORS]);
                 namesString = "";
 
                 if (authData)
@@ -1507,7 +1531,7 @@
             function setAuthorNames(params, nameType)
             {
                 // Copy existing authors field to work with below
-                let authData = JSON.parse(JSON.stringify(getFld(params.data, [CAT_FLD_AUTHORS])));
+                let authData = JSON.parse(JSON.stringify(getFldVal(params.data, [CAT_FLD_AUTHORS])));
                 if (!authData)
                 {
                     authData = [];
@@ -1556,7 +1580,7 @@
                     authData = null;
                 }
 
-                return setFld(params.data, [CAT_FLD_AUTHORS], authData);
+                return setFldVal(params.data, [CAT_FLD_AUTHORS], authData);
             }
 
             // Checks if a candidate ISBN is valid, i.e. matches the relevant
@@ -1659,7 +1683,7 @@
                 {
                     dateComponents = parseDateComponents(dateString, false);
                 }
-                setFld(fldParams.data, keyChain, dateComponents, CAT_FLD_SRC_BASE);
+                setFldVal(fldParams.data, keyChain, dateComponents, CAT_FLD_SRC_BASE);
             }
 
             function renderDateFld(fldParams)
