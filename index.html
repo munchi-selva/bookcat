@@ -57,7 +57,7 @@
                 </div>
                 <div class="form-check-inline">
                     <label class="form-check-label" for="srcMC">
-                        <input type="radio" class="form-check-input" id="srcMC" name="optSrc" value="base">munchi
+                        <input type="radio" class="form-check-input" id="srcMC" name="optSrc" value="base">base
                     </label>
                 </div>
                 <div class="form-check-inline">
@@ -292,7 +292,10 @@
             const FLD_SRC   = "source";
             const FLD_VAL   = "value";
 
-            const fieldsToShow = [COL_HDR_ID, COL_HDR_SURNAME, COL_HDR_GIVEN_NAMES, COL_HDR_PURCH_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE];
+            const minFields = [COL_HDR_ID, COL_HDR_SURNAME, COL_HDR_GIVEN_NAMES,
+                               COL_HDR_PURCH_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE,
+                               COL_HDR_PUB_NAME, COL_HDR_PUB_PLACE,
+                               COL_HDR_DIM_LENGTH];
 
             // Column definitions
             let bookColumns =
@@ -493,22 +496,22 @@
                             headerName: COL_HDR_SURNAME,
                             valueGetter: function(params)
                             {
-                                return getAuthorNames(params, NameEnum.NAME_SUR);
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                return setAuthorNames(params, NameEnum.NAME_SUR);
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             }
                         },
                         {
                             headerName: COL_HDR_GIVEN_NAMES,
                             valueGetter: function(params)
                             {
-                                return getAuthorNames(params, NameEnum.NAME_GIVEN);
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                return setAuthorNames(params, NameEnum.NAME_GIVEN);
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             }
 
                         }
@@ -543,33 +546,11 @@
                             headerName: COL_HDR_TITLE,
                             valueGetter: function(params)
                             {
-                                // Form the value by concatenating the title
-                                // and subtitle from the same data source
-                                let titleFld = getFld(params.data, [CAT_FLD_TITLE]);
-                                let titleSrc = titleFld[FLD_SRC];
-                                let titleVal = titleFld[FLD_VAL];
-
-                                if (titleSrc && titleVal)
-                                {
-                                    let subtitleFld = getFld(params.data, [CAT_FLD_SUBTITLE], titleSrc);
-                                    let subtitleSrc = subtitleFld[FLD_SRC];
-                                    let subtitleVal = subtitleFld[FLD_VAL];
-
-                                    if (subtitleSrc && subtitleVal)
-                                    {
-                                        titleVal += TITLE_SEP + " " + subtitleVal;
-                                    }
-                                }
-                                return titleVal;
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                // Split the input value into title and subtitle
-                                let titleComponents = (params.newValue.split(TITLE_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});;
-                                let title           = titleComponents.shift();
-                                let subtitle        = titleComponents.length > 0 ? titleComponents.join(TITLE_SEP + " ") : null;
-                                return (setFldVal(params.data, [CAT_FLD_TITLE], title) &&
-                                        setFldVal(params.data, [CAT_FLD_SUBTITLE], subtitle));
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             },
                             cellRenderer: function(params)
                             {
@@ -593,36 +574,22 @@
                             headerName: COL_HDR_PUB_NAME,
                             valueGetter: function(params)
                             {
-                                let pubs        = getFldVal(params.data, [CAT_FLD_PUBLISHERS]);
-                                let pubString   = pubs ? pubs.join(PUB_SEP + " ") : null;
-                                return pubString;
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                let pubs = null;
-                                if (params.newValue)
-                                {
-                                    pubs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
-                                }
-                                return(setFldVal(params.data, [CAT_FLD_PUBLISHERS], pubs));
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             }
                         },
                         {
                             headerName: COL_HDR_PUB_PLACE,
                             valueGetter: function(params)
                             {
-                                let plcs        = getFldVal(params.data, [CAT_FLD_PUBLISH_PLACES]);
-                                let plcString   = plcs ? plcs.join(PUB_SEP + " ") : null;
-                                return plcString;
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                let plcs = null;
-                                if (params.newValue)
-                                {
-                                    plcs = (params.newValue.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
-                                }
-                                return(setFldVal(params.data, [CAT_FLD_PUBLISH_PLACES], plcs));
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             },
                             hide: true
                         }
@@ -636,11 +603,11 @@
                             headerName: COL_HDR_DIM_HEIGHT,
                             valueGetter: function(params)
                             {
-                                return getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]);
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], params.newValue));
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             },
                             filter: "agNumberColumnFilter",
                             hide: true
@@ -649,11 +616,11 @@
                             headerName: COL_HDR_DIM_WIDTH,
                             valueGetter: function(params)
                             {
-                                return getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]);
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], params.newValue));
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             },
                             filter: "agNumberColumnFilter",
                             hide: true
@@ -662,11 +629,11 @@
                             headerName: COL_HDR_DIM_THICKNESS,
                             valueGetter: function(params)
                             {
-                                return getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]);
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], params.newValue));
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             },
                             filter: "agNumberColumnFilter",
                             hide: true
@@ -675,11 +642,11 @@
                             headerName: COL_HDR_DIM_LENGTH,
                             valueGetter: function(params)
                             {
-                                return getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]);
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], params.newValue));
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             },
                             filter: "agNumberColumnFilter",
                             hide: true
@@ -688,39 +655,11 @@
                             headerName: COL_HDR_DIM_MASS,
                             valueGetter: function(params)
                             {
-                                let mass    = null;
-                                let rawMass = getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS]);
-                                if (rawMass)
-                                {
-                                    mass = parseFloat(rawMass);
-                                    let units = getFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS]);
-                                    if (units)
-                                    {
-                                        switch (units)
-                                        {
-                                            case "ounces":
-                                            {
-                                                mass *= OZ_TO_KG;
-                                                break;
-                                            }
-                                            case "pounds":
-                                            {
-                                                mass *= LB_TO_KG;
-                                                break;
-                                            }
-                                            default:
-                                            {
-                                                mass *= G_TO_KG;
-                                                break;
-                                            }
-                                        }
-                                    }
-                                }
-                                return mass;
+                                return getValForColumn(params.data, params.colDef.headerName);
                             },
                             valueSetter: function(params)
                             {
-                                return(setFldVal(params.data, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], params.newValue));
+                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             },
                             cellRenderer: function(params)
                             {
@@ -804,6 +743,7 @@
                 let gridDiv = document.querySelector("#catGrid");
                 new agGrid.Grid(gridDiv, gridOptions);
                 loadDefaultCat();
+                showMinimalColumns();
 
                 // Load/display selected catalogue data
                 $("#btnLoad").click(function()
@@ -989,7 +929,7 @@
                 for (let idx = 0; idx < allColumns.length; idx++)
                 {
                     let colHeader = allColumns[idx].colDef.headerName;
-                    let visible = (fieldsToShow.indexOf(colHeader) != -1);
+                    let visible = (minFields.indexOf(colHeader) != -1);
                     gridOptions.columnApi.setColumnVisible(allColumns[idx].colId, visible);
                 }
                 gridOptions.api.sizeColumnsToFit();
@@ -1074,8 +1014,9 @@
                     }
                 ];
 
+                let colHdr = params.column ? params.column.colDef.headerName : null;
                 let colId = params.column ? params.column.colId : null;
-                switch (colId)
+                switch (colHdr)
                 {
                     case null:
                     {
@@ -1084,12 +1025,12 @@
 
                     // For the ISBN13/10 columns, add an item for filling in
                     // the value by converting the counterpart ("source") ISBN
-                    case CAT_FLD_ISBN13:
-                    case CAT_FLD_ISBN10:
+                    case COL_HDR_ISBN_10:
+                    case COL_HDR_ISBN_13:
                     {
-                        let isbnSourceName      = colId == CAT_FLD_ISBN13 ? COL_HDR_ISBN_10 : COL_HDR_ISBN_13;
-                        let isbnSource          = colId == CAT_FLD_ISBN13 ? CAT_FLD_ISBN10 : CAT_FLD_ISBN13;
-                        let isbnSourceDigits    = colId == CAT_FLD_ISBN13 ? ISBN10_DIGITS : ISBN13_DIGITS;
+                        let isbnSourceName      = colHdr == COL_HDR_ISBN_13 ? COL_HDR_ISBN_10 : COL_HDR_ISBN_13;
+                        let isbnSource          = colHdr == COL_HDR_ISBN_13 ? CAT_FLD_ISBN10 : CAT_FLD_ISBN13;
+                        let isbnSourceDigits    = colHdr == COL_HDR_ISBN_13 ? ISBN10_DIGITS : ISBN13_DIGITS;
                         let menuItemAutofillISBN =
                         {
                             name: "Fill in based on " + isbnSourceName,
@@ -1109,6 +1050,73 @@
                         };
                         menuItems.push("separator");
                         menuItems.push(menuItemAutofillISBN);
+                    }
+
+                    // For these columns, allow copying of data between sources
+                    case COL_HDR_TITLE:
+                    case COL_HDR_SURNAME:
+                    case COL_HDR_GIVEN_NAMES:
+                    case COL_HDR_PUB_NAME:
+                    case COL_HDR_PUB_PLACE:
+                    case COL_HDR_DIM_HEIGHT:
+                    case COL_HDR_DIM_WIDTH:
+                    case COL_HDR_DIM_THICKNESS:
+                    case COL_HDR_DIM_MASS:
+                    case COL_HDR_DIM_LENGTH:
+                    {
+                        let dataSrcs    = [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON];
+                        let currDataSrc = getDataSrc();
+
+                        if (currDataSrc == CAT_FLD_SRC_BASE || currDataSrc == CAT_FLD_SRC_OPENLIB)
+                        {
+                            menuItems.push("separator");
+
+                            // Add a menu item for copying from each data
+                            // source that has a non-null value for the column
+                            let candidateSrcs = dataSrcs.filter(function(dataSrc) { return dataSrc != currDataSrc; });
+                            candidateSrcs.forEach
+                            (
+                                function(dataSrc)
+                                {
+                                    let menuItemCopyFromSrc =
+                                    {
+                                        name: "Copy from " + dataSrc  + " data",
+
+                                        disabled: !getValForColumn(params.node.data, colHdr, dataSrc),
+
+                                        action: function()
+                                        {
+                                            let srcVal = getValForColumn(params.node.data, colHdr, dataSrc);
+                                            setValForColumn(params.node.data, colHdr, srcVal, currDataSrc);
+                                            gridOptions.api.refreshCells(params.node);
+                                        }
+                                    };
+                                    menuItems.push(menuItemCopyFromSrc);
+
+                                }
+                            );
+
+                            candidateSrcs.forEach
+                            (
+                                function(dataSrc)
+                                {
+                                    let menuItemCopyFromSrc =
+                                    {
+                                        name: "Copy to " + dataSrc  + " data",
+
+                                        disabled: !getValForColumn(params.node.data, colHdr, currDataSrc),
+
+                                        action: function()
+                                        {
+                                            let srcVal = getValForColumn(params.node.data, colHdr, currDataSrc);
+                                            setValForColumn(params.node.data, colHdr, srcVal, dataSrc);
+                                            gridOptions.api.refreshCells(params.node);
+                                        }
+                                    };
+                                    menuItems.push(menuItemCopyFromSrc);
+
+                                }
+                            )                        }
                     }
 
                     default:
@@ -1436,7 +1444,15 @@
                     }
                     targetObj = targetObj[key];
                 }
-                targetObj[fldKeyChain.shift()] = value;
+                let targetKey = fldKeyChain.shift();
+                if (value == null)
+                {
+                    delete targetObj[targetKey];
+                }
+                else
+                {
+                    targetObj[targetKey] = value;
+                }
 
                 return true;
             }
@@ -1493,9 +1509,123 @@
                 return (Number.parseFloat(mass).toFixed(3));
             }
 
-            function getAuthorNames(params, nameType)
+            //
+            // Retrieves the value for a specified column
+            //
+            function getValForColumn(catRec, colHdr, dataSrc = getDataSrc())
             {
-                authData = getFldVal(params.data, [CAT_FLD_AUTHORS]);
+                switch (colHdr)
+                {
+                    case COL_HDR_SURNAME:
+                        return getAuthorNames(catRec, NameEnum.NAME_SUR, dataSrc);
+
+                    case COL_HDR_GIVEN_NAMES:
+                        return getAuthorNames(catRec, NameEnum.NAME_GIVEN, dataSrc);
+
+                    case COL_HDR_TITLE:
+                        return getTitle(catRec, dataSrc);
+
+                    case COL_HDR_PUB_NAME:
+                        return getPubNames(catRec, dataSrc);
+
+                    case COL_HDR_PUB_PLACE:
+                        return getPubPlaces(catRec, dataSrc);
+
+                    case COL_HDR_DIM_HEIGHT:
+                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], dataSrc);
+
+                    case COL_HDR_DIM_WIDTH:
+                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], dataSrc);
+
+                    case COL_HDR_DIM_THICKNESS:
+                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], dataSrc);
+
+                    case COL_HDR_DIM_LENGTH:
+                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], dataSrc);
+
+                    case COL_HDR_DIM_MASS:
+                        let mass        = null;
+                        let rawMassFld  = getFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], dataSrc);
+                        let rawMassSrc  = rawMassFld[FLD_SRC];
+                        let rawMass     = rawMassFld[FLD_VAL];
+
+                        if (rawMass)
+                        {
+                            mass = parseFloat(rawMass);
+                            let units = getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS], rawMassSrc);
+                            if (units)
+                            {
+                                switch (units)
+                                {
+                                    case "ounces":
+                                        {
+                                            mass *= OZ_TO_KG;
+                                            break;
+                                        }
+                                    case "pounds":
+                                        {
+                                            mass *= LB_TO_KG;
+                                            break;
+                                        }
+                                    default:
+                                        {
+                                            mass *= G_TO_KG;
+                                            break;
+                                        }
+                                }
+                            }
+                        }
+                        return mass;
+                }
+            }
+
+            //
+            // Sets the value for a specified column
+            //
+            function setValForColumn(catRec, colHdr, value, dataSrc = getDataSrc())
+            {
+                switch (colHdr)
+                {
+                    case COL_HDR_TITLE:
+                        return setTitle(catRec, value, dataSrc);
+
+                    case COL_HDR_SURNAME:
+                        return setAuthorNames(catRec, NameEnum.NAME_SUR, value, dataSrc);
+
+                    case COL_HDR_GIVEN_NAMES:
+                        return setAuthorNames(catRec, NameEnum.NAME_GIVEN, value, dataSrc);
+
+                    case COL_HDR_PUB_NAME:
+                        return setPubNames(catRec, value, dataSrc);
+
+                    case COL_HDR_PUB_PLACE:
+                        return setPubPlaces(catRec, value, dataSrc);
+
+                    case COL_HDR_DIM_HEIGHT:
+                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], value, dataSrc);
+
+                    case COL_HDR_DIM_WIDTH:
+                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], value, dataSrc);
+
+                    case COL_HDR_DIM_THICKNESS:
+                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], value, dataSrc);
+
+                    case COL_HDR_DIM_LENGTH:
+                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], value, dataSrc);
+
+                    case COL_HDR_DIM_MASS:
+                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], value, dataSrc);
+                }
+
+                return false;
+            }
+
+            //
+            // Retrieves the author's surname or given names
+            //
+            function getAuthorNames(catRec, nameType, dataSrc)
+            {
+                authData = getFldVal(catRec, [CAT_FLD_AUTHORS], dataSrc);
                 namesString = "";
 
                 if (authData)
@@ -1528,17 +1658,18 @@
             //
             // Sets the author's surname or given names
             //
-            function setAuthorNames(params, nameType)
+            function setAuthorNames(catRec, nameType, nameVal, dataSrc)
             {
                 // Copy existing authors field to work with below
-                let authData = JSON.parse(JSON.stringify(getFldVal(params.data, [CAT_FLD_AUTHORS])));
+                let authData = JSON.parse(JSON.stringify(getFldVal(catRec, [CAT_FLD_AUTHORS], dataSrc)));
                 if (!authData)
                 {
                     authData = [];
                 }
 
                 // List of new names, filtering out any empty strings
-                let newNames = params.newValue ? (params.newValue.split(AUTH_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);}) : [];
+                //let newNames = params.newValue ? (params.newValue.split(AUTH_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);}) : [];
+                let newNames = nameVal ? (nameVal.split(AUTH_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);}) : [];
                 newNames = newNames.filter(function(name) { return name && name.length > 0; });
 
                 // Name of the field to update
@@ -1562,7 +1693,7 @@
                     let newAuth = {};
                     if (nameType == NameEnum.NAME_SUR)
                     {
-                        newAuth[CAT_FLD_AUTHOR_SURNAME]     = newNames[nameIdx];
+                        newAuth[CAT_FLD_AUTHOR_SURNAME] = newNames[nameIdx];
                     }
                     else
                     {
@@ -1580,7 +1711,95 @@
                     authData = null;
                 }
 
-                return setFldVal(params.data, [CAT_FLD_AUTHORS], authData);
+                return setFldVal(catRec, [CAT_FLD_AUTHORS], authData, dataSrc);
+            }
+
+            //
+            // Retrieves the title and subtitle as a single value
+            //
+            function getTitle(catRec, dataSrc)
+            {
+                let titleFld = getFld(catRec, [CAT_FLD_TITLE], dataSrc);
+                let titleSrc = titleFld[FLD_SRC];
+                let titleVal = titleFld[FLD_VAL];
+
+                if (titleSrc && titleVal)
+                {
+                    // Ensure the title and subtitle come from the same source
+                    let subtitleFld = getFld(catRec, [CAT_FLD_SUBTITLE], titleSrc);
+                    let subtitleSrc = subtitleFld[FLD_SRC];
+                    let subtitleVal = subtitleFld[FLD_VAL];
+
+                    if (subtitleSrc && subtitleVal)
+                    {
+                        titleVal += TITLE_SEP + " " + subtitleVal;
+                    }
+                }
+                return titleVal;
+            }
+
+            //
+            // Sets the title and subtitle
+            //
+            function setTitle(catRec, titleStr, dataSrc = getDataSrc())
+            {
+                let titleComponents = [];
+                if (titleStr)
+                {
+                    titleComponents = (titleStr.split(TITLE_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                }
+                // Title = portion of string up to the first title separator,
+                // Subtitle = remainder of string
+                let title           = titleComponents.length > 0 ? titleComponents.shift() : null;
+                let subtitle        = titleComponents.length > 0 ? titleComponents.join(TITLE_SEP + " ") : null;
+                return (setFldVal(catRec, [CAT_FLD_TITLE], title, dataSrc) &&
+                        setFldVal(catRec, [CAT_FLD_SUBTITLE], subtitle, dataSrc));
+            }
+
+            //
+            // Retrieves the publisher names as a single value
+            //
+            function getPubNames(catRec, dataSrc)
+            {
+                let pubs        = getFldVal(catRec, [CAT_FLD_PUBLISHERS], dataSrc);
+                let pubString   = pubs ? pubs.join(PUB_SEP + " ") : null;
+                return pubString;
+            }
+
+            //
+            // Sets the publisher names
+            //
+            function setPubNames(catRec, nameStr, dataSrc)
+            {
+                let pubs = null;
+                if (nameStr)
+                {
+                    pubs = (nameStr.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                }
+                return setFldVal(catRec, [CAT_FLD_PUBLISHERS], pubs, dataSrc);
+            }
+
+            //
+            // Retrieves the publisher places as a single value
+            //
+            function getPubPlaces(catRec, dataSrc)
+            {
+                let plcs        = getFldVal(catRec, [CAT_FLD_PUBLISH_PLACES], dataSrc);
+                let plcString   = plcs ? plcs.join(PUB_SEP + " ") : null;
+                return plcString;
+            }
+
+            //
+            // Sets the publisher places
+            //
+            function setPubPlaces(catRec, placeStr, dataSrc)
+            {
+                let plcs = null;
+                if (placeStr)
+                {
+                    plcs = (placeStr.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                }
+                return setFldVal(catRec, [CAT_FLD_PUBLISH_PLACES], plcs, dataSrc);
             }
 
             // Checks if a candidate ISBN is valid, i.e. matches the relevant
