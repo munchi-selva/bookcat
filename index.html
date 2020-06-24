@@ -244,9 +244,10 @@
                     buttons:                ["clear", "reset"],
                     suppressAndOrCondition: true
                 },
-                resizable:      true,
-                editable:       true,
-                menuTabs:       ["columnsMenuTab"]
+                resizable:          true,
+                editable:           true,
+                menuTabs:           ["columnsMenuTab"],
+                tooltipValueGetter: getColTooltip
             };
 
             // Column header names
@@ -295,7 +296,7 @@
             const minFields = [COL_HDR_ID, COL_HDR_SURNAME, COL_HDR_GIVEN_NAMES,
                                COL_HDR_PURCH_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE,
                                COL_HDR_PUB_NAME, COL_HDR_PUB_PLACE,
-                               COL_HDR_DIM_LENGTH];
+                               COL_HDR_DIM_LENGTH, COL_HDR_DIM_MASS];
 
             // Column definitions
             let bookColumns =
@@ -326,14 +327,6 @@
                             valueGetter: function(params)
                             {
                                 return isFlagSet(params.data, BCK_FLAG_BIT_OPENLIB_SYNCED) ? "✓" : "";
-                            },
-                            tooltipValueGetter: function(params)
-                            {
-                                let lastSynchTime = getFldVal(params.data, [CAT_FLD_OPENLIB_SYNCH_TIME], CAT_FLD_SRC_BASE);
-                                if (lastSynchTime)
-                                {
-                                    return "Last synched: " + lastSynchTime;
-                                }
                             }
                         },
                         {
@@ -513,7 +506,6 @@
                             {
                                 return setValForColumn(params.data, params.colDef.headerName, params.newValue);
                             }
-
                         }
                     ]
                 },
@@ -688,6 +680,7 @@
             {
                 defaultColDef:          defaultCatCol,
                 columnDefs:             bookColumns,
+                tooltipShowDelay:       0,
 
                 // Unique identifier for each row
                 getRowNodeId: function(data)
@@ -1510,29 +1503,56 @@
             }
 
             //
-            // Retrieves the value for a specified column
+            // Retrieves the field for a specified column
             //
-            function getValForColumn(catRec, colHdr, dataSrc = getDataSrc())
+            function getFldForColumn(catRec, colHdr, dataSrc = getDataSrc())
             {
+                let fld = {};
                 switch (colHdr)
                 {
                     case COL_HDR_SURNAME:
-                        return getAuthorNames(catRec, NameEnum.NAME_SUR, dataSrc);
+                        fld = getAuthorNamesFld(catRec, NameEnum.NAME_SUR, dataSrc);
+                        break;
 
                     case COL_HDR_GIVEN_NAMES:
-                        return getAuthorNames(catRec, NameEnum.NAME_GIVEN, dataSrc);
+                        fld = getAuthorNamesFld(catRec, NameEnum.NAME_GIVEN, dataSrc);
+                        break;
 
                     case COL_HDR_TITLE:
-                        return getTitle(catRec, dataSrc);
+                        fld = getTitleFld(catRec, dataSrc);
+                        break;
 
                     case COL_HDR_PUB_NAME:
-                        return getPubNames(catRec, dataSrc);
+                        fld = getPubNamesFld(catRec, dataSrc);
+                        break;
 
                     case COL_HDR_PUB_PLACE:
-                        return getPubPlaces(catRec, dataSrc);
+                        fld = getPubPlacesFld(catRec, dataSrc);
+                        break;
 
                     case COL_HDR_DIM_HEIGHT:
-                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], dataSrc);
+                    case COL_HDR_DIM_WIDTH:
+                    case COL_HDR_DIM_THICKNESS:
+                    case COL_HDR_DIM_LENGTH:
+                        let dimKeys = [CAT_FLD_DIM];
+                        if (colHdr == COL_HDR_DIM_HEIGHT)
+                        {
+                            dimKeys.push(CAT_FLD_DIM_HEIGHT);
+                        }
+                        else if (colHdr == COL_HDR_DIM_WIDTH)
+                        {
+                            dimKeys.push(CAT_FLD_DIM_WIDTH);
+                        }
+                        else if (colHdr == COL_HDR_DIM_THICKNESS)
+                        {
+                            dimKeys.push(CAT_FLD_DIM_THICKNESS);
+                        }
+                        else
+                        {
+                            dimKeys.push(CAT_FLD_DIM_LENGTH);
+                        }
+                        fld = getFld(catRec, dimKeys, dataSrc);
+                        break;
 
                     case COL_HDR_DIM_WIDTH:
                         return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], dataSrc);
@@ -1544,39 +1564,35 @@
                         return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], dataSrc);
 
                     case COL_HDR_DIM_MASS:
-                        let mass        = null;
-                        let rawMassFld  = getFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], dataSrc);
-                        let rawMassSrc  = rawMassFld[FLD_SRC];
-                        let rawMass     = rawMassFld[FLD_VAL];
-
-                        if (rawMass)
-                        {
-                            mass = parseFloat(rawMass);
-                            let units = getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS], rawMassSrc);
-                            if (units)
-                            {
-                                switch (units)
-                                {
-                                    case "ounces":
-                                        {
-                                            mass *= OZ_TO_KG;
-                                            break;
-                                        }
-                                    case "pounds":
-                                        {
-                                            mass *= LB_TO_KG;
-                                            break;
-                                        }
-                                    default:
-                                        {
-                                            mass *= G_TO_KG;
-                                            break;
-                                        }
-                                }
-                            }
-                        }
-                        return mass;
+                        fld = getMassFld(catRec, dataSrc);
+                        break;
                 }
+                return fld;
+            }
+
+            //
+            // Retrieves the value for a specified column
+            //
+            function getValForColumn(catRec, colHdr, dataSrc = getDataSrc())
+            {
+                let fld = {};
+                switch (colHdr)
+                {
+                    case COL_HDR_SURNAME:
+                    case COL_HDR_GIVEN_NAMES:
+                    case COL_HDR_TITLE:
+                    case COL_HDR_PUB_NAME:
+                    case COL_HDR_PUB_PLACE:
+                    case COL_HDR_DIM_MASS:
+                    case COL_HDR_DIM_HEIGHT:
+                    case COL_HDR_DIM_WIDTH:
+                    case COL_HDR_DIM_THICKNESS:
+                    case COL_HDR_DIM_LENGTH:
+                        fld = getFldForColumn(catRec, colHdr, dataSrc);
+                        break;
+                }
+
+                return fld[FLD_VAL];
             }
 
             //
@@ -1623,9 +1639,10 @@
             //
             // Retrieves the author's surname or given names
             //
-            function getAuthorNames(catRec, nameType, dataSrc)
+            function getAuthorNamesFld(catRec, nameType, dataSrc)
             {
-                authData = getFldVal(catRec, [CAT_FLD_AUTHORS], dataSrc);
+                let authFld = getFld(catRec, [CAT_FLD_AUTHORS], dataSrc);
+                let authData = authFld[FLD_VAL];
                 namesString = "";
 
                 if (authData)
@@ -1652,7 +1669,8 @@
                         }
                     }
                 }
-                return namesString;
+                authFld[FLD_VAL] = namesString;
+                return authFld;
             }
 
             //
@@ -1715,9 +1733,9 @@
             }
 
             //
-            // Retrieves the title and subtitle as a single value
+            // Retrieves the title and subtitle as a field with a single string value
             //
-            function getTitle(catRec, dataSrc)
+            function getTitleFld(catRec, dataSrc)
             {
                 let titleFld = getFld(catRec, [CAT_FLD_TITLE], dataSrc);
                 let titleSrc = titleFld[FLD_SRC];
@@ -1735,7 +1753,8 @@
                         titleVal += TITLE_SEP + " " + subtitleVal;
                     }
                 }
-                return titleVal;
+                titleFld[FLD_VAL] = titleVal;
+                return titleFld;
             }
 
             //
@@ -1757,13 +1776,15 @@
             }
 
             //
-            // Retrieves the publisher names as a single value
+            // Retrieves the publisher names field, with the value as a single string
             //
-            function getPubNames(catRec, dataSrc)
+            function getPubNamesFld(catRec, dataSrc)
             {
-                let pubs        = getFldVal(catRec, [CAT_FLD_PUBLISHERS], dataSrc);
-                let pubString   = pubs ? pubs.join(PUB_SEP + " ") : null;
-                return pubString;
+                let pubsFld         = getFld(catRec, [CAT_FLD_PUBLISHERS], dataSrc);
+                let pubsVal         = pubsFld[FLD_VAL];
+                pubsFld[FLD_VAL]    = pubsVal ? pubsVal.join(PUB_SEP + " ") : null;
+
+                return pubsFld;
             }
 
             //
@@ -1780,13 +1801,15 @@
             }
 
             //
-            // Retrieves the publisher places as a single value
+            // Retrieves the publisher places field, with the value as a single string
             //
-            function getPubPlaces(catRec, dataSrc)
+            function getPubPlacesFld(catRec, dataSrc)
             {
-                let plcs        = getFldVal(catRec, [CAT_FLD_PUBLISH_PLACES], dataSrc);
-                let plcString   = plcs ? plcs.join(PUB_SEP + " ") : null;
-                return plcString;
+                let plcsFld         = getFld(catRec, [CAT_FLD_PUBLISH_PLACES], dataSrc);
+                let plcsVal         = plcsFld[FLD_VAL];
+                plcsFld[FLD_VAL]    = plcsVal ? plcsVal.join(PUB_SEP + " ") : null;
+
+                return plcsFld;
             }
 
             //
@@ -1800,6 +1823,65 @@
                     plcs = (placeStr.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
                 }
                 return setFldVal(catRec, [CAT_FLD_PUBLISH_PLACES], plcs, dataSrc);
+            }
+
+            function getMassFld(catRec, dataSrc)
+            {
+                let massFld  = getFld(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], dataSrc);
+                if (massFld[FLD_VAL])
+                {
+                    let mass    = parseFloat(massFld[FLD_VAL]);
+                    let massSrc = massFld[FLD_SRC];
+                    let units = getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS], massSrc);
+                    if (units)
+                    {
+                        switch (units)
+                        {
+                            case "ounces":
+                            {
+                                mass *= OZ_TO_KG;
+                                break;
+                            }
+                            case "pounds":
+                            {
+                                mass *= LB_TO_KG;
+                                break;
+                            }
+                            default:
+                            {
+                                mass *= G_TO_KG;
+                                break;
+                            }
+                        }
+                    }
+                    massFld[FLD_VAL] = mass;
+                }
+
+                return massFld;
+            }
+
+            function getColTooltip(params)
+            {
+                let tooltip = null;
+                switch (params.colDef.headerName)
+                {
+                    case COL_HDR_SYNCH_STATUS:
+                        let lastSynchTime = getFldVal(params.data, [CAT_FLD_OPENLIB_SYNCH_TIME], CAT_FLD_SRC_BASE);
+                        if (lastSynchTime)
+                        {
+                            tooltip = "Last synched: " + lastSynchTime;
+                        }
+                        break;
+
+                    default:
+                        if (getDataSrc() == CAT_FLD_SRC_COMB)
+                        {
+                            let fld = getFldForColumn(params.data, params.colDef.headerName);
+                            tooltip = fld[FLD_SRC] ? "Data source: " + fld[FLD_SRC] : null;
+                        }
+                        break;
+                }
+                return tooltip;
             }
 
             // Checks if a candidate ISBN is valid, i.e. matches the relevant
