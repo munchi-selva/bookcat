@@ -324,18 +324,12 @@
                             headerName:     COL_HDR_SYNCH_STATUS,
                             headerTooltip:  "Is the record synched with openlib?",
                             editable:       false,
-                            valueGetter: function(params)
-                            {
-                                return isFlagSet(params.data, BCK_FLAG_BIT_OPENLIB_SYNCED) ? "✓" : "";
-                            }
+                            valueGetter:    'isFlagSet(data, BCK_FLAG_BIT_OPENLIB_SYNCED) ? "✓" : ""'
                         },
                         {
-                            headerName: COL_HDR_IN_OPENLIB,
-                            headerTooltip: "Book exists in openlib",
-                            valueGetter: function(params)
-                            {
-                                return isFlagSet(params.data, BCK_FLAG_BIT_IN_OPENLIB) ? "✓" : "";
-                            },
+                            headerName:     COL_HDR_IN_OPENLIB,
+                            headerTooltip:  "Book exists in openlib",
+                            valueGetter:    'isFlagSet(data, BCK_FLAG_BIT_IN_OPENLIB) ? "✓" : ""',
                             editable:       false
                         }
                     ]
@@ -487,25 +481,13 @@
                     [
                         {
                             headerName: COL_HDR_SURNAME,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            }
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)'
                         },
                         {
                             headerName: COL_HDR_GIVEN_NAMES,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            }
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)'
                         }
                     ]
                 },
@@ -536,14 +518,8 @@
                         },
                         {
                             headerName: COL_HDR_TITLE,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            },
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
                             cellRenderer: function(params)
                             {
                                 let cellString = params.value;
@@ -564,25 +540,13 @@
                         {
                             hide: false,
                             headerName: COL_HDR_PUB_NAME,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            }
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)'
                         },
                         {
                             headerName: COL_HDR_PUB_PLACE,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            },
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
                             hide: true
                         }
                     ]
@@ -593,66 +557,36 @@
                     [
                         {
                             headerName: COL_HDR_DIM_HEIGHT,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            },
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
                             filter: "agNumberColumnFilter",
                             hide: true
                         },
                         {
                             headerName: COL_HDR_DIM_WIDTH,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            },
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
                             filter: "agNumberColumnFilter",
                             hide: true
                         },
                         {
                             headerName: COL_HDR_DIM_THICKNESS,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            },
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
                             filter: "agNumberColumnFilter",
                             hide: true
                         },
                         {
                             headerName: COL_HDR_DIM_LENGTH,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            },
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
                             filter: "agNumberColumnFilter",
                             hide: true
                         },
                         {
                             headerName: COL_HDR_DIM_MASS,
-                            valueGetter: function(params)
-                            {
-                                return getValForColumn(params.data, params.colDef.headerName);
-                            },
-                            valueSetter: function(params)
-                            {
-                                return setValForColumn(params.data, params.colDef.headerName, params.newValue);
-                            },
+                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
+                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
                             cellRenderer: function(params)
                             {
                                 if (params.value)
@@ -1075,11 +1009,11 @@
                                     {
                                         name: "Copy from " + dataSrc  + " data",
 
-                                        disabled: !getValForColumn(params.node.data, colHdr, dataSrc),
+                                        disabled: !getFldValByCol(params.node.data, colHdr, dataSrc),
 
                                         action: function()
                                         {
-                                            let srcVal = getValForColumn(params.node.data, colHdr, dataSrc);
+                                            let srcVal = getFldValByCol(params.node.data, colHdr, dataSrc);
                                             setValForColumn(params.node.data, colHdr, srcVal, currDataSrc);
                                             gridOptions.api.refreshCells(params.node);
                                         }
@@ -1097,11 +1031,11 @@
                                     {
                                         name: "Copy to " + dataSrc  + " data",
 
-                                        disabled: !getValForColumn(params.node.data, colHdr, currDataSrc),
+                                        disabled: !getFldValByCol(params.node.data, colHdr, currDataSrc),
 
                                         action: function()
                                         {
-                                            let srcVal = getValForColumn(params.node.data, colHdr, currDataSrc);
+                                            let srcVal = getFldValByCol(params.node.data, colHdr, currDataSrc);
                                             setValForColumn(params.node.data, colHdr, srcVal, dataSrc);
                                             gridOptions.api.refreshCells(params.node);
                                         }
@@ -1361,19 +1295,19 @@
                 return ($("[name='optSrc']:checked").val());
             }
 
-            // Fetches a field from a catalogue record, assuming the data
-            // source specified by the dataSrc parameter and returning the
-            // source and value of any field actually retrieved, with recourse
-            // to a default value if required.
+            // Fetches a field from a catalogue record, based on a key chain
+            // and assuming the data source specified by the dataSrc parameter.
+            // Returns the source and value of any field actually retrieved,
+            // with recourse to a default value if required.
             //
             // If the "combined" data source is selected, the function
             // checks each of the three data sources in turn for a non-null
             // field.
             function getFld(catRec, keyChain, dataSrc = getDataSrc(), defVal = null)
             {
-                let fldFound = false;
-                let fldSrc   = null;
-                let fldVal   = null;
+                let fldFound = false;   // Flag set when a non-null field is found
+                let fldSrc   = null;    // Data source of any field found
+                let fldVal   = null;    // Value of any field found
 
                 // Search until the target field is found, or the list of field
                 // sources has been exhausted
@@ -1394,27 +1328,119 @@
                     fldVal = fldFound ? obj : null;
                 }
 
-                let fldAndSrc = {};
+                let fld = {};
                 if (fldFound)
                 {
-                    fldAndSrc[FLD_SRC] = fldSrc;
-                    fldAndSrc[FLD_VAL] = fldVal;
+                    fld[FLD_SRC] = fldSrc;
+                    fld[FLD_VAL] = fldVal;
                 }
                 else
                 {
-                    fldAndSrc[FLD_SRC] = null;
-                    fldAndSrc[FLD_VAL] = defVal;
+                    fld[FLD_SRC] = null;
+                    fld[FLD_VAL] = defVal;
                 }
 
-                return fldAndSrc;
+                return fld;
             }
 
-            // Fetches a field value from a catalogue record, assuming the data
-            // source specified by the dataSrc parameter and returning a
-            // default value if the field doesn't exist.
+            // Fetches a field value from a catalogue record, based on a key chain
+            // and assuming the data source specified by the dataSrc parameter.
+            // Returns a default value if the field doesn't exist.
             function getFldVal(catRec, keyChain, dataSrc = getDataSrc(), defVal = null)
             {
                 let fld = getFld(catRec, keyChain, dataSrc, defVal);
+                return fld[FLD_VAL];
+            }
+
+            // Fetches a field from a catalogue record, based on a column
+            // header name and assuming the data source specified by the
+            // dataSrc parameter.
+            function getFldByColumn(catRec, colHdr, dataSrc = getDataSrc())
+            {
+                let fld = {};
+                switch (colHdr)
+                {
+                    case COL_HDR_SURNAME:
+                        fld = getAuthorNamesFld(catRec, NameEnum.NAME_SUR, dataSrc);
+                        break;
+
+                    case COL_HDR_GIVEN_NAMES:
+                        fld = getAuthorNamesFld(catRec, NameEnum.NAME_GIVEN, dataSrc);
+                        break;
+
+                    case COL_HDR_TITLE:
+                        fld = getTitleFld(catRec, dataSrc);
+                        break;
+
+                    case COL_HDR_PUB_NAME:
+                        fld = getPubNamesFld(catRec, dataSrc);
+                        break;
+
+                    case COL_HDR_PUB_PLACE:
+                        fld = getPubPlacesFld(catRec, dataSrc);
+                        break;
+
+                    case COL_HDR_DIM_HEIGHT:
+                    case COL_HDR_DIM_WIDTH:
+                    case COL_HDR_DIM_THICKNESS:
+                    case COL_HDR_DIM_LENGTH:
+                        let dimKeys = [CAT_FLD_DIM];
+                        if (colHdr == COL_HDR_DIM_HEIGHT)
+                        {
+                            dimKeys.push(CAT_FLD_DIM_HEIGHT);
+                        }
+                        else if (colHdr == COL_HDR_DIM_WIDTH)
+                        {
+                            dimKeys.push(CAT_FLD_DIM_WIDTH);
+                        }
+                        else if (colHdr == COL_HDR_DIM_THICKNESS)
+                        {
+                            dimKeys.push(CAT_FLD_DIM_THICKNESS);
+                        }
+                        else
+                        {
+                            dimKeys.push(CAT_FLD_DIM_LENGTH);
+                        }
+                        fld = getFld(catRec, dimKeys, dataSrc);
+                        break;
+
+                    case COL_HDR_DIM_WIDTH:
+                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], dataSrc);
+
+                    case COL_HDR_DIM_THICKNESS:
+                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], dataSrc);
+
+                    case COL_HDR_DIM_LENGTH:
+                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], dataSrc);
+
+                    case COL_HDR_DIM_MASS:
+                        fld = getMassFld(catRec, dataSrc);
+                        break;
+                }
+                return fld;
+            }
+
+            // Fetches a field value from a catalogue record, based on a column
+            // and assuming the data source specified by the dataSrc parameter.
+            function getFldValByCol(catRec, colHdr, dataSrc = getDataSrc())
+            {
+                let fld = {};
+                switch (colHdr)
+                {
+                    case COL_HDR_SURNAME:
+                    case COL_HDR_GIVEN_NAMES:
+                    case COL_HDR_TITLE:
+                    case COL_HDR_PUB_NAME:
+                    case COL_HDR_PUB_PLACE:
+                    case COL_HDR_DIM_MASS:
+                    case COL_HDR_DIM_HEIGHT:
+                    case COL_HDR_DIM_WIDTH:
+                    case COL_HDR_DIM_THICKNESS:
+                    case COL_HDR_DIM_LENGTH:
+                        fld = getFldByColumn(catRec, colHdr, dataSrc);
+                        break;
+                }
+
                 return fld[FLD_VAL];
             }
 
@@ -1500,99 +1526,6 @@
             function formatAsMass(mass)
             {
                 return (Number.parseFloat(mass).toFixed(3));
-            }
-
-            //
-            // Retrieves the field for a specified column
-            //
-            function getFldForColumn(catRec, colHdr, dataSrc = getDataSrc())
-            {
-                let fld = {};
-                switch (colHdr)
-                {
-                    case COL_HDR_SURNAME:
-                        fld = getAuthorNamesFld(catRec, NameEnum.NAME_SUR, dataSrc);
-                        break;
-
-                    case COL_HDR_GIVEN_NAMES:
-                        fld = getAuthorNamesFld(catRec, NameEnum.NAME_GIVEN, dataSrc);
-                        break;
-
-                    case COL_HDR_TITLE:
-                        fld = getTitleFld(catRec, dataSrc);
-                        break;
-
-                    case COL_HDR_PUB_NAME:
-                        fld = getPubNamesFld(catRec, dataSrc);
-                        break;
-
-                    case COL_HDR_PUB_PLACE:
-                        fld = getPubPlacesFld(catRec, dataSrc);
-                        break;
-
-                    case COL_HDR_DIM_HEIGHT:
-                    case COL_HDR_DIM_WIDTH:
-                    case COL_HDR_DIM_THICKNESS:
-                    case COL_HDR_DIM_LENGTH:
-                        let dimKeys = [CAT_FLD_DIM];
-                        if (colHdr == COL_HDR_DIM_HEIGHT)
-                        {
-                            dimKeys.push(CAT_FLD_DIM_HEIGHT);
-                        }
-                        else if (colHdr == COL_HDR_DIM_WIDTH)
-                        {
-                            dimKeys.push(CAT_FLD_DIM_WIDTH);
-                        }
-                        else if (colHdr == COL_HDR_DIM_THICKNESS)
-                        {
-                            dimKeys.push(CAT_FLD_DIM_THICKNESS);
-                        }
-                        else
-                        {
-                            dimKeys.push(CAT_FLD_DIM_LENGTH);
-                        }
-                        fld = getFld(catRec, dimKeys, dataSrc);
-                        break;
-
-                    case COL_HDR_DIM_WIDTH:
-                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], dataSrc);
-
-                    case COL_HDR_DIM_THICKNESS:
-                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], dataSrc);
-
-                    case COL_HDR_DIM_LENGTH:
-                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], dataSrc);
-
-                    case COL_HDR_DIM_MASS:
-                        fld = getMassFld(catRec, dataSrc);
-                        break;
-                }
-                return fld;
-            }
-
-            //
-            // Retrieves the value for a specified column
-            //
-            function getValForColumn(catRec, colHdr, dataSrc = getDataSrc())
-            {
-                let fld = {};
-                switch (colHdr)
-                {
-                    case COL_HDR_SURNAME:
-                    case COL_HDR_GIVEN_NAMES:
-                    case COL_HDR_TITLE:
-                    case COL_HDR_PUB_NAME:
-                    case COL_HDR_PUB_PLACE:
-                    case COL_HDR_DIM_MASS:
-                    case COL_HDR_DIM_HEIGHT:
-                    case COL_HDR_DIM_WIDTH:
-                    case COL_HDR_DIM_THICKNESS:
-                    case COL_HDR_DIM_LENGTH:
-                        fld = getFldForColumn(catRec, colHdr, dataSrc);
-                        break;
-                }
-
-                return fld[FLD_VAL];
             }
 
             //
@@ -1876,7 +1809,7 @@
                     default:
                         if (getDataSrc() == CAT_FLD_SRC_COMB)
                         {
-                            let fld = getFldForColumn(params.data, params.colDef.headerName);
+                            let fld = getFldByColumn(params.data, params.colDef.headerName);
                             tooltip = fld[FLD_SRC] ? "Data source: " + fld[FLD_SRC] : null;
                         }
                         break;
