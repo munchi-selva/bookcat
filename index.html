@@ -215,7 +215,6 @@
             const OLK_TITLE             = "title";
             const OLK_URL               = "info_url";
 
-            // Faking an enum
             const NameEnum =
             {
                 "NAME_SUR":     0,
@@ -233,6 +232,73 @@
             const REGEX_EXT         = new RegExp(/[.][^.]*$/);  // File extension regular expression
             const UPDATED_CAT_EXT   = ".updated";
 
+            // Catalogue column definitions listing
+            // Each definition comprises an enumerator, column name and
+            // (optionally) the path to the column value in a catalogue record,
+            // and a flag indicating whether multiple sources apply to the column
+            const catColDefList =
+            [
+                ["COL_ID",              "Cat ID",           [CAT_FLD_ID],                           false],
+                ["COL_RESYNCH",         "(Re)synch"                                                      ],
+                ["COL_SYNCH_STATUS",    "Synched"                                                        ],
+                ["COL_IN_OPENLIB",      "In openlib"                                                     ],
+                ["COL_PURCH_DATE",      "Purchase Date",    [CAT_FLD_PURCH_DATE],                   false],
+                ["COL_ARR_DATE",        "Arrival Date",     [CAT_FLD_ARR_DATE],                     false],
+                ["COL_SELLER",          "Seller",           [CAT_FLD_SELLER],                       false],
+                ["COL_SELLER_BRANCH",   "Seller Branch",    [CAT_FLD_SELLER_BRANCH],                false],
+                ["COL_PURCHASER",       "Purchaser",        [CAT_FLD_PURCHASER],                    false],
+                ["COL_NUM_IN_ORDER",    "#",                [CAT_FLD_NUM_IN_ORDER],                 false],
+                ["COL_CURRENCY",        "Currency",         [CAT_FLD_CURRENCY],                     false],
+                ["COL_PURCH_PRICE",     "Price",            [CAT_FLD_PURCH_PRICE],                  false],
+                ["COL_SHIP_PRICE",      "Shipping",         [CAT_FLD_SHIP_PRICE],                   false],
+                ["COL_TOTAL_PRICE",     "Total Price",      null,                                   false],
+                ["COL_ISBN_13",         "ISBN 13",          [CAT_FLD_ISBN13],                       false],
+                ["COL_ISBN_10",         "ISBN 10",          [CAT_FLD_ISBN10],                       false],
+                ["COL_SURNAME",         "Surname"                                                        ],
+                ["COL_GIVEN_NAMES",     "Given Name(s)"                                                  ],
+                ["COL_TITLE",           "Title"                                                          ],
+                ["COL_PUB_NAME",        "Name(s)"                                                        ],
+                ["COL_PUB_PLACE",       "Place(s)"                                                       ],
+                ["COL_PUB_DATE",        "Date"                                                           ],
+                ["COL_DIM_HEIGHT",      "H (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]            ],
+                ["COL_DIM_WIDTH",       "W (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]             ],
+                ["COL_DIM_THICKNESS",   "T (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]         ],
+                ["COL_DIM_LENGTH",      "Length (pp)",      [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]            ],
+                ["COL_DIM_MASS",        "Mass (kg)",        [CAT_FLD_DIM, CAT_FLD_DIM_MASS]              ],
+                ["COL_LOCATION",        "Location",         [CAT_FLD_LOCATION],                     false],
+                ["COL_COVER_REQUIRED",  "Cover Required?",  [CAT_FLD_COVER_REQUIRED],               false],
+                ["COL_NOTES",           "Notes",            [CAT_FLD_NOTES],                        false],
+                ["COL_ELEC_FORMAT",     "Electronic Copy",  [CAT_FLD_ELEC_FORMAT],                  false]
+            ];
+
+            // Convert column listings into an enum and an enum val => details mapping
+            let CatColEnum  = {};
+            let catColDefs   = {};
+
+            let indexedList = catColDefList.entries();
+            for (indexedPair of indexedList)
+            {
+                let colEnumVal = indexedPair[0];
+
+                let colDetails      = indexedPair[1];
+                let colEnumerator   = colDetails.shift();
+                let colName         = colDetails.shift();
+                let colCatRecPath   = colDetails.length > 0 ? colDetails.shift() : null;
+                let colAllSrcs      = colDetails.length > 0 ? colDetails.shift() : true;
+
+                CatColEnum[colEnumerator] = colEnumVal;
+                catColDefs[colEnumVal] = {
+                                            name:       colName,
+                                            catRecPath: colCatRecPath,
+                                            allSrcs:    colAllSrcs
+                                          };
+            }
+
+            // Lock down the column identifier objects
+            Object.freeze(catColDefList);
+            Object.freeze(CatColEnum);
+            Object.freeze(catColDefs);
+
             // Default column options
             const defaultCatCol =
             {
@@ -247,64 +313,40 @@
                 resizable:          true,
                 editable:           true,
                 menuTabs:           ["columnsMenuTab"],
+
+                headerValueGetter:  'catColDefs[parseInt(colDef.colId)].name',   // Retrieve header name via colId
+                valueGetter:        'getFldValByColId(data, parseInt(colDef.colId))',
+                valueSetter:        'setFldValByColId(data, colDef.colId, newValue)',
                 tooltipValueGetter: getColTooltip
             };
 
-            // Column header names
-            const COL_HDR_ID                = "Cat ID";
+            // Group header names
             const COL_GRP_HDR_SYNCH         = "Openlib synch status";
-            const COL_HDR_RESYNCH           = "(Re)synch";
-            const COL_HDR_SYNCH_STATUS      = "Synched";
-            const COL_HDR_IN_OPENLIB        = "In openlib";
             const COL_GRP_HDR_PURCHASE      = "Purchase Details";
-            const COL_HDR_PURCH_DATE        = "Purchase Date";
-            const COL_HDR_ARR_DATE          = "Arrival Date";
-            const COL_HDR_SELLER            = "Seller";
-            const COL_HDR_SELLER_BRANCH     = "Seller Branch";
-            const COL_HDR_PURCHASER         = "Purchaser";
-            const COL_HDR_NUM_IN_ORDER      = "#";
-            const COL_HDR_CURRENCY          = "Currency";
-            const COL_HDR_PURCH_PRICE       = "Price";
-            const COL_HDR_SHIP_PRICE        = "Shipping";
-            const COL_HDR_TOTAL_PRICE       = "Total Price";
-            const COL_GRP_HDR_IDENTIFIERS   = "Identifiers";
-            const COL_HDR_ISBN_13           = "ISBN 13";
-            const COL_HDR_ISBN_10           = "ISBN 10";
             const COL_GRP_HDR_AUTHOR        = "Author/Editor";
-            const COL_HDR_SURNAME           = "Surname";
-            const COL_HDR_GIVEN_NAMES       = "Given Name(s)";
-            const COL_HDR_TITLE             = "Title";
-            const COL_GRP_HDR_PUB           = "Publiser Details";
-            const COL_HDR_PUB_NAME          = "Name(s)";
-            const COL_HDR_PUB_PLACE         = "Place(s)";
-            const COL_HDR_PUB_DATE          = "Date";
+            const COL_GRP_HDR_IDENTIFIERS   = "Identifiers";
+            const COL_GRP_HDR_PUB           = "Publisher Details";
             const COL_GRP_HDR_PHYS          = "Physical Details";
-            const COL_HDR_DIM_HEIGHT        = "H (cm)";
-            const COL_HDR_DIM_WIDTH         = "W (cm)";
-            const COL_HDR_DIM_THICKNESS     = "T (cm)";
-            const COL_HDR_DIM_LENGTH        = "Length (pp)";
-            const COL_HDR_DIM_MASS          = "Mass (kg)";
-            const COL_HDR_LOCATION          = "Shelf Location";
-            const COL_HDR_COVER_REQUIRED    = "Cover Required?";
-            const COL_HDR_NOTES             = "Notes";
-            const COL_HDR_ELEC_FORMAT       = "Electronic Copy";
 
             // Properties of a single catalogue field
             const FLD_SRC   = "source";
             const FLD_VAL   = "value";
 
-            const minFields = [COL_HDR_ID, COL_HDR_SURNAME, COL_HDR_GIVEN_NAMES,
-                               COL_HDR_PURCH_DATE, COL_HDR_ISBN_13, COL_HDR_TITLE,
-                               COL_HDR_PUB_NAME, COL_HDR_PUB_PLACE,
-                               COL_HDR_DIM_LENGTH, COL_HDR_DIM_MASS];
+            const minCols = [  CatColEnum.COL_ID,
+                               CatColEnum.COL_SURNAME, CatColEnum.COL_GIVEN_NAMES,
+                               CatColEnum.COL_PURCH_DATE,
+                               CatColEnum.COL_PURCH_PRICE, CatColEnum.COL_SHIP_PRICE, CatColEnum.COL_TOTAL_PRICE,
+                               CatColEnum.COL_ISBN_13, CatColEnum.COL_TITLE,
+                               CatColEnum.COL_PUB_NAME, CatColEnum.COL_PUB_PLACE,
+                               CatColEnum.COL_DIM_WIDTH, CatColEnum.COL_DIM_THICKNESS,
+                               CatColEnum.COL_DIM_LENGTH, CatColEnum.COL_DIM_MASS];
 
             // Column definitions
             let bookColumns =
             [
                 {
-                    headerName:     COL_HDR_ID,
+                    colId:          CatColEnum.COL_ID,
                     headerTooltip:  "Master identifier for the catalogue record (automatically generated)",
-                    field:          CAT_FLD_ID,
                     editable:       false,
                     filter:         "agNumberColumnFilter"
                 },
@@ -313,24 +355,24 @@
                     children:
                     [
                         {
-                            headerName:         COL_HDR_RESYNCH,
+                            colId:                                  CatColEnum.COL_RESYNCH,
+                            headerTooltip:                          "Check for updated openlib details",
                             headerCheckboxSelection:                true,   // Allow selection of all rows
                             headerCheckboxSelectionFilteredOnly:    true,   // included by filtering
-                            checkboxSelection:  true,
-                            headerTooltip:      "Check for updated openlib details",
-                            filter:             false
+                            checkboxSelection:                      true,
+                            filter:                                 false
                         },
                         {
-                            headerName:     COL_HDR_SYNCH_STATUS,
+                            colId:          CatColEnum.COL_SYNCH_STATUS,
                             headerTooltip:  "Is the record synched with openlib?",
                             editable:       false,
                             valueGetter:    'isFlagSet(data, BCK_FLAG_BIT_OPENLIB_SYNCED) ? "✓" : ""'
                         },
                         {
-                            headerName:     COL_HDR_IN_OPENLIB,
+                            colId:          CatColEnum.COL_IN_OPENLIB,
                             headerTooltip:  "Book exists in openlib",
-                            valueGetter:    'isFlagSet(data, BCK_FLAG_BIT_IN_OPENLIB) ? "✓" : ""',
-                            editable:       false
+                            editable:       false,
+                            valueGetter:    'isFlagSet(data, BCK_FLAG_BIT_IN_OPENLIB) ? "✓" : ""'
                         }
                     ]
                 },
@@ -339,14 +381,9 @@
                     children:
                     [
                         {
-                            headerName: COL_HDR_PURCH_DATE,
+                            colId:      CatColEnum.COL_PURCH_DATE,
+                            editable:   true,
                             cellEditor: "datePicker",
-                            editable: true,
-                            field:  CAT_FLD_PURCH_DATE,
-                            valueSetter: function(params)
-                            {
-                                setDateFld(params, [CAT_FLD_PURCH_DATE]);
-                            },
                             valueFormatter: function(params)
                             {
                                 let dateObj = params.value;
@@ -361,27 +398,14 @@
                             {
                                 return markFldValidity(params, params.valueFormatted);
                             },
-                            filter: "dateFilterComponent",
-                            floatingFilterComponent: "dateFloatingFilterComponent",
+                            filter:                     "dateFilterComponent",
+                            floatingFilterComponent:    "dateFloatingFilterComponent",
                             comparator: compareDateComponents
                         },
                         {
-                            headerName: COL_HDR_ARR_DATE,
+                            colId:      CatColEnum.COL_ARR_DATE,
+                            editable:   true,
                             cellEditor: "datePicker",
-                            editable: true,
-                            valueGetter: function(params)
-                            {
-                                arrDate = getFldVal(params.data, [CAT_FLD_ARR_DATE], CAT_FLD_SRC_BASE);
-                                if (!arrDate)
-                                {
-                                    arrDate = getFldVal(params.data, [CAT_FLD_PURCH_DATE], CAT_FLD_SRC_BASE);
-                                }
-                                return arrDate;
-                            },
-                            valueSetter: function(params)
-                            {
-                                setDateFld(params, [CAT_FLD_ARR_DATE]);
-                            },
                             valueFormatter: function(params)
                             {
                                 let dateObj = params.value;
@@ -396,18 +420,17 @@
                             {
                                 return markFldValidity(params, params.valueFormatted);
                             },
-                            filter: "dateFilterComponent",
-                            floatingFilterComponent: "dateFloatingFilterComponent",
-                            comparator: compareDateComponents,
-                            hide: true
+                            filter:                     "dateFilterComponent",
+                            floatingFilterComponent:    "dateFloatingFilterComponent",
+                            comparator:                 compareDateComponents,
+                            hide:                       true
                         },
-                        {headerName: COL_HDR_SELLER, field: CAT_FLD_SELLER},
-                        {headerName: COL_HDR_SELLER_BRANCH, field: CAT_FLD_SELLER_BRANCH, hide: true},
-                        {headerName: COL_HDR_PURCHASER, field: CAT_FLD_PURCHASER, hide: true},
-                        {headerName: COL_HDR_NUM_IN_ORDER, field: CAT_FLD_NUM_IN_ORDER, hide: true},
+                        {colId: CatColEnum.COL_SELLER},
+                        {colId: CatColEnum.COL_SELLER_BRANCH, hide: true},
+                        {colId: CatColEnum.COL_PURCHASER, hide: true},
+                        {colId: CatColEnum.COL_NUM_IN_ORDER, hide: true},
                         {
-                            headerName: COL_HDR_CURRENCY,
-                            field: CAT_FLD_CURRENCY,
+                            colId:      CatColEnum.COL_CURRENCY,
                             cellEditor: "agRichSelectCellEditor",
                             cellEditorParams:
                             {
@@ -420,8 +443,7 @@
                             hide: true
                         },
                         {
-                            headerName: COL_HDR_PURCH_PRICE,
-                            field: CAT_FLD_PURCH_PRICE,
+                            colId:  CatColEnum.COL_PURCH_PRICE,
                             cellRenderer: function(params)
                             {
                                 cellString = isFldValid(params) ? formatAsCurrency(params) : params.value;
@@ -430,46 +452,22 @@
                             filter: "agNumberColumnFilter"
                         },
                         {
-                            headerName: COL_HDR_SHIP_PRICE,
-                            field: CAT_FLD_SHIP_PRICE,
+                            colId:  CatColEnum.COL_SHIP_PRICE,
                             cellRenderer: function(params)
                             {
                                 cellString = isFldValid(params) ? formatAsCurrency(params) : params.value;
                                 return markFldValidity(params, cellString);
                             },
                             filter: "agNumberColumnFilter",
-                            hide: true
+                            hide:   true
                         },
                         {
-                            headerName: COL_HDR_TOTAL_PRICE,
-                            valueGetter: function(params)
-                            {
-                                let totalPrice = null;
-
-                                let price = getFldVal(params.data, [CAT_FLD_PURCH_PRICE], CAT_FLD_SRC_BASE);
-                                let shippingPrice = getFldVal(params.data, [CAT_FLD_SHIP_PRICE], CAT_FLD_SRC_BASE);
-
-                                if ((price || !isNaN(price)) && (shippingPrice || !isNaN(price)))
-                                {
-                                    totalPrice = 0;
-                                    if (price)
-                                    {
-                                        totalPrice += parseFloat(price);
-                                    }
-
-                                    if (shippingPrice)
-                                    {
-                                        totalPrice += parseFloat(shippingPrice);
-                                    }
-                                }
-
-                                return totalPrice;
-                            },
+                            colId:      CatColEnum.COL_TOTAL_PRICE,
+                            editable:   false,
                             cellRenderer: function(params)
                             {
                                 return (formatAsCurrency(params));
                             },
-                            editable: false,
                             filter:   "agNumberColumnFilter"
                         },
                     ]
@@ -479,16 +477,8 @@
                     suppressMenu: false,
                     children:
                     [
-                        {
-                            headerName: COL_HDR_SURNAME,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)'
-                        },
-                        {
-                            headerName: COL_HDR_GIVEN_NAMES,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)'
-                        }
+                        {colId: CatColEnum.COL_SURNAME},
+                        {colId:  CatColEnum.COL_GIVEN_NAMES}
                     ]
                 },
                 {
@@ -497,9 +487,8 @@
                     [
 
                         {
-                            headerName:     COL_HDR_ISBN_13,
+                            colId:  CatColEnum.COL_ISBN_13,
                             headerToolTip:  "13 digit international standard book number",
-                            field:          CAT_FLD_ISBN13,
                             cellRenderer: function(params)
                             {
                                 let cellString = params.value;
@@ -507,9 +496,8 @@
                             }
                         },
                         {
-                            headerName:     COL_HDR_ISBN_10,
+                            colId:  CatColEnum.COL_ISBN_10,
                             headerToolTip:  "10 digit international standard book number",
-                            field:          CAT_FLD_ISBN10,
                             cellRenderer: function(params)
                             {
                                 let cellString = params.value;
@@ -517,9 +505,7 @@
                             }
                         },
                         {
-                            headerName: COL_HDR_TITLE,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
+                            colId:  CatColEnum.COL_TITLE,
                             cellRenderer: function(params)
                             {
                                 let cellString = params.value;
@@ -537,18 +523,8 @@
                     headerName: COL_GRP_HDR_PUB,
                     children:
                     [
-                        {
-                            hide: false,
-                            headerName: COL_HDR_PUB_NAME,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)'
-                        },
-                        {
-                            headerName: COL_HDR_PUB_PLACE,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
-                            hide: true
-                        }
+                        {colId: CatColEnum.COL_PUB_NAME},
+                        {colId: CatColEnum.COL_PUB_PLACE, hide: true}
                     ]
                 },
                 {
@@ -556,37 +532,27 @@
                     children:
                     [
                         {
-                            headerName: COL_HDR_DIM_HEIGHT,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
+                            colId:  CatColEnum.COL_DIM_HEIGHT,
                             filter: "agNumberColumnFilter",
-                            hide: true
+                            hide:   true
                         },
                         {
-                            headerName: COL_HDR_DIM_WIDTH,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
+                            colId:  CatColEnum.COL_DIM_WIDTH,
                             filter: "agNumberColumnFilter",
-                            hide: true
+                            hide:   true
                         },
                         {
-                            headerName: COL_HDR_DIM_THICKNESS,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
+                            colId:  CatColEnum.COL_DIM_THICKNESS,
                             filter: "agNumberColumnFilter",
-                            hide: true
+                            hide:   true
                         },
                         {
-                            headerName: COL_HDR_DIM_LENGTH,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
+                            colId:  CatColEnum.COL_DIM_LENGTH,
                             filter: "agNumberColumnFilter",
-                            hide: true
+                            hide:   true
                         },
                         {
-                            headerName: COL_HDR_DIM_MASS,
-                            valueGetter: 'getFldValByCol(data, colDef.headerName)',
-                            valueSetter: 'setValForColumn(data, colDef.headerName, newValue)',
+                            colId:  CatColEnum.COL_DIM_MASS,
                             cellRenderer: function(params)
                             {
                                 if (params.value)
@@ -599,14 +565,14 @@
                                 }
                             },
                             filter: "agNumberColumnFilter",
-                            hide: true
+                            hide:   true
                         },
-                        {headerName: COL_HDR_LOCATION, field: CAT_FLD_LOCATION},
-                        {headerName: COL_HDR_COVER_REQUIRED, field: CAT_FLD_COVER_REQUIRED, hide: true},
+                        {colId: CatColEnum.COL_LOCATION},
+                        {colId: CatColEnum.COL_COVER_REQUIRED, hide: true},
                     ]
                 },
-                {headerName: COL_HDR_NOTES, field: CAT_FLD_NOTES},
-                {headerName: COL_HDR_ELEC_FORMAT, field: CAT_FLD_ELEC_FORMAT, hide: true}
+                {colId: CatColEnum.COL_NOTES},
+                {colId: CatColEnum.COL_ELEC_FORMAT}
             ];
 
             // Default grid configuration (empty data)
@@ -663,6 +629,7 @@
             let catData     = [];   // Catalogue data array
 
             let catFilters = null;  // Saved catalogue filters
+
 
             $(document).ready(function()
             {
@@ -850,17 +817,42 @@
             }
 
             // Show a minimal number of columns (useful for debugging)
+            function debugCols()
+            {
+                console.log("debugCols()");
+                let allColumns = gridOptions.columnApi.getAllColumns();
+                for (let idx = 0; idx < allColumns.length; idx++)
+                {
+                    let colId = allColumns[idx].colDef.colId;
+                    console.log(allColumns[idx].colId + "\tvs.\t" + colId);
+                }
+            }
+
+            // Show a minimal number of columns (useful for debugging)
             function showMinimalColumns()
             {
                 let allColumns = gridOptions.columnApi.getAllColumns();
                 for (let idx = 0; idx < allColumns.length; idx++)
                 {
-                    let colHeader = allColumns[idx].colDef.headerName;
-                    let visible = (minFields.indexOf(colHeader) != -1);
-                    gridOptions.columnApi.setColumnVisible(allColumns[idx].colId, visible);
+                    let colId   = allColumns[idx].colDef.colId;
+                    let visible = (minCols.indexOf(parseInt(colId)) != -1);
+                    gridOptions.columnApi.setColumnVisible(colId, visible);
                 }
                 gridOptions.api.sizeColumnsToFit();
+            }
 
+            function getCol(colId)
+            {
+                let allColumns = gridOptions.columnApi.getAllColumns();
+                for (let idx = 0; idx < allColumns.length; idx++)
+                {
+                    let col = allColumns[idx];
+                    if (col.colDef.colId == colId)
+                    {
+                        return col;
+                    }
+                }
+                return null;
             }
 
             // Defines the menu that appears when a cell is right-clicked
@@ -907,10 +899,10 @@
 
                             // Restore grid selection(s)
                             currSelectedNodes.forEach(function(node)
-                                {
-                                    node.setSelected(true);
-                                }
-                            );
+                                                     {
+                                                         node.setSelected(true);
+                                                     }
+                                               );
                         }
                     },
                     "separator",
@@ -941,9 +933,8 @@
                     }
                 ];
 
-                let colHdr = params.column ? params.column.colDef.headerName : null;
-                let colId = params.column ? params.column.colId : null;
-                switch (colHdr)
+                let colId = params.column ? params.column.colDef.colId : null;
+                switch (colId)
                 {
                     case null:
                     {
@@ -952,25 +943,27 @@
 
                     // For the ISBN13/10 columns, add an item for filling in
                     // the value by converting the counterpart ("source") ISBN
-                    case COL_HDR_ISBN_10:
-                    case COL_HDR_ISBN_13:
+                    case CatColEnum.COL_ISBN_10:
+                    case CatColEnum.COL_ISBN_13:
                     {
-                        let isbnSourceName      = colHdr == COL_HDR_ISBN_13 ? COL_HDR_ISBN_10 : COL_HDR_ISBN_13;
-                        let isbnSource          = colHdr == COL_HDR_ISBN_13 ? CAT_FLD_ISBN10 : CAT_FLD_ISBN13;
-                        let isbnSourceDigits    = colHdr == COL_HDR_ISBN_13 ? ISBN10_DIGITS : ISBN13_DIGITS;
+                        let srcISBNCol      = colId == CatColEnum.COL_ISBN_13 ? getCol(CatColEnum.COL_ISBN_10) : getCol(CatColEnum.COL_ISBN_13);
+                        let srcISBNName     = srcISBNCol ? gridOptions.columnApi.getDisplayNameForColumn(srcISBNCol) : null;
+                        let srcISBNDigits   = colId == CatColEnum.COL_ISBN_13 ? ISBN10_DIGITS : ISBN13_DIGITS;
+                        let srcISBN         = srcISBNCol ? getFldValByColId(params.node.data, srcISBNCol.colDef.colId) : null;
+
                         let menuItemAutofillISBN =
                         {
-                            name: "Fill in based on " + isbnSourceName,
+                            name: "Fill in based on " + srcISBNName,
 
                             // Disable fill-in if the source ISBN is invalid
-                            disabled: !isISBNValid(getFldVal(params.node.data, [isbnSource], CAT_FLD_SRC_BASE), isbnSourceDigits),
+                            disabled: !isISBNValid(srcISBN, srcISBNDigits),
 
                             action: function()
                             {
-                                let newISBN = convISBN(getFldVal(params.node.data, [isbnSource], CAT_FLD_SRC_BASE));
+                                let newISBN = convISBN(srcISBN);
                                 if (newISBN)
                                 {
-                                    setFldVal(params.node.data, [colId], newISBN, CAT_FLD_SRC_BASE);
+                                    setFldValByColId(params.node.data, colId, newISBN);
                                     gridOptions.api.refreshCells(params.node);
                                 }
                             }
@@ -979,75 +972,45 @@
                         menuItems.push(menuItemAutofillISBN);
                     }
 
-                    // For these columns, allow copying of data between sources
-                    case COL_HDR_TITLE:
-                    case COL_HDR_SURNAME:
-                    case COL_HDR_GIVEN_NAMES:
-                    case COL_HDR_PUB_NAME:
-                    case COL_HDR_PUB_PLACE:
-                    case COL_HDR_DIM_HEIGHT:
-                    case COL_HDR_DIM_WIDTH:
-                    case COL_HDR_DIM_THICKNESS:
-                    case COL_HDR_DIM_MASS:
-                    case COL_HDR_DIM_LENGTH:
-                    {
-                        let dataSrcs    = [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON];
-                        let currDataSrc = getDataSrc();
-
-                        if (currDataSrc == CAT_FLD_SRC_BASE || currDataSrc == CAT_FLD_SRC_OPENLIB)
-                        {
-                            menuItems.push("separator");
-
-                            // Add a menu item for copying from each data
-                            // source that has a non-null value for the column
-                            let candidateSrcs = dataSrcs.filter(function(dataSrc) { return dataSrc != currDataSrc; });
-                            candidateSrcs.forEach
-                            (
-                                function(dataSrc)
-                                {
-                                    let menuItemCopyFromSrc =
-                                    {
-                                        name: "Copy from " + dataSrc  + " data",
-
-                                        disabled: !getFldValByCol(params.node.data, colHdr, dataSrc),
-
-                                        action: function()
-                                        {
-                                            let srcVal = getFldValByCol(params.node.data, colHdr, dataSrc);
-                                            setValForColumn(params.node.data, colHdr, srcVal, currDataSrc);
-                                            gridOptions.api.refreshCells(params.node);
-                                        }
-                                    };
-                                    menuItems.push(menuItemCopyFromSrc);
-
-                                }
-                            );
-
-                            candidateSrcs.forEach
-                            (
-                                function(dataSrc)
-                                {
-                                    let menuItemCopyFromSrc =
-                                    {
-                                        name: "Copy to " + dataSrc  + " data",
-
-                                        disabled: !getFldValByCol(params.node.data, colHdr, currDataSrc),
-
-                                        action: function()
-                                        {
-                                            let srcVal = getFldValByCol(params.node.data, colHdr, currDataSrc);
-                                            setValForColumn(params.node.data, colHdr, srcVal, dataSrc);
-                                            gridOptions.api.refreshCells(params.node);
-                                        }
-                                    };
-                                    menuItems.push(menuItemCopyFromSrc);
-
-                                }
-                            )                        }
-                    }
-
                     default:
                     {
+                        if (catColDefs[colId].allSrcs)
+                        {
+                            // If the column supports multiple data sources,
+                            // add a menu item for copying from each data
+                            // source that has a non-null value for the column
+                            let dataSrcs    = [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON];
+                            let currDataSrc = getDataSrc();
+
+                            if (currDataSrc == CAT_FLD_SRC_BASE || currDataSrc == CAT_FLD_SRC_OPENLIB)
+                            {
+                                menuItems.push("separator");
+
+                                let candidateSrcs = dataSrcs.filter(function(dataSrc) { return dataSrc != currDataSrc; });
+                                candidateSrcs.forEach
+                                (
+                                    function(dataSrc)
+                                    {
+                                        let menuItemCopyFromSrc =
+                                        {
+                                            name: "Copy from " + dataSrc  + " data",
+
+                                            disabled: !getFldValByColId(params.node.data, colId, dataSrc),
+
+                                            action: function()
+                                            {
+                                                let srcVal = getFldValByColId(params.node.data, colId, dataSrc);
+                                                setFldValByColId(params.node.data, colId, srcVal, currDataSrc);
+                                                gridOptions.api.refreshCells(params.node);
+                                            }
+                                        };
+                                        menuItems.push(menuItemCopyFromSrc);
+
+                                    }
+                                );
+                            }
+                        }
+
                         if (params.column.colDef.editable)
                         {
                             let menuItemEdit =
@@ -1295,15 +1258,16 @@
                 return ($("[name='optSrc']:checked").val());
             }
 
-            // Fetches a field from a catalogue record, based on a key chain
-            // and assuming the data source specified by the dataSrc parameter.
+            // Fetches a field from a catalogue record, via a path consisting
+            // of a sequence of keys and assuming the data source specified
+            // by the dataSrc parameter.
             // Returns the source and value of any field actually retrieved,
             // with recourse to a default value if required.
             //
             // If the "combined" data source is selected, the function
             // checks each of the three data sources in turn for a non-null
             // field.
-            function getFld(catRec, keyChain, dataSrc = getDataSrc(), defVal = null)
+            function getFld(catRec, path, dataSrc = getDataSrc(), defVal = null)
             {
                 let fldFound = false;   // Flag set when a non-null field is found
                 let fldSrc   = null;    // Data source of any field found
@@ -1316,15 +1280,15 @@
                 {
                     fldSrc = dataSrcList.shift();
                     let fldKeyPrefix = (fldSrc == CAT_FLD_SRC_BASE) ? [] : [fldSrc];
-                    let fldKeyChain = fldKeyPrefix.concat(keyChain);
+                    let fldPath = fldKeyPrefix.concat(path);
 
                     // Recursive fetching of object properties...
                     let obj = catRec;
-                    while (fldKeyChain.length > 0 && fldKeyChain[0] in obj)
+                    while (fldPath.length > 0 && fldPath[0] in obj)
                     {
-                        obj = obj[fldKeyChain.shift()];
+                        obj = obj[fldPath.shift()];
                     }
-                    fldFound = (fldKeyChain.length == 0);
+                    fldFound = (fldPath.length == 0);
                     fldVal = fldFound ? obj : null;
                 }
 
@@ -1343,119 +1307,99 @@
                 return fld;
             }
 
-            // Fetches a field value from a catalogue record, based on a key chain
-            // and assuming the data source specified by the dataSrc parameter.
+            // Fetches a field value from a catalogue record, via a path
+            // consisting of a sequence of keys and assuming the data source
+            // specified by the dataSrc parameter.
             // Returns a default value if the field doesn't exist.
-            function getFldVal(catRec, keyChain, dataSrc = getDataSrc(), defVal = null)
+            function getFldVal(catRec, path, dataSrc = getDataSrc(), defVal = null)
             {
-                let fld = getFld(catRec, keyChain, dataSrc, defVal);
+                let fld = getFld(catRec, path, dataSrc, defVal);
                 return fld[FLD_VAL];
             }
 
-            // Fetches a field from a catalogue record, based on a column
-            // header name and assuming the data source specified by the
-            // dataSrc parameter.
-            function getFldByColumn(catRec, colHdr, dataSrc = getDataSrc())
+            // Helper function that checks if a field has a non-null value
+            function fldHasValue(fld)
+            {
+                return (fld[FLD_VAL] != null);
+            }
+
+            // Fetches a field from a catalogue record, via its column id
+            // and assuming the data source specified by the dataSrc parameter.
+            // Some columns require special handling.
+            // Otherwise the field is fetched using the catalogue record path
+            // specified in catColDefs.
+            function getFldByColId(catRec, colId, dataSrc = getDataSrc())
             {
                 let fld = {};
-                switch (colHdr)
+                switch (colId)
                 {
-                    case COL_HDR_SURNAME:
+                    case CatColEnum.COL_ARR_DATE:
+                        fld = getFld(catRec, catColDefs[colId].catRecPath, CAT_FLD_SRC_BASE);
+                        if (!fldHasValue(fld))
+                        {
+                            fld = getFld(catRec, catColDefs[CatColEnum.COL_PURCH_DATE].catRecPath, CAT_FLD_SRC_BASE);
+                        }
+                        break;
+
+                    case CatColEnum.COL_TOTAL_PRICE:
+                        fld = getTotalPriceFld(catRec)
+                        break;
+
+                    case CatColEnum.COL_SURNAME:
                         fld = getAuthorNamesFld(catRec, NameEnum.NAME_SUR, dataSrc);
                         break;
 
-                    case COL_HDR_GIVEN_NAMES:
+                    case CatColEnum.COL_GIVEN_NAMES:
                         fld = getAuthorNamesFld(catRec, NameEnum.NAME_GIVEN, dataSrc);
                         break;
 
-                    case COL_HDR_TITLE:
+                    case CatColEnum.COL_TITLE:
                         fld = getTitleFld(catRec, dataSrc);
                         break;
 
-                    case COL_HDR_PUB_NAME:
+                    case CatColEnum.COL_PUB_NAME:
                         fld = getPubNamesFld(catRec, dataSrc);
                         break;
 
-                    case COL_HDR_PUB_PLACE:
+                    case CatColEnum.COL_PUB_PLACE:
                         fld = getPubPlacesFld(catRec, dataSrc);
                         break;
 
-                    case COL_HDR_DIM_HEIGHT:
-                    case COL_HDR_DIM_WIDTH:
-                    case COL_HDR_DIM_THICKNESS:
-                    case COL_HDR_DIM_LENGTH:
-                        let dimKeys = [CAT_FLD_DIM];
-                        if (colHdr == COL_HDR_DIM_HEIGHT)
-                        {
-                            dimKeys.push(CAT_FLD_DIM_HEIGHT);
-                        }
-                        else if (colHdr == COL_HDR_DIM_WIDTH)
-                        {
-                            dimKeys.push(CAT_FLD_DIM_WIDTH);
-                        }
-                        else if (colHdr == COL_HDR_DIM_THICKNESS)
-                        {
-                            dimKeys.push(CAT_FLD_DIM_THICKNESS);
-                        }
-                        else
-                        {
-                            dimKeys.push(CAT_FLD_DIM_LENGTH);
-                        }
-                        fld = getFld(catRec, dimKeys, dataSrc);
+                    case CatColEnum.COL_DIM_MASS:
+                        fld = getMassFld(catRec, dataSrc);
                         break;
 
-                    case COL_HDR_DIM_WIDTH:
-                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], dataSrc);
-
-                    case COL_HDR_DIM_THICKNESS:
-                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], dataSrc);
-
-                    case COL_HDR_DIM_LENGTH:
-                        return getFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], dataSrc);
-
-                    case COL_HDR_DIM_MASS:
-                        fld = getMassFld(catRec, dataSrc);
+                    default:
+                        if (catColDefs[colId].catRecPath)
+                        {
+                            let catRecDataSrc = catColDefs[colId].allSrcs ? dataSrc : CAT_FLD_SRC_BASE;
+                            fld = getFld(catRec, catColDefs[colId].catRecPath, catRecDataSrc);
+                        }
                         break;
                 }
                 return fld;
             }
 
-            // Fetches a field value from a catalogue record, based on a column
+            // Fetches a field value from a catalogue record, via its column id
             // and assuming the data source specified by the dataSrc parameter.
-            function getFldValByCol(catRec, colHdr, dataSrc = getDataSrc())
+            function getFldValByColId(catRec, colId, dataSrc = getDataSrc())
             {
-                let fld = {};
-                switch (colHdr)
-                {
-                    case COL_HDR_SURNAME:
-                    case COL_HDR_GIVEN_NAMES:
-                    case COL_HDR_TITLE:
-                    case COL_HDR_PUB_NAME:
-                    case COL_HDR_PUB_PLACE:
-                    case COL_HDR_DIM_MASS:
-                    case COL_HDR_DIM_HEIGHT:
-                    case COL_HDR_DIM_WIDTH:
-                    case COL_HDR_DIM_THICKNESS:
-                    case COL_HDR_DIM_LENGTH:
-                        fld = getFldByColumn(catRec, colHdr, dataSrc);
-                        break;
-                }
-
+                let fld = getFldByColId(catRec, colId, dataSrc);
                 return fld[FLD_VAL];
             }
 
-            // Sets a field value.
+            // Sets the value of the field located at the specified path.
             // If the catalogue is currently viewed with combined data sources,
             // edits are directed to the base source.
-            function setFldVal(catRec, keyChain, value, dataSrc = getDataSrc())
+            function setFldVal(catRec, path, value, dataSrc = getDataSrc())
             {
                 let dataDest = dataSrc == CAT_FLD_SRC_COMB ? CAT_FLD_SRC_BASE : dataSrc;
                 let fldKeyPrefix = (dataDest == CAT_FLD_SRC_BASE) ? [] : [dataDest];
-                let fldKeyChain = fldKeyPrefix.concat(keyChain);
+                let fldPath = fldKeyPrefix.concat(path);
                 let targetObj = catRec;
-                while (fldKeyChain.length > 1)
+                while (fldPath.length > 1)
                 {
-                    let key = fldKeyChain.shift();
+                    let key = fldPath.shift();
                     if (!(key in targetObj))
                     {
                         // Initialise...
@@ -1463,7 +1407,7 @@
                     }
                     targetObj = targetObj[key];
                 }
-                let targetKey = fldKeyChain.shift();
+                let targetKey = fldPath.shift();
                 if (value == null)
                 {
                     delete targetObj[targetKey];
@@ -1474,6 +1418,42 @@
                 }
 
                 return true;
+            }
+
+            // Sets a field value for the specified column.
+            function setFldValByColId(catRec, colId, value, dataSrc = getDataSrc())
+            {
+                switch (colId)
+                {
+                    case CatColEnum.COL_PURCH_DATE:
+                    case CatColEnum.COL_ARR_DATE:
+                        return setDateFld(catRec, catColDefs[colId].catRecPath, value, CAT_FLD_SRC_BASE);
+
+                    case CatColEnum.COL_SURNAME:
+                        return setAuthorNames(catRec, NameEnum.NAME_SUR, value, dataSrc);
+
+                    case CatColEnum.COL_GIVEN_NAMES:
+                        return setAuthorNames(catRec, NameEnum.NAME_GIVEN, value, dataSrc);
+
+                    case CatColEnum.COL_TITLE:
+                        return setTitle(catRec, value, dataSrc);
+
+                    case CatColEnum.COL_PUB_NAME:
+                        return setPubNames(catRec, value, dataSrc);
+
+                    case CatColEnum.COL_PUB_PLACE:
+                        return setPubPlaces(catRec, value, dataSrc);
+
+                    default:
+                        if (catColDefs[colId].catRecPath)
+                        {
+                            let catRecDataSrc = catColDefs[colId].allSrcs ? dataSrc : CAT_FLD_SRC_BASE;
+                            return setFldVal(catRec, catColDefs[colId].catRecPath, value, catRecDataSrc);
+                            break;
+                        }
+                }
+
+                return false;
             }
 
             // Sets a flag
@@ -1528,45 +1508,31 @@
                 return (Number.parseFloat(mass).toFixed(3));
             }
 
-            //
-            // Sets the value for a specified column
-            //
-            function setValForColumn(catRec, colHdr, value, dataSrc = getDataSrc())
+            function getTotalPriceFld(catRec)
             {
-                switch (colHdr)
+                let totalPriceFld = {};
+
+                let price = getFldValByColId(catRec, CatColEnum.COL_PURCH_PRICE);
+                let shippingPrice = getFldValByColId(catRec, CatColEnum.COL_SHIP_PRICE);
+
+                if ((price || !isNaN(price)) && (shippingPrice || !isNaN(price)))
                 {
-                    case COL_HDR_TITLE:
-                        return setTitle(catRec, value, dataSrc);
+                    let totalPrice = 0;
+                    if (price)
+                    {
+                        totalPrice += parseFloat(price);
+                    }
 
-                    case COL_HDR_SURNAME:
-                        return setAuthorNames(catRec, NameEnum.NAME_SUR, value, dataSrc);
+                    if (shippingPrice)
+                    {
+                        totalPrice += parseFloat(shippingPrice);
+                    }
 
-                    case COL_HDR_GIVEN_NAMES:
-                        return setAuthorNames(catRec, NameEnum.NAME_GIVEN, value, dataSrc);
-
-                    case COL_HDR_PUB_NAME:
-                        return setPubNames(catRec, value, dataSrc);
-
-                    case COL_HDR_PUB_PLACE:
-                        return setPubPlaces(catRec, value, dataSrc);
-
-                    case COL_HDR_DIM_HEIGHT:
-                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], value, dataSrc);
-
-                    case COL_HDR_DIM_WIDTH:
-                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], value, dataSrc);
-
-                    case COL_HDR_DIM_THICKNESS:
-                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], value, dataSrc);
-
-                    case COL_HDR_DIM_LENGTH:
-                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], value, dataSrc);
-
-                    case COL_HDR_DIM_MASS:
-                        return setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], value, dataSrc);
+                    totalPriceFld[FLD_SRC] = CAT_FLD_SRC_BASE;
+                    totalPriceFld[FLD_VAL] = totalPrice;
                 }
 
-                return false;
+                return totalPriceFld;
             }
 
             //
@@ -1796,9 +1762,9 @@
             function getColTooltip(params)
             {
                 let tooltip = null;
-                switch (params.colDef.headerName)
+                switch (params.colDef.colId)
                 {
-                    case COL_HDR_SYNCH_STATUS:
+                    case CatColEnum.COL_SYNCH_STATUS:
                         let lastSynchTime = getFldVal(params.data, [CAT_FLD_OPENLIB_SYNCH_TIME], CAT_FLD_SRC_BASE);
                         if (lastSynchTime)
                         {
@@ -1809,7 +1775,7 @@
                     default:
                         if (getDataSrc() == CAT_FLD_SRC_COMB)
                         {
-                            let fld = getFldByColumn(params.data, params.colDef.headerName);
+                            let fld = getFldByColId(params.data, params.colDef.colId);
                             tooltip = fld[FLD_SRC] ? "Data source: " + fld[FLD_SRC] : null;
                         }
                         break;
@@ -1909,15 +1875,14 @@
             }
 
             // Sets a date field
-            function setDateFld(fldParams, keyChain)
+            function setDateFld(catRec, path, dateStr, dataSrc)
             {
-                let dateString = fldParams.newValue;
                 let dateComponents = null;
-                if (dateString)
+                if (dateStr)
                 {
-                    dateComponents = parseDateComponents(dateString, false);
+                    dateComponents = parseDateComponents(dateStr, false);
                 }
-                setFldVal(fldParams.data, keyChain, dateComponents, CAT_FLD_SRC_BASE);
+                setFldVal(catRec, path, dateComponents, dataSrc);
             }
 
             function renderDateFld(fldParams)
@@ -1937,23 +1902,23 @@
             function isFldValid(fldParams)
             {
                 let valid = true;
-                let fldHdr = fldParams.colDef.headerName;
-                switch (fldHdr)
+                let fldColId = fldParams.colDef.colId;
+                switch (fldColId)
                 {
-                    case COL_HDR_ISBN_13:
-                    case COL_HDR_ISBN_10:
+                    case CatColEnum.COL_ISBN_13:
+                    case CatColEnum.COL_ISBN_10:
                         let isbnCandidate = fldParams.value;
                         if (isbnCandidate)
                         {
                             // The ISBN field must match the relevant pattern
                             // and have a sensible check digit
-                            let requiredDigits = fldHdr == COL_HDR_ISBN_13 ? ISBN13_DIGITS : ISBN10_DIGITS;
+                            let requiredDigits = fldColId == CatColEnum.COL_ISBN_13 ? ISBN13_DIGITS : ISBN10_DIGITS;
                             valid = isISBNValid(isbnCandidate, requiredDigits);
                         }
                         break;
 
-                    case COL_HDR_PURCH_DATE:
-                    case COL_HDR_ARR_DATE:
+                    case CatColEnum.COL_PURCH_DATE:
+                    case CatColEnum.COL_ARR_DATE:
                         let dateCandidate = fldParams.value;
                         if (dateCandidate)
                         {
@@ -1963,15 +1928,17 @@
                         }
                         break;
 
-                    case COL_HDR_PURCH_PRICE:
-                    case CAT_FLD_SHIP_PRICE:
+                    case CatColEnum.COL_PURCH_PRICE:
+                    case CatColEnum.COL_SHIP_PRICE:
                         let priceCandidate = fldParams.value;
                         if (priceCandidate)
                         {
                             valid = !isNaN(priceCandidate);
                         }
+                        break;
 
                     default:
+                        break;
                 }
 
                 return valid;
