@@ -1,9 +1,9 @@
 <!DOCTYPE html>
 <html>
     <head>
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.css"/>
         <script src="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
 
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-grid.css">
         <link rel="stylesheet" href="https://unpkg.com/ag-grid-enterprise/dist/styles/ag-theme-balham.css">
@@ -335,11 +335,10 @@
             const minCols = [  CatColEnum.COL_ID,
                                CatColEnum.COL_SURNAME, CatColEnum.COL_GIVEN_NAMES,
                                CatColEnum.COL_PURCH_DATE,
-                               CatColEnum.COL_PURCH_PRICE, CatColEnum.COL_SHIP_PRICE, CatColEnum.COL_TOTAL_PRICE,
                                CatColEnum.COL_ISBN_13, CatColEnum.COL_TITLE,
-                               CatColEnum.COL_PUB_NAME, CatColEnum.COL_PUB_PLACE,
-                               CatColEnum.COL_DIM_WIDTH, CatColEnum.COL_DIM_THICKNESS,
-                               CatColEnum.COL_DIM_LENGTH, CatColEnum.COL_DIM_MASS];
+                               CatColEnum.COL_PUB_NAME,
+                               CatColEnum.COL_DIM_WIDTH, CatColEnum.COL_DIM_LENGTH, CatColEnum.COL_DIM_THICKNESS,
+                               CatColEnum.COL_DIM_LENGTH];
 
             // Column definitions
             let bookColumns =
@@ -835,8 +834,8 @@
                 for (let idx = 0; idx < allColumns.length; idx++)
                 {
                     let colId   = allColumns[idx].colDef.colId;
-                    let visible = (minCols.indexOf(parseInt(colId)) != -1);
-                    gridOptions.columnApi.setColumnVisible(colId, visible);
+                    let visible = (minCols.indexOf(colId) != -1);
+                    gridOptions.columnApi.setColumnVisible(allColumns[idx], visible);
                 }
                 gridOptions.api.sizeColumnsToFit();
             }
