@@ -45410,8 +45410,20 @@
             "title": "The hand of Ethelberta",
             "info_url": "https://openlibrary.org/books/OL455507M/The_hand_of_Ethelberta"
         },
-        "flags": 3,
-        "openlib_synch_time": "2020-06-11 08:50:38 GMT+1000 (Australian Eastern Standard Time)"
+        "flags": 2,
+        "openlib_synch_time": "2020-06-11 08:50:38 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Hardy",
+                "given_names": [
+                    "Thomas"
+                ]
+            }
+        ],
+        "title": "The Hand of Ethelberta",
+        "publishers": [
+            "Penguin"
+        ]
     },
     {
         "id": 1040,
@@ -45460,6 +45472,18 @@
             "info_url": "https://openlibrary.org/books/OL996863M/Selected_fables_Fables_choisies"
         },
         "flags": 3,
-        "openlib_synch_time": "2020-06-11 08:50:38 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-06-11 08:50:38 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "de La Fontaine",
+                "given_names": [
+                    "Jean"
+                ]
+            }
+        ],
+        "title": "Selected Fables",
+        "publishers": [
+            "Dover Publications"
+        ]
     }
 ]
