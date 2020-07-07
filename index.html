@@ -103,31 +103,6 @@
             const ISBN10_MAX_DIGIT_WEIGHT   = 10;
             const ISBN10_MOD_FACTOR         = 11;
 
-            // Date handling
-            const REGEX_YEAR    = new RegExp(/^[1-9][0-9]*$/);
-            const REGEX_MONTH   = new RegExp(/^(1[0-2]|0?[1-9])$/);
-            const REGEX_DAY     = new RegExp(/^(0?[1-9]|[1-2][0-9]|3[01])$/);
-            const YEAR_MIN  = 1;    // Not dealing with BCE items... :)
-            const MONTH_MIN = 1;
-            const MONTH_MAX = 12;
-            const DAY_MIN   = 1;
-            const STD_MONTH_LENGTHS =
-            {
-                1:  31,
-                2:  28,
-                3:  31,
-                4:  30,
-                5:  31,
-                6:  30,
-                7:  31,
-                8:  31,
-                9:  30,
-                10: 31,
-                11: 30,
-                12: 31
-            };
-            const FEB_LEAP_YEAR_DAYS = 29;
-
             // Mapping between currency codes and symbols
             const CURRENCY_SYMBOLS =
             {
@@ -164,9 +139,6 @@
 
             const CAT_FLD_PURCH_DATE            = "purchase_date";
             const CAT_FLD_ARR_DATE              = "arrival_date";
-            const CAT_FLD_DATE_YEAR             = "year";
-            const CAT_FLD_DATE_MONTH            = "month";
-            const CAT_FLD_DATE_DAY              = "day";
 
             const CAT_FLD_SELLER                = "seller";
             const CAT_FLD_SELLER_BRANCH         = "seller_branch";
@@ -223,7 +195,6 @@
             Object.freeze(NameEnum);
 
             // Delimiters in fields that represent lists
-            const DATE_SEP  = "-";
             const AUTH_SEP  = ";";
             const NAME_SEP  = " ";
             const TITLE_SEP = ":";
@@ -337,7 +308,7 @@
                                CatColEnum.COL_PURCH_DATE,
                                CatColEnum.COL_ISBN_13, CatColEnum.COL_TITLE,
                                CatColEnum.COL_PUB_NAME,
-                               CatColEnum.COL_DIM_WIDTH, CatColEnum.COL_DIM_LENGTH, CatColEnum.COL_DIM_THICKNESS,
+                               CatColEnum.COL_DIM_HEIGHT, CatColEnum.COL_DIM_WIDTH, CatColEnum.COL_DIM_THICKNESS,
                                CatColEnum.COL_DIM_LENGTH];
 
             // Column definitions
@@ -385,13 +356,7 @@
                             cellEditor: "datePicker",
                             valueFormatter: function(params)
                             {
-                                let dateObj = params.value;
-                                if (dateObj)
-                                {
-                                    return formatAsDate(dateObj[CAT_FLD_DATE_YEAR],
-                                                        dateObj[CAT_FLD_DATE_MONTH],
-                                                        dateObj[CAT_FLD_DATE_DAY]);
-                                }
+                                return getDateString(params.value);
                             },
                             cellRenderer: function(params)
                             {
@@ -399,7 +364,7 @@
                             },
                             filter:                     "dateFilterComponent",
                             floatingFilterComponent:    "dateFloatingFilterComponent",
-                            comparator: compareDateComponents
+                            comparator: compareDates
                         },
                         {
                             colId:      CatColEnum.COL_ARR_DATE,
@@ -407,13 +372,7 @@
                             cellEditor: "datePicker",
                             valueFormatter: function(params)
                             {
-                                let dateObj = params.value;
-                                if (dateObj)
-                                {
-                                    return formatAsDate(dateObj[CAT_FLD_DATE_YEAR],
-                                                        dateObj[CAT_FLD_DATE_MONTH],
-                                                        dateObj[CAT_FLD_DATE_DAY]);
-                                }
+                                return getDateString(params.value);
                             },
                             cellRenderer: function(params)
                             {
@@ -421,7 +380,7 @@
                             },
                             filter:                     "dateFilterComponent",
                             floatingFilterComponent:    "dateFloatingFilterComponent",
-                            comparator:                 compareDateComponents,
+                            comparator:                 compareDates,
                             hide:                       true
                         },
                         {colId: CatColEnum.COL_SELLER},
@@ -1853,33 +1812,13 @@
                 return isbnConv;
             }
 
-            // Format a year, month and day as a date string
-            function formatAsDate(year, month, day)
-            {
-                let dateString = "";
-                if (year)
-                {
-                    dateString = year.toString();
-                    if (month)
-                    {
-                        dateString += DATE_SEP + (month < 10 ? "0" : "") + month.toString();
-
-                        if (day)
-                        {
-                            dateString += DATE_SEP + (day < 10 ? "0": "") + day.toString();
-                        }
-                    }
-                }
-                return dateString;
-            }
-
             // Sets a date field
             function setDateFld(catRec, path, dateStr, dataSrc)
             {
                 let dateComponents = null;
                 if (dateStr)
                 {
-                    dateComponents = parseDateComponents(dateStr, false);
+                    dateComponents = parseDate(dateStr, false);
                 }
                 setFldVal(catRec, path, dateComponents, dataSrc);
             }
@@ -1889,9 +1828,7 @@
                 let dateObj = fldParams.value;
                 if (dateObj)
                 {
-                    let cellString = formatAsDate(dateObj[CAT_FLD_DATE_YEAR],
-                                                  dateObj[CAT_FLD_DATE_MONTH],
-                                                  dateObj[CAT_FLD_DATE_DAY]);
+                    let cellString = getDateString(dateObj);
                     return markFldValidity(fldParams, cellString);
                 }
             }
@@ -1918,13 +1855,7 @@
 
                     case CatColEnum.COL_PURCH_DATE:
                     case CatColEnum.COL_ARR_DATE:
-                        let dateCandidate = fldParams.value;
-                        if (dateCandidate)
-                        {
-                            valid = isDateValid(dateCandidate[CAT_FLD_DATE_YEAR],
-                                                dateCandidate[CAT_FLD_DATE_MONTH],
-                                                dateCandidate[CAT_FLD_DATE_DAY]);
-                        }
+                        valid = isDateValid(fldParams.value);
                         break;
 
                     case CatColEnum.COL_PURCH_PRICE:

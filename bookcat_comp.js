@@ -163,7 +163,7 @@ function getDateControl()
     {
         let target              = event.target;
         let dateStr             = target.value;
-        let dateComponents      = parseDateComponents(dateStr);
+        let dateComponents      = parseDate(dateStr);
 
         // Temporary validation code
         if (dateStr && !dateComponents)
@@ -184,9 +184,9 @@ function getDateControl()
                                  (dateComponents
                                   &&
                                   (
-                                      dateComponents[CAT_FLD_DATE_YEAR] &&
-                                      dateComponents[CAT_FLD_DATE_MONTH] &&
-                                      dateComponents[CAT_FLD_DATE_DAY]
+                                      dateComponents[DATE_COMP_YEAR] &&
+                                      dateComponents[DATE_COMP_MONTH] &&
+                                      dateComponents[DATE_COMP_DAY]
                                   )
                                  );
         let datePicker = target.nextSibling._flatpickr;
@@ -637,8 +637,8 @@ function getDateFilterComponent()
             return true;
         }
 
-        let startDate   = parseDateComponents(this.startDateControl.getDate());
-        let endDate     = parseDateComponents(this.endDateControl.getDate());
+        let startDate   = parseDate(this.startDateControl.getDate());
+        let endDate     = parseDate(this.endDateControl.getDate());
 
         return (startDate &&
                (endDate || filterTypeVal != FilterTypeEnum.FT_BETWEEN));
@@ -672,11 +672,11 @@ function getDateFilterComponent()
             }
             else if (rowDate)
             {
-                let startDate   = parseDateComponents(this.startDateControl.getDate());
-                let endDate     = parseDateComponents(this.endDateControl.getDate());
+                let startDate   = parseDate(this.startDateControl.getDate());
+                let endDate     = parseDate(this.endDateControl.getDate());
 
-                let startDateComparison = compareDateComponents(startDate, rowDate);
-                let endDateComparison   = compareDateComponents(endDate, rowDate);
+                let startDateComparison = compareDates(startDate, rowDate);
+                let endDateComparison   = compareDates(endDate, rowDate);
 
                 switch(filterTypeVal)
                 {

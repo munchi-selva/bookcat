@@ -1,16 +1,67 @@
 //
+// Date objects consist of year/date/day components (fields).
+// When formatted as a string, they are separated by DATE_COMP_SEP
+//
+const DATE_COMP_YEAR    = "year";
+const DATE_COMP_MONTH   = "month";
+const DATE_COMP_DAY     = "day";
+const DATE_COMP_SEP     = "-";
+
+//
+// Regular expressions and constants useful for date validation
+//
+const REGEX_YEAR    = new RegExp(/^[1-9][0-9]*$/);
+const REGEX_MONTH   = new RegExp(/^(1[0-2]|0?[1-9])$/);
+const REGEX_DAY     = new RegExp(/^(0?[1-9]|[1-2][0-9]|3[01])$/);
+const YEAR_MIN      = 1;    // Not dealing with BCE items... :)
+const MONTH_MIN     = 1;
+const MONTH_MAX     = 12;
+const STD_MONTH_LENGTHS =
+{
+    1:  31,
+    2:  28,
+    3:  31,
+    4:  30,
+    5:  31,
+    6:  30,
+    7:  31,
+    8:  31,
+    9:  30,
+    10: 31,
+    11: 30,
+    12: 31
+};
+const FEB_LEAP_YEAR_DAYS = 29;
+
+
+//
 // Checks if a string is formatted as a date (possibly invalid)
 //
 function isDateString(candidateDateStr)
 {
-    let candidateDate = parseDateComponents(candidateDateStr);
+    let candidateDate = parseDate(candidateDateStr);
     return (candidateDate != null);
 }
 
 //
-// Checks if a date (specified as year, month, day values) is valid
+// Checks if a date is valid
 //
-function isDateValid(year, month, day)
+function isDateValid(date)
+{
+    let valid = true;
+    if (date)
+    {
+        valid = areDateCompsValid(date[DATE_COMP_YEAR],
+                                  date[DATE_COMP_MONTH],
+                                  date[DATE_COMP_DAY]);
+    }
+    return valid;
+}
+
+//
+// Checks if a date, specified as year/month/day components, is valid
+//
+function areDateCompsValid(year, month, day)
 {
     let valid = true;
     if (year)
@@ -29,7 +80,6 @@ function isDateValid(year, month, day)
                 {
                     day_max = FEB_LEAP_YEAR_DAYS;
                 }
-
                 valid = day <= day_max;
             }
         }
@@ -42,12 +92,12 @@ function isDateValid(year, month, day)
 // If validation is requested, returns a null result if the date string
 // represents an invalid date.
 //
-function parseDateComponents(dateString, validate = true)
+function parseDate(dateString, validate = true)
 {
     let date = null;
     if (dateString)
     {
-        let dateComponents = dateString.split(DATE_SEP);
+        let dateComponents = dateString.split(DATE_COMP_SEP);
         if (dateComponents.length > 0 && dateComponents.length <= 3)
         {
             let year = dateComponents.shift();
@@ -62,13 +112,13 @@ function parseDateComponents(dateString, validate = true)
                 if (dateOkay)
                 {
                     date = {};
-                    date[CAT_FLD_DATE_YEAR] = parseInt(year);
+                    date[DATE_COMP_YEAR] = parseInt(year);
                     if (month)
                     {
-                        date[CAT_FLD_DATE_MONTH] = parseInt(month);
+                        date[DATE_COMP_MONTH] = parseInt(month);
                         if (day)
                         {
-                            date[CAT_FLD_DATE_DAY] = parseInt(day);
+                            date[DATE_COMP_DAY] = parseInt(day);
                         }
                     }
                 }
@@ -78,6 +128,42 @@ function parseDateComponents(dateString, validate = true)
     return date;
 }
 
+//
+// Formats a date as a string
+//
+function getDateString(date)
+{
+    let dateString  = "";
+    if (date)
+    {
+        dateString = getDateCompString(date[DATE_COMP_YEAR],
+                                       date[DATE_COMP_MONTH],
+                                       date[DATE_COMP_DAY]);
+    }
+    return dateString;
+}
+
+//
+// Formats year, month and day components as a date string
+//
+function getDateCompString(year, month, day)
+{
+    let dateString = "";
+    if (year)
+    {
+        dateString = year.toString();
+        if (month)
+        {
+            dateString += DATE_COMP_SEP + (month < 10 ? "0" : "") + month.toString();
+
+            if (day)
+            {
+                dateString += DATE_COMP_SEP + (day < 10 ? "0": "") + day.toString();
+            }
+        }
+    }
+    return dateString;
+}
 
 //
 // Compares two dates represented in component form, with return values
@@ -94,7 +180,7 @@ function parseDateComponents(dateString, validate = true)
 //                       {year: 2000; month: 2},
 //                       {year: 2000; month: 2; day: 20}, etc.
 //
-function compareDateComponents(refDate, compDate)
+function compareDates(refDate, compDate)
 {
     if (!refDate && !compDate)
     {
@@ -117,8 +203,8 @@ function compareDateComponents(refDate, compDate)
     //                                \/
     /////////////////////////////////////////////////////////////////
 
-    let refYear = refDate[CAT_FLD_DATE_YEAR];
-    let compYear = compDate[CAT_FLD_DATE_YEAR];
+    let refYear = refDate[DATE_COMP_YEAR];
+    let compYear = compDate[DATE_COMP_YEAR];
 
     if (refYear < compYear)
     {
@@ -136,8 +222,8 @@ function compareDateComponents(refDate, compDate)
     //                      \/
     /////////////////////////////////////////////////////////////////
 
-    let refMonth = refDate[CAT_FLD_DATE_MONTH];
-    let compMonth = compDate[CAT_FLD_DATE_MONTH];
+    let refMonth = refDate[DATE_COMP_MONTH];
+    let compMonth = compDate[DATE_COMP_MONTH];
 
     if (!refMonth)
     {
@@ -165,8 +251,8 @@ function compareDateComponents(refDate, compDate)
     //                                               \/
     /////////////////////////////////////////////////////////////////
 
-    let refDay = refDate[CAT_FLD_DATE_DAY];
-    let compDay = compDate[CAT_FLD_DATE_DAY];
+    let refDay = refDate[DATE_COMP_DAY];
+    let compDay = compDate[DATE_COMP_DAY];
 
     if (!refDay)
     {
