@@ -195,10 +195,10 @@
             Object.freeze(NameEnum);
 
             // Delimiters in fields that represent lists
+            const LIST_SEP  = ";";
             const AUTH_SEP  = ";";
             const NAME_SEP  = " ";
             const TITLE_SEP = ":";
-            const PUB_SEP   = ";";
 
             const REGEX_EXT         = new RegExp(/[.][^.]*$/);  // File extension regular expression
             const UPDATED_CAT_EXT   = ".updated";
@@ -228,8 +228,8 @@
                 ["COL_SURNAME",         "Surname"                                                        ],
                 ["COL_GIVEN_NAMES",     "Given Name(s)"                                                  ],
                 ["COL_TITLE",           "Title"                                                          ],
-                ["COL_PUB_NAME",        "Name(s)"                                                        ],
-                ["COL_PUB_PLACE",       "Place(s)"                                                       ],
+                ["COL_PUB_NAME",        "Name(s)",          [CAT_FLD_PUBLISHERS]                         ],
+                ["COL_PUB_PLACE",       "Place(s)",         [CAT_FLD_PUBLISH_PLACES]                     ],
                 ["COL_PUB_DATE",        "Date"                                                           ],
                 ["COL_DIM_HEIGHT",      "H (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]            ],
                 ["COL_DIM_WIDTH",       "W (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]             ],
@@ -1265,6 +1265,17 @@
                 return fld;
             }
 
+            // Fetches a field from a catalogue record, compressing the value
+            // (a list) into a single string
+            function getListFld(catRec, path, dataSrc)
+            {
+                let fld         = getFld(catRec, path, dataSrc);
+                let fldVal      = fld[FLD_VAL];
+                fld[FLD_VAL]    = fldVal ? fldVal.join(LIST_SEP + " ") : null;
+
+                return fld;
+            }
+
             // Fetches a field value from a catalogue record, via a path
             // consisting of a sequence of keys and assuming the data source
             // specified by the dataSrc parameter.
@@ -1316,11 +1327,8 @@
                         break;
 
                     case CatColEnum.COL_PUB_NAME:
-                        fld = getPubNamesFld(catRec, dataSrc);
-                        break;
-
                     case CatColEnum.COL_PUB_PLACE:
-                        fld = getPubPlacesFld(catRec, dataSrc);
+                        fld = getListFld(catRec, catColDefs[colId].catRecPath, dataSrc);
                         break;
 
                     case CatColEnum.COL_DIM_MASS:
@@ -1378,6 +1386,19 @@
                 return true;
             }
 
+            // Sets the value of the field located at the specified path.
+            // The value is specified as a string which is parsed and stored as
+            // a list.
+            function setListFldVal(catRec, path, valueStr, dataSrc)
+            {
+                let value = null;
+                if (valueStr)
+                {
+                    value = (valueStr.split(LIST_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
+                }
+                return setFldVal(catRec, path, value, dataSrc);
+            }
+
             // Sets a field value for the specified column.
             function setFldValByColId(catRec, colId, value, dataSrc = getDataSrc())
             {
@@ -1397,10 +1418,8 @@
                         return setTitle(catRec, value, dataSrc);
 
                     case CatColEnum.COL_PUB_NAME:
-                        return setPubNames(catRec, value, dataSrc);
-
                     case CatColEnum.COL_PUB_PLACE:
-                        return setPubPlaces(catRec, value, dataSrc);
+                        return setListFldVal(catRec, catColDefs[colId].catRecPath, value, dataSrc);
 
                     default:
                         if (catColDefs[colId].catRecPath)
@@ -1632,55 +1651,6 @@
                         setFldVal(catRec, [CAT_FLD_SUBTITLE], subtitle, dataSrc));
             }
 
-            //
-            // Retrieves the publisher names field, with the value as a single string
-            //
-            function getPubNamesFld(catRec, dataSrc)
-            {
-                let pubsFld         = getFld(catRec, [CAT_FLD_PUBLISHERS], dataSrc);
-                let pubsVal         = pubsFld[FLD_VAL];
-                pubsFld[FLD_VAL]    = pubsVal ? pubsVal.join(PUB_SEP + " ") : null;
-
-                return pubsFld;
-            }
-
-            //
-            // Sets the publisher names
-            //
-            function setPubNames(catRec, nameStr, dataSrc)
-            {
-                let pubs = null;
-                if (nameStr)
-                {
-                    pubs = (nameStr.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
-                }
-                return setFldVal(catRec, [CAT_FLD_PUBLISHERS], pubs, dataSrc);
-            }
-
-            //
-            // Retrieves the publisher places field, with the value as a single string
-            //
-            function getPubPlacesFld(catRec, dataSrc)
-            {
-                let plcsFld         = getFld(catRec, [CAT_FLD_PUBLISH_PLACES], dataSrc);
-                let plcsVal         = plcsFld[FLD_VAL];
-                plcsFld[FLD_VAL]    = plcsVal ? plcsVal.join(PUB_SEP + " ") : null;
-
-                return plcsFld;
-            }
-
-            //
-            // Sets the publisher places
-            //
-            function setPubPlaces(catRec, placeStr, dataSrc)
-            {
-                let plcs = null;
-                if (placeStr)
-                {
-                    plcs = (placeStr.split(PUB_SEP)).map(function(comp) {return String.prototype.trim.apply(comp);});
-                }
-                return setFldVal(catRec, [CAT_FLD_PUBLISH_PLACES], plcs, dataSrc);
-            }
 
             function getMassFld(catRec, dataSrc)
             {
