@@ -168,6 +168,8 @@
             const CAT_FLD_ELEC_FORMAT           = "electronic_format";
             const CAT_FLD_INFO_URL              = "info_url";
 
+            const CAT_FLD_LANGUAGES             = "languages";
+
             const CAT_FLD_OPENLIB_SYNCH_TIME    = "openlib_synch_time";
 
 
@@ -176,6 +178,8 @@
             const OLK_AUTHORS           = "authors"
             const OLK_AUTHOR_NAME       = "name"
             const OLK_KEY               = "key";
+            const OLK_LANG_KEY_PREFIX   = "/languages/";
+            const OLK_LANGUAGES         = "languages";
             const OLK_FORMAT            = "physical_format";
             const OLK_DIMENSIONS        = "physical_dimensions";
             const OLK_WEIGHT            = "weight";
@@ -209,37 +213,38 @@
             // and a flag indicating whether multiple sources apply to the column
             const catColDefList =
             [
-                ["COL_ID",              "Cat ID",           [CAT_FLD_ID],                           false],
-                ["COL_RESYNCH",         "(Re)synch"                                                      ],
-                ["COL_SYNCH_STATUS",    "Synched"                                                        ],
-                ["COL_IN_OPENLIB",      "In openlib"                                                     ],
-                ["COL_PURCH_DATE",      "Purchase Date",    [CAT_FLD_PURCH_DATE],                   false],
-                ["COL_ARR_DATE",        "Arrival Date",     [CAT_FLD_ARR_DATE],                     false],
-                ["COL_SELLER",          "Seller",           [CAT_FLD_SELLER],                       false],
-                ["COL_SELLER_BRANCH",   "Seller Branch",    [CAT_FLD_SELLER_BRANCH],                false],
-                ["COL_PURCHASER",       "Purchaser",        [CAT_FLD_PURCHASER],                    false],
-                ["COL_NUM_IN_ORDER",    "#",                [CAT_FLD_NUM_IN_ORDER],                 false],
-                ["COL_CURRENCY",        "Currency",         [CAT_FLD_CURRENCY],                     false],
-                ["COL_PURCH_PRICE",     "Price",            [CAT_FLD_PURCH_PRICE],                  false],
-                ["COL_SHIP_PRICE",      "Shipping",         [CAT_FLD_SHIP_PRICE],                   false],
-                ["COL_TOTAL_PRICE",     "Total Price",      null,                                   false],
-                ["COL_ISBN_13",         "ISBN 13",          [CAT_FLD_ISBN13],                       false],
-                ["COL_ISBN_10",         "ISBN 10",          [CAT_FLD_ISBN10],                       false],
-                ["COL_SURNAME",         "Surname"                                                        ],
-                ["COL_GIVEN_NAMES",     "Given Name(s)"                                                  ],
-                ["COL_TITLE",           "Title"                                                          ],
-                ["COL_PUB_NAME",        "Name(s)",          [CAT_FLD_PUBLISHERS]                         ],
-                ["COL_PUB_PLACE",       "Place(s)",         [CAT_FLD_PUBLISH_PLACES]                     ],
-                ["COL_PUB_DATE",        "Date"                                                           ],
-                ["COL_DIM_HEIGHT",      "H (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]            ],
-                ["COL_DIM_WIDTH",       "W (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]             ],
-                ["COL_DIM_THICKNESS",   "T (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]         ],
-                ["COL_DIM_LENGTH",      "Length (pp)",      [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]            ],
-                ["COL_DIM_MASS",        "Mass (kg)",        [CAT_FLD_DIM, CAT_FLD_DIM_MASS]              ],
-                ["COL_LOCATION",        "Location",         [CAT_FLD_LOCATION],                     false],
-                ["COL_COVER_REQUIRED",  "Cover Required?",  [CAT_FLD_COVER_REQUIRED],               false],
-                ["COL_NOTES",           "Notes",            [CAT_FLD_NOTES],                        false],
-                ["COL_ELEC_FORMAT",     "Electronic Copy",  [CAT_FLD_ELEC_FORMAT],                  false]
+                ["COL_ID",              "Cat ID",           [CAT_FLD_ID],                           false       ],
+                ["COL_RESYNCH",         "(Re)synch"                                                             ],
+                ["COL_SYNCH_STATUS",    "Synched"                                                               ],
+                ["COL_IN_OPENLIB",      "In openlib"                                                            ],
+                ["COL_PURCH_DATE",      "Purchase Date",    [CAT_FLD_PURCH_DATE],                   false       ],
+                ["COL_ARR_DATE",        "Arrival Date",     [CAT_FLD_ARR_DATE],                     false       ],
+                ["COL_SELLER",          "Seller",           [CAT_FLD_SELLER],                       false       ],
+                ["COL_SELLER_BRANCH",   "Seller Branch",    [CAT_FLD_SELLER_BRANCH],                false       ],
+                ["COL_PURCHASER",       "Purchaser",        [CAT_FLD_PURCHASER],                    false       ],
+                ["COL_NUM_IN_ORDER",    "#",                [CAT_FLD_NUM_IN_ORDER],                 false       ],
+                ["COL_CURRENCY",        "Currency",         [CAT_FLD_CURRENCY],                     false       ],
+                ["COL_PURCH_PRICE",     "Price",            [CAT_FLD_PURCH_PRICE],                  false       ],
+                ["COL_SHIP_PRICE",      "Shipping",         [CAT_FLD_SHIP_PRICE],                   false       ],
+                ["COL_TOTAL_PRICE",     "Total Price",      null,                                   false       ],
+                ["COL_ISBN_13",         "ISBN 13",          [CAT_FLD_ISBN13],                       false       ],
+                ["COL_ISBN_10",         "ISBN 10",          [CAT_FLD_ISBN10],                       false       ],
+                ["COL_SURNAME",         "Surname"                                                               ],
+                ["COL_GIVEN_NAMES",     "Given Name(s)"                                                         ],
+                ["COL_TITLE",           "Title"                                                                 ],
+                ["COL_LANGUAGES",       "Languages",        [CAT_FLD_LANGUAGES],                    true,   true],
+                ["COL_PUB_NAME",        "Name(s)",          [CAT_FLD_PUBLISHERS],                   true,   true],
+                ["COL_PUB_PLACE",       "Place(s)",         [CAT_FLD_PUBLISH_PLACES],               true,   true],
+                ["COL_PUB_DATE",        "Date"                                                                  ],
+                ["COL_DIM_HEIGHT",      "H (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT]                   ],
+                ["COL_DIM_WIDTH",       "W (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH]                    ],
+                ["COL_DIM_THICKNESS",   "T (cm)",           [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS]                ],
+                ["COL_DIM_LENGTH",      "Length (pp)",      [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH]                   ],
+                ["COL_DIM_MASS",        "Mass (kg)",        [CAT_FLD_DIM, CAT_FLD_DIM_MASS]                     ],
+                ["COL_LOCATION",        "Location",         [CAT_FLD_LOCATION],                     false       ],
+                ["COL_COVER_REQUIRED",  "Cover Required?",  [CAT_FLD_COVER_REQUIRED],               false       ],
+                ["COL_NOTES",           "Notes",            [CAT_FLD_NOTES],                        false       ],
+                ["COL_ELEC_FORMAT",     "Electronic Copy",  [CAT_FLD_ELEC_FORMAT],                  false       ]
             ];
 
             // Convert column listings into an enum and an enum val => details mapping
@@ -256,12 +261,14 @@
                 let colName         = colDetails.shift();
                 let colCatRecPath   = colDetails.length > 0 ? colDetails.shift() : null;
                 let colAllSrcs      = colDetails.length > 0 ? colDetails.shift() : true;
+                let colListBased    = colDetails.length > 0 ? colDetails.shift() : false;
 
                 CatColEnum[colEnumerator] = colEnumVal;
                 catColDefs[colEnumVal] = {
                                             name:       colName,
                                             catRecPath: colCatRecPath,
-                                            allSrcs:    colAllSrcs
+                                            allSrcs:    colAllSrcs,
+                                            listBased:  colListBased
                                           };
             }
 
@@ -304,11 +311,13 @@
             const FLD_VAL   = "value";
 
             const minCols = [  CatColEnum.COL_ID,
+                               CatColEnum.COL_SYNCH_STATUS,
                                CatColEnum.COL_SURNAME, CatColEnum.COL_GIVEN_NAMES,
                                CatColEnum.COL_PURCH_DATE,
                                CatColEnum.COL_ISBN_13, CatColEnum.COL_TITLE,
+                               CatColEnum.COL_LANGUAGES,
                                CatColEnum.COL_PUB_NAME,
-                               CatColEnum.COL_DIM_HEIGHT, CatColEnum.COL_DIM_WIDTH, CatColEnum.COL_DIM_THICKNESS,
+                               //CatColEnum.COL_DIM_HEIGHT, CatColEnum.COL_DIM_WIDTH, CatColEnum.COL_DIM_THICKNESS,
                                CatColEnum.COL_DIM_LENGTH];
 
             // Column definitions
@@ -476,6 +485,9 @@
                             }
                         },
                     ]
+                },
+                {
+                    colId:  CatColEnum.COL_LANGUAGES
                 },
                 {
                     headerName: COL_GRP_HDR_PUB,
@@ -1020,10 +1032,10 @@
                             if (olRec && olRec[OLK_DETAILS])
                             {
                                 // Process author data
-                                let auths = [];
                                 let olRecAuths = olRec[OLK_DETAILS][CAT_FLD_AUTHORS];
                                 if (olRecAuths)
                                 {
+                                    let auths = [];
                                     for (let idx = 0; idx < olRecAuths.length; idx++)
                                     {
                                         let authNames = olRecAuths[idx][OLK_AUTHOR_NAME].split(" ");
@@ -1033,6 +1045,18 @@
                                         auths.push(openlibAuth);
                                     }
                                     setFldVal(catRec, [CAT_FLD_AUTHORS], auths, CAT_FLD_SRC_OPENLIB);
+                                }
+
+                                let olLanguages = olRec[OLK_DETAILS][OLK_LANGUAGES];
+                                if (olLanguages)
+                                {
+                                    let langs = [];
+                                    for (let idx = 0; idx < olLanguages.length; idx++)
+                                    {
+                                        let langName = olLanguages[idx][OLK_KEY].replace(OLK_LANG_KEY_PREFIX, "");
+                                        langs.push(langName);
+                                    }
+                                    setFldVal(catRec, [CAT_FLD_LANGUAGES], langs, CAT_FLD_SRC_OPENLIB);
                                 }
 
                                 // Process dimensions, length and mass
@@ -1087,9 +1111,9 @@
 
                             // Set the synch time
                             let synchTime = new Date();
-                            let synchTimeString = formatAsDate(synchTime.getFullYear(),
-                                                               synchTime.getMonth() + 1,
-                                                               synchTime.getDate()) + " " +
+                            let synchTimeString = getDateCompString(synchTime.getFullYear(),
+                                                                    synchTime.getMonth() + 1,
+                                                                    synchTime.getDate()) + " " +
                                                   synchTime.toTimeString();
                             setFldVal(catRec, [CAT_FLD_OPENLIB_SYNCH_TIME], synchTimeString, CAT_FLD_SRC_BASE);
 
@@ -1326,11 +1350,6 @@
                         fld = getTitleFld(catRec, dataSrc);
                         break;
 
-                    case CatColEnum.COL_PUB_NAME:
-                    case CatColEnum.COL_PUB_PLACE:
-                        fld = getListFld(catRec, catColDefs[colId].catRecPath, dataSrc);
-                        break;
-
                     case CatColEnum.COL_DIM_MASS:
                         fld = getMassFld(catRec, dataSrc);
                         break;
@@ -1339,7 +1358,14 @@
                         if (catColDefs[colId].catRecPath)
                         {
                             let catRecDataSrc = catColDefs[colId].allSrcs ? dataSrc : CAT_FLD_SRC_BASE;
-                            fld = getFld(catRec, catColDefs[colId].catRecPath, catRecDataSrc);
+                            if (catColDefs[colId].listBased)
+                            {
+                                fld = getListFld(catRec, catColDefs[colId].catRecPath, catRecDataSrc);
+                            }
+                            else
+                            {
+                                fld = getFld(catRec, catColDefs[colId].catRecPath, catRecDataSrc);
+                            }
                         }
                         break;
                 }
@@ -1417,15 +1443,18 @@
                     case CatColEnum.COL_TITLE:
                         return setTitle(catRec, value, dataSrc);
 
-                    case CatColEnum.COL_PUB_NAME:
-                    case CatColEnum.COL_PUB_PLACE:
-                        return setListFldVal(catRec, catColDefs[colId].catRecPath, value, dataSrc);
-
                     default:
                         if (catColDefs[colId].catRecPath)
                         {
                             let catRecDataSrc = catColDefs[colId].allSrcs ? dataSrc : CAT_FLD_SRC_BASE;
-                            return setFldVal(catRec, catColDefs[colId].catRecPath, value, catRecDataSrc);
+                            if (catColDefs[colId].listBased)
+                            {
+                                return setListFldVal(catRec, catColDefs[colId].catRecPath, value, catRecDataSrc);
+                            }
+                            else
+                            {
+                                return setFldVal(catRec, catColDefs[colId].catRecPath, value, catRecDataSrc);
+                            }
                             break;
                         }
                 }
