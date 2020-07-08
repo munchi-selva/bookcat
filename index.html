@@ -1023,19 +1023,19 @@
             function synchWithOpenlib(gridNode)
             {
                 let isbn = gridNode.data[CAT_FLD_ISBN13];
+                let catRec = gridNode.data;
+                synchQueue.push(gridNode);
                 if (isbn)
                 {
-                    synchQueue.push(gridNode);
                     $.ajax(
                     {
                         url: "https://openlibrary.org/api/books?bibkeys=" + isbn + "&jscmd=details&format=json",
                         dataType: "json",
                         success: function(queryRes)
                         {
-                            let catRec = gridNode.data;
 
                             // Clear any existing openlib data for the record
-                            setFldVal(catRec, [CAT_FLD_SRC_OPENLIB], {}, CAT_FLD_SRC_BASE);
+                            setFldVal(catRec, [CAT_FLD_SRC_OPENLIB], null, CAT_FLD_SRC_BASE);
 
                             let olRec = queryRes[isbn];
                             if (olRec && olRec[OLK_DETAILS])
@@ -1115,17 +1115,7 @@
                                 clearFlag(catRec, BCK_FLAG_BIT_IN_OPENLIB);
                             }
 
-                            // Mark the record as in synch
-                            setFlag(catRec, BCK_FLAG_BIT_OPENLIB_SYNCED);
-
-                            // Set the synch time
-                            let synchTime = new Date();
-                            let synchTimeString = getDateCompString(synchTime.getFullYear(),
-                                                                    synchTime.getMonth() + 1,
-                                                                    synchTime.getDate()) + " " +
-                                                  synchTime.toTimeString();
-                            setFldVal(catRec, [CAT_FLD_OPENLIB_SYNCH_TIME], synchTimeString, CAT_FLD_SRC_BASE);
-
+                            updateSynchStatus(catRec);
                             gridOptions.api.refreshCells(gridNode);
 
                             // Remove the node/record from the synch queue
@@ -1138,6 +1128,34 @@
                         }
                     });
                 }
+                else
+                {
+                    updateSynchStatus(catRec);
+                    gridOptions.api.refreshCells(gridNode);
+
+                    // Remove the node/record from the synch queue
+                    synchQueue = synchQueue.filter(function(rec) { return rec != gridNode; });
+                    if (synchQueue.length == 0)
+                    {
+                        // Remove the overlay if all synchs are done
+                        gridOptions.api.hideOverlay();
+                    }
+                }
+            }
+
+            // Update a record's synch status
+            function updateSynchStatus(catRec)
+            {
+                // Mark the record as in synch
+                setFlag(catRec, BCK_FLAG_BIT_OPENLIB_SYNCED);
+
+                // Set the synch time
+                let synchTime = new Date();
+                let synchTimeString = getDateCompString(synchTime.getFullYear(),
+                    synchTime.getMonth() + 1,
+                    synchTime.getDate()) + " " +
+                    synchTime.toTimeString();
+                setFldVal(catRec, [CAT_FLD_OPENLIB_SYNCH_TIME], synchTimeString, CAT_FLD_SRC_BASE);
             }
 
             // Returns the minimum catalogue record ID
@@ -1491,7 +1509,7 @@
             function clearFlag(catRec, flagPos)
             {
                 let flags = getFldVal(catRec, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE, 0);
-                flags |= ~(1 << flagPos);
+                flags &= ~(1 << flagPos);
                 setFldVal(catRec, [CAT_FLD_FLAGS], flags, CAT_FLD_SRC_BASE);
             }
 
