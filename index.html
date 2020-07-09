@@ -562,14 +562,6 @@
                 rowDeselection:         true,           // Allow deselecting rows with Ctrl-click
                 enableRangeSelection:   true,           // Allow multiple values in the same column to be selected/copied
                 suppressRowTransform:   true,           // Allow row spanning
-                onRowSelected: function(params)
-                {
-                    if (getFldVal(params.data, [CAT_FLD_FLAGS], CAT_FLD_SRC_BASE))
-                    {
-                        // Toggle selected item's openlib (re)synch flag
-                        params.data.flags ^= (1 << BCK_FLAG_BIT_OPENLIB_SYNCED);
-                    }
-                },
 
                 undoRedoCellEditing:    true,
 
@@ -1082,7 +1074,10 @@
                                     setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], olThickness, CAT_FLD_SRC_OPENLIB);
                                 }
 
-                                setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], olRec[OLK_DETAILS][OLK_PAGES], CAT_FLD_SRC_OPENLIB);
+                                if (olRec[OLK_DETAILS][OLK_PAGES])
+                                {
+                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], olRec[OLK_DETAILS][OLK_PAGES], CAT_FLD_SRC_OPENLIB);
+                                }
 
                                 let olMassStr = olRec[OLK_DETAILS][OLK_WEIGHT];
                                 if (olMassStr)
