@@ -214,7 +214,6 @@
             const catColDefList =
             [
                 ["COL_ID",              "Cat ID",           [CAT_FLD_ID],                           false       ],
-                ["COL_RESYNCH",         "(Re)synch"                                                             ],
                 ["COL_SYNCH_STATUS",    "Synched"                                                               ],
                 ["COL_IN_OPENLIB",      "In openlib"                                                            ],
                 ["COL_PURCH_DATE",      "Purchase Date",    [CAT_FLD_PURCH_DATE],                   false       ],
@@ -292,6 +291,9 @@
                 editable:           true,
                 menuTabs:           ["columnsMenuTab"],
 
+                headerCheckboxSelection:                true,   // Allow selection of all rows
+                headerCheckboxSelectionFilteredOnly:    true,   // included by filtering
+
                 headerValueGetter:  'catColDefs[parseInt(colDef.colId)].name',   // Retrieve header name via colId
                 valueGetter:        'getFldValByColId(data, parseInt(colDef.colId))',
                 valueSetter:        'setFldValByColId(data, colDef.colId, newValue)',
@@ -333,14 +335,6 @@
                     headerName: COL_GRP_HDR_SYNCH,
                     children:
                     [
-                        {
-                            colId:                                  CatColEnum.COL_RESYNCH,
-                            headerTooltip:                          "Check for updated openlib details",
-                            headerCheckboxSelection:                true,   // Allow selection of all rows
-                            headerCheckboxSelectionFilteredOnly:    true,   // included by filtering
-                            checkboxSelection:                      true,
-                            filter:                                 false
-                        },
                         {
                             colId:          CatColEnum.COL_SYNCH_STATUS,
                             headerTooltip:  "Is the record synched with openlib?",
@@ -564,6 +558,7 @@
                 suppressRowTransform:   true,           // Allow row spanning
 
                 undoRedoCellEditing:    true,
+
 
                 statusBar:
                 {
@@ -939,35 +934,49 @@
                         if (catColDefs[colId].allSrcs)
                         {
                             // If the column supports multiple data sources,
-                            // add a menu item for copying from each data
-                            // source that has a non-null value for the column
-                            let dataSrcs    = [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON];
+                            // add a menu item for copying data between them
+                            let dataDests   = [];
                             let currDataSrc = getDataSrc();
 
-                            if (currDataSrc == CAT_FLD_SRC_BASE || currDataSrc == CAT_FLD_SRC_OPENLIB)
+                            if (currDataSrc == CAT_FLD_SRC_COMB)
                             {
+                                dataDests = [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB];
+                            }
+                            else if (currDataSrc != CAT_FLD_SRC_AMAZON)
+                            {
+                                dataDests.push(currDataSrc);
+                            }
+
+                            if (dataDests.length > 0)
+                            {
+                                let dataSrcs  = [CAT_FLD_SRC_BASE, CAT_FLD_SRC_OPENLIB, CAT_FLD_SRC_AMAZON];
                                 menuItems.push("separator");
 
-                                let candidateSrcs = dataSrcs.filter(function(dataSrc) { return dataSrc != currDataSrc; });
-                                candidateSrcs.forEach
+                                dataDests.forEach
                                 (
-                                    function(dataSrc)
+                                    function(dataDest)
                                     {
-                                        let menuItemCopyFromSrc =
-                                        {
-                                            name: "Copy from " + dataSrc  + " data",
-
-                                            disabled: !getFldValByColId(params.node.data, colId, dataSrc),
-
-                                            action: function()
+                                        let candidateSrcs = dataSrcs.filter(function(dataSrc) { return dataSrc != dataDest; });
+                                        candidateSrcs.forEach
+                                        (
+                                            function(dataSrc)
                                             {
-                                                let srcVal = getFldValByColId(params.node.data, colId, dataSrc);
-                                                setFldValByColId(params.node.data, colId, srcVal, currDataSrc);
-                                                gridOptions.api.refreshCells(params.node);
-                                            }
-                                        };
-                                        menuItems.push(menuItemCopyFromSrc);
+                                                let menuItemCopyFromSrc =
+                                                {
+                                                    name: "Copy " + dataSrc  + " data to " + dataDest + " data",
 
+                                                    disabled: !getFldValByColId(params.node.data, colId, dataSrc),
+
+                                                    action: function()
+                                                    {
+                                                        let srcVal = getFldValByColId(params.node.data, colId, dataSrc);
+                                                        setFldValByColId(params.node.data, colId, srcVal, dataDest);
+                                                        gridOptions.api.refreshCells(params.node);
+                                                    }
+                                                }
+                                                menuItems.push(menuItemCopyFromSrc);
+                                            }
+                                        );
                                     }
                                 );
                             }
