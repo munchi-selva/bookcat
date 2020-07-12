@@ -2240,7 +2240,7 @@
                 ]
             }
         ],
-        "title": "[Falco 01] The Silver Pigs",
+        "title": "The Silver Pigs",
         "publishers": [
             "St. Martin's Minotaur"
         ],
@@ -2292,7 +2292,9 @@
             "subtitle": "a Marcus Didius Falco mystery",
             "title": "The silver pigs",
             "info_url": "https://openlibrary.org/books/OL23168141M/The_silver_pigs"
-        }
+        },
+        "series": "Marcus Didius Falco",
+        "number_in_series": 1
     },
     {
         "isbn_13": "9780760777893",
@@ -4243,7 +4245,7 @@
                 ]
             }
         ],
-        "title": "[Falco 02] Shadows in Bronze",
+        "title": "Shadows in Bronze",
         "publishers": [
             "St. Martin's Minotaur"
         ],
@@ -4299,7 +4301,9 @@
             "subtitle": "A Marcus Didius Falco Mystery (Marcus Didius Falco Mysteries)",
             "title": "Shadows in Bronze",
             "info_url": "https://openlibrary.org/books/OL9310086M/Shadows_in_Bronze"
-        }
+        },
+        "series": "Marcus Didius Falco",
+        "number_in_series": 2
     },
     {
         "isbn_13": "9780192834010",
@@ -6037,7 +6041,7 @@
                 ]
             }
         ],
-        "title": "[Falco 12] Ode to a Banker",
+        "title": "Ode to a Banker",
         "publishers": [
             "Random House"
         ],
@@ -6056,7 +6060,10 @@
         "openlib_synch_time": "2020-07-09 10:54:58 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Marcus Didius Falco",
+        "dimensions": {},
+        "number_in_series": 12
     },
     {
         "isbn_13": "9783499200182",
@@ -8255,7 +8262,7 @@
                 ]
             }
         ],
-        "title": "[Falco 06-08] Falco on the Loose (Last Act in Palmyra, Time to Depart, A Dying Light in Corduba)",
+        "title": "Falco on the Loose (Last Act in Palmyra, Time to Depart, A Dying Light in Corduba)",
         "publishers": [
             "Arrow"
         ],
@@ -8294,7 +8301,9 @@
             "publish_date": "November 6, 2003",
             "title": "Falco on the Loose",
             "info_url": "https://openlibrary.org/books/OL7318264M/Falco_on_the_Loose"
-        }
+        },
+        "series": "Marcus Didius Falco",
+        "number_in_series": 6
     },
     {
         "isbn_13": "9780749391300",
@@ -40733,7 +40742,7 @@
                 ]
             }
         ],
-        "title": "[Falco 03] Venus in Copper",
+        "title": "Venus in Copper",
         "publishers": [
             "Arrow"
         ],
@@ -40766,7 +40775,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Marcus Didius Falco",
+        "number_in_series": 3
     },
     {
         "isbn_13": "9780099515081",
@@ -40780,7 +40791,7 @@
                 ]
             }
         ],
-        "title": "[Falco 04] The Iron Hand of Mars",
+        "title": "The Iron Hand of Mars",
         "publishers": [
             "Arrow"
         ],
@@ -40813,7 +40824,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Marcus Didius Falco",
+        "number_in_series": 4
     },
     {
         "isbn_13": "9780099515098",
@@ -40827,7 +40840,7 @@
                 ]
             }
         ],
-        "title": "[Falco 05] Poseidon's Gold",
+        "title": "Poseidon's Gold",
         "publishers": [
             "Arrow"
         ],
@@ -40860,7 +40873,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Marcus Didius Falco",
+        "number_in_series": 5
     },
     {
         "isbn_13": "9780099515159",
@@ -40874,7 +40889,7 @@
                 ]
             }
         ],
-        "title": "[Falco 09] Three Hands in the Fountain",
+        "title": "Three Hands in the Fountain",
         "publishers": [
             "Arrow"
         ],
@@ -40919,7 +40934,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Marcus Didius Falco",
+        "number_in_series": 9
     },
     {
         "flags": 1,
@@ -40931,7 +40948,7 @@
                 ]
             }
         ],
-        "title": "[Falco 11] One Virgin Too Many",
+        "title": "One Virgin Too Many",
         "publishers": [
             "Arrow"
         ],
@@ -40950,7 +40967,9 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Marcus Didius Falco",
+        "number_in_series": 11
     },
     {
         "flags": 1,
