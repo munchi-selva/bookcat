@@ -1474,20 +1474,20 @@
 
                 // Identify the parts of the path that exist in the record
                 let searchObj   = catRec;
-                let stopSearch  = false;
-                while (pathCopy.length > 0 && !stopSearch)
+                let keyMissing  = false;
+                while (pathCopy.length > 0 && !keyMissing)
                 {
                     let key = pathCopy.shift();
 
-                    stopSearch = !(key in searchObj);
-                    if (!stopSearch)
+                    keyMissing = !(key in searchObj);
+                    if (!keyMissing)
                     {
                         keyObjPairs.push({parentObj: searchObj, key: key});
                         searchObj = searchObj[key];
                     }
                 }
 
-                if (pathCopy.length == 0)
+                if (!keyMissing)
                 {
                     // Delete the ultimate target value
                     let targetKeyObj    = keyObjPairs.pop();
@@ -1499,15 +1499,15 @@
 
                 if (recursive)
                 {
-                    stopSearch = false;
-                    while (keyObjPairs.length > 0 && !stopSearch)
+                    let nonEmptyObj = false;
+                    while (keyObjPairs.length > 0 && !nonEmptyObj)
                     {
                         let keyObj  = keyObjPairs.pop();
                         let obj     = keyObj.parentObj;
                         let key     = keyObj.key;
                         let val     = obj[key];
-                        stopSearch  = (Object.keys(val).length > 0);
-                        if (!stopSearch)
+                        nonEmptyObj  = (Object.keys(val).length > 0);
+                        if (!nonEmptyObj)
                         {
                             delete obj[key];
                         }
