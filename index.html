@@ -105,6 +105,8 @@
             };
             Object.freeze(DataTypeEnum);
 
+            const REGEX_INT                 = new RegExp(/^[0-9]+$/);
+
             // ISBN handling
             const REGEX_ISBN13              = new RegExp(/^978[0-9]{9}[0-9X]$/);
             const REGEX_ISBN10              = new RegExp(/^[0-9]{9}[0-9X]$/);
@@ -332,12 +334,12 @@
             const FLD_VAL   = "value";
 
             const minCols = [  CatColEnum.COL_ID,
-                               CatColEnum.COL_SYNCH_STATUS,
                                CatColEnum.COL_SURNAME, CatColEnum.COL_GIVEN_NAMES,
                                CatColEnum.COL_PURCH_DATE,
-                               CatColEnum.COL_ISBN_13, CatColEnum.COL_SERIES, CatColEnum.COL_NUM_IN_SERIES, CatColEnum.COL_TITLE,
+                               CatColEnum.COL_ISBN_13, CatColEnum.COL_TITLE,
                                CatColEnum.COL_LANGUAGES,
                                CatColEnum.COL_PUB_NAME, CatColEnum.COL_PUB_DATE,
+                               CatColEnum.COL_LOCATION,
                                CatColEnum.COL_DIM_LENGTH];
 
             // Column definitions
@@ -908,6 +910,13 @@
                     },
                     "separator",
                     "autoSizeAll",
+                    {
+                        name:   "Autofit columns",
+                        action: function()
+                        {
+                            gridOptions.api.sizeColumnsToFit();
+                        }
+                    },
                     "resetColumns",
                     {
                         name:   "Reset filters",
@@ -1455,6 +1464,59 @@
                 return fld[FLD_VAL];
             }
 
+            // Deletes the value of the field at the specified path.
+            // Under recursive deletion, the entire path leading to that value
+            // is also deleted if it doesn't contain any meaningful values.
+            function delFldVal(catRec, path, recursive = true)
+            {
+                let pathCopy    = path.slice();
+                let keyObjPairs   = [];           // Parts of the path that exist in the record
+
+                // Identify the parts of the path that exist in the record
+                let searchObj   = catRec;
+                let stopSearch  = false;
+                while (pathCopy.length > 0 && !stopSearch)
+                {
+                    let key = pathCopy.shift();
+
+                    stopSearch = !(key in searchObj);
+                    if (!stopSearch)
+                    {
+                        keyObjPairs.push({parentObj: searchObj, key: key});
+                        searchObj = searchObj[key];
+                    }
+                }
+
+                if (pathCopy.length == 0)
+                {
+                    // Delete the ultimate target value
+                    let targetKeyObj    = keyObjPairs.pop();
+                    let targetObj       = targetKeyObj.parentObj;
+                    let targetKey       = targetKeyObj.key;
+
+                    delete targetObj[targetKey];
+                }
+
+                if (recursive)
+                {
+                    stopSearch = false;
+                    while (keyObjPairs.length > 0 && !stopSearch)
+                    {
+                        let keyObj  = keyObjPairs.pop();
+                        let obj     = keyObj.parentObj;
+                        let key     = keyObj.key;
+                        let val     = obj[key];
+                        stopSearch  = (Object.keys(val).length > 0);
+                        if (!stopSearch)
+                        {
+                            delete obj[key];
+                        }
+                    }
+                }
+
+                return true;
+            }
+
             // Sets the value of the field located at the specified path.
             // If the catalogue is currently viewed with combined data sources,
             // edits are directed to the base source.
@@ -1463,6 +1525,12 @@
                 let dataDest = dataSrc == CAT_FLD_SRC_COMB ? CAT_FLD_SRC_BASE : dataSrc;
                 let fldKeyPrefix = (dataDest == CAT_FLD_SRC_BASE) ? [] : [dataDest];
                 let fldPath = fldKeyPrefix.concat(path);
+
+                if (value == null)
+                {
+                    return delFldVal(catRec, fldPath);
+                }
+
                 let targetObj = catRec;
                 while (fldPath.length > 1)
                 {
@@ -1474,24 +1542,31 @@
                     }
                     targetObj = targetObj[key];
                 }
-                let targetKey = fldPath.shift();
-                if (value == null)
+                let targetKey   = fldPath.shift();
+                let typedValue  = value;
+                if (dataType == DataTypeEnum.DT_INT)
                 {
-                    delete targetObj[targetKey];
-                }
-                else
-                {
-                    let typedValue = value;
-                    if (dataType == DataTypeEnum.DT_INT)
+                    if (REGEX_INT.test(value))
                     {
                         typedValue = parseInt(value);
                     }
-                    else if (dataType == DataTypeEnum.DT_FLOAT)
+                    else
+                    {
+                        return false;
+                    }
+                }
+                else if (dataType == DataTypeEnum.DT_FLOAT)
+                {
+                    if (value && !isNaN(value))
                     {
                         typedValue = parseFloat(value);
                     }
-                    targetObj[targetKey] = typedValue;
+                    else
+                    {
+                        return false;
+                    }
                 }
+                targetObj[targetKey] = typedValue;
 
                 return true;
             }
