@@ -439,7 +439,8 @@
             "publish_date": "1997",
             "title": "The power of one",
             "info_url": "https://openlibrary.org/books/OL20785478M/The_power_of_one"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780732281205",
@@ -2294,7 +2295,8 @@
             "info_url": "https://openlibrary.org/books/OL23168141M/The_silver_pigs"
         },
         "series": "Marcus Didius Falco",
-        "number_in_series": 1
+        "number_in_series": 1,
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780760777893",
@@ -3139,7 +3141,8 @@
             "publish_date": "January 26, 2006",
             "title": "Love in the Time of Cholera",
             "info_url": "https://openlibrary.org/books/OL7358702M/Love_in_the_Time_of_Cholera"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781905287000",
@@ -3278,7 +3281,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780224078238",
@@ -4303,7 +4307,8 @@
             "info_url": "https://openlibrary.org/books/OL9310086M/Shadows_in_Bronze"
         },
         "series": "Marcus Didius Falco",
-        "number_in_series": 2
+        "number_in_series": 2,
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780192834010",
@@ -8303,7 +8308,8 @@
             "info_url": "https://openlibrary.org/books/OL7318264M/Falco_on_the_Loose"
         },
         "series": "Marcus Didius Falco",
-        "number_in_series": 6
+        "number_in_series": 6,
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780749391300",
@@ -9783,7 +9789,8 @@
             "subtitle": "Group Portrait with a Lady",
             "title": "Heinrich Bo ll",
             "info_url": "https://openlibrary.org/books/OL25564844M/Heinrich_Bo_ll"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "flags": 1,
@@ -12564,7 +12571,8 @@
             "publish_date": "1976",
             "title": "Aspects of the novel",
             "info_url": "https://openlibrary.org/books/OL22344854M/Aspects_of_the_novel"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "flags": 1,
@@ -13480,7 +13488,8 @@
             "publish_date": "2006",
             "title": "The Master and Margarita",
             "info_url": "https://openlibrary.org/books/OL7359286M/The_Master_and_Margarita"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780500285497",
@@ -14476,7 +14485,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780330201070",
@@ -14533,7 +14543,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781858288871",
@@ -15155,7 +15166,8 @@
         "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781904966555",
@@ -15333,7 +15345,8 @@
         "openlib_synch_time": "2020-07-09 10:55:03 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781845296667",
@@ -15365,7 +15378,8 @@
         "openlib_synch_time": "2020-07-09 10:55:03 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781845296681",
@@ -15397,7 +15411,8 @@
         "openlib_synch_time": "2020-07-09 10:55:03 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781904966555",
@@ -15450,7 +15465,8 @@
         "openlib_synch_time": "2020-07-09 10:55:03 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781845296698",
@@ -15482,7 +15498,8 @@
         "openlib_synch_time": "2020-07-09 10:55:04 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780600023500",
@@ -17257,7 +17274,8 @@
         "openlib_synch_time": "2020-07-09 10:55:05 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Aurelio Zen"
     },
     {
         "isbn_13": "9781846683015",
@@ -18150,7 +18168,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780702220005",
@@ -20601,7 +20620,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Hornblower",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780847826766",
@@ -20729,7 +20750,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Aurelio Zen",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780141439884",
@@ -21120,7 +21143,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781847245458",
@@ -22053,7 +22077,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780744598698",
@@ -22475,7 +22500,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Aurelio Zen",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780143009610",
@@ -23361,7 +23388,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "flags": 1,
@@ -24562,7 +24590,8 @@
         "openlib_synch_time": "2020-07-09 10:55:10 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780575079939",
@@ -30770,7 +30799,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Aurelio Zen",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780571202881",
@@ -30841,7 +30872,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Aurelio Zen",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780571173471",
@@ -30905,7 +30938,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Aurelio Zen",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781851689323",
@@ -35577,7 +35612,9 @@
             "publish_date": "1998",
             "title": "Mr Midshipman Hornblower.",
             "info_url": "https://openlibrary.org/books/OL18080913M/Mr_Midshipman_Hornblower."
-        }
+        },
+        "series": "Hornblower",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780140294651",
@@ -35639,7 +35676,9 @@
             "publish_date": "2000",
             "title": "Lieutenant Hornblower",
             "info_url": "https://openlibrary.org/books/OL18536056M/Lieutenant_Hornblower"
-        }
+        },
+        "series": "Hornblower",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780753826218",
@@ -35739,7 +35778,8 @@
             "publish_date": "1974",
             "title": "Murder on the Orient Express",
             "info_url": "https://openlibrary.org/books/OL22328169M/Murder_on_the_Orient_Express"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780571234615",
@@ -36140,7 +36180,8 @@
         "openlib_synch_time": "2020-07-09 10:55:20 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780141014081",
@@ -39414,7 +39455,8 @@
         "openlib_synch_time": "2020-07-09 10:55:23 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780099766018",
@@ -40112,7 +40154,8 @@
             "publish_date": "1993",
             "title": "Il sentiero dei nidi di ragno",
             "info_url": "https://openlibrary.org/books/OL22637711M/Il_sentiero_dei_nidi_di_ragno"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "flags": 1,
@@ -40777,7 +40820,8 @@
             "eng"
         ],
         "series": "Marcus Didius Falco",
-        "number_in_series": 3
+        "number_in_series": 3,
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780099515081",
@@ -40826,7 +40870,8 @@
             "eng"
         ],
         "series": "Marcus Didius Falco",
-        "number_in_series": 4
+        "number_in_series": 4,
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780099515098",
@@ -40875,7 +40920,8 @@
             "eng"
         ],
         "series": "Marcus Didius Falco",
-        "number_in_series": 5
+        "number_in_series": 5,
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780099515159",
@@ -40936,10 +40982,11 @@
             "eng"
         ],
         "series": "Marcus Didius Falco",
-        "number_in_series": 9
+        "number_in_series": 9,
+        "location": "LR02-01"
     },
     {
-        "flags": 1,
+        "flags": 3,
         "authors": [
             {
                 "surname": "Davis",
@@ -40964,12 +41011,29 @@
         "price_conversion_rate": 1,
         "seller": "Sydney Uni Book Fest",
         "cover_required": "Y (Done)",
-        "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
+        "openlib_synch_time": "2020-07-13 16:39:22 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
         ],
         "series": "Marcus Didius Falco",
-        "number_in_series": 11
+        "number_in_series": 11,
+        "location": "LR02-01",
+        "isbn_13": "9780099515166",
+        "isbn_10": "0099515164",
+        "openlib": {
+            "physical_format": "Paperback",
+            "key": "/books/OL27554018M",
+            "publishers": [
+                "arrow"
+            ],
+            "publish_places": [
+                "London, Great Britain"
+            ],
+            "publish_date": "1999",
+            "subtitle": "A lost child in a deadly lottery...",
+            "title": "One Virgin Too Many",
+            "info_url": "https://openlibrary.org/books/OL27554018M/One_Virgin_Too_Many"
+        }
     },
     {
         "flags": 1,
@@ -41918,7 +41982,8 @@
         "openlib_synch_time": "2020-07-09 10:55:26 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "esp"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9788496233911",
@@ -41942,7 +42007,9 @@
         "openlib_synch_time": "2020-07-09 10:55:26 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "esp"
-        ]
+        ],
+        "publish_date": "2012",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9788471205100",
@@ -42027,7 +42094,8 @@
         "openlib_synch_time": "2020-07-09 10:55:26 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "esp"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9788484786658",
@@ -42063,7 +42131,23 @@
         "purchase_currency": "EUR",
         "price_conversion_rate": 1,
         "seller": "La Locandiera B&B, Firenze",
-        "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
+        "languages": [
+            "ita"
+        ],
+        "publish_date": "2007",
+        "location": "LR02-01",
+        "dimensions": {
+            "length": 96
+        },
+        "authors": [
+            {
+                "surname": "Dragoni",
+                "given_names": [
+                    "Marina"
+                ]
+            }
+        ]
     },
     {
         "isbn_13": "9788897082088",
@@ -44044,7 +44128,7 @@
         }
     },
     {
-        "flags": 1,
+        "flags": 3,
         "authors": [
             {
                 "surname": "Busch",
@@ -44068,7 +44152,51 @@
         "purchase_currency": "AUD",
         "price_conversion_rate": 1,
         "seller": "Sydney Uni Book Fest",
-        "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-07-13 17:15:41 GMT+1000 (Australian Eastern Standard Time)",
+        "languages": [
+            "deu",
+            "eng",
+            "fre",
+            "esp",
+            "ita",
+            "lat"
+        ],
+        "isbn_10": "3423100265",
+        "isbn_13": "9783423100267",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Busch",
+                    "given_names": [
+                        "Wilhelm"
+                    ]
+                }
+            ],
+            "languages": [
+                "ger"
+            ],
+            "dimensions": {
+                "height": 18.796000000000003,
+                "width": 11.938,
+                "thickness": 1.27,
+                "length": 166,
+                "mass": 5.6,
+                "mass_units": "ounces"
+            },
+            "physical_format": "Paperback",
+            "key": "/books/OL9032267M",
+            "publishers": [
+                "Continental Book Co Inc"
+            ],
+            "publish_date": "November 1998",
+            "title": "Dtv",
+            "info_url": "https://openlibrary.org/books/OL9032267M/Dtv"
+        },
+        "publish_places": [
+            "München"
+        ],
+        "cover_required": "Y (Done)",
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9783150032886",
@@ -45235,7 +45363,8 @@
         "openlib_synch_time": "2020-07-09 10:55:30 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780755322817",
@@ -45309,13 +45438,29 @@
         "openlib_synch_time": "2020-07-09 10:55:30 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR02-01",
+        "authors": [
+            {
+                "surname": "Innocenti",
+                "given_names": [
+                    "Paolo"
+                ]
+            }
+        ],
+        "publishers": [
+            "Giulianova Media & Communications"
+        ],
+        "publish_date": "2015",
+        "dimensions": {
+            "length": 320
+        }
     },
     {
         "isbn_13": "9788863911381",
         "isbn_10": "886391138X",
         "flags": 1,
-        "title": "I senesi",
+        "title": "Storia di Siena",
         "id": 929,
         "purchase_date": {
             "year": 2017,
@@ -45328,7 +45473,20 @@
         "openlib_synch_time": "2020-07-09 10:55:30 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "authors": [
+            {
+                "surname": "Ascheri",
+                "given_names": [
+                    "Mario"
+                ]
+            }
+        ],
+        "subtitle": "Dalle origini ai giorni nostri",
+        "publishers": [
+            "Edizione Biblioteca dell'Immagine"
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9788875761530",
@@ -45922,8 +46080,18 @@
         "seller": "Sydney Uni Book Fest",
         "openlib_synch_time": "2020-07-09 10:54:54 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
-            "deu"
-        ]
+            "deu",
+            "eng"
+        ],
+        "authors": [
+            {
+                "surname": "Bridgwater",
+                "given_names": [
+                    "Patrick"
+                ]
+            }
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9783458326342",
@@ -45980,7 +46148,8 @@
             "publish_date": "1986",
             "title": "Der Sandmann",
             "info_url": "https://openlibrary.org/books/OL1965318M/Der_Sandmann"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9783458326342",
@@ -46037,7 +46206,11 @@
             "publish_date": "1986",
             "title": "Der Sandmann",
             "info_url": "https://openlibrary.org/books/OL1965318M/Der_Sandmann"
-        }
+        },
+        "location": "LR02-01",
+        "languages": [
+            "ita"
+        ]
     },
     {
         "flags": 1,
@@ -46840,7 +47013,9 @@
         "openlib_synch_time": "2020-07-09 10:54:54 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR02-01",
+        "subtitle": "Liolà; Così è (se vi pare)"
     },
     {
         "isbn_13": "9780751543957",
@@ -47214,7 +47389,8 @@
             "publish_date": "2006",
             "title": "The bilingualism reader",
             "info_url": "https://openlibrary.org/books/OL24052093M/The_bilingualism_reader"
-        }
+        },
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780062018083",
@@ -47942,7 +48118,8 @@
         "openlib_synch_time": "2020-07-09 10:55:32 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9781471161285",
@@ -48067,7 +48244,8 @@
         "openlib_synch_time": "2020-07-09 10:55:33 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "KB"
     },
     {
         "isbn_13": "9781577315933",
@@ -48161,7 +48339,8 @@
         "openlib_synch_time": "2020-07-09 10:55:33 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780143039105",
@@ -48252,7 +48431,8 @@
         "openlib_synch_time": "2020-07-09 10:55:33 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-01"
     },
     {
         "isbn_13": "9780099282587",
