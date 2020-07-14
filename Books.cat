@@ -58,7 +58,8 @@
         "openlib_synch_time": "2020-07-09 10:54:54 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780140430547",
@@ -487,7 +488,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781840221176",
@@ -750,7 +752,8 @@
             "subtitle": "a year on the killing streets.",
             "title": "Homicide",
             "info_url": "https://openlibrary.org/books/OL22585336M/Homicide"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780517274156",
@@ -1349,7 +1352,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780007218004",
@@ -1423,7 +1427,8 @@
         "openlib_synch_time": "2020-07-09 10:54:55 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780804833998",
@@ -1620,7 +1625,8 @@
             "publish_date": "May 5, 2005",
             "title": "Charlie and the Great Glass Elevator (Puffin Modern Classics)",
             "info_url": "https://openlibrary.org/books/OL7360751M/Charlie_and_the_Great_Glass_Elevator_(Puffin_Modern_Classics)"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780671028350",
@@ -1753,7 +1759,8 @@
             "subtitle": "A Novel of Alexander the Great",
             "title": "Empire of Ashes",
             "info_url": "https://openlibrary.org/books/OL3475524M/Empire_of_Ashes"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780451191144",
@@ -1819,7 +1826,8 @@
             "publish_date": "1996",
             "title": "Atlas shrugged",
             "info_url": "https://openlibrary.org/books/OL24739808M/Atlas_shrugged"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780141000589",
@@ -4993,7 +5001,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781593081430",
@@ -5642,7 +5651,8 @@
             "publish_date": "1993",
             "title": "Briar Rose",
             "info_url": "https://openlibrary.org/books/OL26339365M/Briar_Rose"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780140145588",
@@ -6710,7 +6720,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780007246229",
@@ -8160,7 +8171,8 @@
         "openlib_synch_time": "2020-07-09 10:54:59 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781841154459",
@@ -8604,7 +8616,8 @@
             "publish_date": "1995",
             "title": "Snow falling on cedars",
             "info_url": "https://openlibrary.org/books/OL21234948M/Snow_falling_on_cedars"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9781853260056",
@@ -8758,7 +8771,8 @@
             "publish_date": "1989",
             "title": "Schindler's ark",
             "info_url": "https://openlibrary.org/books/OL21416762M/Schindler's_ark"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780099763512",
@@ -8841,7 +8855,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781865150741",
@@ -9206,7 +9221,8 @@
             "publish_date": "1976",
             "title": "The Godfather",
             "info_url": "https://openlibrary.org/books/OL26577414M/The_Godfather"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780070526273",
@@ -9927,7 +9943,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "flags": 1,
@@ -10127,7 +10144,8 @@
             "publish_date": "1984",
             "title": "Eleni",
             "info_url": "https://openlibrary.org/books/OL17392068M/Eleni"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "flags": 1,
@@ -10728,7 +10746,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780044451808",
@@ -10837,7 +10856,8 @@
             "publish_date": "1992",
             "title": "A thousand acres",
             "info_url": "https://openlibrary.org/books/OL14877146M/A_thousand_acres"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "flags": 1,
@@ -10872,7 +10892,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9789622880825",
@@ -11951,7 +11972,8 @@
             "publish_date": "1950",
             "title": "The great Gatsby",
             "info_url": "https://openlibrary.org/books/OL22227155M/The_great_Gatsby"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780140431315",
@@ -16130,7 +16152,8 @@
             "publish_date": "1961",
             "title": "Catch-22",
             "info_url": "https://openlibrary.org/books/OL15135833M/Catch-22"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780224041188",
@@ -16375,7 +16398,8 @@
         "openlib_synch_time": "2020-07-09 10:55:04 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780571203765",
@@ -17235,7 +17259,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780571271573",
@@ -17275,7 +17300,8 @@
         "languages": [
             "eng"
         ],
-        "series": "Aurelio Zen"
+        "series": "Aurelio Zen",
+        "location": "BR-01"
     },
     {
         "isbn_13": "9781846683015",
@@ -18055,7 +18081,8 @@
             ],
             "title": "UNCOMMON READER.",
             "info_url": "https://openlibrary.org/books/OL19552739M/UNCOMMON_READER."
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780099576310",
@@ -18436,7 +18463,10 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01",
+        "series": "Thursday Next",
+        "number_in_series": 1
     },
     {
         "isbn_13": "9780140449129",
@@ -18564,7 +18594,8 @@
         "openlib_synch_time": "2020-07-09 10:55:05 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780140420388",
@@ -18775,7 +18806,8 @@
             "publish_date": "March 2001",
             "title": "Zorba the Greek (Faber Fiction Classics)",
             "info_url": "https://openlibrary.org/books/OL7857525M/Zorba_the_Greek_(Faber_Fiction_Classics)"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780571201754",
@@ -20332,7 +20364,8 @@
             "publish_date": "1988",
             "title": "Sarum",
             "info_url": "https://openlibrary.org/books/OL24946643M/Sarum"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780140449822",
@@ -21932,7 +21965,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780552995887",
@@ -22022,7 +22056,8 @@
         "openlib_synch_time": "2020-07-09 10:55:08 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781876327217",
@@ -22798,7 +22833,8 @@
             "publish_date": "1999",
             "title": "The last king of Scotland",
             "info_url": "https://openlibrary.org/books/OL18519091M/The_last_king_of_Scotland"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780156035583",
@@ -24300,7 +24336,8 @@
         "openlib_synch_time": "2020-07-09 10:55:10 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780224094153",
@@ -25027,7 +25064,8 @@
             "publish_date": "2002",
             "title": "Lord of the flies",
             "info_url": "https://openlibrary.org/books/OL22069515M/Lord_of_the_flies"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780575116757",
@@ -25388,7 +25426,7 @@
         ]
     },
     {
-        "flags": 1,
+        "flags": 3,
         "authors": [
             {
                 "surname": "Brookner",
@@ -25415,9 +25453,36 @@
         "purchaser": "Grace",
         "electronic_format": "pdf",
         "cover_required": "N",
-        "openlib_synch_time": "2020-07-09 10:54:51 GMT+1000 (Australian Eastern Standard Time)",
+        "openlib_synch_time": "2020-07-14 10:07:02 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
+        ],
+        "location": "LR02-02",
+        "isbn_10": "0586064664",
+        "isbn_13": "9780586064665",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Brookner",
+                    "given_names": [
+                        "Anita"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 192
+            },
+            "physical_format": "Paperback",
+            "key": "/books/OL7883112M",
+            "publishers": [
+                "Triad Books"
+            ],
+            "publish_date": "October 10, 1985",
+            "title": "Hotel Du Lac (Panther Books)",
+            "info_url": "https://openlibrary.org/books/OL7883112M/Hotel_Du_Lac_(Panther_Books)"
+        },
+        "publishers": [
+            "Triad Books"
         ]
     },
     {
@@ -26001,7 +26066,8 @@
             "publish_date": "1978",
             "title": "Goodbye, Columbus, and five short stories",
             "info_url": "https://openlibrary.org/books/OL16698926M/Goodbye_Columbus_and_five_short_stories"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780151327652",
@@ -26926,7 +26992,8 @@
             "subtitle": "a romance",
             "title": "Tender is the night",
             "info_url": "https://openlibrary.org/books/OL17442091M/Tender_is_the_night"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780140437416",
@@ -29756,7 +29823,8 @@
             "subtitle": "from the author of ''The Other Boleyn Girl''",
             "title": "The Boleyn Inheritance",
             "info_url": "https://openlibrary.org/books/OL19333160M/The_Boleyn_Inheritance"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780575097582",
@@ -29877,7 +29945,8 @@
             "subtitle": "a novel",
             "title": "American psycho",
             "info_url": "https://openlibrary.org/books/OL22034830M/American_psycho"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780099519478",
@@ -30039,7 +30108,8 @@
         "openlib_synch_time": "2020-07-09 10:55:15 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780340667064",
@@ -31614,7 +31684,8 @@
             "publish_date": "September 1, 2001",
             "title": "Importance of Being Idle",
             "info_url": "https://openlibrary.org/books/OL8981075M/Importance_of_Being_Idle"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781843175902",
@@ -31898,7 +31969,8 @@
             "publish_date": "1994",
             "title": "Forrest Gump",
             "info_url": "https://openlibrary.org/books/OL22575066M/Forrest_Gump"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9781903110379",
@@ -32538,7 +32610,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780140455168",
@@ -32825,7 +32898,9 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "series": "Jeeves and Wooster"
     },
     {
         "isbn_13": "9780099421863",
@@ -33011,7 +33086,10 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Nursery Crimes",
+        "number_in_series": 2,
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780099512790",
@@ -33161,7 +33239,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780571081783",
@@ -33310,7 +33389,8 @@
         "openlib_synch_time": "2020-07-09 10:55:18 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780732947194",
@@ -33866,7 +33946,8 @@
         "openlib_synch_time": "2020-07-09 10:55:18 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780708849828",
@@ -34939,7 +35020,8 @@
         "openlib_synch_time": "2020-07-09 10:55:19 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "flags": 1,
@@ -35779,7 +35861,8 @@
             "title": "Murder on the Orient Express",
             "info_url": "https://openlibrary.org/books/OL22328169M/Murder_on_the_Orient_Express"
         },
-        "location": "LR02-01"
+        "location": "LR02-01",
+        "series": "Poirot"
     },
     {
         "isbn_13": "9780571234615",
@@ -37704,7 +37787,8 @@
         "openlib_synch_time": "2020-07-09 10:54:52 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "flags": 1,
@@ -38506,7 +38590,8 @@
         "openlib_synch_time": "2020-07-09 10:55:22 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781841957876",
@@ -38760,7 +38845,7 @@
         ]
     },
     {
-        "flags": 1,
+        "flags": 3,
         "title": "Journey to the West Volume I",
         "id": 767,
         "purchase_date": {
@@ -38780,14 +38865,59 @@
         "seller": "Ashfield Carnival of Cultures",
         "purchaser": "Mum",
         "cover_required": "Y (Done)",
-        "openlib_synch_time": "2020-07-09 10:54:52 GMT+1000 (Australian Eastern Standard Time)",
+        "openlib_synch_time": "2020-07-14 09:42:22 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
+        ],
+        "location": "LR02-02",
+        "isbn_10": "7119016636",
+        "isbn_13": "9787119016634",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Cheng'en",
+                    "given_names": [
+                        "Wu,"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "key": "/books/OL18376648M",
+            "publishers": [
+                "Foreign Languages Press"
+            ],
+            "publish_places": [
+                "Beijing"
+            ],
+            "publish_date": "1993",
+            "title": "Journey to the west",
+            "info_url": "https://openlibrary.org/books/OL18376648M/Journey_to_the_west"
+        },
+        "authors": [
+            {
+                "surname": "Cheng'en",
+                "given_names": [
+                    "Wu"
+                ]
+            },
+            {
+                "surname": "Jenner",
+                "given_names": [
+                    "W.J.F."
+                ]
+            }
+        ],
+        "publishers": [
+            "Foreign Languages Press"
+        ],
+        "publish_places": [
+            "Beijing"
         ]
     },
     {
         "flags": 1,
-        "title": "Journey to the West Volume II",
         "id": 768,
         "purchase_date": {
             "year": 2015,
@@ -38809,7 +38939,30 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "title": "Journey to the West Volume II",
+        "authors": [
+            {
+                "surname": "Cheng'en",
+                "given_names": [
+                    "Wu"
+                ]
+            },
+            {
+                "surname": "Jenner",
+                "given_names": [
+                    "W.J.F."
+                ]
+            }
+        ],
+        "publishers": [
+            "Foreign Languages Press"
+        ],
+        "publish_places": [
+            "Beijing"
+        ],
+        "notes": "No ISBN?"
     },
     {
         "flags": 1,
@@ -38835,7 +38988,29 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "authors": [
+            {
+                "surname": "Cheng'en",
+                "given_names": [
+                    "Wu"
+                ]
+            },
+            {
+                "surname": "Jenner",
+                "given_names": [
+                    "W.J.F."
+                ]
+            }
+        ],
+        "publishers": [
+            "Foreign Languages Press"
+        ],
+        "publish_places": [
+            "Beijing"
+        ],
+        "notes": "No ISBN?"
     },
     {
         "flags": 1,
@@ -38861,7 +39036,29 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "authors": [
+            {
+                "surname": "Cheng'en",
+                "given_names": [
+                    "Wu"
+                ]
+            },
+            {
+                "surname": "Jenner",
+                "given_names": [
+                    "W.J.F."
+                ]
+            }
+        ],
+        "publishers": [
+            "Foreign Languages Press"
+        ],
+        "publish_places": [
+            "Beijing"
+        ],
+        "notes": "No ISBN?"
     },
     {
         "isbn_13": "9781447281528",
@@ -38916,7 +39113,8 @@
             "publish_date": "2015",
             "title": "Ross Poldark",
             "info_url": "https://openlibrary.org/books/OL28268027M/Ross_Poldark"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9781447281535",
@@ -38970,7 +39168,8 @@
             "publish_date": "2015",
             "title": "Demelza",
             "info_url": "https://openlibrary.org/books/OL28267996M/Demelza"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9789627787020",
@@ -39354,7 +39553,10 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Thursday Next",
+        "number_in_series": 3,
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780140276336",
@@ -39563,7 +39765,8 @@
             "publish_date": "2003",
             "title": "Middlesex",
             "info_url": "https://openlibrary.org/books/OL22588120M/Middlesex"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780224096218",
@@ -39681,7 +39884,9 @@
         "openlib_synch_time": "2020-07-09 10:55:23 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Miss Marple",
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780007904341",
@@ -39714,7 +39919,9 @@
         "openlib_synch_time": "2020-07-09 10:55:23 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "series": "Miss Marple"
     },
     {
         "isbn_13": "9780007904365",
@@ -39747,7 +39954,9 @@
         "openlib_synch_time": "2020-07-09 10:55:23 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "series": "Miss Marple"
     },
     {
         "isbn_13": "9780007904396",
@@ -39780,7 +39989,9 @@
         "openlib_synch_time": "2020-07-09 10:55:23 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "series": "Poirot"
     },
     {
         "isbn_13": "9780007904389",
@@ -39813,7 +40024,9 @@
         "openlib_synch_time": "2020-07-09 10:55:24 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "series": "Poirot"
     },
     {
         "isbn_13": "9780007904372",
@@ -39846,7 +40059,9 @@
         "openlib_synch_time": "2020-07-09 10:55:24 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02",
+        "series": "Poirot"
     },
     {
         "isbn_13": "9780141322735",
@@ -40186,7 +40401,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "flags": 1,
@@ -42805,7 +43021,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "flags": 1,
@@ -43639,7 +43856,8 @@
             "publish_date": "1974",
             "title": "The quiet American",
             "info_url": "https://openlibrary.org/books/OL18259615M/The_quiet_American"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781853817229",
@@ -43747,7 +43965,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780374296827",
@@ -43960,7 +44179,10 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Nursery Crimes",
+        "number_in_series": 1,
+        "location": "LR02-03"
     },
     {
         "isbn_13": "9780340825945",
@@ -44010,7 +44232,10 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Thursday Next",
+        "number_in_series": 4,
+        "location": "LR02-03"
     },
     {
         "isbn_13": "9780340752012",
@@ -44042,7 +44267,10 @@
         "openlib_synch_time": "2020-07-09 10:55:28 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Thursday Next",
+        "number_in_series": 5,
+        "location": "LR02-03"
     },
     {
         "isbn_13": "9781857999679",
@@ -44745,7 +44973,10 @@
             "publish_date": "2002",
             "title": "Lost in a good book",
             "info_url": "https://openlibrary.org/books/OL3730846M/Lost_in_a_good_book"
-        }
+        },
+        "series": "Thursday Next",
+        "number_in_series": 2,
+        "location": "BR-01"
     },
     {
         "isbn_13": "9781631061974",
@@ -45419,7 +45650,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-01"
     },
     {
         "isbn_13": "9788899267452",
@@ -46380,7 +46612,8 @@
             "publish_date": "1994",
             "title": "A moveable feast",
             "info_url": "https://openlibrary.org/books/OL16242544M/A_moveable_feast"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9780140004212",
@@ -46432,7 +46665,8 @@
             "subtitle": "the troublesome reign of Tiberius Claudius Caesar, Emperor of the Romans (born 10 BC, died AD 54), as described by himself, also his murder at the hands of the notorious Agrippina (mother of the Emperor Nero) and his subsequent deification, as described by others",
             "title": "Claudius the god and his wife Messalina",
             "info_url": "https://openlibrary.org/books/OL22370482M/Claudius_the_god_and_his_wife_Messalina"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780199538515",
@@ -46533,7 +46767,8 @@
             "subtitle": "A true account of multiple murder and its consequences",
             "title": "In Cold Blood",
             "info_url": "https://openlibrary.org/books/OL24735328M/In_Cold_Blood"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781847088765",
@@ -46638,7 +46873,8 @@
             "publish_date": "1974",
             "title": "The fratricides",
             "info_url": "https://openlibrary.org/books/OL21917975M/The_fratricides"
-        }
+        },
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9781742612829",
@@ -46884,7 +47120,8 @@
             "publish_date": "1994",
             "title": "Birdsong",
             "info_url": "https://openlibrary.org/books/OL7317260M/Birdsong"
-        }
+        },
+        "location": "BR-01"
     },
     {
         "isbn_13": "9781852835637",
@@ -46928,7 +47165,8 @@
             "subtitle": "the official publication of the television series",
             "title": "Northern Exposure",
             "info_url": "https://openlibrary.org/books/OL17061767M/Northern_Exposure"
-        }
+        },
+        "location": "KB"
     },
     {
         "isbn_13": "9780140131918",
@@ -48704,7 +48942,8 @@
         "openlib_synch_time": "2020-07-09 10:54:54 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR02-02"
     },
     {
         "isbn_13": "9783827420237",
@@ -48878,6 +49117,64 @@
         ]
     },
     {
+        "id": 1013,
+        "purchase_date": {
+            "year": 2018,
+            "month": 10,
+            "day": 21
+        },
+        "isbn_13": "9788838925443",
+        "isbn_10": "8838925445",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Malvaldi",
+                    "given_names": [
+                        "Marco"
+                    ]
+                }
+            ],
+            "languages": [
+                "ita"
+            ],
+            "dimensions": {
+                "length": 198
+            },
+            "key": "/books/OL24920626M",
+            "publishers": [
+                "Sellerio"
+            ],
+            "publish_places": [
+                "Palermo"
+            ],
+            "publish_date": "2011",
+            "title": "Odore di chiuso",
+            "info_url": "https://openlibrary.org/books/OL24920626M/Odore_di_chiuso"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2020-07-14 09:58:26 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Malvaldi",
+                "given_names": [
+                    "Marco"
+                ]
+            }
+        ],
+        "title": "Odore di chiuso",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Sellerio"
+        ],
+        "location": "LR02-02",
+        "seller": "Libreria Senese",
+        "purchase_currency": "EUR",
+        "purchase_price": 13,
+        "shipping_price": 0
+    },
+    {
         "isbn_13": "9788838908644",
         "isbn_10": "8838908648",
         "flags": 1,
@@ -48893,7 +49190,7 @@
         "publishers": [
             "Sellerio"
         ],
-        "id": 1013,
+        "id": 1014,
         "purchase_date": {
             "year": 2018,
             "month": 12,
@@ -48941,7 +49238,7 @@
         "publishers": [
             "W. H. Freeman"
         ],
-        "id": 1014,
+        "id": 1015,
         "purchase_date": {
             "year": 2019,
             "month": 7,
@@ -49013,7 +49310,7 @@
         "publishers": [
             "Bloomsbury"
         ],
-        "id": 1015,
+        "id": 1016,
         "purchase_date": {
             "year": 2019,
             "month": 9,
@@ -49051,7 +49348,7 @@
         "publishers": [
             "Picador"
         ],
-        "id": 1016,
+        "id": 1017,
         "purchase_date": {
             "year": 2019,
             "month": 9,
@@ -49111,7 +49408,7 @@
         "publishers": [
             "Oneworld"
         ],
-        "id": 1017,
+        "id": 1018,
         "purchase_date": {
             "year": 2019,
             "month": 9,
@@ -49166,7 +49463,7 @@
         "publishers": [
             "Panini 9L"
         ],
-        "id": 1018,
+        "id": 1019,
         "purchase_date": {
             "year": 2019,
             "month": 11,
@@ -49211,7 +49508,7 @@
         "publishers": [
             "Kiepenhauer & Witsch"
         ],
-        "id": 1019,
+        "id": 1020,
         "arrival_date": {
             "year": 2019,
             "month": 12,
@@ -49258,7 +49555,7 @@
         "publishers": [
             "Kiepenhauer & Witsch"
         ],
-        "id": 1020,
+        "id": 1021,
         "arrival_date": {
             "year": 2019,
             "month": 12,
@@ -49286,7 +49583,7 @@
         "publishers": [
             "Oneworld"
         ],
-        "id": 1021,
+        "id": 1022,
         "purchase_date": {
             "year": 2019,
             "month": 12,
@@ -49334,7 +49631,7 @@
         "publishers": [
             "Harper Collins"
         ],
-        "id": 1022,
+        "id": 1023,
         "purchase_date": {
             "year": 2019,
             "month": 12,
@@ -49367,7 +49664,7 @@
         "publishers": [
             "Wiley"
         ],
-        "id": 1023,
+        "id": 1024,
         "purchase_date": {
             "year": 2019,
             "month": 12,
@@ -49412,7 +49709,7 @@
             }
         ],
         "title": "The Hill Ghost",
-        "id": 1024,
+        "id": 1025,
         "purchase_date": {
             "year": 2019,
             "month": 12,
@@ -49445,7 +49742,7 @@
         "publishers": [
             "Hamburger Lesehefte"
         ],
-        "id": 1025,
+        "id": 1026,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -49482,7 +49779,7 @@
         "publishers": [
             "Magbala Books"
         ],
-        "id": 1026,
+        "id": 1027,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -49538,7 +49835,7 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "id": 1027,
+        "id": 1028,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -49568,7 +49865,10 @@
         "openlib_synch_time": "2020-07-09 10:55:34 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "number_in_series": 6,
+        "series": "Thursday Next",
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780340963135",
@@ -49586,7 +49886,7 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "id": 1028,
+        "id": 1029,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -49615,7 +49915,10 @@
         "openlib_synch_time": "2020-07-09 10:55:34 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "series": "Thursday Next",
+        "number_in_series": 7,
+        "location": "BR-01"
     },
     {
         "isbn_13": "9780140435368",
@@ -49633,7 +49936,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 1029,
+        "id": 1030,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -49690,7 +49993,7 @@
         }
     },
     {
-        "id": 1030,
+        "id": 1031,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -49747,7 +50050,7 @@
         "publishers": [
             "Cambridge University Press"
         ],
-        "id": 1031,
+        "id": 1032,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -49786,7 +50089,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 1032,
+        "id": 1033,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -49833,7 +50136,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 1033,
+        "id": 1034,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -49865,7 +50168,7 @@
         ]
     },
     {
-        "id": 1034,
+        "id": 1035,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -49922,7 +50225,7 @@
         }
     },
     {
-        "id": 1035,
+        "id": 1036,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -49978,7 +50281,7 @@
         ]
     },
     {
-        "id": 1036,
+        "id": 1037,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50036,7 +50339,7 @@
         ]
     },
     {
-        "id": 1037,
+        "id": 1038,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50078,7 +50381,7 @@
         ]
     },
     {
-        "id": 1038,
+        "id": 1039,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50124,7 +50427,7 @@
         ]
     },
     {
-        "id": 1039,
+        "id": 1040,
         "seller": "Amazon",
         "seller_branch": ".com.au",
         "purchase_date": {
@@ -50180,7 +50483,7 @@
         ]
     },
     {
-        "id": 1040,
+        "id": 1041,
         "purchase_date": {
             "year": 2020,
             "month": 5,
