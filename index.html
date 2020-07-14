@@ -225,11 +225,12 @@
             const UPDATED_CAT_EXT   = ".updated";
 
             // Catalogue column definitions listing
-            // Each definition comprises an enumerator, column name and
-            // (optionally) the path to the column value in a catalogue record,
-            // and a flag indicating whether multiple sources apply to the column
             const catColDefList =
             [
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
+            //  ENUMERATOR              NAME                PATH TO VALUE                           MULTI   DATA TYPE               //
+            //                                                                                      SRC?                            //
+            //////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
                 ["COL_ID",              "Cat ID",           [CAT_FLD_ID],                           false,  DataTypeEnum.DT_INT     ],
                 ["COL_SYNCH_STATUS",    "Synched"                                                                                   ],
                 ["COL_IN_OPENLIB",      "In openlib"                                                                                ],
@@ -280,14 +281,12 @@
                 let colCatRecPath   = colDetails.length > 0 ? colDetails.shift() : null;
                 let colAllSrcs      = colDetails.length > 0 ? colDetails.shift() : true;
                 let colDataType     = colDetails.length > 0 ? colDetails.shift() : DataTypeEnum.DT_STRING;
-                //let colListBased    = colDetails.length > 0 ? colDetails.shift() : false;
 
                 CatColEnum[colEnumerator] = colEnumVal;
                 catColDefs[colEnumVal] = {
                                             name:       colName,
                                             catRecPath: colCatRecPath,
                                             allSrcs:    colAllSrcs,
-                                            //listBased:  colListBased
                                             dataType:   colDataType
                                           };
             }
@@ -1123,14 +1122,15 @@
                                     let olHeight = parseFloat(dimComponents.shift()) * IN_TO_CM;
                                     let olWidth = parseFloat(dimComponents.shift()) * IN_TO_CM;
                                     let olThickness = parseFloat(dimComponents.shift()) * IN_TO_CM;
-                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_HEIGHT], olHeight, CAT_FLD_SRC_OPENLIB);
-                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_WIDTH], olWidth, CAT_FLD_SRC_OPENLIB);
-                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_THICKNESS], olThickness, CAT_FLD_SRC_OPENLIB);
+
+                                    setFldValByColId(catRec, CatColEnum.COL_DIM_HEIGHT, olHeight, CAT_FLD_SRC_OPENLIB);
+                                    setFldValByColId(catRec, CatColEnum.COL_DIM_WIDTH, olWidth, CAT_FLD_SRC_OPENLIB);
+                                    setFldValByColId(catRec, CatColEnum.COL_DIM_THICKNESS, olThickness, CAT_FLD_SRC_OPENLIB);
                                 }
 
                                 if (olRec[OLK_DETAILS][OLK_PAGES])
                                 {
-                                    setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_LENGTH], olRec[OLK_DETAILS][OLK_PAGES], CAT_FLD_SRC_OPENLIB);
+                                    setFldValByColId(catRec, CatColEnum.COL_DIM_LENGTH, olRec[OLK_DETAILS][OLK_PAGES], CAT_FLD_SRC_OPENLIB);
                                 }
 
                                 let olMassStr = olRec[OLK_DETAILS][OLK_WEIGHT];
@@ -1141,7 +1141,7 @@
                                     let olMassUnits = olMassComponents.length > 0 ? olMassComponents.shift() : null;
                                     if (!isNaN(olMass))
                                     {
-                                        setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS], parseFloat(olMass), CAT_FLD_SRC_OPENLIB);
+                                        setFldValByColId(catRec, CatColEnum.COL_DIM_MASS, parseFloat(olMass), CAT_FLD_SRC_OPENLIB);
                                     }
                                     setFldVal(catRec, [CAT_FLD_DIM, CAT_FLD_DIM_MASS_UNITS], olMassUnits, CAT_FLD_SRC_OPENLIB);
                                 }
