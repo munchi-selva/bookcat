@@ -89,6 +89,9 @@
                     <button type="button" id="btnMinColumns" class="cat-settings-button">
                         Show minimal columns
                     </button>
+                    <button type="button" id="btnResetFilters" class="cat-settings-button">
+                        Reset filters
+                    </button>
                 </div>
             </div>
         </div>
@@ -736,6 +739,11 @@
                 {
                     showMinimalColumns();
                 });
+
+                $("#btnResetFilters").click(function()
+                {
+                    resetFiters();
+                });
             });
 
 
@@ -842,6 +850,11 @@
                 }
                 return null;
             }
+            function resetFiters()
+            {
+                gridOptions.api.setFilterModel(null);
+                gridOptions.api.onFilterChanged();
+            }
 
             // Defines the menu that appears when a cell is right-clicked
             function getCatContextMenu(params)
@@ -922,8 +935,7 @@
                         name:   "Reset filters",
                         action: function()
                         {
-                            gridOptions.api.setFilterModel(null);
-                            gridOptions.api.onFilterChanged();
+                            resetFiters();
                         }
                     },
                     {
