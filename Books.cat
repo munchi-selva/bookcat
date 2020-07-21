@@ -3342,7 +3342,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780224071031",
@@ -7960,7 +7961,8 @@
         "openlib_synch_time": "2020-07-09 10:54:59 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780002259613",
@@ -17770,7 +17772,8 @@
             "subtitle": "every test & one-day international player ever",
             "title": "The encyclopedia of international cricketers",
             "info_url": "https://openlibrary.org/books/OL16279421M/The_encyclopedia_of_international_cricketers"
-        }
+        },
+        "location": "BR-06"
     },
     {
         "isbn_13": "9780749336509",
@@ -18733,7 +18736,11 @@
             "length": 48
         },
         "cover_required": "N",
-        "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
+        "languages": [
+            "deu"
+        ],
+        "location": "BR-04"
     },
     {
         "flags": 1,
@@ -18765,7 +18772,11 @@
             "length": 48
         },
         "cover_required": "N",
-        "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
+        "languages": [
+            "deu"
+        ],
+        "location": "BR-04"
     },
     {
         "flags": 1,
@@ -18797,7 +18808,11 @@
             "length": 48
         },
         "cover_required": "N (Hardback)",
-        "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
+        "languages": [
+            "bay"
+        ],
+        "location": "BR-04"
     },
     {
         "isbn_13": "9780571203130",
@@ -25300,7 +25315,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-06"
     },
     {
         "isbn_13": "9780753539552",
@@ -28237,7 +28253,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9788881801503",
@@ -31145,7 +31162,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780091927103",
@@ -32482,7 +32500,8 @@
         "openlib_synch_time": "2020-07-09 10:55:17 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780340937686",
@@ -37857,7 +37876,8 @@
         "openlib_synch_time": "2020-07-09 10:55:22 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "BR-06"
     },
     {
         "flags": 1,
@@ -40249,7 +40269,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "BR-06"
     },
     {
         "flags": 1,
@@ -40365,7 +40386,8 @@
         "openlib_synch_time": "2020-07-09 10:55:24 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "BR-06"
     },
     {
         "flags": 1,
@@ -40538,7 +40560,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "BR-06"
     },
     {
         "isbn_13": "9780719002007",
@@ -40685,7 +40708,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "BR-06"
     },
     {
         "flags": 1,
@@ -40716,7 +40740,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "BR-06"
     },
     {
         "flags": 1,
@@ -40747,7 +40772,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "BR-06"
     },
     {
         "isbn_13": "9780140041194",
@@ -41612,7 +41638,8 @@
         "publishers": [
             "Secker & Warburg",
             "Octopus"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780007353583",
@@ -48488,7 +48515,8 @@
             "publish_date": "May 6, 2004",
             "title": "Saying Yes",
             "info_url": "https://openlibrary.org/books/OL8816473M/Saying_Yes"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780393344516",
