@@ -36779,7 +36779,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-03"
     },
     {
         "isbn_13": "9780140145953",
@@ -40209,7 +40210,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR01-03"
     },
     {
         "isbn_13": "9780140021967",
@@ -46228,7 +46230,8 @@
         "openlib_synch_time": "2020-07-09 10:55:30 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR01-03"
     },
     {
         "isbn_13": "9788845293436",
