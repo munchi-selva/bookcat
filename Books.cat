@@ -2235,7 +2235,8 @@
             "subtitle": "A Novel",
             "title": "Mary Queen of Scotland & The Isles",
             "info_url": "https://openlibrary.org/books/OL9830805M/Mary_Queen_of_Scotland_The_Isles"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780312357771",
@@ -3378,7 +3379,8 @@
         "openlib_synch_time": "2020-07-09 10:54:56 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780749386559",
@@ -3456,7 +3458,7 @@
         "flags": 3,
         "authors": [
             {
-                "surname": "Perez-Reverte",
+                "surname": "Pérez-Reverte",
                 "given_names": [
                     "Arturo"
                 ]
@@ -3868,7 +3870,8 @@
         "openlib_synch_time": "2020-07-09 10:54:57 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780312424084",
@@ -3979,7 +3982,8 @@
         "openlib_synch_time": "2020-07-09 10:54:57 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780684842677",
@@ -4179,7 +4183,8 @@
             "publish_date": "2006",
             "title": "The Yiddish policemen's union",
             "info_url": "https://openlibrary.org/books/OL20945235M/The_Yiddish_policemen's_union"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780394758282",
@@ -4611,7 +4616,8 @@
             "subtitle": "being the adventures of Count Sainte-Hermine in the age of Napoleon",
             "title": "The last cavalier",
             "info_url": "https://openlibrary.org/books/OL22763120M/The_last_cavalier"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780394759845",
@@ -4808,7 +4814,8 @@
             "publish_date": "2007",
             "title": "A Thousand Splendid Suns",
             "info_url": "https://openlibrary.org/books/OL24838403M/A_Thousand_Splendid_Suns"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780451525260",
@@ -5262,7 +5269,8 @@
             "publish_date": "2006",
             "title": "Helen of Troy",
             "info_url": "https://openlibrary.org/books/OL3432270M/Helen_of_Troy"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "flags": 1,
@@ -5592,7 +5600,8 @@
         "openlib_synch_time": "2020-07-09 10:54:58 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780812558623",
@@ -5977,7 +5986,8 @@
             "publish_date": "1999",
             "title": "Solomon's song",
             "info_url": "https://openlibrary.org/books/OL6883481M/Solomon's_song"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780140066944",
@@ -6080,7 +6090,8 @@
         ],
         "series": "Marcus Didius Falco",
         "dimensions": {},
-        "number_in_series": 12
+        "number_in_series": 12,
+        "location": "BR-05"
     },
     {
         "isbn_13": "9783499200182",
@@ -6654,7 +6665,8 @@
         "openlib_synch_time": "2020-07-09 10:54:58 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781857029796",
@@ -7047,7 +7059,8 @@
             "subtitle": "with notes by his fool, Will Somers",
             "title": "The autobiography of Henry VIII",
             "info_url": "https://openlibrary.org/books/OL9724432M/The_autobiography_of_Henry_VIII"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781844836086",
@@ -7996,7 +8009,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780140118360",
@@ -8085,7 +8099,8 @@
         "openlib_synch_time": "2020-07-09 10:54:59 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780140431186",
@@ -8442,7 +8457,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-95"
     },
     {
         "flags": 1,
@@ -9127,7 +9143,8 @@
         "openlib_synch_time": "2020-07-09 10:55:00 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781857022421",
@@ -9376,7 +9393,8 @@
             "publish_date": "1993",
             "title": "A suitable boy",
             "info_url": "https://openlibrary.org/books/OL21018004M/A_suitable_boy"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780140433623",
@@ -9641,7 +9659,8 @@
             "publish_date": "1994",
             "title": "The riders",
             "info_url": "https://openlibrary.org/books/OL1219035M/The_riders"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "flags": 1,
@@ -12273,7 +12292,8 @@
             "publish_date": "2003",
             "title": "The Clerkenwell tales",
             "info_url": "https://openlibrary.org/books/OL3727646M/The_Clerkenwell_tales"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780224061261",
@@ -12334,7 +12354,8 @@
             "publish_date": "2001",
             "title": "Glue",
             "info_url": "https://openlibrary.org/books/OL19698232M/Glue"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "flags": 1,
@@ -12428,7 +12449,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "flags": 1,
@@ -15008,7 +15030,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780732278410",
@@ -15345,7 +15368,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781845296650",
@@ -15998,7 +16022,8 @@
         "openlib_synch_time": "2020-07-09 10:55:04 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780670825370",
@@ -16050,7 +16075,8 @@
             "publish_date": "1988",
             "title": "The Satanic Verses",
             "info_url": "https://openlibrary.org/books/OL26448470M/The_Satanic_Verses"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780747562597",
@@ -16109,7 +16135,8 @@
             "publish_date": "2003",
             "title": "Oryx and Crake",
             "info_url": "https://openlibrary.org/books/OL19135384M/Oryx_and_Crake"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780440111207",
@@ -17636,7 +17663,8 @@
         "openlib_synch_time": "2020-07-09 10:55:05 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780670916825",
@@ -17861,7 +17889,8 @@
             "publish_date": "May 31, 2007",
             "title": "The Young Stalin",
             "info_url": "https://openlibrary.org/books/OL10316594M/The_Young_Stalin"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781570719851",
@@ -17971,7 +18000,8 @@
             "publish_date": "1994",
             "title": "Dan Leno and the Limehouse Golem",
             "info_url": "https://openlibrary.org/books/OL18070006M/Dan_Leno_and_the_Limehouse_Golem"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781843547228",
@@ -18042,7 +18072,8 @@
         "openlib_synch_time": "2020-07-09 10:55:05 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781846680496",
@@ -19379,7 +19410,8 @@
             "subtitle": "a 21st century comedy in the presence of death",
             "title": "Vernon God Little",
             "info_url": "https://openlibrary.org/books/OL3748659M/Vernon_God_Little"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780006550686",
@@ -20083,7 +20115,8 @@
         "openlib_synch_time": "2020-07-09 10:55:06 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780753814031",
@@ -21934,7 +21967,8 @@
             "subtitle": "a memoir",
             "title": "A monk swimming",
             "info_url": "https://openlibrary.org/books/OL17517825M/A_monk_swimming"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780099456766",
@@ -22341,7 +22375,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780306807268",
@@ -22792,7 +22827,8 @@
         "openlib_synch_time": "2020-07-09 10:55:09 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780571195640",
@@ -23958,7 +23994,8 @@
         "openlib_synch_time": "2020-07-09 10:55:10 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780099518471",
@@ -24154,7 +24191,8 @@
             "publish_date": "2000",
             "title": "When we were orphans",
             "info_url": "https://openlibrary.org/books/OL15306638M/When_we_were_orphans"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781406322934",
@@ -24513,7 +24551,8 @@
             "publish_date": "2011",
             "title": "The Family Fang",
             "info_url": "https://openlibrary.org/books/OL25102369M/The_Family_Fang"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781921656255",
@@ -24606,7 +24645,8 @@
             "subtitle": "story of the man who sent Charles I to the scaffold",
             "title": "The tyrannicide brief",
             "info_url": "https://openlibrary.org/books/OL23083605M/The_tyrannicide_brief"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780241951538",
@@ -25287,7 +25327,8 @@
         "openlib_synch_time": "2020-07-09 10:55:11 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781921351891",
@@ -25388,7 +25429,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780470432105",
@@ -25561,7 +25603,8 @@
             "publish_date": "2012",
             "title": "Skagboys",
             "info_url": "https://openlibrary.org/books/OL25378942M/Skagboys"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "flags": 1,
@@ -26245,7 +26288,8 @@
         "openlib_synch_time": "2020-07-09 10:55:12 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780192821300",
@@ -26834,7 +26878,7 @@
         "flags": 3,
         "authors": [
             {
-                "surname": "De Bernieres",
+                "surname": "de Bernieres",
                 "given_names": [
                     "Louis"
                 ]
@@ -27110,7 +27154,8 @@
         "openlib_synch_time": "2020-07-09 10:55:12 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780385721080",
@@ -27418,7 +27463,7 @@
         "flags": 3,
         "authors": [
             {
-                "surname": "Perez-Reverte",
+                "surname": "Pérez-Reverte",
                 "given_names": [
                     "Arturo"
                 ]
@@ -27707,7 +27752,8 @@
             "publish_date": "2009",
             "title": "The girl on the landing",
             "info_url": "https://openlibrary.org/books/OL23949775M/The_girl_on_the_landing"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780140185676",
@@ -31247,7 +31293,8 @@
             "publish_date": "2010",
             "title": "Solar",
             "info_url": "https://openlibrary.org/books/OL24529182M/Solar"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780141019000",
@@ -31638,7 +31685,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781853754388",
@@ -33370,7 +33418,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780007269761",
@@ -35788,7 +35837,7 @@
         "flags": 1,
         "authors": [
             {
-                "surname": "Perez-Reverte",
+                "surname": "Pérez-Reverte",
                 "given_names": [
                     "Arturo"
                 ]
@@ -35938,7 +35987,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780224051705",
@@ -36039,7 +36089,8 @@
         "openlib_synch_time": "2020-07-09 10:55:20 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780701179939",
@@ -36103,7 +36154,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "flags": 1,
@@ -38781,7 +38833,8 @@
         "openlib_synch_time": "2020-07-09 10:55:22 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781566569521",
@@ -39851,7 +39904,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780349121086",
@@ -41028,7 +41082,8 @@
             "publish_date": "2000",
             "title": "Anil's ghost",
             "info_url": "https://openlibrary.org/books/OL19586013M/Anil's_ghost"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780099515074",
@@ -41484,7 +41539,7 @@
         }
     },
     {
-        "flags": 1,
+        "flags": 3,
         "authors": [
             {
                 "surname": "Mann",
@@ -41505,7 +41560,41 @@
         "price_conversion_rate": 1,
         "seller": "Sydney Uni Book Fest",
         "cover_required": "N (Hardback)",
-        "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-07-22 08:43:06 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "0905712382",
+        "isbn_13": "9780905712383",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Mann",
+                    "given_names": [
+                        "Thomas"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 809
+            },
+            "key": "/books/OL2671905M",
+            "publishers": [
+                "Secker & Warburg",
+                "Octopus"
+            ],
+            "publish_places": [
+                "London"
+            ],
+            "publish_date": "1979",
+            "title": "Death in Venice ; Tristan ; Tonio Kröger ; Doctor Faustus ; Mario and the magician ; A man and his dog ; The black swan ; Confessions of Felix Krull, confidence man",
+            "info_url": "https://openlibrary.org/books/OL2671905M/Death_in_Venice_Tristan_Tonio_Kröger_Doctor_Faustus_Mario_and_the_magician_A_man_and_his_dog_The_bl"
+        },
+        "title": "Death in Venice; Tristan; Tonio Kröger; Doctor Faustus; Mario and the Magician; A Man and His Dog; The Black Swan; Confessions of Felix Krull, Confidence Man",
+        "publishers": [
+            "Secker & Warburg",
+            "Octopus"
+        ]
     },
     {
         "isbn_13": "9780007353583",
@@ -41554,7 +41643,8 @@
             "publish_date": "2012",
             "title": "Bring Up the Bodies",
             "info_url": "https://openlibrary.org/books/OL26454925M/Bring_Up_the_Bodies"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9781743311271",
@@ -41605,7 +41695,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780002720427",
@@ -41695,7 +41786,8 @@
         "openlib_synch_time": "2020-07-09 10:55:25 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "id": 831,
@@ -42190,7 +42282,8 @@
         "openlib_synch_time": "2020-07-09 10:55:25 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780007318490",
@@ -42245,7 +42338,8 @@
             "subtitle": "a novel",
             "title": "Telegraph avenue",
             "info_url": "https://openlibrary.org/books/OL28258760M/Telegraph_avenue"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780170261197",
@@ -43741,7 +43835,8 @@
             "subtitle": "a novel",
             "title": "Closing time",
             "info_url": "https://openlibrary.org/books/OL1096036M/Closing_time"
-        }
+        },
+        "location": "BR-05"
     },
     {
         "isbn_13": "9780099514084",
