@@ -2754,7 +2754,8 @@
             "subtitle": "Guide to Royal Navy of Jack Aubrey",
             "title": "A Nelson Companion",
             "info_url": "https://openlibrary.org/books/OL8929557M/A_Nelson_Companion"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780316734509",
@@ -3219,7 +3220,8 @@
             "subtitle": "And the Pop Renaissance",
             "title": "Franz Ferdinand",
             "info_url": "https://openlibrary.org/books/OL8775889M/Franz_Ferdinand"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780141023465",
@@ -4943,7 +4945,8 @@
             "subtitle": "on the road through 5 continents & 17 countries",
             "title": "Maroon 5, midnight miles",
             "info_url": "https://openlibrary.org/books/OL17846245M/Maroon_5_midnight_miles"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780449002636",
@@ -9495,7 +9498,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780194311472",
@@ -9709,7 +9713,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780722110690",
@@ -10828,7 +10833,8 @@
             "publish_date": "1988",
             "title": "Dickens and popular entertainment",
             "info_url": "https://openlibrary.org/books/OL2034688M/Dickens_and_popular_entertainment"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780006545484",
@@ -21091,7 +21097,8 @@
             "publish_date": "2007",
             "title": "The God Delusion",
             "info_url": "https://openlibrary.org/books/OL24330288M/The_God_Delusion"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780140441123",
@@ -21626,7 +21633,8 @@
         "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780141019451",
@@ -21767,7 +21775,8 @@
             "publish_date": "1991",
             "title": "The blind watchmaker",
             "info_url": "https://openlibrary.org/books/OL22737164M/The_blind_watchmaker"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780140157512",
@@ -23096,7 +23105,8 @@
             "subtitle": "the decay of public language",
             "title": "Death sentence",
             "info_url": "https://openlibrary.org/books/OL3363736M/Death_sentence"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "flags": 1,
@@ -24920,7 +24930,8 @@
         "openlib_synch_time": "2020-07-09 10:55:11 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780575116702",
@@ -25022,7 +25033,8 @@
         "openlib_synch_time": "2020-07-09 10:55:11 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780007314669",
@@ -30468,7 +30480,8 @@
         "openlib_synch_time": "2020-07-09 10:54:52 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9783125171411",
@@ -33803,7 +33816,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780330294911",
@@ -33864,7 +33878,8 @@
             "publish_date": "1986",
             "title": "The man who mistook his wife for a hat",
             "info_url": "https://openlibrary.org/books/OL16355536M/The_man_who_mistook_his_wife_for_a_hat"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780141020525",
@@ -38772,7 +38787,8 @@
             "publish_date": "1994",
             "title": "Introducing Kafka",
             "info_url": "https://openlibrary.org/books/OL14955540M/Introducing_Kafka"
-        }
+        },
+        "location": "BR-07"
     },
     {
         "flags": 1,
@@ -40881,7 +40897,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "flags": 1,
@@ -40901,7 +40918,8 @@
         "openlib_synch_time": "2020-07-09 10:54:53 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9788878993730",
@@ -41952,7 +41970,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9780752868707",
@@ -42011,7 +42030,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9781856266666",
@@ -42092,7 +42112,8 @@
         "openlib_synch_time": "2020-07-09 10:55:25 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "BR-07"
     },
     {
         "isbn_13": "9788415846772",
