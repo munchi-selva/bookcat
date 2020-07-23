@@ -862,6 +862,13 @@
             {
                 gridOptions.api.setFilterModel(null);
                 gridOptions.api.onFilterChanged();
+
+                // Restore visibility/focus around the first selected node
+                let selectedNodes = gridOptions.api.getSelectedNodes();
+                if (selectedNodes.length > 0)
+                {
+                    gridOptions.api.ensureNodeVisible(selectedNodes[0]);
+                }
             }
 
             // Defines the menu that appears when a cell is right-clicked
