@@ -3832,7 +3832,8 @@
             "publish_date": "1972",
             "title": "How to read a book",
             "info_url": "https://openlibrary.org/books/OL22751830M/How_to_read_a_book"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9781413259346",
@@ -3996,9 +3997,9 @@
         "flags": 3,
         "authors": [
             {
-                "surname": "Frank",
+                "surname": "McCourt",
                 "given_names": [
-                    "McCourt"
+                    "Frank"
                 ]
             }
         ],
@@ -4058,7 +4059,8 @@
             "subtitle": "A Memoir",
             "title": "Angela's Ashes",
             "info_url": "https://openlibrary.org/books/OL7721796M/Angela's_Ashes"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780312282998",
@@ -4687,7 +4689,8 @@
             "publish_date": "1988",
             "title": "Oscar Wilde",
             "info_url": "https://openlibrary.org/books/OL2060656M/Oscar_Wilde"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780679722649",
@@ -5494,7 +5497,8 @@
             "subtitle": "a memoir",
             "title": "'Tis",
             "info_url": "https://openlibrary.org/books/OL24951126M/'Tis"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780671882365",
@@ -9010,7 +9014,8 @@
         "openlib_synch_time": "2020-07-09 10:55:00 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780207123221",
@@ -9780,7 +9785,8 @@
             "subtitle": "who's really who in fiction",
             "title": "The originals",
             "info_url": "https://openlibrary.org/books/OL18220977M/The_originals"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780140041231",
@@ -11512,7 +11518,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780006499282",
@@ -12402,7 +12409,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780436276033",
@@ -12754,7 +12762,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780520253971",
@@ -17410,7 +17419,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780199535941",
@@ -17643,7 +17653,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780330422086",
@@ -24323,7 +24334,8 @@
             "publish_date": "November 1, 2001",
             "title": "13.5 Lives of Captain Bluebear",
             "info_url": "https://openlibrary.org/books/OL7316908M/13.5_Lives_of_Captain_Bluebear"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780224094153",
@@ -32144,7 +32156,8 @@
             "publish_date": "2006",
             "title": "Daniel",
             "info_url": "https://openlibrary.org/books/OL17181083M/Daniel"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780340635117",
@@ -32901,7 +32914,8 @@
             "subtitle": "books VI-X of The History of Rome from its foundation",
             "title": "Rome and Italy",
             "info_url": "https://openlibrary.org/books/OL3095264M/Rome_and_Italy"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780140440843",
@@ -33792,7 +33806,8 @@
             "publish_date": "1997",
             "title": "Regarding Jane Eyre",
             "info_url": "https://openlibrary.org/books/OL756680M/Regarding_Jane_Eyre"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780333309803",
@@ -45000,7 +45015,9 @@
             "width": 13.8,
             "thickness": 5.9,
             "length": 1024
-        }
+        },
+        "flags": 1,
+        "openlib_synch_time": "2020-07-24 09:18:52 GMT+1000 (Australian Eastern Standard Time)"
     },
     {
         "isbn_13": "9780007118717",
@@ -45198,7 +45215,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "flags": 1,
@@ -45250,7 +45268,8 @@
         "openlib_synch_time": "2020-07-09 10:55:29 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780340733578",
@@ -47610,7 +47629,8 @@
             "publish_date": "1995",
             "title": "The new Spaniards",
             "info_url": "https://openlibrary.org/books/OL1030024M/The_new_Spaniards"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "flags": 1,
@@ -48052,7 +48072,8 @@
         "openlib_synch_time": "2020-07-09 10:55:32 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780415610186",
