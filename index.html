@@ -22,7 +22,11 @@
         <script type="text/javascript" src="bookcat_utils.js"></script>
     </head>
     <body>
-        <div id="catGrid" class="cat-main-div ag-theme-balham container-fluid">
+        <div class="container-fluid"
+            style="display: grid;
+                   grid-template-columns:auto;
+                   grid-template-rows: auto auto auto 1fr;
+                   height: 100vh">
             <h2>Ex libris ... munchi</h2>
             <div class="panel-group">
                 <div id="divCatInfo" class="cat-info"></div>
@@ -93,6 +97,9 @@
                         Reset filters
                     </button>
                 </div>
+            </div>
+
+            <div id="catGrid" class="cat-main-div ag-theme-balham">
             </div>
         </div>
 
@@ -742,7 +749,7 @@
 
                 $("#btnResetFilters").click(function()
                 {
-                    resetFiters();
+                    resetFilters();
                 });
             });
 
@@ -850,7 +857,8 @@
                 }
                 return null;
             }
-            function resetFiters()
+
+            function resetFilters()
             {
                 gridOptions.api.setFilterModel(null);
                 gridOptions.api.onFilterChanged();
@@ -935,7 +943,7 @@
                         name:   "Reset filters",
                         action: function()
                         {
-                            resetFiters();
+                            resetFilters();
                         }
                     },
                     {
