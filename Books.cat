@@ -7190,7 +7190,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780385521727",
@@ -16921,7 +16922,8 @@
             "subtitle": "The King and His Court",
             "title": "Henry VIII",
             "info_url": "https://openlibrary.org/books/OL9691805M/Henry_VIII"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780634047015",
@@ -31289,7 +31291,8 @@
             "publish_date": "2010",
             "title": "Luka and the Fire of Life",
             "info_url": "https://openlibrary.org/books/OL28258875M/Luka_and_the_Fire_of_Life"
-        }
+        },
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9780224090490",
@@ -35259,7 +35262,8 @@
         "openlib_synch_time": "2020-07-09 10:54:52 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "chi"
-        ]
+        ],
+        "location": "LR01-04"
     },
     {
         "isbn_13": "9787806004432",
