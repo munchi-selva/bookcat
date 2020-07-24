@@ -2407,7 +2407,8 @@
             "publish_date": "2005",
             "title": "Earthly joys",
             "info_url": "https://openlibrary.org/books/OL3423156M/Earthly_joys"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780760759059",
@@ -4256,7 +4257,8 @@
             "publish_date": "1992",
             "title": "The  big sleep",
             "info_url": "https://openlibrary.org/books/OL1566844M/The_big_sleep"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780312357764",
@@ -4756,7 +4758,8 @@
             "publish_date": "1989",
             "title": "The  Maltese falcon",
             "info_url": "https://openlibrary.org/books/OL2060998M/The_Maltese_falcon"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9781594489501",
@@ -5304,7 +5307,8 @@
         "openlib_synch_time": "2020-07-09 10:54:48 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780393329735",
@@ -5366,7 +5370,8 @@
             "publish_date": "2007",
             "title": "Imposture",
             "info_url": "https://openlibrary.org/books/OL18243992M/Imposture"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9781423433491",
@@ -6577,7 +6582,8 @@
         "openlib_synch_time": "2020-07-09 10:54:58 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780140439342",
@@ -6999,7 +7005,8 @@
             "publish_date": "January 3, 2006",
             "title": "Pride of Carthage",
             "info_url": "https://openlibrary.org/books/OL7441928M/Pride_of_Carthage"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780312194390",
@@ -7302,7 +7309,8 @@
         "openlib_synch_time": "2020-07-09 10:54:59 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780810994423",
@@ -12915,7 +12923,8 @@
             "publish_date": "1990",
             "title": "Ulysses",
             "info_url": "https://openlibrary.org/books/OL2217101M/Ulysses"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780312428396",
@@ -13061,7 +13070,8 @@
             "subtitle": "a novel",
             "title": "Dirt music",
             "info_url": "https://openlibrary.org/books/OL3684353M/Dirt_music"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780822221005",
@@ -15177,7 +15187,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9782854952933",
@@ -16368,7 +16379,8 @@
             "publish_date": "1997",
             "title": "MASH",
             "info_url": "https://openlibrary.org/books/OL1009066M/MASH"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780571066728",
@@ -16750,7 +16762,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780099523628",
@@ -22961,7 +22974,8 @@
         "openlib_synch_time": "2020-07-09 10:55:09 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780297859093",
@@ -24148,7 +24162,8 @@
             "publish_date": "2003",
             "title": "A farewell to arms",
             "info_url": "https://openlibrary.org/books/OL20524966M/A_farewell_to_arms"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9789571119922",
@@ -26501,7 +26516,8 @@
             "publish_date": "1970",
             "title": "Swann's way.",
             "info_url": "https://openlibrary.org/books/OL5294660M/Swann's_way."
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780140265408",
@@ -27268,7 +27284,8 @@
             "publish_date": "November 6, 2001",
             "title": "Flashman and the Tiger",
             "info_url": "https://openlibrary.org/books/OL7441873M/Flashman_and_the_Tiger"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780340936351",
@@ -27907,7 +27924,8 @@
         "openlib_synch_time": "2020-07-09 10:55:13 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9787805134482",
@@ -31905,7 +31923,8 @@
             "subtitle": "the Gospel according to Biff, Christ's childhood pal",
             "title": "Lamb",
             "info_url": "https://openlibrary.org/books/OL3564323M/Lamb"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780140150629",
@@ -32036,7 +32055,8 @@
             "publish_date": "1997",
             "title": "The untouchable",
             "info_url": "https://openlibrary.org/books/OL16616118M/The_untouchable"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780552996099",
@@ -38598,7 +38618,8 @@
             "subtitle": "Molloy, Malone Dies, The Unnamable",
             "title": "Three Novels",
             "info_url": "https://openlibrary.org/books/OL7875243M/Three_Novels"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780753828786",
@@ -42250,6 +42271,65 @@
         ]
     },
     {
+        "id": 839,
+        "purchase_date": {
+            "year": 2015,
+            "month": 11,
+            "day": 20
+        },
+        "arrival_date": {
+            "year": 2015,
+            "month": 12,
+            "day": 9
+        },
+        "seller": "Book Depository",
+        "purchase_currency": "AUD",
+        "purchase_price": 7.49,
+        "shipping_price": 0,
+        "isbn_13": "9781617204623",
+        "isbn_10": "1617204625",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "irving",
+                    "given_names": [
+                        "Washington"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 196
+            },
+            "physical_format": "paperback",
+            "key": "/books/OL27464482M",
+            "publishers": [
+                "SMK Books"
+            ],
+            "publish_date": "Dec 13, 2011",
+            "title": "Tales of the Alhambra",
+            "info_url": "https://openlibrary.org/books/OL27464482M/Tales_of_the_Alhambra"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2020-07-24 10:15:14 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Irving",
+                "given_names": [
+                    "Washington"
+                ]
+            }
+        ],
+        "title": "Tales of the Alhambra",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "SMK Books"
+        ],
+        "location": "LR01-05",
+        "cover_required": "Y (Done)"
+    },
+    {
         "isbn_13": "9780521546935",
         "isbn_10": "0521546931",
         "flags": 3,
@@ -42265,7 +42345,7 @@
         "publishers": [
             "Cambridge University Press"
         ],
-        "id": 839,
+        "id": 840,
         "purchase_date": {
             "year": 2015,
             "month": 12,
@@ -42322,7 +42402,7 @@
         "publishers": [
             "Harvill Secker"
         ],
-        "id": 840,
+        "id": 841,
         "purchase_date": {
             "year": 2016,
             "month": 2,
@@ -42359,7 +42439,7 @@
         "publishers": [
             "Faber & Faber"
         ],
-        "id": 841,
+        "id": 842,
         "purchase_date": {
             "year": 2016,
             "month": 3,
@@ -42391,7 +42471,7 @@
         "publishers": [
             "Harper Collins"
         ],
-        "id": 842,
+        "id": 843,
         "purchase_date": {
             "year": 2016,
             "month": 3,
@@ -42444,7 +42524,7 @@
             }
         ],
         "title": "An Introduction to Language with Student Resource Access 12 Months: Australia and New Zealand Edition",
-        "id": 843,
+        "id": 844,
         "purchase_date": {
             "year": 2016,
             "month": 5,
@@ -42483,7 +42563,7 @@
         "publishers": [
             "Museo Thyssen-Bornemisza"
         ],
-        "id": 844,
+        "id": 845,
         "purchase_date": {
             "year": 2016,
             "month": 6,
@@ -42509,7 +42589,7 @@
         "publishers": [
             "Museo Thyssen-Bornemisza"
         ],
-        "id": 845,
+        "id": 846,
         "purchase_date": {
             "year": 2016,
             "month": 6,
@@ -42543,7 +42623,7 @@
         "publishers": [
             "Patrimonio Nacional"
         ],
-        "id": 846,
+        "id": 847,
         "purchase_date": {
             "year": 2016,
             "month": 6,
@@ -42567,7 +42647,7 @@
         "publishers": [
             "Museo Nacional del Prado"
         ],
-        "id": 847,
+        "id": 848,
         "purchase_date": {
             "year": 2016,
             "month": 6,
@@ -42597,7 +42677,7 @@
         "publishers": [
             "Lucemar"
         ],
-        "id": 848,
+        "id": 849,
         "purchase_date": {
             "year": 2016,
             "month": 6,
@@ -42621,7 +42701,7 @@
         "publishers": [
             "Fundació Catalunya La Pedrera"
         ],
-        "id": 849,
+        "id": 850,
         "purchase_date": {
             "year": 2016,
             "month": 6,
@@ -42638,7 +42718,7 @@
         "publishers": [
             "Geo Mondadori"
         ],
-        "id": 850,
+        "id": 851,
         "purchase_date": {
             "year": 2016,
             "month": 6,
@@ -42681,7 +42761,7 @@
         "publishers": [
             "Salvietti & Barabuffi Editori"
         ],
-        "id": 851,
+        "id": 852,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42717,7 +42797,7 @@
         "publishers": [
             "Betti Editrice"
         ],
-        "id": 852,
+        "id": 853,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42753,7 +42833,7 @@
         "publishers": [
             "Maurits"
         ],
-        "id": 853,
+        "id": 854,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42785,7 +42865,7 @@
         "publishers": [
             "Panini 9L"
         ],
-        "id": 854,
+        "id": 855,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42817,7 +42897,7 @@
         "publishers": [
             "Universale Economica Feltrinelli"
         ],
-        "id": 855,
+        "id": 856,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42851,7 +42931,7 @@
         "publishers": [
             "Universale Economica Feltrinelli"
         ],
-        "id": 856,
+        "id": 857,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42885,7 +42965,7 @@
         "publishers": [
             "Universale Economica Feltrinelli"
         ],
-        "id": 857,
+        "id": 858,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42919,7 +42999,7 @@
         "publishers": [
             "Universale Economica Feltrinelli"
         ],
-        "id": 858,
+        "id": 859,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42953,7 +43033,7 @@
         "publishers": [
             "Oscar Mondadori"
         ],
-        "id": 859,
+        "id": 860,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -42985,7 +43065,7 @@
         "publishers": [
             "Oscar Mondadori"
         ],
-        "id": 860,
+        "id": 861,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -43018,7 +43098,7 @@
         "publishers": [
             "Oscar Mondadori"
         ],
-        "id": 861,
+        "id": 862,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -43051,7 +43131,7 @@
         "publishers": [
             "Einaudi"
         ],
-        "id": 862,
+        "id": 863,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -43084,7 +43164,7 @@
         "publishers": [
             "Einaudi"
         ],
-        "id": 863,
+        "id": 864,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -43103,7 +43183,7 @@
     },
     {
         "flags": 1,
-        "id": 864,
+        "id": 865,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -43132,7 +43212,7 @@
         "publishers": [
             "Franco Cosimo Panini"
         ],
-        "id": 865,
+        "id": 866,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -43164,7 +43244,7 @@
         "publishers": [
             "Universale Economica Feltrinelli"
         ],
-        "id": 866,
+        "id": 867,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -43198,7 +43278,7 @@
         "publishers": [
             "Bompiani"
         ],
-        "id": 867,
+        "id": 868,
         "purchase_date": {
             "year": 2016,
             "month": 7,
@@ -43246,7 +43326,7 @@
         "publishers": [
             "Skira"
         ],
-        "id": 868,
+        "id": 869,
         "purchase_date": {
             "year": 2016,
             "month": 7
@@ -43277,7 +43357,7 @@
         "publishers": [
             "Sellerio editore Palermo"
         ],
-        "id": 869,
+        "id": 870,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43316,7 +43396,7 @@
         "publishers": [
             "Garzanti"
         ],
-        "id": 870,
+        "id": 871,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43347,7 +43427,7 @@
         "publishers": [
             "Edizioni Accademia Milano"
         ],
-        "id": 871,
+        "id": 872,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43384,7 +43464,7 @@
         "publishers": [
             "Rizzoli"
         ],
-        "id": 872,
+        "id": 873,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43413,7 +43493,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 873,
+        "id": 874,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43445,7 +43525,7 @@
         "publishers": [
             "Thames and Hudson"
         ],
-        "id": 874,
+        "id": 875,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43504,7 +43584,7 @@
         "publishers": [
             "Indiana University Press"
         ],
-        "id": 875,
+        "id": 876,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43563,7 +43643,7 @@
         "publishers": [
             "Harper Perennial"
         ],
-        "id": 876,
+        "id": 877,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43595,7 +43675,7 @@
         "publishers": [
             "W. W. Norton"
         ],
-        "id": 877,
+        "id": 878,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43650,7 +43730,7 @@
         "publishers": [
             "Oxford University Press"
         ],
-        "id": 878,
+        "id": 879,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43682,7 +43762,7 @@
         "publishers": [
             "Transeuropa"
         ],
-        "id": 879,
+        "id": 880,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43738,7 +43818,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 880,
+        "id": 881,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43801,7 +43881,7 @@
         "publishers": [
             "Penguin Classics"
         ],
-        "id": 881,
+        "id": 882,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43855,7 +43935,7 @@
         "publishers": [
             "Book Club Associates London"
         ],
-        "id": 882,
+        "id": 883,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43887,7 +43967,7 @@
         "publishers": [
             "Simon & Schuster"
         ],
-        "id": 883,
+        "id": 884,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43944,7 +44024,7 @@
         "publishers": [
             "Arrow"
         ],
-        "id": 884,
+        "id": 885,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -43976,7 +44056,7 @@
         "publishers": [
             "Penguin Classics"
         ],
-        "id": 885,
+        "id": 886,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44035,7 +44115,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 886,
+        "id": 887,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44076,7 +44156,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 887,
+        "id": 888,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44132,7 +44212,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 888,
+        "id": 889,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44189,7 +44269,7 @@
         "publishers": [
             "Virago"
         ],
-        "id": 889,
+        "id": 890,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44244,7 +44324,7 @@
         "publishers": [
             "Picador"
         ],
-        "id": 890,
+        "id": 891,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44298,7 +44378,7 @@
         "publishers": [
             "Farrar, Straus and Giroux"
         ],
-        "id": 891,
+        "id": 892,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44349,7 +44429,7 @@
         "publishers": [
             "Random House"
         ],
-        "id": 892,
+        "id": 893,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44405,7 +44485,7 @@
         "publishers": [
             "Collins Harvill"
         ],
-        "id": 893,
+        "id": 894,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44461,7 +44541,7 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "id": 894,
+        "id": 895,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44514,7 +44594,7 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "id": 895,
+        "id": 896,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44567,7 +44647,7 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "id": 896,
+        "id": 897,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44602,7 +44682,7 @@
         "publishers": [
             "Phoenix"
         ],
-        "id": 897,
+        "id": 898,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44634,7 +44714,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 898,
+        "id": 899,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44683,7 +44763,7 @@
         "publishers": [
             "Deutscher Taschenbuch Verlag"
         ],
-        "id": 899,
+        "id": 900,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44754,7 +44834,7 @@
         "publishers": [
             "Reklam/Universal-Bibliothek"
         ],
-        "id": 900,
+        "id": 901,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44830,7 +44910,7 @@
         "publishers": [
             "Collins"
         ],
-        "id": 901,
+        "id": 902,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44877,7 +44957,7 @@
         "publishers": [
             "Reader's Digest"
         ],
-        "id": 902,
+        "id": 903,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44900,7 +44980,7 @@
         "publishers": [
             "Bonechi"
         ],
-        "id": 903,
+        "id": 904,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44947,7 +45027,7 @@
         "publishers": [
             "Pavilion Books"
         ],
-        "id": 904,
+        "id": 905,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44968,7 +45048,7 @@
         "publishers": [
             "Casa Editrice Francescana Frati Minori Conventuali"
         ],
-        "id": 905,
+        "id": 906,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -44981,7 +45061,7 @@
         "openlib_synch_time": "2020-07-09 10:54:54 GMT+1000 (Australian Eastern Standard Time)"
     },
     {
-        "id": 906,
+        "id": 907,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -45039,7 +45119,7 @@
         "publishers": [
             "Harper Collins"
         ],
-        "id": 907,
+        "id": 908,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -45096,7 +45176,7 @@
             }
         ],
         "title": "Liechtenstein: A Modern History",
-        "id": 908,
+        "id": 909,
         "purchase_date": {
             "year": 2016,
             "month": 9,
@@ -45149,7 +45229,7 @@
             }
         ],
         "title": "Homicide",
-        "id": 909,
+        "id": 910,
         "purchase_date": {
             "year": 2016,
             "month": 10,
@@ -45180,7 +45260,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 910,
+        "id": 911,
         "purchase_date": {
             "year": 2016,
             "month": 12,
@@ -45225,7 +45305,7 @@
     {
         "flags": 1,
         "title": "The Kills",
-        "id": 911,
+        "id": 912,
         "purchase_date": {
             "year": 2016,
             "month": 12,
@@ -45258,7 +45338,7 @@
         "publishers": [
             "Hardie Grant"
         ],
-        "id": 912,
+        "id": 913,
         "purchase_date": {
             "year": 2016,
             "month": 12,
@@ -45291,7 +45371,7 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "id": 913,
+        "id": 914,
         "purchase_date": {
             "year": 2016,
             "month": 12,
@@ -45351,7 +45431,7 @@
             }
         ],
         "title": "Zen Origami: 20 Modular Forms for Mediation and Calm",
-        "id": 914,
+        "id": 915,
         "purchase_date": {
             "year": 2016,
             "month": 12,
@@ -45412,7 +45492,7 @@
         "publishers": [
             "Art Gallery of New South Wales"
         ],
-        "id": 915,
+        "id": 916,
         "purchase_date": {
             "year": 2017,
             "month": 1,
@@ -45443,7 +45523,7 @@
         "publishers": [
             "Faber & Faber"
         ],
-        "id": 916,
+        "id": 917,
         "purchase_date": {
             "year": 2017,
             "month": 1,
@@ -45475,7 +45555,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 917,
+        "id": 918,
         "purchase_date": {
             "year": 2017,
             "month": 1,
@@ -45508,7 +45588,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 918,
+        "id": 919,
         "purchase_date": {
             "year": 2017,
             "month": 1,
@@ -45539,7 +45619,7 @@
         "isbn_10": "0521145899",
         "flags": 3,
         "title": "Australian English Pronunciation and Transcription",
-        "id": 919,
+        "id": 920,
         "purchase_date": {
             "year": 2017,
             "month": 1,
@@ -45593,7 +45673,7 @@
             }
         ],
         "title": "An Introduction to Phonetics and Phonology",
-        "id": 920,
+        "id": 921,
         "purchase_date": {
             "year": 2017,
             "month": 2,
@@ -45664,7 +45744,7 @@
             }
         ],
         "title": "The Sounds of the World's Languages",
-        "id": 921,
+        "id": 922,
         "purchase_date": {
             "year": 2017,
             "month": 3,
@@ -45713,7 +45793,7 @@
         "isbn_10": "0495910473",
         "flags": 1,
         "title": "A Biography of the English Language",
-        "id": 922,
+        "id": 923,
         "purchase_date": {
             "year": 2017,
             "month": 3,
@@ -45734,7 +45814,7 @@
         "isbn_10": "1682450740",
         "flags": 3,
         "title": "The Godfather Notebook",
-        "id": 923,
+        "id": 924,
         "purchase_date": {
             "year": 2017,
             "month": 3,
@@ -45780,7 +45860,7 @@
         "publishers": [
             "Il Mulino"
         ],
-        "id": 924,
+        "id": 925,
         "purchase_date": {
             "year": 2017,
             "month": 5,
@@ -45818,7 +45898,7 @@
         "publishers": [
             "Il Mulino"
         ],
-        "id": 925,
+        "id": 926,
         "purchase_date": {
             "year": 2017,
             "month": 5,
@@ -45845,7 +45925,7 @@
         "isbn_10": "8843052039",
         "flags": 3,
         "title": "Lingue e dialetti d'Italia",
-        "id": 926,
+        "id": 927,
         "purchase_date": {
             "year": 2017,
             "month": 5,
@@ -45906,7 +45986,7 @@
         "publishers": [
             "Seagull Books"
         ],
-        "id": 927,
+        "id": 928,
         "purchase_date": {
             "year": 2017,
             "month": 5,
@@ -45921,7 +46001,8 @@
         "openlib_synch_time": "2020-07-09 10:55:29 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9781402794582",
@@ -45939,7 +46020,7 @@
         "publishers": [
             "Sterling Signature"
         ],
-        "id": 928,
+        "id": 929,
         "purchase_date": {
             "year": 2017,
             "month": 5,
@@ -45970,7 +46051,7 @@
             }
         ],
         "title": "American Gods",
-        "id": 929,
+        "id": 930,
         "purchase_date": {
             "year": 2017,
             "month": 6,
@@ -46018,7 +46099,7 @@
         "isbn_10": "8899267456",
         "flags": 1,
         "title": "Le quattro verdi",
-        "id": 930,
+        "id": 931,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46053,7 +46134,7 @@
         "isbn_10": "886391138X",
         "flags": 1,
         "title": "Storia di Siena",
-        "id": 931,
+        "id": 932,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46085,7 +46166,7 @@
         "isbn_10": "8875761531",
         "flags": 1,
         "title": "Il palio",
-        "id": 932,
+        "id": 933,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46104,7 +46185,7 @@
         "isbn_10": "8879268880",
         "flags": 1,
         "title": "Il Libro dei Perchè",
-        "id": 933,
+        "id": 934,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46141,7 +46222,7 @@
         "isbn_10": "8804679220",
         "flags": 1,
         "title": "Poema a Fumetti",
-        "id": 934,
+        "id": 935,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46162,7 +46243,7 @@
         "isbn_10": "8893360411",
         "flags": 1,
         "title": "Renzo e Lucia: I Promessi Sposi",
-        "id": 935,
+        "id": 936,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46183,7 +46264,7 @@
         "isbn_10": "8804616962",
         "flags": 1,
         "title": "Orlando Furioso di Ludovico Ariosto",
-        "id": 936,
+        "id": 937,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46204,7 +46285,7 @@
         "isbn_10": "8868362155",
         "flags": 1,
         "title": "Caravaggio Segreto",
-        "id": 937,
+        "id": 938,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46238,7 +46319,7 @@
         "isbn_10": "8861909787",
         "flags": 1,
         "title": "L'Agenda Rossa di Paolo Borsellino",
-        "id": 938,
+        "id": 939,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46265,7 +46346,7 @@
             }
         ],
         "title": "I racconti",
-        "id": 939,
+        "id": 940,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46286,7 +46367,7 @@
         "isbn_10": "8845281477",
         "flags": 1,
         "title": "Gli indifferenti",
-        "id": 940,
+        "id": 941,
         "purchase_date": {
             "year": 2017,
             "month": 7,
@@ -46331,7 +46412,7 @@
         "publishers": [
             "National Gallery Company Limited"
         ],
-        "id": 941,
+        "id": 942,
         "arrival_date": {
             "year": 2017,
             "month": 7
@@ -46372,7 +46453,7 @@
             }
         ],
         "title": "Heidi",
-        "id": 942,
+        "id": 943,
         "purchase_date": {
             "year": 2017,
             "month": 7
@@ -46402,7 +46483,7 @@
         "publishers": [
             "Rizzoli Lizard"
         ],
-        "id": 943,
+        "id": 944,
         "purchase_date": {
             "year": 2017,
             "month": 8,
@@ -46440,7 +46521,7 @@
         "publishers": [
             "Shockdom"
         ],
-        "id": 944,
+        "id": 945,
         "purchase_date": {
             "year": 2017,
             "month": 8,
@@ -46479,7 +46560,7 @@
         "publishers": [
             "Bompiani"
         ],
-        "id": 945,
+        "id": 946,
         "purchase_date": {
             "year": 2017,
             "month": 8,
@@ -46524,7 +46605,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 946,
+        "id": 947,
         "purchase_date": {
             "year": 2017,
             "month": 8,
@@ -46562,7 +46643,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 947,
+        "id": 948,
         "purchase_date": {
             "year": 2017,
             "month": 8,
@@ -46599,7 +46680,7 @@
         "publishers": [
             "Reclamm Philipp Jun."
         ],
-        "id": 948,
+        "id": 949,
         "purchase_date": {
             "year": 2017,
             "month": 8,
@@ -46626,7 +46707,7 @@
         "isbn_10": "0004593391",
         "flags": 3,
         "title": "Collins Gem German Verb Tables",
-        "id": 949,
+        "id": 950,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46661,7 +46742,7 @@
         "isbn_10": "0424000105",
         "flags": 3,
         "title": "German Reference Grammar",
-        "id": 950,
+        "id": 951,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46707,7 +46788,7 @@
         "publishers": [
             "Penguin Books"
         ],
-        "id": 951,
+        "id": 952,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46748,7 +46829,7 @@
         "publishers": [
             "Insel Verlag"
         ],
-        "id": 952,
+        "id": 953,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46806,7 +46887,7 @@
         "publishers": [
             "Adelphi Edizioni"
         ],
-        "id": 953,
+        "id": 954,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46854,7 +46935,7 @@
     {
         "flags": 1,
         "title": "I Costumi Popolari del Trentino",
-        "id": 954,
+        "id": 955,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46890,7 +46971,7 @@
         "publishers": [
             "Sansoni"
         ],
-        "id": 955,
+        "id": 956,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46920,7 +47001,7 @@
         "publishers": [
             "Einaudi"
         ],
-        "id": 956,
+        "id": 957,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46952,7 +47033,7 @@
         "publishers": [
             "Airmont"
         ],
-        "id": 957,
+        "id": 958,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -46983,7 +47064,7 @@
         "publishers": [
             "Arrow"
         ],
-        "id": 958,
+        "id": 959,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47036,7 +47117,7 @@
             }
         ],
         "title": "Claudius the God",
-        "id": 959,
+        "id": 960,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47092,7 +47173,7 @@
         "publishers": [
             "Oxford University Press"
         ],
-        "id": 960,
+        "id": 961,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47148,7 +47229,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 961,
+        "id": 962,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47194,7 +47275,7 @@
         "publishers": [
             "Granta Publications"
         ],
-        "id": 962,
+        "id": 963,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47243,7 +47324,7 @@
         "publishers": [
             "Faber & Faber"
         ],
-        "id": 963,
+        "id": 964,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47300,7 +47381,7 @@
         "publishers": [
             "Picador"
         ],
-        "id": 964,
+        "id": 965,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47331,7 +47412,7 @@
         "publishers": [
             "Edward Arnold Publishers"
         ],
-        "id": 965,
+        "id": 966,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47365,7 +47446,7 @@
         "publishers": [
             "Cambridge University Press"
         ],
-        "id": 966,
+        "id": 967,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47421,7 +47502,7 @@
             }
         ],
         "title": "The View from Castle Rock",
-        "id": 967,
+        "id": 968,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47450,7 +47531,7 @@
             }
         ],
         "title": "Two Caravans",
-        "id": 968,
+        "id": 969,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47497,7 +47578,7 @@
             }
         ],
         "title": "Birdsong",
-        "id": 969,
+        "id": 970,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47539,7 +47620,7 @@
         "isbn_10": "185283563X",
         "flags": 3,
         "title": "The Northern Exposure Book",
-        "id": 970,
+        "id": 971,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47595,7 +47676,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 971,
+        "id": 972,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47650,7 +47731,7 @@
         "publishers": [
             "Mondadori"
         ],
-        "id": 972,
+        "id": 973,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47680,7 +47761,7 @@
             }
         ],
         "title": "Fool",
-        "id": 973,
+        "id": 974,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47711,7 +47792,7 @@
         "publishers": [
             "360 Degrees"
         ],
-        "id": 974,
+        "id": 975,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47743,7 +47824,7 @@
         "publishers": [
             "Max Hueber Verlag"
         ],
-        "id": 975,
+        "id": 976,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47780,7 +47861,7 @@
         "publishers": [
             "Max Hueber Verlag"
         ],
-        "id": 976,
+        "id": 977,
         "purchase_date": {
             "year": 2017,
             "month": 9,
@@ -47817,7 +47898,7 @@
         "publishers": [
             "Liebaug-Dartmann Verlag"
         ],
-        "id": 977,
+        "id": 978,
         "purchase_date": {
             "year": 2017,
             "month": 10,
@@ -47853,7 +47934,7 @@
         "publishers": [
             "Liebaug-Dartmann Verlag"
         ],
-        "id": 978,
+        "id": 979,
         "purchase_date": {
             "year": 2017,
             "month": 10,
@@ -47889,7 +47970,7 @@
         "publishers": [
             "Yale University Press"
         ],
-        "id": 979,
+        "id": 980,
         "purchase_date": {
             "year": 2017,
             "month": 10,
@@ -47952,7 +48033,7 @@
         "publishers": [
             "Routledge"
         ],
-        "id": 980,
+        "id": 981,
         "purchase_date": {
             "year": 2017,
             "month": 10,
@@ -48009,7 +48090,7 @@
         "publishers": [
             "Routledge"
         ],
-        "id": 981,
+        "id": 982,
         "purchase_date": {
             "year": 2017,
             "month": 10,
@@ -48058,7 +48139,7 @@
         "publishers": [
             "Harper Collins"
         ],
-        "id": 982,
+        "id": 983,
         "purchase_date": {
             "year": 2017,
             "month": 10,
@@ -48095,7 +48176,7 @@
         "publishers": [
             "Routledge"
         ],
-        "id": 983,
+        "id": 984,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48156,7 +48237,7 @@
         "publishers": [
             "Cambridge University Press"
         ],
-        "id": 984,
+        "id": 985,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48219,7 +48300,7 @@
         "publishers": [
             "Zürcher Hochschulforum"
         ],
-        "id": 985,
+        "id": 986,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48262,7 +48343,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 986,
+        "id": 987,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48301,7 +48382,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 987,
+        "id": 988,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48340,7 +48421,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 988,
+        "id": 989,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48379,7 +48460,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 989,
+        "id": 990,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48418,7 +48499,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 990,
+        "id": 991,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48457,7 +48538,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 991,
+        "id": 992,
         "purchase_date": {
             "year": 2017,
             "month": 11,
@@ -48496,7 +48577,7 @@
         "publishers": [
             "Churchill Press"
         ],
-        "id": 992,
+        "id": 993,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48526,7 +48607,7 @@
         "publishers": [
             "Profile"
         ],
-        "id": 993,
+        "id": 994,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48563,7 +48644,7 @@
         "publishers": [
             "Penguin Putnam Inc"
         ],
-        "id": 994,
+        "id": 995,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48638,7 +48719,7 @@
         "publishers": [
             "WW Norton & Co"
         ],
-        "id": 995,
+        "id": 996,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48699,7 +48780,7 @@
         "publishers": [
             "Picador"
         ],
-        "id": 996,
+        "id": 997,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48756,7 +48837,7 @@
         "publishers": [
             "Pan Macmillan"
         ],
-        "id": 997,
+        "id": 998,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48783,7 +48864,7 @@
         "publishers": [
             "Simon & Schuster"
         ],
-        "id": 998,
+        "id": 999,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48823,7 +48904,7 @@
         "publishers": [
             "Bloomsbury"
         ],
-        "id": 999,
+        "id": 1000,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48865,7 +48946,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780385683715",
@@ -48883,7 +48965,7 @@
         "publishers": [
             "Bond Street Books"
         ],
-        "id": 1000,
+        "id": 1001,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48914,7 +48996,7 @@
             }
         ],
         "title": "The Hero with a Thousand Faces",
-        "id": 1001,
+        "id": 1002,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -48974,7 +49056,7 @@
             }
         ],
         "title": "The Prose Edda",
-        "id": 1002,
+        "id": 1003,
         "purchase_date": {
             "year": 2018,
             "month": 1,
@@ -49009,7 +49091,7 @@
             }
         ],
         "title": "Complete Short Stories",
-        "id": 1003,
+        "id": 1004,
         "purchase_date": {
             "year": 2018,
             "month": 2,
@@ -49066,7 +49148,7 @@
             }
         ],
         "title": "Our Man in Havana",
-        "id": 1004,
+        "id": 1005,
         "purchase_date": {
             "year": 2018,
             "month": 2,
@@ -49104,7 +49186,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 1005,
+        "id": 1006,
         "purchase_date": {
             "year": 2018,
             "month": 2,
@@ -49158,7 +49240,7 @@
             }
         ],
         "title": "The Syntax Workbook",
-        "id": 1006,
+        "id": 1007,
         "purchase_date": {
             "year": 2018,
             "month": 2,
@@ -49202,7 +49284,7 @@
             }
         ],
         "title": "Syntax: A Generative Introduction",
-        "id": 1007,
+        "id": 1008,
         "purchase_date": {
             "year": 2018,
             "month": 2,
@@ -49257,7 +49339,7 @@
             }
         ],
         "title": "Meditations",
-        "id": 1008,
+        "id": 1009,
         "purchase_date": {
             "year": 2018,
             "month": 4,
@@ -49297,7 +49379,7 @@
     },
     {
         "flags": 1,
-        "id": 1009,
+        "id": 1010,
         "purchase_date": {
             "year": 2018
         },
@@ -49317,7 +49399,7 @@
             }
         ],
         "title": "Jeder stirbt für sich allein",
-        "id": 1010,
+        "id": 1011,
         "purchase_date": {
             "year": 2018
         },
@@ -49344,7 +49426,7 @@
         "publishers": [
             "The Continental Book Company AB"
         ],
-        "id": 1011,
+        "id": 1012,
         "purchase_date": {
             "year": 2018,
             "month": 7,
@@ -49401,7 +49483,7 @@
         "publishers": [
             "Spektrum Akademischer Verlag Gmbh"
         ],
-        "id": 1012,
+        "id": 1013,
         "purchase_date": {
             "year": 2018,
             "month": 8,
@@ -49463,7 +49545,7 @@
         "publishers": [
             "Magic Press"
         ],
-        "id": 1013,
+        "id": 1014,
         "purchase_date": {
             "year": 2018,
             "month": 8,
@@ -49507,7 +49589,7 @@
         "publishers": [
             "Canto Classics"
         ],
-        "id": 1014,
+        "id": 1015,
         "purchase_date": {
             "year": 2018,
             "month": 9,
@@ -49533,7 +49615,7 @@
         ]
     },
     {
-        "id": 1015,
+        "id": 1016,
         "purchase_date": {
             "year": 2018,
             "month": 10,
@@ -49606,7 +49688,7 @@
         "publishers": [
             "Sellerio"
         ],
-        "id": 1016,
+        "id": 1017,
         "purchase_date": {
             "year": 2018,
             "month": 12,
@@ -49654,7 +49736,7 @@
         "publishers": [
             "W. H. Freeman"
         ],
-        "id": 1017,
+        "id": 1018,
         "purchase_date": {
             "year": 2019,
             "month": 7,
@@ -49726,7 +49808,7 @@
         "publishers": [
             "Bloomsbury"
         ],
-        "id": 1018,
+        "id": 1019,
         "purchase_date": {
             "year": 2019,
             "month": 9,
@@ -49764,7 +49846,7 @@
         "publishers": [
             "Picador"
         ],
-        "id": 1019,
+        "id": 1020,
         "purchase_date": {
             "year": 2019,
             "month": 9,
@@ -49824,7 +49906,7 @@
         "publishers": [
             "Oneworld"
         ],
-        "id": 1020,
+        "id": 1021,
         "purchase_date": {
             "year": 2019,
             "month": 9,
@@ -49879,7 +49961,7 @@
         "publishers": [
             "Panini 9L"
         ],
-        "id": 1021,
+        "id": 1022,
         "purchase_date": {
             "year": 2019,
             "month": 11,
@@ -49924,7 +50006,7 @@
         "publishers": [
             "Kiepenhauer & Witsch"
         ],
-        "id": 1022,
+        "id": 1023,
         "arrival_date": {
             "year": 2019,
             "month": 12,
@@ -49971,7 +50053,7 @@
         "publishers": [
             "Kiepenhauer & Witsch"
         ],
-        "id": 1023,
+        "id": 1024,
         "arrival_date": {
             "year": 2019,
             "month": 12,
@@ -49999,7 +50081,7 @@
         "publishers": [
             "Oneworld"
         ],
-        "id": 1024,
+        "id": 1025,
         "purchase_date": {
             "year": 2019,
             "month": 12,
@@ -50047,7 +50129,7 @@
         "publishers": [
             "Harper Collins"
         ],
-        "id": 1025,
+        "id": 1026,
         "purchase_date": {
             "year": 2019,
             "month": 12,
@@ -50080,7 +50162,7 @@
         "publishers": [
             "Wiley"
         ],
-        "id": 1026,
+        "id": 1027,
         "purchase_date": {
             "year": 2019,
             "month": 12,
@@ -50125,7 +50207,7 @@
             }
         ],
         "title": "The Hill Ghost",
-        "id": 1027,
+        "id": 1028,
         "purchase_date": {
             "year": 2019,
             "month": 12,
@@ -50158,7 +50240,7 @@
         "publishers": [
             "Hamburger Lesehefte"
         ],
-        "id": 1028,
+        "id": 1029,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -50195,7 +50277,7 @@
         "publishers": [
             "Magbala Books"
         ],
-        "id": 1029,
+        "id": 1030,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -50251,7 +50333,7 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "id": 1030,
+        "id": 1031,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -50302,7 +50384,7 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "id": 1031,
+        "id": 1032,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -50352,7 +50434,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 1032,
+        "id": 1033,
         "purchase_date": {
             "year": 2020,
             "month": 2,
@@ -50409,7 +50491,7 @@
         }
     },
     {
-        "id": 1033,
+        "id": 1034,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -50466,7 +50548,7 @@
         "publishers": [
             "Cambridge University Press"
         ],
-        "id": 1034,
+        "id": 1035,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -50506,7 +50588,7 @@
         "publishers": [
             "Penguin"
         ],
-        "id": 1035,
+        "id": 1036,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -50553,7 +50635,7 @@
         "publishers": [
             "Vintage"
         ],
-        "id": 1036,
+        "id": 1037,
         "purchase_date": {
             "year": 2020,
             "month": 3,
@@ -50586,7 +50668,7 @@
         "location": "LR01-04"
     },
     {
-        "id": 1037,
+        "id": 1038,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50643,7 +50725,7 @@
         }
     },
     {
-        "id": 1038,
+        "id": 1039,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50699,7 +50781,7 @@
         ]
     },
     {
-        "id": 1039,
+        "id": 1040,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50757,7 +50839,7 @@
         ]
     },
     {
-        "id": 1040,
+        "id": 1041,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50800,7 +50882,7 @@
         "location": "LR01-03"
     },
     {
-        "id": 1041,
+        "id": 1042,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50847,7 +50929,7 @@
         "location": "LR01-03"
     },
     {
-        "id": 1042,
+        "id": 1043,
         "seller": "Amazon",
         "seller_branch": ".com.au",
         "purchase_date": {
@@ -50903,7 +50985,7 @@
         ]
     },
     {
-        "id": 1043,
+        "id": 1044,
         "purchase_date": {
             "year": 2020,
             "month": 5,
@@ -50968,7 +51050,7 @@
         "location": "LR01-01"
     },
     {
-        "id": 1044,
+        "id": 1045,
         "purchase_date": {
             "year": 2020,
             "month": 7,
