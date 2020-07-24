@@ -49923,7 +49923,8 @@
             "subtitle": "A Novel",
             "title": "Aunt Julia and the Scriptwriter",
             "info_url": "https://openlibrary.org/books/OL9664290M/Aunt_Julia_and_the_Scriptwriter"
-        }
+        },
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9781780746357",
@@ -50140,7 +50141,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-05"
     },
     {
         "isbn_13": "9780008132576",
