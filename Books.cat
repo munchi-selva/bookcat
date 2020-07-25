@@ -51118,5 +51118,136 @@
         "flags": 3,
         "openlib_synch_time": "2020-07-22 16:14:20 GMT+1000 (Australian Eastern Standard Time)",
         "title": "Research Methods in Linguistics"
+    },
+    {
+        "id": 1046,
+        "purchase_date": {
+            "year": 2020,
+            "month": 7,
+            "day": 25
+        },
+        "seller": "Amazon",
+        "seller_branch": ".com.au",
+        "number_in_order": 1,
+        "purchase_currency": "AUD",
+        "purchase_price": 33.49,
+        "isbn_13": "9780984782857",
+        "isbn_10": "0984782850",
+        "openlib": {
+            "dimensions": {
+                "height": 63.245999999999995,
+                "width": 45.465999999999994,
+                "thickness": 9.144,
+                "length": 697,
+                "mass": 1.228,
+                "mass_units": "kilos"
+            },
+            "key": "/books/OL26395119M",
+            "publishers": [
+                "CAREERCUP"
+            ],
+            "publish_date": "07/01/2015",
+            "title": "Cracking the Coding Interview: 189 Programming Questions and Solutions",
+            "info_url": "https://openlibrary.org/books/OL26395119M/Cracking_the_Coding_Interview_189_Programming_Questions_and_Solutions"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2020-07-25 17:05:56 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "McDowell",
+                "given_names": [
+                    "Gayle",
+                    "Lakman"
+                ]
+            }
+        ],
+        "title": "Cracking the Coding Interview",
+        "subtitle": "189 Programming Questions and Solutions",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "CareerCup"
+        ]
+    },
+    {
+        "id": 1047,
+        "purchase_date": {
+            "year": 2020,
+            "month": 7,
+            "day": 25
+        },
+        "seller": "Amazon",
+        "seller_branch": ".com.au",
+        "number_in_order": 2,
+        "purchase_currency": "AUD",
+        "purchase_price": 37.3,
+        "shipping_price": 0,
+        "isbn_10": "111941847X",
+        "isbn_13": "9781119418474",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Mongan",
+                    "given_names": [
+                        "John"
+                    ]
+                },
+                {
+                    "surname": "Kindler",
+                    "given_names": [
+                        "Noah",
+                        "Suojanen"
+                    ]
+                },
+                {
+                    "surname": "Giguere",
+                    "given_names": [
+                        "Eric"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 384
+            },
+            "key": "/books/OL26833419M",
+            "publishers": [
+                "Wrox"
+            ],
+            "publish_date": "Apr 17, 2018",
+            "title": "Programming Interviews Exposed: Coding Your Way Through the Interview",
+            "info_url": "https://openlibrary.org/books/OL26833419M/Programming_Interviews_Exposed_Coding_Your_Way_Through_the_Interview"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2020-07-25 17:05:56 GMT+1000 (Australian Eastern Standard Time)",
+        "languages": [
+            "eng"
+        ],
+        "authors": [
+            {
+                "surname": "Mongan",
+                "given_names": [
+                    "John"
+                ]
+            },
+            {
+                "surname": "Kindler",
+                "given_names": [
+                    "Noah",
+                    "Suojanen"
+                ]
+            },
+            {
+                "surname": "Giguere",
+                "given_names": [
+                    "Eric"
+                ]
+            }
+        ],
+        "title": "Programming Interviews Exposed",
+        "subtitle": "Coding Your Way Through the Interview",
+        "publishers": [
+            "Wrox"
+        ]
     }
 ]
