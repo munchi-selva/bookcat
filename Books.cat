@@ -6154,7 +6154,8 @@
         "openlib_synch_time": "2020-07-09 10:54:58 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780192817280",
@@ -6487,7 +6488,8 @@
         "languages": [
             "eng",
             "deu"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780460874014",
@@ -7854,7 +7856,8 @@
         "openlib_synch_time": "2020-07-09 10:54:59 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9781863304511",
@@ -9711,7 +9714,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "gre"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "flags": 1,
@@ -9892,7 +9896,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780517323427",
@@ -10029,7 +10034,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780140430097",
@@ -10527,7 +10533,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780713513288",
@@ -10644,7 +10651,8 @@
             "publish_date": "1970",
             "title": "Basic (spoken) German dictionary for everyday usage",
             "info_url": "https://openlibrary.org/books/OL5445539M/Basic_(spoken)_German_dictionary_for_everyday_usage"
-        }
+        },
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780586051443",
@@ -10700,7 +10708,8 @@
             "subtitle": "the complete paintings",
             "title": "Holbein",
             "info_url": "https://openlibrary.org/books/OL14973329M/Holbein"
-        }
+        },
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780586051412",
@@ -10756,7 +10765,8 @@
             "publish_date": "1980",
             "title": "Michelangelo",
             "info_url": "https://openlibrary.org/books/OL22148695M/Michelangelo"
-        }
+        },
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780099279075",
@@ -11147,7 +11157,8 @@
             "publish_date": "2008",
             "title": "Oxford Greek-English learner's dictionary",
             "info_url": "https://openlibrary.org/books/OL27110894M/Oxford_Greek-English_learner's_dictionary"
-        }
+        },
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780195079937",
@@ -11268,8 +11279,7 @@
             "publish_date": "April 1, 2005",
             "title": "Far East New Approach English to Chinese Dictionary",
             "info_url": "https://openlibrary.org/books/OL13066915M/Far_East_New_Approach_English_to_Chinese_Dictionary"
-        },
-        "location": "'"
+        }
     },
     {
         "isbn_13": "9780007108268",
@@ -12526,7 +12536,8 @@
         "languages": [
             "eng",
             "gre"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "flags": 1,
@@ -13902,7 +13913,8 @@
         "openlib_synch_time": "2020-07-09 10:54:49 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780340496961",
@@ -13956,7 +13968,8 @@
         "languages": [
             "eng",
             "ita"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780852851302",
@@ -14011,7 +14024,8 @@
             "publish_date": "1988",
             "title": "Greek in three months.",
             "info_url": "https://openlibrary.org/books/OL22639807M/Greek_in_three_months."
-        }
+        },
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780571135394",
@@ -14522,7 +14536,8 @@
         "languages": [
             "eng",
             "ita"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780330243629",
@@ -14966,7 +14981,8 @@
         "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "gre"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_10": "960603375",
@@ -14989,7 +15005,8 @@
         "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "gre"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "flags": 1,
@@ -15327,7 +15344,8 @@
         "openlib_synch_time": "2020-07-09 10:55:03 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9781847676016",
@@ -18501,7 +18519,8 @@
             "publish_date": "2001",
             "title": "A dictionary of language",
             "info_url": "https://openlibrary.org/books/OL6796848M/A_dictionary_of_language"
-        }
+        },
+        "location": "LR01-03"
     },
     {
         "isbn_13": "9780340733561",
@@ -18658,7 +18677,8 @@
         "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-03"
     },
     {
         "isbn_13": "9781841156736",
@@ -22292,7 +22312,8 @@
         },
         "languages": [
             "eng"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780007251940",
@@ -25724,7 +25745,8 @@
         "openlib_synch_time": "2020-07-09 10:54:51 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "flags": 1,
@@ -25972,7 +25994,8 @@
             "subtitle": "Italian-English, English-Italian",
             "title": "Italian dictionary",
             "info_url": "https://openlibrary.org/books/OL1149724M/Italian_dictionary"
-        }
+        },
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780717118212",
@@ -30574,9 +30597,9 @@
         "location": "BR-07"
     },
     {
-        "isbn_13": "9783125171411",
-        "isbn_10": "3125171415",
-        "flags": 1,
+        "isbn_13": "9780004334622",
+        "isbn_10": "0004334620",
+        "flags": 3,
         "title": "Collins Klett German English Dictionary",
         "publishers": [
             "Collins"
@@ -30597,11 +30620,33 @@
         "price_conversion_rate": 1,
         "seller": "Sydney Uni Book Fest",
         "cover_required": "N (Hardback)",
-        "openlib_synch_time": "2020-07-09 10:55:15 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-07-28 09:58:33 GMT+1000 (Australian Eastern Standard Time)",
+        "location": "LR01-01",
+        "languages": [
+            "deu",
+            "eng"
+        ],
+        "openlib": {
+            "languages": [
+                "ger"
+            ],
+            "key": "/books/OL2935215M",
+            "publishers": [
+                "Collins",
+                "Klett"
+            ],
+            "publish_places": [
+                "London",
+                "Stuttgart"
+            ],
+            "publish_date": "1983",
+            "title": "Collins German-English dictionary",
+            "info_url": "https://openlibrary.org/books/OL2935215M/Collins_German-English_dictionary"
+        }
     },
     {
-        "isbn_13": "9783125171312",
-        "isbn_10": "3125171318",
+        "isbn_13": "9780004334639",
+        "isbn_10": "0004334639",
         "flags": 3,
         "title": "Collins Klett English German Dictionary",
         "publishers": [
@@ -30623,28 +30668,29 @@
         "price_conversion_rate": 1,
         "seller": "Sydney Uni Book Fest",
         "cover_required": "N (Hardback)",
-        "openlib_synch_time": "2020-07-09 10:55:15 GMT+1000 (Australian Eastern Standard Time)",
+        "openlib_synch_time": "2020-07-28 09:58:33 GMT+1000 (Australian Eastern Standard Time)",
+        "location": "LR01-01",
         "openlib": {
-            "authors": [
-                {
-                    "surname": "Breitsprecher",
-                    "given_names": [
-                        "Rolan"
-                    ]
-                }
+            "languages": [
+                "ger"
             ],
-            "dimensions": {
-                "length": 1390
-            },
-            "physical_format": "Hardcover",
-            "key": "/books/OL9017905M",
+            "key": "/books/OL2935215M",
             "publishers": [
-                "Collins Publications"
+                "Collins",
+                "Klett"
             ],
-            "publish_date": "January 1, 1984",
-            "title": "Pons Englisch Deutsch Dictionary Volume 1",
-            "info_url": "https://openlibrary.org/books/OL9017905M/Pons_Englisch_Deutsch_Dictionary_Volume_1"
-        }
+            "publish_places": [
+                "London",
+                "Stuttgart"
+            ],
+            "publish_date": "1983",
+            "title": "Collins German-English dictionary",
+            "info_url": "https://openlibrary.org/books/OL2935215M/Collins_German-English_dictionary"
+        },
+        "languages": [
+            "eng",
+            "deu"
+        ]
     },
     {
         "flags": 1,
@@ -42739,7 +42785,13 @@
         "purchase_currency": "EUR",
         "price_conversion_rate": 1,
         "seller": "La Pedrera",
-        "openlib_synch_time": "2020-07-09 10:55:26 GMT+1000 (Australian Eastern Standard Time)"
+        "openlib_synch_time": "2020-07-09 10:55:26 GMT+1000 (Australian Eastern Standard Time)",
+        "location": "LR01-01",
+        "languages": [
+            "fre",
+            "esp",
+            "cat"
+        ]
     },
     {
         "flags": 1,
@@ -43345,7 +43397,8 @@
             "publish_date": "2001",
             "title": "Storia della lingua Italiana",
             "info_url": "https://openlibrary.org/books/OL18537742M/Storia_della_lingua_Italiana"
-        }
+        },
+        "location": "LR01-03"
     },
     {
         "isbn_13": "9788857204536",
@@ -44979,7 +45032,12 @@
             "publish_date": "1971",
             "title": "Collins Spanish-English, English-Spanish dictionary",
             "info_url": "https://openlibrary.org/books/OL20574817M/Collins_Spanish-English_English-Spanish_dictionary"
-        }
+        },
+        "languages": [
+            "eng",
+            "esp"
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780864380807",
@@ -45951,7 +46009,8 @@
         "openlib_synch_time": "2020-07-09 10:55:29 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "ita"
-        ]
+        ],
+        "location": "LR01-03"
     },
     {
         "isbn_13": "9788843052035",
@@ -46768,7 +46827,12 @@
             "publish_date": "1984",
             "title": "German verb tables with nominal declensions",
             "info_url": "https://openlibrary.org/books/OL20937890M/German_verb_tables_with_nominal_declensions"
-        }
+        },
+        "languages": [
+            "eng",
+            "deu"
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780424000107",
