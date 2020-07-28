@@ -9314,7 +9314,8 @@
         "languages": [
             "eng",
             "deu"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780140430714",
@@ -10349,7 +10350,8 @@
             "subtitle": "Vergangenheit und Gegenwart",
             "title": "Die Deutschen",
             "info_url": "https://openlibrary.org/books/OL54226M/Die_Deutschen"
-        }
+        },
+        "location": "LR01-01"
     },
     {
         "flags": 1,
@@ -10439,7 +10441,8 @@
             "publish_date": "1988",
             "title": "Alternativen, a multi-option German reader",
             "info_url": "https://openlibrary.org/books/OL2042348M/Alternativen_a_multi-option_German_reader"
-        }
+        },
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780416077902",
@@ -15037,7 +15040,8 @@
         "openlib_synch_time": "2020-07-09 10:54:50 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9781921145575",
@@ -44965,7 +44969,8 @@
         },
         "languages": [
             "deu"
-        ]
+        ],
+        "location": "LR01-01"
     },
     {
         "isbn_13": "9780004334714",
