@@ -51199,7 +51199,8 @@
                     "Lia"
                 ]
             }
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1046,
@@ -51250,7 +51251,13 @@
         ],
         "publishers": [
             "CareerCup"
-        ]
+        ],
+        "arrival_date": {
+            "year": 2020,
+            "month": 7,
+            "day": 30
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1047,
@@ -51330,6 +51337,12 @@
         "subtitle": "Coding Your Way Through the Interview",
         "publishers": [
             "Wrox"
-        ]
+        ],
+        "arrival_date": {
+            "year": 2020,
+            "month": 7,
+            "day": 30
+        },
+        "cover_required": "Y (Done)"
     }
 ]
