@@ -51344,5 +51344,116 @@
             "day": 30
         },
         "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1048,
+        "arrival_date": {
+            "year": 2020,
+            "month": 9,
+            "day": 17
+        },
+        "seller": "Kinokuniya",
+        "seller_branch": "Sydney",
+        "purchaser": "Boo",
+        "purchase_currency": "AUD",
+        "purchase_price": 45,
+        "shipping_price": 0,
+        "isbn_13": "9781419746895",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Kidd",
+                    "given_names": [
+                        "Chip"
+                    ]
+                },
+                {
+                    "surname": "Spear",
+                    "given_names": [
+                        "Geoff"
+                    ]
+                },
+                {
+                    "surname": "Kinney",
+                    "given_names": [
+                        "Jeff"
+                    ]
+                },
+                {
+                    "surname": "Schulz",
+                    "given_names": [
+                        "Jean"
+                    ]
+                },
+                {
+                    "surname": "Braddock",
+                    "given_names": [
+                        "Paige"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 304
+            },
+            "key": "/books/OL29496851M",
+            "publishers": [
+                "Abrams, Inc."
+            ],
+            "publish_date": "2020",
+            "subtitle": "Charles M. Schulz and the Art of Peanuts",
+            "title": "Only What's Necessary 70th Anniversary Edition",
+            "info_url": "https://openlibrary.org/books/OL29496851M/Only_What's_Necessary_70th_Anniversary_Edition"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2020-09-26 09:00:16 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "1419746898",
+        "authors": [
+            {
+                "surname": "Kidd",
+                "given_names": [
+                    "Chip"
+                ]
+            },
+            {
+                "surname": "Spear",
+                "given_names": [
+                    "Geoff"
+                ]
+            },
+            {
+                "surname": "Kinney",
+                "given_names": [
+                    "Jeff"
+                ]
+            },
+            {
+                "surname": "Schulz",
+                "given_names": [
+                    "Jean"
+                ]
+            },
+            {
+                "surname": "Braddock",
+                "given_names": [
+                    "Paige"
+                ]
+            }
+        ],
+        "title": "Only What's Necessary",
+        "subtitle": "Charles M. Schulz and the Art of Peanuts",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Abrams ComicArts"
+        ],
+        "publish_places": [
+            "New York"
+        ],
+        "location": "LR01-03",
+        "cover_required": "N (Hardcover)"
     }
 ]
