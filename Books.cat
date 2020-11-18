@@ -51460,6 +51460,68 @@
         "id": 1049,
         "purchase_date": {
             "year": 2020,
+            "month": 10,
+            "day": 31
+        },
+        "arrival_date": {
+            "year": 2020,
+            "month": 11,
+            "day": 17
+        },
+        "seller": "The Nile",
+        "seller_branch": "",
+        "purchaser": "Patrick",
+        "isbn_13": "9780394733319",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Kaoru",
+                    "given_names": [
+                        "Iwamoto"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 148
+            },
+            "key": "/books/OL4901243M",
+            "publishers": [
+                "Pantheon Books"
+            ],
+            "publish_places": [
+                "New York"
+            ],
+            "publish_date": "1976",
+            "title": "Go for beginners",
+            "info_url": "https://openlibrary.org/books/OL4901243M/Go_for_beginners"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2020-11-18 11:08:37 GMT+1100 (Australian Eastern Daylight Time)",
+        "isbn_10": "0394733312",
+        "authors": [
+            {
+                "given_names": [
+                    "Iwamoto"
+                ],
+                "surname": "Kaoru"
+            }
+        ],
+        "title": "Go for Beginners",
+        "publishers": [
+            "Pantheon Books"
+        ],
+        "publish_places": [
+            "New York"
+        ],
+        "cover_required": "Y"
+    },
+    {
+        "id": 1050,
+        "purchase_date": {
+            "year": 2020,
             "month": 11,
             "day": 8
         },
@@ -51494,6 +51556,11 @@
         "purchase_currency": "AUD",
         "purchase_price": 35.99,
         "shipping_price": 0,
-        "isbn_10": "1579659411"
+        "isbn_10": "1579659411",
+        "arrival_date": {
+            "year": 2020,
+            "month": 11,
+            "day": 18
+        }
     }
 ]
