@@ -3992,7 +3992,8 @@
         "languages": [
             "eng"
         ],
-        "location": "BR-05"
+        "location": "BR-05",
+        "electronic_format": "pdf"
     },
     {
         "isbn_13": "9780684842677",
@@ -8488,7 +8489,7 @@
         "languages": [
             "eng"
         ],
-        "location": "BR-95"
+        "location": "BR-05"
     },
     {
         "flags": 1,
@@ -50677,7 +50678,7 @@
         "languages": [
             "eng"
         ],
-        "location": "LR01=02"
+        "location": "LR01-02"
     },
     {
         "isbn_13": "9780241958681",
