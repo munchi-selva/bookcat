@@ -51624,5 +51624,63 @@
         },
         "cover_required": "N (Hardcover)",
         "location": "LR02-03"
+    },
+    {
+        "id": 1052,
+        "purchase_date": {
+            "year": 2021,
+            "month": 2,
+            "day": 9
+        },
+        "arrival_date": {
+            "year": 2021,
+            "month": 2,
+            "day": 22
+        },
+        "seller": "Boomerang Books",
+        "purchaser": "Patrick",
+        "isbn_13": "9780008164843",
+        "isbn_10": "0008164843",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Christie",
+                    "given_names": [
+                        "Agatha"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 336
+            },
+            "key": "/books/OL28585769M",
+            "publishers": [
+                "HarperCollins Publishers Limited"
+            ],
+            "publish_date": "2016",
+            "title": "Poirot's Early Cases",
+            "info_url": "https://openlibrary.org/books/OL28585769M/Poirot's_Early_Cases"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2021-02-23 13:01:40 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Christie",
+                "given_names": [
+                    "Agatha"
+                ]
+            }
+        ],
+        "title": "Poirot's Early Cases",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "HarperCollins Publishers Limited"
+        ],
+        "cover_required": "Y"
     }
 ]
