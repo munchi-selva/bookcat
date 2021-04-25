@@ -51681,6 +51681,46 @@
         "publishers": [
             "HarperCollins Publishers Limited"
         ],
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1053,
+        "purchase_date": {
+            "year": 2021,
+            "month": 4,
+            "day": 17
+        },
+        "isbn_13": "9781684156818",
+        "flags": 1,
+        "openlib_synch_time": "2021-04-26 09:26:10 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "1684156815",
+        "authors": [
+            {
+                "surname": "Cooper",
+                "given_names": [
+                    "Jason"
+                ]
+            },
+            {
+                "surname": "Pope",
+                "given_names": [
+                    "Robert"
+                ]
+            }
+        ],
+        "purchase_price": 16.95,
+        "purchase_currency": "AUD",
+        "seller": "Kings Comics",
+        "seller_branch": "Sydney",
+        "purchaser": "Boo",
+        "title": "Scotland Bound, Charlie Brown",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "KaBOOM!"
+        ],
+        "publish_date": "2021",
         "cover_required": "Y"
     }
 ]
