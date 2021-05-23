@@ -51722,5 +51722,135 @@
         ],
         "publish_date": "2021",
         "cover_required": "Y"
+    },
+    {
+        "id": 1054,
+        "purchase_date": {
+            "year": 2021,
+            "month": 5,
+            "day": 21
+        },
+        "isbn_13": "9781760899462",
+        "purchase_price": 15.99,
+        "purchase_currency": "AUD",
+        "shipping_price": 0,
+        "flags": 1,
+        "openlib_synch_time": "2021-05-24 08:33:05 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Winch",
+                "given_names": [
+                    "Tara",
+                    "June"
+                ]
+            }
+        ],
+        "title": "The Yield",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Penguin Books Australia"
+        ],
+        "publish_date": "2021",
+        "dimensions": {
+            "length": 352
+        },
+        "seller": "Boomerang Books",
+        "number_in_order": 1,
+        "isbn_10": "1760899461"
+    },
+    {
+        "id": 1055,
+        "purchase_date": {
+            "year": 2021,
+            "month": 5,
+            "day": 21
+        },
+        "seller": "Boomerang Books",
+        "number_in_order": 2,
+        "purchase_currency": "AUD",
+        "isbn_13": "9781922330512",
+        "flags": 1,
+        "openlib_synch_time": "2021-05-24 08:35:59 GMT+1000 (Australian Eastern Standard Time)",
+        "purchase_price": 27.99,
+        "shipping_price": 0,
+        "authors": [
+            {
+                "surname": "Murphy",
+                "given_names": [
+                    "Fiona"
+                ]
+            }
+        ],
+        "isbn_10": "1922330515",
+        "title": "The Shape of Sound",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Text"
+        ],
+        "publish_date": "2021",
+        "dimensions": {
+            "length": 320
+        }
+    },
+    {
+        "id": 1056,
+        "purchase_date": {
+            "year": 2021,
+            "month": 5,
+            "day": 21
+        },
+        "seller": "Boomerang Books",
+        "number_in_order": 3,
+        "purchase_currency": "AUD",
+        "purchase_price": 15.99,
+        "shipping_price": 0,
+        "isbn_13": "9780140437287",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Holder",
+                    "given_names": [
+                        "Nancy"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 744
+            },
+            "key": "/books/OL3706968M",
+            "publishers": [
+                "Penguin Books"
+            ],
+            "publish_places": [
+                "London",
+                "New York"
+            ],
+            "publish_date": "2003",
+            "subtitle": "a tale of the riots of 'eighty",
+            "title": "Barnaby Rudge",
+            "info_url": "https://openlibrary.org/books/OL3706968M/Barnaby_Rudge"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2021-05-24 08:38:00 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Dickens",
+                "given_names": [
+                    "Charles"
+                ]
+            }
+        ],
+        "title": "Barnaby Rudge",
+        "publishers": [
+            "Penguin Books"
+        ],
+        "publish_date": "2003"
     }
 ]
