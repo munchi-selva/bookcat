@@ -51758,7 +51758,12 @@
         },
         "seller": "Boomerang Books",
         "number_in_order": 1,
-        "isbn_10": "1760899461"
+        "isbn_10": "1760899461",
+        "arrival_date": {
+            "year": 2021,
+            "month": 6,
+            "day": 1
+        }
     },
     {
         "id": 1055,
@@ -51794,6 +51799,11 @@
         "publish_date": "2021",
         "dimensions": {
             "length": 320
+        },
+        "arrival_date": {
+            "year": 2021,
+            "month": 6,
+            "day": 1
         }
     },
     {
@@ -51851,6 +51861,11 @@
         "publishers": [
             "Penguin Books"
         ],
-        "publish_date": "2003"
+        "publish_date": "2003",
+        "arrival_date": {
+            "year": 2021,
+            "month": 6,
+            "day": 1
+        }
     }
 ]
