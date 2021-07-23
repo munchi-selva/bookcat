@@ -51721,7 +51721,7 @@
             "KaBOOM!"
         ],
         "publish_date": "2021",
-        "cover_required": "Y"
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1054,
@@ -51763,7 +51763,8 @@
             "year": 2021,
             "month": 6,
             "day": 1
-        }
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1055,
@@ -51804,7 +51805,8 @@
             "year": 2021,
             "month": 6,
             "day": 1
-        }
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1056,
@@ -51866,6 +51868,150 @@
             "year": 2021,
             "month": 6,
             "day": 1
-        }
+        },
+        "isbn_10": "0140437282",
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1057,
+        "purchase_date": {
+            "year": 2021,
+            "month": 7,
+            "day": 20
+        },
+        "isbn_13": "9789888488476",
+        "isbn_10": "9888488473",
+        "flags": 1,
+        "openlib_synch_time": "2021-07-23 09:48:56 GMT+1000 (Australian Eastern Standard Time)",
+        "title": "站在文明的起跑線",
+        "series": "畫說中國史",
+        "number_in_series": 1,
+        "number_in_order": 1,
+        "authors": [
+            {
+                "surname": "劉",
+                "given_names": [
+                    "京"
+                ]
+            }
+        ],
+        "languages": [
+            "zh"
+        ],
+        "publishers": [
+            "中華書局(教育)"
+        ],
+        "seller": "Kinokuniya",
+        "seller_branch": "Singapore",
+        "purchaser": "Patrick",
+        "purchase_currency": "SGD",
+        "purchase_price": 14.53,
+        "shipping_price": 18.11,
+        "publish_date": "2017"
+    },
+    {
+        "id": 1058,
+        "purchase_date": {
+            "year": 2021,
+            "month": 7,
+            "day": 20
+        },
+        "isbn_13": "9789888488933",
+        "isbn_10": "9888488937",
+        "series": "畫說中國史",
+        "number_in_series": 2,
+        "number_in_order": 2,
+        "authors": [
+            {
+                "given_names": [
+                    "京"
+                ],
+                "surname": "劉"
+            }
+        ],
+        "languages": [
+            "zh"
+        ],
+        "title": "翻開那一頁文明盛世",
+        "publishers": [
+            "中華書局(教育)"
+        ],
+        "seller": "Kinokuniya",
+        "seller_branch": "Singapore",
+        "purchaser": "Patrick",
+        "purchase_currency": "SGD",
+        "purchase_price": 14.53,
+        "shipping_price": 18.11,
+        "publish_date": "2017"
+    },
+    {
+        "id": 1059,
+        "purchase_date": {
+            "year": 2021,
+            "month": 7,
+            "day": 20
+        },
+        "isbn_13": "9789888489039",
+        "isbn_10": "9888489038",
+        "series": "畫說中國史",
+        "number_in_series": 3,
+        "number_in_order": 3,
+        "authors": [
+            {
+                "given_names": [
+                    "京"
+                ],
+                "surname": "劉"
+            }
+        ],
+        "languages": [
+            "zh"
+        ],
+        "title": "強敵環伺的文明路口",
+        "publishers": [
+            "中華書局(教育)"
+        ],
+        "seller": "Kinokuniya",
+        "seller_branch": "Singapore",
+        "purchaser": "Patrick",
+        "purchase_currency": "SGD",
+        "purchase_price": 14.53,
+        "shipping_price": 18.11,
+        "publish_date": "2017"
+    },
+    {
+        "id": 1060,
+        "purchase_date": {
+            "year": 2021,
+            "month": 7,
+            "day": 20
+        },
+        "isbn_13": "9789888489572",
+        "isbn_10": "9888489577",
+        "series": "畫說中國史",
+        "number_in_series": 4,
+        "number_in_order": 4,
+        "authors": [
+            {
+                "given_names": [
+                    "京"
+                ],
+                "surname": "劉"
+            }
+        ],
+        "languages": [
+            "zh"
+        ],
+        "title": "文明的千年變局",
+        "publishers": [
+            "中華書局(教育)"
+        ],
+        "seller": "Kinokuniya",
+        "seller_branch": "Singapore",
+        "purchaser": "Patrick",
+        "purchase_currency": "SGD",
+        "purchase_price": 14.53,
+        "shipping_price": 18.11,
+        "publish_date": "2018"
     }
 ]
