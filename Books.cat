@@ -51907,7 +51907,12 @@
         "purchase_currency": "SGD",
         "purchase_price": 14.53,
         "shipping_price": 18.11,
-        "publish_date": "2017"
+        "publish_date": "2017",
+        "arrival_date": {
+            "year": 2021,
+            "month": 7,
+            "day": 26
+        }
     },
     {
         "id": 1058,
@@ -51942,7 +51947,12 @@
         "purchase_currency": "SGD",
         "purchase_price": 14.53,
         "shipping_price": 18.11,
-        "publish_date": "2017"
+        "publish_date": "2017",
+        "arrival_date": {
+            "year": 2021,
+            "month": 7,
+            "day": 26
+        }
     },
     {
         "id": 1059,
@@ -51977,7 +51987,12 @@
         "purchase_currency": "SGD",
         "purchase_price": 14.53,
         "shipping_price": 18.11,
-        "publish_date": "2017"
+        "publish_date": "2017",
+        "arrival_date": {
+            "year": 2021,
+            "month": 7,
+            "day": 26
+        }
     },
     {
         "id": 1060,
@@ -52012,6 +52027,11 @@
         "purchase_currency": "SGD",
         "purchase_price": 14.53,
         "shipping_price": 18.11,
-        "publish_date": "2018"
+        "publish_date": "2018",
+        "arrival_date": {
+            "year": 2021,
+            "month": 7,
+            "day": 26
+        }
     }
 ]
