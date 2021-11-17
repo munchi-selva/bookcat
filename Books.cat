@@ -45458,7 +45458,7 @@
         "location": "LR01-04"
     },
     {
-        "flags": 1,
+        "flags": 3,
         "title": "The Kills",
         "id": 913,
         "purchase_date": {
@@ -45472,9 +45472,42 @@
         "seller": "Basement Books",
         "seller_branch": "2 Lee Street, Sydney",
         "cover_required": "N (Hardback)",
-        "openlib_synch_time": "2020-07-09 10:54:54 GMT+1000 (Australian Eastern Standard Time)",
+        "openlib_synch_time": "2021-11-17 17:31:42 GMT+1100 (Australian Eastern Daylight Time)",
         "languages": [
             "eng"
+        ],
+        "isbn_13": "9781447237860",
+        "isbn_10": "1447237862",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "House",
+                    "given_names": [
+                        "Richard"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 1002
+            },
+            "key": "/books/OL27908305M",
+            "publish_date": "2013",
+            "title": "The kills",
+            "info_url": "https://openlibrary.org/books/OL27908305M/The_kills"
+        },
+        "authors": [
+            {
+                "surname": "House",
+                "given_names": [
+                    "Richard"
+                ]
+            }
+        ],
+        "publishers": [
+            "Picador"
         ]
     },
     {
