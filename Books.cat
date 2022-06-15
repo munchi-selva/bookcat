@@ -52237,5 +52237,151 @@
             "month": 7,
             "day": 26
         }
+    },
+    {
+        "id": 1066,
+        "purchase_date": {
+            "year": 2022,
+            "month": 3,
+            "day": 28
+        },
+        "arrival_date": {
+            "year": 2022,
+            "month": 3,
+            "day": 31
+        },
+        "isbn_13": "9780984782857",
+        "flags": 3,
+        "openlib_synch_time": "2022-06-15 16:49:43 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "0984782850",
+        "openlib": {
+            "dimensions": {
+                "height": 63.245999999999995,
+                "width": 45.465999999999994,
+                "thickness": 9.144,
+                "length": 697,
+                "mass": 1.228,
+                "mass_units": "kilos"
+            },
+            "key": "/books/OL26395119M",
+            "publishers": [
+                "CAREERCUP"
+            ],
+            "publish_date": "07/01/2015",
+            "title": "Cracking the Coding Interview: 189 Programming Questions and Solutions",
+            "info_url": "https://openlibrary.org/books/OL26395119M/Cracking_the_Coding_Interview_189_Programming_Questions_and_Solutions"
+        },
+        "languages": [
+            "eng"
+        ],
+        "authors": [
+            {
+                "given_names": [
+                    "Gayle",
+                    "Lakman"
+                ],
+                "surname": "McDowell"
+            }
+        ],
+        "publishers": [
+            "CareerCup"
+        ],
+        "title": "Cracking the Coding Interview"
+    },
+    {
+        "id": 1067,
+        "isbn_13": "9781529043396",
+        "isbn_10": "1529043395",
+        "purchase_date": {
+            "year": 2022,
+            "month": 5,
+            "day": 4
+        },
+        "arrival_date": {
+            "year": 2022,
+            "month": 5,
+            "day": 9
+        },
+        "openlib": {
+            "physical_format": "paperback",
+            "key": "/books/OL31926726M",
+            "title": "She Who Became the Sun",
+            "info_url": "https://openlibrary.org/books/OL31926726M/She_Who_Became_the_Sun"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2022-06-15 16:56:07 GMT+1000 (Australian Eastern Standard Time)",
+        "title": "She Who Became the Sun",
+        "authors": [
+            {
+                "surname": "Parker-Chan",
+                "given_names": [
+                    "Shelley"
+                ]
+            }
+        ],
+        "languages": [
+            "eng"
+        ]
+    },
+    {
+        "id": 1068,
+        "purchase_date": {
+            "year": 2022,
+            "month": 5,
+            "day": 4
+        },
+        "arrival_date": {
+            "year": 2022,
+            "month": 5,
+            "day": 9
+        },
+        "isbn_10": "3499228300",
+        "isbn_13": "9783499228308",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Haas",
+                    "given_names": [
+                        "Wolf"
+                    ]
+                }
+            ],
+            "languages": [
+                "ger"
+            ],
+            "dimensions": {
+                "height": 19.05,
+                "width": 11.43,
+                "thickness": 2.032,
+                "length": 222,
+                "mass": 7,
+                "mass_units": "ounces"
+            },
+            "physical_format": "Paperback",
+            "key": "/books/OL9048649M",
+            "publishers": [
+                "Rowohlt Taschenbuch Verlag"
+            ],
+            "publish_date": "June 1, 1999",
+            "title": "Silentium.",
+            "info_url": "https://openlibrary.org/books/OL9048649M/Silentium."
+        },
+        "flags": 3,
+        "openlib_synch_time": "2022-06-15 16:57:46 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Haas",
+                "given_names": [
+                    "Wolf"
+                ]
+            }
+        ],
+        "title": "Silentium.",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Rowohlt Taschenbuch Verlag"
+        ]
     }
 ]
