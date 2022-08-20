@@ -52383,5 +52383,44 @@
         "publishers": [
             "Rowohlt Taschenbuch Verlag"
         ]
+    },
+    {
+        "id": 1069,
+        "purchase_date": {
+            "year": 2022,
+            "month": 8,
+            "day": 20
+        },
+        "isbn_13": "9788817097413",
+        "flags": 1,
+        "openlib_synch_time": "2022-08-20 22:39:17 GMT+1000 (Australian Eastern Standard Time)",
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "purchase_currency": "EUR",
+        "purchase_price": 20,
+        "shipping_price": 0,
+        "authors": [
+            {
+                "surname": "Manzoni",
+                "given_names": [
+                    "Alessandro"
+                ]
+            }
+        ],
+        "isbn_10": "8817097411",
+        "title": "I promessi sposi",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "BUR Rizzoli"
+        ],
+        "publish_places": [
+            "Milano"
+        ],
+        "dimensions": {
+            "length": 798
+        },
+        "cover_required": "Y"
     }
 ]
