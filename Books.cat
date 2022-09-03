@@ -52422,5 +52422,166 @@
             "length": 798
         },
         "cover_required": "Y"
+    },
+    {
+        "id": 1070,
+        "purchase_date": {
+            "year": 2022,
+            "month": 8
+        },
+        "arrival_date": {
+            "year": 2022,
+            "month": 8
+        },
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "purchaser": "Patrick",
+        "purchase_currency": "EUR",
+        "purchase_price": 25,
+        "isbn_13": "9788875763121",
+        "flags": 1,
+        "openlib_synch_time": "2022-09-03 17:29:39 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "8875763127",
+        "authors": [
+            {
+                "surname": "Serino",
+                "given_names": [
+                    "Vinicio"
+                ]
+            }
+        ],
+        "title": "Siena segreta",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Betti Editrice"
+        ],
+        "publish_places": [
+            "Siena"
+        ],
+        "publish_date": "2012",
+        "cover_required": "Y"
+    },
+    {
+        "id": 1071,
+        "purchase_date": {
+            "year": 2022,
+            "month": 8,
+            "day": 26
+        },
+        "isbn_13": "9788858131541",
+        "flags": 1,
+        "openlib_synch_time": "2022-09-03 17:18:22 GMT+1000 (Australian Eastern Standard Time)",
+        "seller": "Santa Maria della Scala",
+        "seller_branch": "Siena",
+        "purchase_currency": "EUR",
+        "purchase_price": 12,
+        "isbn_10": "8858131541",
+        "authors": [
+            {
+                "surname": "Vauchez",
+                "given_names": [
+                    "Andre"
+                ]
+            },
+            {
+                "surname": "Falaschi",
+                "given_names": [
+                    "Luca"
+                ]
+            }
+        ],
+        "title": "Caterina da Siena",
+        "subtitle": "Una mistica trasgressiva",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Editori Laterza"
+        ],
+        "publish_places": [
+            "Bari",
+            "Roma"
+        ],
+        "publish_date": "2018-04",
+        "cover_required": "Y"
+    },
+    {
+        "id": 1072,
+        "purchase_date": {
+            "year": 2022,
+            "month": 8,
+            "day": 30
+        },
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "purchase_currency": "EUR",
+        "purchase_price": 13,
+        "isbn_13": "9788845931611",
+        "flags": 1,
+        "openlib_synch_time": "2022-09-03 17:22:56 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "8845931617",
+        "authors": [
+            {
+                "surname": "Malaparte",
+                "given_names": [
+                    "Curzio"
+                ]
+            }
+        ],
+        "title": "Maledetti toscani",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Adelphi"
+        ],
+        "publish_places": [
+            "Milano"
+        ],
+        "publish_date": "2017",
+        "cover_required": "Y"
+    },
+    {
+        "id": 1073,
+        "purchase_date": {
+            "year": 2022,
+            "month": 9,
+            "day": 2
+        },
+        "arrival_date": {
+            "year": 2022,
+            "month": 9,
+            "day": 2
+        },
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "purchase_currency": "EUR",
+        "purchase_price": 9,
+        "isbn_13": "9788811365075",
+        "flags": 1,
+        "openlib_synch_time": "2022-09-03 17:25:04 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "8811365074",
+        "authors": [
+            {
+                "surname": "Tozzi",
+                "given_names": [
+                    "Federigo"
+                ]
+            }
+        ],
+        "title": "Con gli occhi chiusi",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Garzanti"
+        ],
+        "publish_places": [
+            "Milano"
+        ],
+        "publish_date": "2022",
+        "cover_required": "Y"
     }
 ]
