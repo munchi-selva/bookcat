@@ -52427,7 +52427,8 @@
         "id": 1070,
         "purchase_date": {
             "year": 2022,
-            "month": 8
+            "month": 8,
+            "day": 23
         },
         "arrival_date": {
             "year": 2022,
