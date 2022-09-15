@@ -52286,7 +52286,9 @@
         "publishers": [
             "CareerCup"
         ],
-        "title": "Cracking the Coding Interview"
+        "title": "Cracking the Coding Interview",
+        "seller": "Amazon",
+        "seller_branch": ".de"
     },
     {
         "id": 1067,
@@ -52321,7 +52323,10 @@
         ],
         "languages": [
             "eng"
-        ]
+        ],
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "number_in_order": 1
     },
     {
         "id": 1068,
@@ -52382,7 +52387,10 @@
         ],
         "publishers": [
             "Rowohlt Taschenbuch Verlag"
-        ]
+        ],
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "number_in_order": 2
     },
     {
         "id": 1069,
@@ -52584,5 +52592,104 @@
         ],
         "publish_date": "2022",
         "cover_required": "Y"
+    },
+    {
+        "id": 1074,
+        "purchase_date": {
+            "year": 2022,
+            "month": 9,
+            "day": 10
+        },
+        "seller": "La Feltrinelli Express",
+        "seller_branch": "Stazione Centrale, Milano",
+        "isbn_13": "9788804735106",
+        "flags": 1,
+        "openlib_synch_time": "2022-09-15 18:54:08 GMT+1000 (Australian Eastern Standard Time)",
+        "purchase_currency": "EUR",
+        "purchase_price": 14.5,
+        "authors": [
+            {
+                "surname": "Buzzati",
+                "given_names": [
+                    "Dino"
+                ]
+            }
+        ],
+        "isbn_10": "8804735104",
+        "title": "Il deserto dei Tartari",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Oscar Mondadori"
+        ],
+        "publish_date": "2021"
+    },
+    {
+        "id": 1075,
+        "purchase_date": {
+            "year": 2022,
+            "month": 9,
+            "day": 12
+        },
+        "seller": "Amazon",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 11.23,
+        "isbn_13": "9788871453873",
+        "flags": 1,
+        "openlib_synch_time": "2022-09-15 18:57:53 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Marzi",
+                "given_names": [
+                    "Niccolò"
+                ]
+            }
+        ],
+        "isbn_10": "8871453875",
+        "title": "In bocca al lupo",
+        "subtitle": "Le fiabe di paura dei Grimm tra letteratura, cinema e manga giapponesi",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "NIE"
+        ],
+        "publish_date": "2019",
+        "seller_branch": ".it"
+    },
+    {
+        "id": 1076,
+        "purchase_date": {
+            "year": 2022,
+            "month": 9,
+            "day": 12
+        },
+        "seller": "Amazon",
+        "seller_branch": ".it",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 16.85,
+        "isbn_13": "9788817099387",
+        "flags": 1,
+        "openlib_synch_time": "2022-09-15 19:00:23 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "8817099384",
+        "authors": [
+            {
+                "surname": "Boccaccio",
+                "given_names": [
+                    "Giovanni"
+                ]
+            }
+        ],
+        "title": "Le più belle novelle del Decameron",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "BUR Rizzoli"
+        ],
+        "publish_date": "2018"
     }
 ]
