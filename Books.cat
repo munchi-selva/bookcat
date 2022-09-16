@@ -52657,7 +52657,12 @@
             "NIE"
         ],
         "publish_date": "2019",
-        "seller_branch": ".it"
+        "seller_branch": ".it",
+        "arrival_date": {
+            "year": 2022,
+            "month": 9,
+            "day": 16
+        }
     },
     {
         "id": 1076,
@@ -52690,6 +52695,11 @@
         "publishers": [
             "BUR Rizzoli"
         ],
-        "publish_date": "2018"
+        "publish_date": "2018",
+        "arrival_date": {
+            "year": 2022,
+            "month": 9,
+            "day": 16
+        }
     }
 ]
