@@ -21352,7 +21352,7 @@
             "藝文圖書有限公司"
         ],
         "publish_places": [
-            "Hongn Kong"
+            "Hong Kong"
         ],
         "publish_date": "2006-07",
         "location": "LR-03"
@@ -52701,5 +52701,262 @@
             "month": 9,
             "day": 16
         }
+    },
+    {
+        "id": 1077,
+        "purchase_date": {
+            "year": 2022,
+            "month": 10,
+            "day": 6
+        },
+        "arrival_date": {
+            "year": 2022,
+            "month": 10,
+            "day": 18
+        },
+        "seller": "tplaza",
+        "seller_branch": ".com.au",
+        "number_in_order": 1,
+        "purchase_currency": "AUD",
+        "purchase_price": 50.4,
+        "shipping_price": 15.9,
+        "isbn_10": "9573249685",
+        "isbn_13": "9789573249689",
+        "flags": 3,
+        "openlib_synch_time": "2022-11-18 04:57:26 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "金",
+                "given_names": [
+                    "庸"
+                ]
+            }
+        ],
+        "title": "書劍恩仇錄(一)",
+        "languages": [
+            "chi"
+        ],
+        "openlib": {
+            "languages": [
+                "chi"
+            ],
+            "physical_format": "Paperback",
+            "key": "/books/OL13060793M",
+            "publishers": [
+                "Yuan Liu"
+            ],
+            "publish_date": "2003",
+            "title": "Book and Sword,Gratitude, and Revenge, Vol. 1 of 2(\"Shu jian en chou lu, Vol. 1 of 2, in Traditional Chinese, NOT in English)",
+            "info_url": "https://openlibrary.org/books/OL13060793M/Book_and_Sword_Gratitude_and_Revenge_Vol._1_of_2(_Shu_jian_en_chou_lu_Vol._1_of_2_in_Traditional_Chi"
+        },
+        "publishers": [
+            "遠流出版事業股份有限公司"
+        ],
+        "publish_date": "2021",
+        "publish_places": [
+            "Taiwan"
+        ]
+    },
+    {
+        "id": 1078,
+        "purchase_date": {
+            "year": 2022,
+            "month": 10,
+            "day": 6
+        },
+        "arrival_date": {
+            "year": 2022,
+            "month": 10,
+            "day": 18
+        },
+        "number_in_order": 2,
+        "isbn_13": "9789573249696",
+        "isbn_10": "9573249693",
+        "openlib": {
+            "languages": [
+                "chi"
+            ],
+            "physical_format": "Paperback",
+            "key": "/books/OL13060794M",
+            "publishers": [
+                "Yuan Liu"
+            ],
+            "publish_date": "2003",
+            "title": "Book and Sword,Gratitude, and Revenge, Vol. 2 of 2 (\"Shu jian en chou lu, Vol.2 of 2\", in Traditional Chinese, NOT in English)",
+            "info_url": "https://openlibrary.org/books/OL13060794M/Book_and_Sword_Gratitude_and_Revenge_Vol._2_of_2_(_Shu_jian_en_chou_lu_Vol.2_of_2_in_Traditional_Chi"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-01-11 05:11:32 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "金",
+                "given_names": [
+                    "庸"
+                ]
+            }
+        ],
+        "title": "書劍恩仇錄(二)",
+        "publishers": [
+            "遠流出版事業股份有限公司"
+        ],
+        "publish_date": "2021",
+        "seller": "tplaza",
+        "seller_branch": ".com.au"
+    },
+    {
+        "id": 1079,
+        "purchase_date": {
+            "year": 2022,
+            "month": 12,
+            "day": 17
+        },
+        "arrival_date": {
+            "year": 2022,
+            "month": 12,
+            "day": 23
+        },
+        "isbn_13": "9783492249140",
+        "isbn_10": "3492249140",
+        "flags": 1,
+        "openlib_synch_time": "2023-01-11 05:16:02 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Weissensteiner",
+                "given_names": [
+                    "Friedrich"
+                ]
+            }
+        ],
+        "title": "Die großen Herrscher des Hauses Habsburg",
+        "subtitle": "700 Jahre europäische Geschichte",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Piper Taschenbuch"
+        ],
+        "publish_date": "2018",
+        "seller": "Amazon",
+        "seller_branch": ".de"
+    },
+    {
+        "id": 1080,
+        "purchase_date": {
+            "year": 2022,
+            "month": 12,
+            "day": 30
+        },
+        "seller": "yesasia",
+        "arrival_date": {
+            "year": 2022,
+            "month": 12,
+            "day": 30
+        },
+        "seller_branch": ".com",
+        "isbn_13": "9789888573431",
+        "isbn_10": "9888573438",
+        "flags": 1,
+        "openlib_synch_time": "2023-01-11 05:27:33 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "羅",
+                "given_names": [
+                    "貫中"
+                ]
+            }
+        ],
+        "title": "三國演義",
+        "series": "四大名著導讀本",
+        "languages": [
+            "chi"
+        ],
+        "publishers": [
+            "中華教育"
+        ],
+        "publish_date": "2019"
+    },
+    {
+        "id": 1081,
+        "purchase_date": {
+            "year": 2022,
+            "month": 12,
+            "day": 30
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 1,
+            "day": 9
+        },
+        "seller": "tplaza",
+        "seller_branch": ".com.au",
+        "number_in_order": 1,
+        "isbn_13": "9789888763115",
+        "isbn_10": "9888763113",
+        "flags": 1,
+        "openlib_synch_time": "2023-01-11 05:50:51 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "羅",
+                "given_names": [
+                    "貫中"
+                ]
+            },
+            {
+                "surname": "張",
+                "given_names": [
+                    "彩芬"
+                ]
+            }
+        ],
+        "title": "粵語三國演義",
+        "languages": [
+            "chi"
+        ],
+        "publishers": [
+            "香港中和出版"
+        ],
+        "publish_date": "2021"
+    },
+    {
+        "id": 1082,
+        "purchase_date": {
+            "year": 2022,
+            "month": 12,
+            "day": 30
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 1,
+            "day": 9
+        },
+        "seller": "tplaza",
+        "seller_branch": ".com.au",
+        "number_in_order": 2,
+        "isbn_13": "9789579075350",
+        "isbn_10": "9579075352",
+        "flags": 1,
+        "openlib_synch_time": "2023-01-11 06:00:04 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "羅",
+                "given_names": [
+                    "貫中"
+                ]
+            },
+            {
+                "surname": "吳",
+                "given_names": [
+                    "羽"
+                ]
+            }
+        ],
+        "title": "圖解三國演義",
+        "languages": [
+            "chi"
+        ],
+        "publishers": [
+            "華威文化"
+        ],
+        "publish_date": "2020"
     }
 ]
