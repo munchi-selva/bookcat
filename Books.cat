@@ -52718,8 +52718,8 @@
         "seller_branch": ".com.au",
         "number_in_order": 1,
         "purchase_currency": "AUD",
-        "purchase_price": 50.4,
-        "shipping_price": 15.9,
+        "purchase_price": 25.2,
+        "shipping_price": 7.95,
         "isbn_10": "9573249685",
         "isbn_13": "9789573249689",
         "flags": 3,
@@ -52801,7 +52801,10 @@
         ],
         "publish_date": "2021",
         "seller": "tplaza",
-        "seller_branch": ".com.au"
+        "seller_branch": ".com.au",
+        "purchase_currency": "AUD",
+        "purchase_price": 25.2,
+        "shipping_price": 7.95
     },
     {
         "id": 1079,
@@ -52837,7 +52840,10 @@
         ],
         "publish_date": "2018",
         "seller": "Amazon",
-        "seller_branch": ".de"
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 13.41,
+        "shipping_price": 0
     },
     {
         "id": 1080,
@@ -52873,7 +52879,10 @@
         "publishers": [
             "中華教育"
         ],
-        "publish_date": "2019"
+        "publish_date": "2019",
+        "purchase_price": 79.19,
+        "shipping_price": 34.92,
+        "purchase_currency": "USD"
     },
     {
         "id": 1081,
@@ -52915,7 +52924,10 @@
         "publishers": [
             "香港中和出版"
         ],
-        "publish_date": "2021"
+        "publish_date": "2021",
+        "purchase_currency": "AUD",
+        "purchase_price": 35.6,
+        "shipping_price": 10.45
     },
     {
         "id": 1082,
@@ -52957,6 +52969,9 @@
         "publishers": [
             "華威文化"
         ],
-        "publish_date": "2020"
+        "publish_date": "2020",
+        "purchase_currency": "AUD",
+        "purchase_price": 29.65,
+        "shipping_price": 10.45
     }
 ]
