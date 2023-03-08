@@ -49769,7 +49769,9 @@
         "title": "Jeder stirbt für sich allein",
         "id": 1017,
         "purchase_date": {
-            "year": 2018
+            "year": 2018,
+            "month": 7,
+            "day": 7
         },
         "purchase_currency": "CHF",
         "seller": "Orell Füssli",
@@ -49778,7 +49780,14 @@
         "openlib_synch_time": "2020-07-09 10:54:54 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
             "deu"
-        ]
+        ],
+        "arrival_date": {
+            "year": 2018,
+            "month": 7,
+            "day": 7
+        },
+        "purchaser": "",
+        "purchase_price": 15.9
     },
     {
         "flags": 1,
@@ -53021,7 +53030,8 @@
         ],
         "cover_required": "Y",
         "seller": "Orell Füssli",
-        "seller_branch": "Zurich",
-        "purchaser": "Patrick"
+        "seller_branch": "Zürich",
+        "purchaser": "Patrick",
+        "purchase_price": 29.9
     }
 ]
