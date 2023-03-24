@@ -53028,10 +53028,283 @@
         "publishers": [
             "Granta"
         ],
-        "cover_required": "Y",
+        "cover_required": "Y (Done)",
         "seller": "Orell Füssli",
         "seller_branch": "Zürich",
         "purchaser": "Patrick",
         "purchase_price": 29.9
+    },
+    {
+        "id": 1084,
+        "purchase_date": {
+            "year": 2023,
+            "month": 3,
+            "day": 15
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 3,
+            "day": 20
+        },
+        "seller": "amazon",
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 47.41,
+        "shipping_price": 0,
+        "isbn_13": "9781492043454",
+        "isbn_10": "1492043451",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Richards",
+                    "given_names": [
+                        "Mark"
+                    ]
+                },
+                {
+                    "surname": "Ford",
+                    "given_names": [
+                        "Neal"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 432
+            },
+            "physical_format": "paperback",
+            "key": "/books/OL28265072M",
+            "publishers": [
+                "O'Reilly Media"
+            ],
+            "publish_date": "Feb 11, 2020",
+            "subtitle": "An Engineering Approach",
+            "title": "Fundamentals of Software Architecture",
+            "info_url": "https://openlibrary.org/books/OL28265072M/Fundamentals_of_Software_Architecture"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-03-24 23:42:38 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Richards",
+                "given_names": [
+                    "Mark"
+                ]
+            },
+            {
+                "surname": "Ford",
+                "given_names": [
+                    "Neal"
+                ]
+            }
+        ],
+        "title": "Fundamentals of Software Architecture",
+        "subtitle": "An Engineering Approach",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "O'Reilly Media"
+        ],
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1085,
+        "purchase_date": {
+            "year": 2023,
+            "month": 3,
+            "day": 15
+        },
+        "isbn_13": "9781838554590",
+        "purchaser": "Patrick",
+        "number_in_order": 1,
+        "seller": "packtpub",
+        "seller_branch": ".com",
+        "purchase_currency": "USD",
+        "purchase_price": 51.99,
+        "shipping_price": 6.51,
+        "isbn_10": "1838554599",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Ostrowski",
+                    "given_names": [
+                        "Adrian"
+                    ]
+                },
+                {
+                    "surname": "Gaczkowski",
+                    "given_names": [
+                        "Piotr"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 540
+            },
+            "physical_format": "paperback",
+            "key": "/books/OL35680716M",
+            "publishers": [
+                "Packt Publishing"
+            ],
+            "publish_date": "Apr 23, 2021",
+            "subtitle": "Design modern systems using effective architecture concepts, design patterns, and techniques with C++20",
+            "title": "Software Architecture with C++",
+            "info_url": "https://openlibrary.org/books/OL35680716M/Software_Architecture_with_C"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-03-24 23:35:09 GMT+1100 (Australian Eastern Daylight Time)",
+        "arrival_date": {
+            "year": 2023,
+            "month": 3,
+            "day": 15
+        },
+        "authors": [
+            {
+                "surname": "Ostrowski",
+                "given_names": [
+                    "Adrian"
+                ]
+            },
+            {
+                "surname": "Gaczkowski",
+                "given_names": [
+                    "Piotr"
+                ]
+            }
+        ],
+        "title": "Software Architecture with C++",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Packt Publishing"
+        ],
+        "electronic_format": "pdf"
+    },
+    {
+        "id": 1086,
+        "purchase_date": {
+            "year": 2023,
+            "month": 3,
+            "day": 15
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 3,
+            "day": 15
+        },
+        "seller": "packtpub",
+        "seller_branch": ".com",
+        "purchaser": "Patrick",
+        "number_in_order": 2,
+        "purchase_currency": "USD",
+        "purchase_price": 46.99,
+        "shipping_price": 6.51,
+        "isbn_13": "9781788837484",
+        "isbn_10": "1788837487",
+        "flags": 3,
+        "openlib_synch_time": "2023-03-24 23:39:29 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Ayeva",
+                "given_names": [
+                    "Kamon"
+                ]
+            },
+            {
+                "surname": "Kasampalis",
+                "given_names": [
+                    "Sakis"
+                ]
+            }
+        ],
+        "title": "Mastering Python Design Patterns",
+        "languages": [
+            "eng"
+        ],
+        "electronic_format": "pdf",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Ayeva",
+                    "given_names": [
+                        "Kamon"
+                    ]
+                },
+                {
+                    "surname": "Kasampalis",
+                    "given_names": [
+                        "Sakis"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 248
+            },
+            "key": "/books/OL26833027M",
+            "publishers": [
+                "Packt Publishing - ebooks Account"
+            ],
+            "publish_date": "Aug 31, 2018",
+            "title": "Mastering Python Design Patterns: A guide to creating smart, efficient, and reusable software, 2nd Edition",
+            "info_url": "https://openlibrary.org/books/OL26833027M/Mastering_Python_Design_Patterns_A_guide_to_creating_smart_efficient_and_reusable_software_2nd_Editi"
+        }
+    },
+    {
+        "id": 1087,
+        "purchase_date": {
+            "year": 2023,
+            "month": 3,
+            "day": 15
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 3,
+            "day": 15
+        },
+        "seller": "packtpub",
+        "seller_branch": ".com",
+        "purchaser": "Patrick",
+        "number_in_order": 3,
+        "purchase_currency": "USD",
+        "purchase_price": 51.99,
+        "shipping_price": 6.51,
+        "isbn_13": "9781788624060",
+        "isbn_10": "1788624068",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Ingeno",
+                    "given_names": [
+                        "Joseph"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 594
+            },
+            "key": "/books/OL26833023M",
+            "publishers": [
+                "Packt Publishing"
+            ],
+            "publish_date": "Aug 30, 2018",
+            "title": "Software Architect's Handbook: Become a successful software architect by implementing effective architecture concepts",
+            "info_url": "https://openlibrary.org/books/OL26833023M/Software_Architect's_Handbook_Become_a_successful_software_architect_by_implementing_effective_archi"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-03-24 23:39:33 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Ingeno",
+                "given_names": [
+                    "Joseph"
+                ]
+            }
+        ],
+        "title": "Software Architect's Handbook",
+        "languages": [
+            "eng"
+        ],
+        "electronic_format": "pdf"
     }
 ]
