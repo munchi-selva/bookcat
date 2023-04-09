@@ -45925,7 +45925,7 @@
         "purchase_currency": "AUD",
         "price_conversion_rate": 1,
         "seller": "Dymocks",
-        "seller_branch": "George Street, Sydney",
+        "seller_branch": "George Street",
         "cover_required": "Y (Done)",
         "openlib_synch_time": "2020-07-09 10:55:29 GMT+1000 (Australian Eastern Standard Time)",
         "languages": [
@@ -53306,5 +53306,62 @@
             "eng"
         ],
         "electronic_format": "pdf"
+    },
+    {
+        "id": 1088,
+        "purchase_date": {
+            "year": 2023,
+            "month": 4,
+            "day": 6
+        },
+        "isbn_13": "9781800180796",
+        "isbn_10": "1800180799",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Mathers",
+                    "given_names": [
+                        "Edward",
+                        "Powys"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "mass": 0.2
+            },
+            "key": "/books/OL34709744M",
+            "publishers": [
+                "Unbound"
+            ],
+            "publish_date": "2021",
+            "title": "Cain's Jawbone",
+            "info_url": "https://openlibrary.org/books/OL34709744M/Cain's_Jawbone"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-04-09 12:03:20 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Mathers",
+                "given_names": [
+                    "Edward",
+                    "Powys"
+                ]
+            }
+        ],
+        "seller": "Dymocks",
+        "seller_branch": "George Street",
+        "purchase_currency": "AUD",
+        "purchase_price": 17.99,
+        "title": "Cain's Jawbone",
+        "publishers": [
+            "Unbound"
+        ],
+        "languages": [
+            "eng"
+        ],
+        "cover_required": "Y (Done)"
     }
 ]
