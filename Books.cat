@@ -53156,7 +53156,7 @@
         "arrival_date": {
             "year": 2023,
             "month": 3,
-            "day": 15
+            "day": 24
         },
         "authors": [
             {
@@ -53191,7 +53191,7 @@
         "arrival_date": {
             "year": 2023,
             "month": 3,
-            "day": 15
+            "day": 24
         },
         "seller": "packtpub",
         "seller_branch": ".com",
@@ -53260,7 +53260,7 @@
         "arrival_date": {
             "year": 2023,
             "month": 3,
-            "day": 15
+            "day": 24
         },
         "seller": "packtpub",
         "seller_branch": ".com",
@@ -53363,5 +53363,533 @@
             "eng"
         ],
         "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1089,
+        "purchase_date": {
+            "year": 2023,
+            "month": 4,
+            "day": 16
+        },
+        "isbn_13": "9780008328931",
+        "isbn_10": "0008328935",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Christie",
+                    "given_names": [
+                        "Agatha"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 384
+            },
+            "key": "/books/OL29490065M",
+            "publishers": [
+                "HarperCollins Publishers"
+            ],
+            "publish_date": "2020",
+            "title": "Death on the Nile",
+            "info_url": "https://openlibrary.org/books/OL29490065M/Death_on_the_Nile"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:14:38 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "given_names": [
+                    "Agatha"
+                ],
+                "surname": "Christie"
+            }
+        ],
+        "purchase_currency": "AUD",
+        "purchase_price": 2,
+        "title": "Death on the Nile",
+        "publishers": [
+            "HarperCollins Publishers"
+        ],
+        "seller": "Lifeline Shop",
+        "seller_branch": "Manly",
+        "purchaser": "Patrick",
+        "languages": [
+            "eng"
+        ]
+    },
+    {
+        "id": 1090,
+        "isbn_13": "9781849311380",
+        "isbn_10": "1849311382",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Conan",
+                    "given_names": [
+                        "Doyle,",
+                        "A."
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "key": "/books/OL34637664M",
+            "publishers": [
+                "Worth Publishers, Incorporated"
+            ],
+            "publish_date": "2017",
+            "title": "Hound of the Baskervilles",
+            "info_url": "https://openlibrary.org/books/OL34637664M/Hound_of_the_Baskervilles"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:18:18 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Conan Doyle",
+                "given_names": [
+                    "Arthur"
+                ]
+            }
+        ],
+        "title": "Hound of the Baskervilles and Other Stories",
+        "publishers": [
+            "Worth Press"
+        ],
+        "seller": "Abbey's Bookshop",
+        "languages": [
+            "eng"
+        ]
+    },
+    {
+        "id": 1091,
+        "purchase_date": {
+            "year": 2023,
+            "month": 5,
+            "day": 27
+        },
+        "isbn_13": "9780340828991",
+        "isbn_10": "0340828994",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Riley",
+                    "given_names": [
+                        "Andy"
+                    ]
+                }
+            ],
+            "dimensions": {
+                "height": 18.796000000000003,
+                "width": 13.716000000000001,
+                "thickness": 1.27,
+                "length": 96,
+                "mass": 7.8,
+                "mass_units": "ounces"
+            },
+            "physical_format": "Hardcover",
+            "key": "/books/OL9833889M",
+            "publishers": [
+                "McArthur & Co / Hodder Trade"
+            ],
+            "publish_date": "October 16, 2003",
+            "title": "Book of Bunny Suicides~Andy Riley",
+            "info_url": "https://openlibrary.org/books/OL9833889M/Book_of_Bunny_Suicides~Andy_Riley"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:26:06 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "given_names": [
+                    "Andy"
+                ],
+                "surname": "Riley"
+            }
+        ],
+        "title": "The Book of Bunny Suicides",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Hodder & Stoughton"
+        ],
+        "purchaser": "The Denoths"
+    },
+    {
+        "id": 1092,
+        "purchase_date": {
+            "year": 2023,
+            "month": 5,
+            "day": 27
+        },
+        "isbn_13": "9780340834039",
+        "isbn_10": "034083403X",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Riley",
+                    "given_names": [
+                        "Andy"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "key": "/books/OL28366131M",
+            "publishers": [
+                "Hodder & Stoughton"
+            ],
+            "publish_places": [
+                "London"
+            ],
+            "publish_date": "2004",
+            "title": "Return of the bunny suicides",
+            "info_url": "https://openlibrary.org/books/OL28366131M/Return_of_the_bunny_suicides"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:28:03 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "given_names": [
+                    "Andy"
+                ],
+                "surname": "Riley"
+            }
+        ],
+        "title": "Return of the Bunny Suicides",
+        "languages": [
+            "eng"
+        ],
+        "purchaser": "The Denoths"
+    },
+    {
+        "id": 1093,
+        "purchase_date": {
+            "year": 2023,
+            "month": 5,
+            "day": 27
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 5,
+            "day": 27
+        },
+        "purchaser": "The Sea Cucumbers",
+        "isbn_13": "9783518368541",
+        "isbn_10": "3518368540",
+        "openlib": {
+            "languages": [
+                "ger"
+            ],
+            "dimensions": {
+                "length": 202
+            },
+            "physical_format": "Taschenbuch",
+            "key": "/books/OL31781431M",
+            "publishers": [
+                "Suhrkamp Verlag"
+            ],
+            "publish_date": "1985",
+            "subtitle": "Ein Bericht",
+            "title": "Homo Faber",
+            "info_url": "https://openlibrary.org/books/OL31781431M/Homo_Faber"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:29:44 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Frisch",
+                "given_names": [
+                    "Max"
+                ]
+            }
+        ],
+        "title": "Homo Faber",
+        "subtitle": "Ein Bericht",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Suhrkamp Verlag"
+        ]
+    },
+    {
+        "id": 1094,
+        "purchase_date": {
+            "year": 2023,
+            "month": 5,
+            "day": 27
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 5,
+            "day": 27
+        },
+        "purchaser": "The Sea Cucumbers",
+        "isbn_10": "3423104570",
+        "isbn_13": "9783423104579",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Hasler",
+                    "given_names": []
+                }
+            ],
+            "dimensions": {
+                "height": 19.05,
+                "width": 12.192,
+                "thickness": 1.524,
+                "length": 222,
+                "mass": 6.7,
+                "mass_units": "ounces"
+            },
+            "physical_format": "Turtleback",
+            "key": "/books/OL9032290M",
+            "publishers": [
+                "Deutscher Taschenbuch Verlag (DTV)",
+                "Deutscher Taschenbuch Verlag GmbH & Co."
+            ],
+            "publish_date": "1996-12-05",
+            "title": "Anna Goldin",
+            "info_url": "https://openlibrary.org/books/OL9032290M/Anna_Goldin"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:31:24 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Hasler",
+                "given_names": [
+                    "Eveline"
+                ]
+            }
+        ],
+        "title": "Anna Göldin Letzte Hexe",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Deutscher Taschenbuch Verlag (DTV)",
+            "Deutscher Taschenbuch Verlag GmbH & Co."
+        ]
+    },
+    {
+        "id": 1095,
+        "purchase_date": {
+            "year": 2023,
+            "month": 5,
+            "day": 27
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 5,
+            "day": 27
+        },
+        "purchaser": "The Sea Cucumbers",
+        "isbn_10": "3423026375",
+        "isbn_13": "9783423026376",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Keller",
+                    "given_names": [
+                        "Gottfried"
+                    ]
+                }
+            ],
+            "languages": [
+                "ger"
+            ],
+            "dimensions": {
+                "height": 17.018,
+                "width": 11.43,
+                "thickness": 1.27,
+                "length": 127,
+                "mass": 4.3,
+                "mass_units": "ounces"
+            },
+            "physical_format": "Paperback",
+            "key": "/books/OL9032042M",
+            "publishers": [
+                "Deutscher Taschenbuch Verlag GmbH & Co."
+            ],
+            "publish_date": "March 1, 1998",
+            "title": "Romeo Und Julia Auf Dem Dorfe",
+            "info_url": "https://openlibrary.org/books/OL9032042M/Romeo_Und_Julia_Auf_Dem_Dorfe"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:33:25 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Keller",
+                "given_names": [
+                    "Gottfried"
+                ]
+            }
+        ],
+        "title": "Romeo und Julia auf dem Dorfe",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Deutscher Taschenbuch Verlag GmbH & Co."
+        ]
+    },
+    {
+        "id": 1096,
+        "purchase_date": {
+            "year": 2023,
+            "month": 7,
+            "day": 15
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 7,
+            "day": 15
+        },
+        "seller": "Orell Füssli",
+        "isbn_13": "9783462049039",
+        "isbn_10": "3462049038",
+        "openlib": {
+            "languages": [
+                "ger"
+            ],
+            "dimensions": {
+                "length": 602
+            },
+            "physical_format": "Taschenbuch",
+            "key": "/books/OL35682130M",
+            "publishers": [
+                "Kiepenheuer & Witsch"
+            ],
+            "publish_date": "2017",
+            "subtitle": "Gereon Raths fünfter Fall",
+            "title": "Märzgefallene",
+            "info_url": "https://openlibrary.org/books/OL35682130M/Märzgefallene"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:36:36 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Kutscher",
+                "given_names": [
+                    "Volker"
+                ]
+            }
+        ],
+        "number_in_series": 5,
+        "title": "Märzgefallene",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Kiepenheuer & Witsch"
+        ],
+        "purchaser": "Ferientrupp",
+        "purchase_price": 18.9,
+        "seller_branch": "Zürich"
+    },
+    {
+        "id": 1097,
+        "languages": [
+            "deu"
+        ],
+        "purchase_date": {
+            "year": 2023,
+            "month": 7,
+            "day": 15
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 7,
+            "day": 15
+        },
+        "seller": "Orell Füssli",
+        "purchaser": "Ferientrupp",
+        "purchase_price": 18.9,
+        "isbn_13": "9783462051612",
+        "isbn_10": "346205161X",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Volker",
+                    "given_names": [
+                        "Kutscher",
+                        ""
+                    ]
+                }
+            ],
+            "dimensions": {
+                "length": 556
+            },
+            "physical_format": "paperback",
+            "key": "/books/OL28325790M",
+            "publishers": [
+                "Kiepenheuer & Witsch GmbH"
+            ],
+            "publish_date": "Jan 01, 2018",
+            "subtitle": "Gereon Raths sechster Fall",
+            "title": "Lunapark",
+            "info_url": "https://openlibrary.org/books/OL28325790M/Lunapark"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-08-04 04:38:47 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Kutscher",
+                "given_names": [
+                    "Volker"
+                ]
+            }
+        ],
+        "number_in_series": 6,
+        "title": "Lunapark",
+        "publishers": [
+            "Kiepenheuer & Witsch GmbH"
+        ],
+        "seller_branch": "Zürich"
+    },
+    {
+        "id": 1098,
+        "purchase_date": {
+            "year": 2023,
+            "month": 7,
+            "day": 29
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 7,
+            "day": 29
+        },
+        "seller": "Payot",
+        "seller_branch": "Lausanne",
+        "isbn_13": "9782413013358",
+        "isbn_10": "2413013350",
+        "flags": 1,
+        "openlib_synch_time": "2023-08-04 04:42:10 GMT+1000 (Australian Eastern Standard Time)",
+        "purchase_price": 26.7,
+        "authors": [
+            {
+                "surname": "Climo",
+                "given_names": [
+                    "Liz"
+                ]
+            },
+            {
+                "surname": "Le Jeune",
+                "given_names": [
+                    "Yannick"
+                ]
+            }
+        ],
+        "title": "365 ours de bonheur",
+        "languages": [
+            "fra"
+        ],
+        "publishers": [
+            "Delcourt"
+        ]
     }
 ]
