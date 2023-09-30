@@ -53179,7 +53179,8 @@
         "publishers": [
             "Packt Publishing"
         ],
-        "electronic_format": "pdf"
+        "electronic_format": "pdf",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1086,
@@ -53248,7 +53249,8 @@
             "publish_date": "Aug 31, 2018",
             "title": "Mastering Python Design Patterns: A guide to creating smart, efficient, and reusable software, 2nd Edition",
             "info_url": "https://openlibrary.org/books/OL26833027M/Mastering_Python_Design_Patterns_A_guide_to_creating_smart_efficient_and_reusable_software_2nd_Editi"
-        }
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1087,
@@ -53305,7 +53307,8 @@
         "languages": [
             "eng"
         ],
-        "electronic_format": "pdf"
+        "electronic_format": "pdf",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1088,
@@ -53417,7 +53420,8 @@
         "purchaser": "Patrick",
         "languages": [
             "eng"
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1090,
@@ -53461,7 +53465,8 @@
         "seller": "Abbey's Bookshop",
         "languages": [
             "eng"
-        ]
+        ],
+        "cover_required": "N (Hardback, already covered)"
     },
     {
         "id": 1091,
@@ -53515,7 +53520,8 @@
         "publishers": [
             "Hodder & Stoughton"
         ],
-        "purchaser": "The Denoths"
+        "purchaser": "The Denoths",
+        "cover_required": "N (Hardback)"
     },
     {
         "id": 1092,
@@ -53563,7 +53569,8 @@
         "languages": [
             "eng"
         ],
-        "purchaser": "The Denoths"
+        "purchaser": "The Denoths",
+        "cover_required": "N (Hardback)"
     },
     {
         "id": 1093,
@@ -53614,7 +53621,8 @@
         ],
         "publishers": [
             "Suhrkamp Verlag"
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1094,
@@ -53673,7 +53681,8 @@
         "publishers": [
             "Deutscher Taschenbuch Verlag (DTV)",
             "Deutscher Taschenbuch Verlag GmbH & Co."
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1095,
@@ -53735,7 +53744,8 @@
         ],
         "publishers": [
             "Deutscher Taschenbuch Verlag GmbH & Co."
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1096,
@@ -53789,7 +53799,8 @@
         ],
         "purchaser": "Ferientrupp",
         "purchase_price": 18.9,
-        "seller_branch": "Zürich"
+        "seller_branch": "Zürich",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1097,
@@ -53849,7 +53860,8 @@
         "publishers": [
             "Kiepenheuer & Witsch GmbH"
         ],
-        "seller_branch": "Zürich"
+        "seller_branch": "Zürich",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1098,
@@ -53890,6 +53902,124 @@
         ],
         "publishers": [
             "Delcourt"
-        ]
+        ],
+        "cover_required": "N (Hardback)"
+    },
+    {
+        "id": 1099,
+        "purchase_date": {
+            "year": 2023,
+            "month": 9,
+            "day": 20
+        },
+        "arrival_date": {
+            "year": 2023,
+            "month": 9,
+            "day": 26
+        },
+        "seller": "amazon",
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 9.53,
+        "isbn_13": "9783125973688",
+        "isbn_10": "3125973686",
+        "flags": 1,
+        "openlib_synch_time": "2023-10-01 01:28:06 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Izzo",
+                "given_names": [
+                    "Jean-Claude"
+                ]
+            }
+        ],
+        "title": "Total Khéops",
+        "languages": [
+            "fra"
+        ],
+        "publishers": [
+            "Klett"
+        ],
+        "cover_required": "Y (Done)",
+        "series": "Éditions Klett",
+        "dimensions": {
+            "length": 272
+        }
+    },
+    {
+        "id": 1100,
+        "purchase_date": {
+            "year": 2023,
+            "month": 9,
+            "day": 23
+        },
+        "isbn_13": "9783150092910",
+        "seller": "Orell Füssli",
+        "seller_branch": "Zürich",
+        "purchaser": "Ferientrupp",
+        "purchase_price": 4.9,
+        "flags": 1,
+        "openlib_synch_time": "2023-10-01 01:30:37 GMT+1000 (Australian Eastern Standard Time)",
+        "isbn_10": "3150092914",
+        "title": "L'Amoreux de Mme Maigret",
+        "languages": [
+            "fra"
+        ],
+        "publishers": [
+            "Reclam"
+        ],
+        "authors": [
+            {
+                "surname": "Simenon",
+                "given_names": [
+                    "Georges"
+                ]
+            }
+        ],
+        "series": "Fremdsprachentexte",
+        "cover_required": "Y (Done)",
+        "dimensions": {
+            "length": 84
+        }
+    },
+    {
+        "id": 1101,
+        "purchase_date": {
+            "year": 2023,
+            "month": 9,
+            "day": 23
+        },
+        "seller": "Orell Füssli",
+        "seller_branch": "Zürich",
+        "purchaser": "Ferientrupp",
+        "purchase_price": 48.9,
+        "isbn_13": "9782365901666",
+        "isbn_10": "2365901662",
+        "flags": 1,
+        "openlib_synch_time": "2023-10-01 01:37:47 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Goscinny",
+                "given_names": [
+                    "René:Jean-Jacques"
+                ]
+            },
+            {
+                "surname": "Sempé"
+            }
+        ],
+        "series": "",
+        "title": "Le Petit Nicolas L'intégrale",
+        "publishers": [
+            "IMAV Éditions"
+        ],
+        "languages": [
+            "fra"
+        ],
+        "number_in_series": 1,
+        "dimensions": {
+            "length": 860
+        },
+        "cover_required": "Y (Done)"
     }
 ]
