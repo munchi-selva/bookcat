@@ -53032,7 +53032,8 @@
         "seller": "Orell Füssli",
         "seller_branch": "Zürich",
         "purchaser": "Patrick",
-        "purchase_price": 29.9
+        "purchase_price": 29.9,
+        "purchase_currency": "CHF"
     },
     {
         "id": 1084,
@@ -53466,7 +53467,8 @@
         "languages": [
             "eng"
         ],
-        "cover_required": "N (Hardback, already covered)"
+        "cover_required": "N (Hardback, already covered)",
+        "purchase_currency": "AUD"
     },
     {
         "id": 1091,
@@ -53800,7 +53802,8 @@
         "purchaser": "Ferientrupp",
         "purchase_price": 18.9,
         "seller_branch": "Zürich",
-        "cover_required": "Y (Done)"
+        "cover_required": "Y (Done)",
+        "purchase_currency": "CHF"
     },
     {
         "id": 1097,
@@ -53861,7 +53864,8 @@
             "Kiepenheuer & Witsch GmbH"
         ],
         "seller_branch": "Zürich",
-        "cover_required": "Y (Done)"
+        "cover_required": "Y (Done)",
+        "purchase_currency": "CHF"
     },
     {
         "id": 1098,
@@ -53903,7 +53907,8 @@
         "publishers": [
             "Delcourt"
         ],
-        "cover_required": "N (Hardback)"
+        "cover_required": "N (Hardback)",
+        "purchase_currency": "CHF"
     },
     {
         "id": 1099,
@@ -53980,7 +53985,8 @@
         "cover_required": "Y (Done)",
         "dimensions": {
             "length": 84
-        }
+        },
+        "purchase_currency": "CHF"
     },
     {
         "id": 1101,
@@ -54020,6 +54026,7 @@
         "dimensions": {
             "length": 860
         },
-        "cover_required": "Y (Done)"
+        "cover_required": "Y (Done)",
+        "purchase_currency": "CHF"
     }
 ]
