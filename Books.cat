@@ -53956,6 +53956,42 @@
         "purchase_date": {
             "year": 2023,
             "month": 9,
+            "day": 20
+        },
+        "seller": "amazon",
+        "arrival_date": {
+            "year": 2023,
+            "month": 10,
+            "day": 7
+        },
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 8.88,
+        "isbn_13": "9783125974609",
+        "isbn_10": "3125974607",
+        "flags": 1,
+        "openlib_synch_time": "2023-10-09 05:11:01 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Camus",
+                "given_names": [
+                    "Albert"
+                ]
+            }
+        ],
+        "title": "L’étranger",
+        "languages": [
+            "fra"
+        ],
+        "publishers": [
+            "Klett"
+        ]
+    },
+    {
+        "id": 1101,
+        "purchase_date": {
+            "year": 2023,
+            "month": 9,
             "day": 23
         },
         "isbn_13": "9783150092910",
@@ -53989,7 +54025,7 @@
         "purchase_currency": "CHF"
     },
     {
-        "id": 1101,
+        "id": 1102,
         "purchase_date": {
             "year": 2023,
             "month": 9,
