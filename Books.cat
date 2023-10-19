@@ -53985,7 +53985,8 @@
         ],
         "publishers": [
             "Klett"
-        ]
+        ],
+        "cover_required": "Y"
     },
     {
         "id": 1101,
@@ -54064,5 +54065,70 @@
         },
         "cover_required": "Y (Done)",
         "purchase_currency": "CHF"
+    },
+    {
+        "id": 1103,
+        "purchase_date": {
+            "year": 2023,
+            "month": 10,
+            "day": 17
+        },
+        "isbn_13": "9782012101425",
+        "purchase_currency": "EUR",
+        "purchase_price": 10.5,
+        "purchaser": "Patrick",
+        "isbn_10": "2012101429",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Goscinny",
+                    "given_names": [
+                        "René"
+                    ]
+                }
+            ],
+            "languages": [
+                "fre"
+            ],
+            "dimensions": {
+                "length": 48
+            },
+            "physical_format": "[Texte imprime ] /",
+            "key": "/books/OL25566308M",
+            "publishers": [
+                "Hachette",
+                "Asterix-Hachette (Educa Books)"
+            ],
+            "publish_places": [
+                "Paris"
+            ],
+            "publish_date": "2008",
+            "title": "Astérix légionnaire",
+            "info_url": "https://openlibrary.org/books/OL25566308M/Astérix_légionnaire"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-10-20 03:06:57 GMT+1100 (Australian Eastern Daylight Time)",
+        "title": "Astérix Légionnaire",
+        "publishers": [
+            "Hachette",
+            "Asterix-Hachette (Educa Books)"
+        ],
+        "seller": "FNAC",
+        "seller_branch": "Marseille",
+        "authors": [
+            {
+                "surname": "Goscinny",
+                "given_names": [
+                    "René"
+                ]
+            },
+            {
+                "surname": "Uderzo",
+                "given_names": [
+                    "Albert"
+                ]
+            }
+        ],
+        "cover_required": "N (Hardback)"
     }
 ]
