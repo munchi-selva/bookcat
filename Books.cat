@@ -53986,7 +53986,7 @@
         "publishers": [
             "Klett"
         ],
-        "cover_required": "Y"
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1101,
@@ -54130,5 +54130,57 @@
             }
         ],
         "cover_required": "N (Hardback)"
+    },
+    {
+        "id": 1104,
+        "purchase_date": {
+            "year": 2023,
+            "month": 11,
+            "day": 4
+        },
+        "seller": "Orell Füssli",
+        "seller_branch": "Zürich",
+        "purchaser": "Patrick",
+        "purchase_currency": "CHF",
+        "purchase_price": 29.9,
+        "isbn_13": "9781780225616",
+        "isbn_10": "178022561X",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Montefiore",
+                    "given_names": [
+                        "Simon",
+                        "Sebag"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "key": "/books/OL46576325M",
+            "publishers": [
+                "Orion Publishing Group, Limited"
+            ],
+            "publish_date": "2023",
+            "title": "World",
+            "info_url": "https://openlibrary.org/books/OL46576325M/World"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2023-11-13 03:07:52 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Montefiore",
+                "given_names": [
+                    "Simon",
+                    "Sebag"
+                ]
+            }
+        ],
+        "title": "The World",
+        "languages": [
+            "eng"
+        ],
+        "cover_required": "Y (Done)"
     }
 ]
