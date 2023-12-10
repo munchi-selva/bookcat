@@ -54182,5 +54182,41 @@
             "eng"
         ],
         "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1105,
+        "purchase_date": {
+            "year": 2023,
+            "month": 12,
+            "day": 9
+        },
+        "seller": "Orell Füssli",
+        "seller_branch": "Zürich",
+        "purchase_currency": "CHF",
+        "purchase_price": 17.9,
+        "isbn_13": "9783423095631",
+        "isbn_10": "3423095636",
+        "flags": 1,
+        "openlib_synch_time": "2023-12-11 02:22:53 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Leblanc",
+                "given_names": [
+                    "Maurice"
+                ]
+            }
+        ],
+        "title": "Arsène Lupin, le gentleman-cambrioleur",
+        "languages": [
+            "fre",
+            "deu"
+        ],
+        "publishers": [
+            "dtv"
+        ],
+        "publish_date": "2023",
+        "dimensions": {
+            "length": 256
+        }
     }
 ]
