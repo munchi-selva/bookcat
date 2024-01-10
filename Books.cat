@@ -54218,5 +54218,177 @@
         "dimensions": {
             "length": 256
         }
+    },
+    {
+        "id": 1106,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 1
+        },
+        "isbn_13": "9789887625100",
+        "isbn_10": "9887625108",
+        "flags": 1,
+        "openlib_synch_time": "2024-01-11 08:28:24 GMT+1100 (Australian Eastern Daylight Time)",
+        "seller": "Chung Hwa Book Company",
+        "seller_branch": "Passenger Terminal Building, HK International Airport",
+        "purchase_price": 72,
+        "authors": [
+            {
+                "surname": "施",
+                "given_names": [
+                    "耐庵"
+                ]
+            }
+        ],
+        "title": "水滸傳",
+        "series": "中國經典名系列",
+        "number_in_order": 1,
+        "publishers": [
+            "園丁文化"
+        ],
+        "languages": [
+            "chi"
+        ],
+        "publish_date": "2023"
+    },
+    {
+        "id": 1107,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 1
+        },
+        "purchase_price": 72,
+        "seller": "Chung Hwa Book Company",
+        "seller_branch": "Passenger Terminal Building, HK International Airport",
+        "isbn_13": "9789887625087",
+        "isbn_10": "9887625086",
+        "number_in_order": 2,
+        "series": "中國經典名系列",
+        "publishers": [
+            "園丁文化"
+        ],
+        "title": "西遊記",
+        "authors": [
+            {
+                "given_names": [
+                    "承恩"
+                ],
+                "surname": "呉"
+            }
+        ],
+        "languages": [
+            "chi"
+        ],
+        "publish_date": "2023"
+    },
+    {
+        "id": 1108,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 1
+        },
+        "purchase_price": 72,
+        "seller": "Chung Hwa Book Company",
+        "seller_branch": "Passenger Terminal Building, HK International Airport",
+        "isbn_13": "9789887625094",
+        "isbn_10": "9887625094",
+        "number_in_order": 3,
+        "series": "中國經典名系列",
+        "publishers": [
+            "園丁文化"
+        ],
+        "title": "三國演義",
+        "authors": [
+            {
+                "given_names": [
+                    "貫中"
+                ],
+                "surname": "羅"
+            }
+        ],
+        "languages": [
+            "chi"
+        ],
+        "publish_date": "2023"
+    },
+    {
+        "id": 1109,
+        "purchase_price": 228,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 1
+        },
+        "seller": "Chung Hwa Book Company",
+        "seller_branch": "Passenger Terminal Building, HK International Airport",
+        "isbn_13": "9789888812875",
+        "isbn_10": "9888812874",
+        "flags": 1,
+        "openlib_synch_time": "2024-01-11 08:31:00 GMT+1100 (Australian Eastern Daylight Time)",
+        "number_in_order": 4,
+        "series": "",
+        "title": "故宮日曆(二〇二四年，漢英對照)",
+        "languages": [
+            "chi",
+            "eng"
+        ]
+    },
+    {
+        "id": 1110,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 7
+        },
+        "seller": "Dymocks",
+        "seller_branch": "George Street",
+        "purchase_currency": "AUD",
+        "purchase_price": 10,
+        "isbn_13": "9780571141357",
+        "isbn_10": "0571141358",
+        "openlib": {
+            "languages": [
+                "ara"
+            ],
+            "dimensions": {
+                "length": 160
+            },
+            "physical_format": "Paperback",
+            "key": "/books/OL36665119M",
+            "publishers": [
+                "دار المدى"
+            ],
+            "publish_date": "2013",
+            "title": "امتداح الخالة",
+            "info_url": "https://openlibrary.org/books/OL36665119M/امتداح_الخالة"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2024-01-11 08:48:15 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Vargos Llosa",
+                "given_names": [
+                    "Mario"
+                ]
+            },
+            {
+                "surname": "Lane",
+                "given_names": [
+                    "Helen"
+                ]
+            }
+        ],
+        "title": "In Praise of the Stepmother",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Faber and Faber"
+        ],
+        "publish_date": "",
+        "dimensions": {}
     }
 ]
