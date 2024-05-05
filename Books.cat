@@ -52981,7 +52981,8 @@
         "publish_date": "2020",
         "purchase_currency": "AUD",
         "purchase_price": 29.65,
-        "shipping_price": 10.45
+        "shipping_price": 10.45,
+        "series": "圖解經典"
     },
     {
         "id": 1083,
@@ -54390,5 +54391,276 @@
         ],
         "publish_date": "",
         "dimensions": {}
+    },
+    {
+        "id": 1111,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 20
+        },
+        "isbn_13": "9781761043543",
+        "isbn_10": "1761043544",
+        "flags": 1,
+        "openlib_synch_time": "2024-05-05 22:11:07 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Toltz",
+                "given_names": [
+                    "Steve"
+                ]
+            }
+        ],
+        "arrival_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 20
+        },
+        "seller": "Kinokuniya",
+        "number_in_order": 1,
+        "purchase_price": 22.99,
+        "purchase_currency": "AUD",
+        "title": "Here Goes Nothing",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Penguin"
+        ],
+        "seller_branch": "Sydney"
+    },
+    {
+        "id": 1112,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 20
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 20
+        },
+        "seller": "Kinokuniya",
+        "number_in_order": 2,
+        "purchase_currency": "AUD",
+        "purchase_price": 37.9,
+        "authors": [
+            {
+                "surname": "唐",
+                "given_names": [
+                    "譯"
+                ]
+            }
+        ],
+        "isbn_13": "9789579075510",
+        "isbn_10": "9579075514",
+        "flags": 1,
+        "openlib_synch_time": "2024-05-05 22:16:54 GMT+1000 (Australian Eastern Standard Time)",
+        "series": "圖解經典",
+        "title": "圖解中國神話故事",
+        "languages": [
+            "chi"
+        ],
+        "seller_branch": "Sydney",
+        "publish_date": "2021-03",
+        "number_in_series": 116
+    },
+    {
+        "id": 1113,
+        "languages": [
+            "chi"
+        ],
+        "number_in_order": 3,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 20
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 20
+        },
+        "seller": "Kinokuniya",
+        "purchase_currency": "AUD",
+        "purchase_price": 20.95,
+        "isbn_13": "9789861784557",
+        "isbn_10": "9861784551",
+        "flags": 1,
+        "openlib_synch_time": "2024-05-05 22:36:57 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "黃",
+                "given_names": [
+                    "晨淳"
+                ]
+            },
+            {
+                "surname": "寥",
+                "given_names": [
+                    "彥博"
+                ]
+            }
+        ],
+        "title": "中國神話故事",
+        "publishers": [
+            "好讀出板"
+        ],
+        "seller_branch": "Sydney"
+    },
+    {
+        "id": 1114,
+        "purchase_date": {
+            "year": 2024,
+            "month": 1,
+            "day": 21
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 1
+        },
+        "seller": "Dymocks",
+        "seller_branch": "George Street",
+        "purchase_currency": "AUD",
+        "purchase_price": 9.99,
+        "isbn_13": "9781784708344",
+        "isbn_10": "1784708348",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Ondaatje",
+                    "given_names": [
+                        "Michael"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 304
+            },
+            "key": "/books/OL28703599M",
+            "publishers": [
+                "Penguin Random House"
+            ],
+            "publish_date": "2019",
+            "subtitle": "A Novel",
+            "title": "Warlight",
+            "info_url": "https://openlibrary.org/books/OL28703599M/Warlight"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2024-05-05 22:59:04 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Ondaatje",
+                "given_names": [
+                    "Michael"
+                ]
+            }
+        ],
+        "title": "Warlight",
+        "publishers": [
+            "Vintage"
+        ]
+    },
+    {
+        "id": 1115,
+        "purchase_date": {
+            "year": 2024,
+            "month": 3,
+            "day": 27
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 4,
+            "day": 3
+        },
+        "seller": "Galaxus",
+        "purchase_currency": "CHF",
+        "purchase_price": 24.8,
+        "shipping_price": 0,
+        "isbn_13": "9783836587969",
+        "isbn_10": "3836587963",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Schütze",
+                    "given_names": [
+                        "Sebastian"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 512,
+                "mass": 1.416
+            },
+            "key": "/books/OL33936779M",
+            "publishers": [
+                "Taschen America, LLC"
+            ],
+            "publish_date": "2021",
+            "title": "Caravaggio. the Complete Works. 40th Ed",
+            "info_url": "https://openlibrary.org/books/OL33936779M/Caravaggio._the_Complete_Works._40th_Ed"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2024-05-05 23:06:29 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Schütze",
+                "given_names": [
+                    "Sebastian"
+                ]
+            }
+        ],
+        "title": "Caravaggio. the Complete Works. 40th Ed",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Taschen"
+        ]
+    },
+    {
+        "id": 1116,
+        "purchase_date": {
+            "year": 2024,
+            "month": 4,
+            "day": 18
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 4,
+            "day": 24
+        },
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 17.26,
+        "shipping_price": 0,
+        "isbn_13": "9783522202992",
+        "isbn_10": "3522202996",
+        "flags": 1,
+        "openlib_synch_time": "2024-05-05 23:09:27 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Ende",
+                "given_names": [
+                    "Michael"
+                ]
+            }
+        ],
+        "title": "Momo",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Thienemann"
+        ],
+        "publish_date": "2023"
     }
 ]
