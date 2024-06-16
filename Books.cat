@@ -54662,5 +54662,296 @@
             "Thienemann"
         ],
         "publish_date": "2023"
+    },
+    {
+        "id": 1117,
+        "purchase_date": {
+            "year": 2024,
+            "month": 5,
+            "day": 10
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 5,
+            "day": 10
+        },
+        "seller": "La libreria dietro l'angolo",
+        "seller_branch": "Piazza Cioccaro 10, Lugano",
+        "number_in_order": 1,
+        "purchase_currency": "CHF",
+        "purchase_price": 25,
+        "isbn_13": "9788881917228",
+        "isbn_10": "888191722X",
+        "flags": 1,
+        "openlib_synch_time": "2024-06-16 18:26:48 GMT+1000 (Australian Eastern Standard Time)",
+        "title": "La chiesa e il convento di Santa Maria degli Angeli a Lugano",
+        "subtitle": "Storia e iconografia",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Fontana edizioni"
+        ],
+        "publish_date": "2023",
+        "series": "Arte e Cultura"
+    },
+    {
+        "id": 1118,
+        "purchase_date": {
+            "year": 2024,
+            "month": 5,
+            "day": 10
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 5,
+            "day": 10
+        },
+        "seller": "La libreria dietro l'angolo",
+        "seller_branch": "Piazza Cioccaro 10, Lugano",
+        "number_in_order": 2,
+        "purchase_currency": "CHF",
+        "purchase_price": 25,
+        "isbn_13": "9788882815745",
+        "isbn_10": "8882815749",
+        "flags": 1,
+        "openlib_synch_time": "2024-06-16 18:30:32 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Jacot-Descombes",
+                "given_names": [
+                    "Andrea"
+                ]
+            }
+        ],
+        "title": "Cütnt ti che cünti mi",
+        "subtitle": "Leggende della Svizzera italiana",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Armando Dadò Editore"
+        ],
+        "location": ""
+    },
+    {
+        "id": 1119,
+        "purchase_date": {
+            "year": 2024,
+            "month": 5,
+            "day": 10
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 5,
+            "day": 10
+        },
+        "seller": "La libreria dietro l'angolo",
+        "seller_branch": "Piazza Cioccaro 10, Lugano",
+        "number_in_order": 3,
+        "purchase_currency": "CHF",
+        "purchase_price": 20,
+        "isbn_13": "9788877139870",
+        "isbn_10": "8877139870",
+        "flags": 1,
+        "openlib_synch_time": "2024-06-16 18:33:19 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Quadria",
+                "given_names": [
+                    "Claudia"
+                ]
+            }
+        ],
+        "title": "Infanzia e bestiario",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Edizione Casagrande"
+        ]
+    },
+    {
+        "id": 1120,
+        "purchase_date": {
+            "year": 2024,
+            "month": 6,
+            "day": 8
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 6,
+            "day": 13
+        },
+        "seller": "Amazon",
+        "seller_branch": ".it",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 16.92,
+        "isbn_13": "9788804735694",
+        "isbn_10": "8804735694",
+        "flags": 1,
+        "openlib_synch_time": "2024-06-16 18:36:59 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Doré",
+                "given_names": [
+                    "Gustave"
+                ]
+            },
+            {
+                "surname": "Baldassari",
+                "given_names": [
+                    "Gabriel"
+                ]
+            }
+        ],
+        "title": "La Divina Commedia di Dante Alighieri",
+        "subtitle": "Guida visuale al poema dantesco",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Oscar Mondadori"
+        ]
+    },
+    {
+        "id": 1121,
+        "purchase_date": {
+            "year": 2024,
+            "month": 6,
+            "day": 8
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 6,
+            "day": 13
+        },
+        "seller": "Amazon",
+        "seller_branch": ".it",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 10.09,
+        "isbn_13": "9781847496959",
+        "isbn_10": "1847496954",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "",
+                    "given_names": []
+                },
+                {
+                    "surname": "Mortimer",
+                    "given_names": [
+                        "Anthony"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 144
+            },
+            "key": "/books/OL29345567M",
+            "publishers": [
+                "Alma Classics"
+            ],
+            "publish_date": "2017",
+            "title": "Vita Nuova",
+            "info_url": "https://openlibrary.org/books/OL29345567M/Vita_Nuova"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2024-06-16 18:39:35 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Alighieri",
+                "given_names": [
+                    "Dante"
+                ]
+            },
+            {
+                "surname": "Mortimer",
+                "given_names": [
+                    "Anthony"
+                ]
+            }
+        ],
+        "title": "Vita Nuova",
+        "languages": [
+            "ita",
+            "eng"
+        ],
+        "publishers": [
+            "Alma Classics"
+        ]
+    },
+    {
+        "id": 1122,
+        "purchase_date": {
+            "year": 2024,
+            "month": 6,
+            "day": 9
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 6,
+            "day": 12
+        },
+        "seller": "Amazon",
+        "seller_branch": ".it",
+        "purchase_currency": "EUR",
+        "purchase_price": 59.1,
+        "isbn_13": "9782812321023",
+        "isbn_10": "2812321024",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Paré",
+                    "given_names": [
+                        "Alix"
+                    ]
+                }
+            ],
+            "languages": [
+                "fre"
+            ],
+            "dimensions": {
+                "length": 479
+            },
+            "key": "/books/OL43876440M",
+            "publishers": [
+                "Chêne"
+            ],
+            "publish_places": [
+                "Vanves"
+            ],
+            "publish_date": "2021",
+            "title": "Fantastique Gustave Doré",
+            "info_url": "https://openlibrary.org/books/OL43876440M/Fantastique_Gustave_Doré"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2024-06-16 18:41:31 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Paré",
+                "given_names": [
+                    "Alix"
+                ]
+            },
+            {
+                "surname": "Sueur-Hermel",
+                "given_names": [
+                    "Valérie"
+                ]
+            }
+        ],
+        "title": "Fantastique Gustave Doré",
+        "languages": [
+            "fre"
+        ],
+        "publishers": [
+            "Editions du Chêne"
+        ]
     }
 ]
