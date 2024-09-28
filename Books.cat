@@ -54953,5 +54953,132 @@
         "publishers": [
             "Editions du Chêne"
         ]
+    },
+    {
+        "id": 1123,
+        "purchase_date": {
+            "year": 2024,
+            "month": 9,
+            "day": 15
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 9,
+            "day": 19
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "isbn_13": "9782377359493",
+        "isbn_10": "2377359493",
+        "flags": 1,
+        "openlib_synch_time": "2024-09-29 04:34:38 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Leblanc",
+                "given_names": [
+                    "Maurice"
+                ]
+            }
+        ],
+        "series": "Arsène Lupin",
+        "number_in_series": 1,
+        "title": "Arsène Lupin, gentleman cambrioleur suivi de Les Confidences d'Arsène Lupin",
+        "languages": [
+            "fre"
+        ],
+        "publishers": [
+            "Archipoche"
+        ],
+        "publish_date": "2021",
+        "purchase_price": 8.48,
+        "shipping_price": 0
+    },
+    {
+        "id": 1124,
+        "purchase_date": {
+            "year": 2024,
+            "month": 9,
+            "day": 15
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 9,
+            "day": 24
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 8.48,
+        "isbn_13": "9782377359509",
+        "isbn_10": "2377359507",
+        "openlib": {
+            "key": "/books/OL32640099M",
+            "publishers": [
+                "Archipoche"
+            ],
+            "publish_date": "2021",
+            "subtitle": "Suivi de l'Aiguille Creuse",
+            "title": "Arsène Lupin contre Herlock Sholmès",
+            "info_url": "https://openlibrary.org/books/OL32640099M/Arsène_Lupin_contre_Herlock_Sholmès"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2024-09-29 04:41:52 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Leblanc",
+                "given_names": [
+                    "Maurice"
+                ]
+            }
+        ],
+        "series": "Arsène Lupin",
+        "title": "Arsène Lupin contre Herlock Sholmès suivi de L'Aiguille creuse",
+        "number_in_series": 2,
+        "languages": [
+            "fre"
+        ]
+    },
+    {
+        "id": 1125,
+        "purchase_date": {
+            "year": 2024,
+            "month": 9,
+            "day": 15
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 9,
+            "day": 24
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 3,
+        "purchase_currency": "EUR",
+        "purchase_price": 8.48,
+        "isbn_13": "9782377359516",
+        "isbn_10": "2377359515",
+        "flags": 1,
+        "openlib_synch_time": "2024-09-29 04:44:31 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Leblanc",
+                "given_names": [
+                    "Maurice"
+                ]
+            }
+        ],
+        "series": "Arsène Lupin",
+        "number_in_series": 3,
+        "title": "Arsène Lupin. Le bouchon de cristal suivi de La demoiselle aux yeux verts",
+        "languages": [
+            "fre"
+        ],
+        "publishers": [
+            "Archipoche"
+        ],
+        "publish_date": "2021"
     }
 ]
