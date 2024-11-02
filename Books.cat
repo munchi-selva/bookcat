@@ -55080,5 +55080,117 @@
             "Archipoche"
         ],
         "publish_date": "2021"
+    },
+    {
+        "id": 1126,
+        "purchase_date": {
+            "year": 2024,
+            "month": 10,
+            "day": 14
+        },
+        "seller": "Librerie Coop",
+        "seller_branch": "Genova Porto Antico",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 17,
+        "isbn_13": "9788884802026",
+        "isbn_10": "8884802024",
+        "flags": 1,
+        "openlib_synch_time": "2024-11-03 05:33:31 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Tormena",
+                "given_names": [
+                    "Gianmarco"
+                ]
+            }
+        ],
+        "title": "Genova, le strade nuove e il sistema dei/and the system of the Palazzi dei Rolli",
+        "languages": [
+            "ita",
+            "eng"
+        ],
+        "publishers": [
+            "Tormena Editore"
+        ],
+        "publish_date": "2024"
+    },
+    {
+        "id": 1127,
+        "purchase_date": {
+            "year": 2024,
+            "month": 10,
+            "day": 14
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 10,
+            "day": 14
+        },
+        "seller": "Librerie Coop",
+        "seller_branch": "Genova Porto Antico",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 12,
+        "isbn_13": "9788822746559",
+        "isbn_10": "8822746554",
+        "flags": 1,
+        "openlib_synch_time": "2024-11-03 05:36:08 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Càlzia",
+                "given_names": [
+                    "Fabrizio"
+                ]
+            }
+        ],
+        "title": "Breve storia di Genova",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Newton Compton Editori"
+        ],
+        "publish_date": "2020",
+        "series": "Quest'Italia",
+        "number_in_series": 477
+    },
+    {
+        "id": 1128,
+        "purchase_date": {
+            "year": 2024,
+            "month": 10,
+            "day": 18
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 10,
+            "day": 18
+        },
+        "seller": "La Feltrinelli",
+        "purchase_currency": "EUR",
+        "purchaser": "Patrick",
+        "purchase_price": 18,
+        "authors": [
+            {
+                "surname": "Pulixi",
+                "given_names": [
+                    "Piergiorgio"
+                ]
+            }
+        ],
+        "isbn_13": "9788807036095",
+        "isbn_10": "8807036096",
+        "series": "I narratori noir",
+        "title": "La donna nel pozzo",
+        "number_in_series": 1,
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Feltrinelli Editore"
+        ],
+        "publish_date": "2024",
+        "seller_branch": "Stazione Centrale, Milano"
     }
 ]
