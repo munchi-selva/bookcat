@@ -54218,7 +54218,8 @@
         "publish_date": "2023",
         "dimensions": {
             "length": 256
-        }
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1106,
@@ -54251,7 +54252,8 @@
         "languages": [
             "chi"
         ],
-        "publish_date": "2023"
+        "publish_date": "2023",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1107,
@@ -54282,7 +54284,8 @@
         "languages": [
             "chi"
         ],
-        "publish_date": "2023"
+        "publish_date": "2023",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1108,
@@ -54313,7 +54316,8 @@
         "languages": [
             "chi"
         ],
-        "publish_date": "2023"
+        "publish_date": "2023",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1109,
@@ -54335,7 +54339,8 @@
         "languages": [
             "chi",
             "eng"
-        ]
+        ],
+        "cover_required": "N (Hardback)"
     },
     {
         "id": 1110,
@@ -54390,7 +54395,8 @@
             "Faber and Faber"
         ],
         "publish_date": "",
-        "dimensions": {}
+        "dimensions": {},
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1111,
@@ -54427,7 +54433,8 @@
         "publishers": [
             "Penguin"
         ],
-        "seller_branch": "Sydney"
+        "seller_branch": "Sydney",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1112,
@@ -54464,7 +54471,8 @@
         ],
         "seller_branch": "Sydney",
         "publish_date": "2021-03",
-        "number_in_series": 116
+        "number_in_series": 116,
+        "cover_required": "N"
     },
     {
         "id": 1113,
@@ -54507,7 +54515,8 @@
         "publishers": [
             "好讀出板"
         ],
-        "seller_branch": "Sydney"
+        "seller_branch": "Sydney",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1114,
@@ -54563,7 +54572,8 @@
         "title": "Warlight",
         "publishers": [
             "Vintage"
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1115,
@@ -54623,7 +54633,8 @@
         ],
         "publishers": [
             "Taschen"
-        ]
+        ],
+        "cover_required": "N (Hardback)"
     },
     {
         "id": 1116,
@@ -54661,7 +54672,8 @@
         "publishers": [
             "Thienemann"
         ],
-        "publish_date": "2023"
+        "publish_date": "2023",
+        "cover_required": "N (Hardback)"
     },
     {
         "id": 1117,
@@ -54693,7 +54705,8 @@
             "Fontana edizioni"
         ],
         "publish_date": "2023",
-        "series": "Arte e Cultura"
+        "series": "Arte e Cultura",
+        "cover_required": "N"
     },
     {
         "id": 1118,
@@ -54732,7 +54745,8 @@
         "publishers": [
             "Armando Dadò Editore"
         ],
-        "location": ""
+        "location": "",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1119,
@@ -54769,7 +54783,8 @@
         ],
         "publishers": [
             "Edizione Casagrande"
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1120,
@@ -54813,7 +54828,8 @@
         ],
         "publishers": [
             "Oscar Mondadori"
-        ]
+        ],
+        "cover_required": "N (Hardback)"
     },
     {
         "id": 1121,
@@ -54884,7 +54900,8 @@
         ],
         "publishers": [
             "Alma Classics"
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1122,
@@ -54952,7 +54969,8 @@
         ],
         "publishers": [
             "Editions du Chêne"
-        ]
+        ],
+        "cover_required": "N (Hardback)"
     },
     {
         "id": 1123,
@@ -54993,7 +55011,8 @@
         ],
         "publish_date": "2021",
         "purchase_price": 8.48,
-        "shipping_price": 0
+        "shipping_price": 0,
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1124,
@@ -55039,7 +55058,8 @@
         "number_in_series": 2,
         "languages": [
             "fre"
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1125,
@@ -55079,7 +55099,8 @@
         "publishers": [
             "Archipoche"
         ],
-        "publish_date": "2021"
+        "publish_date": "2021",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1126,
@@ -55113,7 +55134,8 @@
         "publishers": [
             "Tormena Editore"
         ],
-        "publish_date": "2024"
+        "publish_date": "2024",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1127,
@@ -55153,7 +55175,8 @@
         ],
         "publish_date": "2020",
         "series": "Quest'Italia",
-        "number_in_series": 477
+        "number_in_series": 477,
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1128,
@@ -55191,6 +55214,700 @@
             "Feltrinelli Editore"
         ],
         "publish_date": "2024",
-        "seller_branch": "Stazione Centrale, Milano"
+        "seller_branch": "Stazione Centrale, Milano",
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1129,
+        "purchase_date": {
+            "year": 2024,
+            "month": 11,
+            "day": 30
+        },
+        "seller": "Amazon",
+        "seller_branch": ".it",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 29.23,
+        "isbn_13": "9788822922618",
+        "isbn_10": "8822922611",
+        "flags": 1,
+        "openlib_synch_time": "2025-03-23 05:42:27 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Prato",
+                "given_names": [
+                    "Dolores"
+                ]
+            }
+        ],
+        "title": "Giù la piazza non c'è nessuno",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Quodlibet"
+        ],
+        "publish_date": "2024",
+        "arrival_date": {
+            "year": 2024,
+            "month": 12,
+            "day": 6
+        },
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1130,
+        "purchase_date": {
+            "year": 2024,
+            "month": 11,
+            "day": 30
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 12,
+            "day": 6
+        },
+        "seller": "Amazon",
+        "seller_branch": ".it",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "isbn_10": "8817159735",
+        "isbn_13": "9788817159739",
+        "flags": 1,
+        "openlib_synch_time": "2025-03-23 05:44:22 GMT+1100 (Australian Eastern Daylight Time)",
+        "purchase_price": 17.98,
+        "authors": [
+            {
+                "surname": "Alighieri",
+                "given_names": [
+                    "Dante"
+                ]
+            },
+            {
+                "surname": "Zuccari",
+                "given_names": [
+                    "Federico"
+                ]
+            }
+        ],
+        "title": "La divina commedia",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "BUR Rizzoli"
+        ],
+        "publish_date": "2021",
+        "cover_required": "N"
+    },
+    {
+        "id": 1131,
+        "purchase_date": {
+            "year": 2024,
+            "month": 11,
+            "day": 30
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 12,
+            "day": 5
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 13.27,
+        "isbn_10": "8845930378",
+        "isbn_13": "9788845930379",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Malaparte",
+                    "given_names": [
+                        "Curzio"
+                    ]
+                }
+            ],
+            "languages": [
+                "ita"
+            ],
+            "dimensions": {
+                "length": 379
+            },
+            "key": "/books/OL39816885M",
+            "publishers": [
+                "Adelphi"
+            ],
+            "publish_places": [
+                "Milano"
+            ],
+            "publish_date": "2010",
+            "subtitle": "storia e racconto",
+            "title": "La pelle",
+            "info_url": "https://openlibrary.org/books/OL39816885M/La_pelle"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-03-23 05:47:43 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Malaparte",
+                "given_names": [
+                    "Curzio"
+                ]
+            }
+        ],
+        "title": "La pelle",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Adelphi"
+        ],
+        "publish_date": "2015",
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1132,
+        "purchase_date": {
+            "year": 2024,
+            "month": 11,
+            "day": 30
+        },
+        "arrival_date": {
+            "year": 2024,
+            "month": 12,
+            "day": 5
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 14.22,
+        "isbn_10": "8845928675",
+        "isbn_13": "9788845928673",
+        "flags": 1,
+        "openlib_synch_time": "2025-03-23 05:49:25 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Malaparte",
+                "given_names": [
+                    "Curzio"
+                ]
+            }
+        ],
+        "title": "Kaputt",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Adelphi"
+        ],
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1133,
+        "purchase_date": {
+            "year": 2025,
+            "month": 1,
+            "day": 17
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 1,
+            "day": 17
+        },
+        "seller": "Kinokuniya",
+        "seller_branch": "Sydney",
+        "purchase_currency": "AUD",
+        "purchase_price": 36.3,
+        "isbn_13": "9789869904544",
+        "isbn_10": "9869904548",
+        "flags": 1,
+        "openlib_synch_time": "2025-03-23 05:51:02 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "郭",
+                "given_names": [
+                    "璞"
+                ]
+            }
+        ],
+        "title": "山海經",
+        "languages": [
+            "chi"
+        ],
+        "publishers": [
+            "大旗出版社"
+        ],
+        "cover_required": "N"
+    },
+    {
+        "id": 1134,
+        "purchase_date": {
+            "year": 2025,
+            "month": 1,
+            "day": 21
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 1,
+            "day": 21
+        },
+        "seller": "Kinokuniya",
+        "seller_branch": "Sydney",
+        "purchase_currency": "AUD",
+        "purchase_price": 57.7,
+        "isbn_10": "9862138173",
+        "isbn_13": "9789862138175",
+        "flags": 1,
+        "openlib_synch_time": "2025-03-23 06:09:21 GMT+1100 (Australian Eastern Daylight Time)",
+        "title": "山海經",
+        "authors": [
+            {
+                "surname": "李",
+                "given_names": [
+                    "豐楙"
+                ]
+            }
+        ],
+        "languages": [
+            "chi"
+        ],
+        "publishers": [
+            "大\\塊文化"
+        ],
+        "cover_required": "N"
+    },
+    {
+        "id": 1135,
+        "purchase_date": {
+            "year": 2025,
+            "month": 2,
+            "day": 16
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 2,
+            "day": 21
+        },
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 21.04,
+        "isbn_13": "9780061997228",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Wheelock",
+                    "given_names": [
+                        "Frederic",
+                        "M."
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 562
+            },
+            "key": "/books/OL26882266M",
+            "publishers": [
+                "Collins Reference"
+            ],
+            "publish_places": [
+                "New York"
+            ],
+            "publish_date": "2011",
+            "title": "Wheelock's Latin",
+            "info_url": "https://openlibrary.org/books/OL26882266M/Wheelock's_Latin"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-03-23 06:17:58 GMT+1100 (Australian Eastern Daylight Time)",
+        "isbn_10": "0061997226",
+        "title": "Wheelock's Latin",
+        "languages": [
+            "eng",
+            "lat"
+        ],
+        "publishers": [
+            "Collins Reference"
+        ],
+        "authors": [
+            {
+                "given_names": [
+                    "Frederic",
+                    "M."
+                ],
+                "surname": "Wheelock"
+            }
+        ],
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1136,
+        "purchase_date": {
+            "year": 2025,
+            "month": 2,
+            "day": 16
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 2,
+            "day": 19
+        },
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 17.74,
+        "isbn_10": "0060935065",
+        "isbn_13": "9780060935061",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Wheelock",
+                    "given_names": [
+                        "Frederic",
+                        "M."
+                    ]
+                }
+            ],
+            "languages": [
+                "lat"
+            ],
+            "dimensions": {
+                "length": 417
+            },
+            "key": "/books/OL3969318M",
+            "publishers": [
+                "HarperResource"
+            ],
+            "publish_places": [
+                "New York"
+            ],
+            "publish_date": "2001",
+            "subtitle": "selections from Latin literature",
+            "title": "Wheelock's Latin reader",
+            "info_url": "https://openlibrary.org/books/OL3969318M/Wheelock's_Latin_reader"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-03-23 06:20:07 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Wheelock",
+                "given_names": [
+                    "Frederic",
+                    "M."
+                ]
+            }
+        ],
+        "title": "Wheelock's Latin Reader",
+        "subtitle": "Selections from Latin literature",
+        "languages": [
+            "eng",
+            "lat"
+        ],
+        "publishers": [
+            "Collins Reference"
+        ],
+        "publish_date": "2001",
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1137,
+        "purchase_date": {
+            "year": 2025,
+            "month": 3,
+            "day": 8
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 3,
+            "day": 8
+        },
+        "seller": "Orell Füssli",
+        "seller_branch": "Zürich",
+        "number_in_order": 1,
+        "purchase_currency": "CHF",
+        "purchase_price": 6.9,
+        "isbn_13": "9783257230451",
+        "isbn_10": "3257230451",
+        "openlib": {
+            "languages": [
+                "ger"
+            ],
+            "dimensions": {
+                "length": 155
+            },
+            "physical_format": "Taschenbuch",
+            "key": "/books/OL37740079M",
+            "publishers": [
+                "Diogenes"
+            ],
+            "publish_date": "2016",
+            "subtitle": "Tragische Komödie",
+            "title": "Der Besuch der alten Dame",
+            "info_url": "https://openlibrary.org/books/OL37740079M/Der_Besuch_der_alten_Dame"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-03-23 06:22:20 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Dürrenmatt",
+                "given_names": [
+                    "Friedrich"
+                ]
+            }
+        ],
+        "title": "Der Besuch der alten Dame",
+        "subtitle": "Tragische Komödie",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Diogenes"
+        ],
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1138,
+        "purchase_date": {
+            "year": 2025,
+            "month": 3,
+            "day": 8
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 3,
+            "day": 8
+        },
+        "seller": "Orell Füssli",
+        "seller_branch": "Zürich",
+        "number_in_order": 2,
+        "purchase_currency": "CHF",
+        "purchase_price": 6.9,
+        "isbn_13": "9783257214369",
+        "isbn_10": "3257214367",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Dürrenmatt",
+                    "given_names": [
+                        "Friedrich"
+                    ]
+                }
+            ],
+            "languages": [
+                "ger"
+            ],
+            "key": "/books/OL21820609M",
+            "publishers": [
+                "Diogenes"
+            ],
+            "publish_places": [
+                "Zürich"
+            ],
+            "publish_date": "1986",
+            "subtitle": "Kriminalroman",
+            "title": "Der Verdacht",
+            "info_url": "https://openlibrary.org/books/OL21820609M/Der_Verdacht"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-03-23 06:23:47 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Dürrenmatt",
+                "given_names": [
+                    "Friedrich"
+                ]
+            }
+        ],
+        "title": "Der Verdacht",
+        "subtitle": "Kriminalroman",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Diogenes"
+        ],
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1139,
+        "purchase_date": {
+            "year": 2025,
+            "month": 5,
+            "day": 10
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 5,
+            "day": 14
+        },
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 11.5,
+        "isbn_13": "9783423213301",
+        "isbn_10": "3423213302",
+        "flags": 3,
+        "openlib_synch_time": "2025-06-09 19:07:19 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Falk",
+                "given_names": [
+                    "Rita"
+                ]
+            }
+        ],
+        "title": "Winterkartoffelknödel",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "dtv"
+        ],
+        "cover_required": "Y (Done)",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Falk",
+                    "given_names": [
+                        "R."
+                    ]
+                }
+            ],
+            "physical_format": "paperback",
+            "key": "/books/OL46535554M",
+            "publishers": [
+                "Deutscher Taschenbuch",
+                "Deutscher Taschenbuch Verlag GmbH & Co."
+            ],
+            "publish_date": "Feb 02, 2012",
+            "title": "Winterkartoffelknodel",
+            "info_url": "https://openlibrary.org/books/OL46535554M/Winterkartoffelknodel"
+        }
+    },
+    {
+        "id": 1140,
+        "purchase_date": {
+            "year": 2025,
+            "month": 2,
+            "day": 6
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 2,
+            "day": 6
+        },
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 17.76,
+        "isbn_13": "9798313328584",
+        "isbn_10": "8313328584",
+        "title": "Manzoniana",
+        "subtitle": "Renzo & Lucia, I promessi sposi a fumetti",
+        "languages": [
+            "ita"
+        ],
+        "authors": [
+            {
+                "surname": "Toninelli",
+                "given_names": [
+                    "Marcello"
+                ]
+            }
+        ],
+        "publish_date": "March 7, 2025"
+    },
+    {
+        "id": 1141,
+        "purchase_date": {
+            "year": 2025,
+            "month": 6,
+            "day": 9
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 6,
+            "day": 9
+        },
+        "purchaser": "Patrick",
+        "number_in_order": 1,
+        "isbn_13": "9783423213738",
+        "isbn_10": "3423213736",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Falk",
+                    "given_names": [
+                        "Rita"
+                    ]
+                }
+            ],
+            "key": "/books/OL45773709M",
+            "publishers": [
+                "Deutscher Taschenbuch Verlag GmbH & Co."
+            ],
+            "publish_date": "2012-01-01",
+            "title": "Dampfnudelblues",
+            "info_url": "https://openlibrary.org/books/OL45773709M/Dampfnudelblues"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-06-09 19:11:10 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Falk",
+                "given_names": [
+                    "Rita"
+                ]
+            }
+        ],
+        "title": "Dampfnudelblues",
+        "publishers": [
+            "dtv"
+        ],
+        "languages": [
+            "deu"
+        ]
+    },
+    {
+        "id": 1142,
+        "purchase_date": {
+            "year": 2025,
+            "month": 6,
+            "day": 9
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 6,
+            "day": 9
+        },
+        "purchaser": "Patrick",
+        "number_in_order": 2,
+        "isbn_13": "9783423263771",
+        "isbn_10": "3423263776",
+        "flags": 1,
+        "openlib_synch_time": "2025-06-09 19:12:22 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Falk",
+                "given_names": [
+                    "Rita"
+                ]
+            }
+        ],
+        "title": "Steckerlfischfiasko",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "dtv"
+        ],
+        "publish_date": "2023"
     }
 ]

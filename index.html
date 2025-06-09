@@ -119,7 +119,7 @@
             const REGEX_INT                 = new RegExp(/^[0-9]+$/);
 
             // ISBN handling
-            const REGEX_ISBN13              = new RegExp(/^978[0-9]{9}[0-9X]$/);
+            const REGEX_ISBN13              = new RegExp(/^97[89][0-9]{9}[0-9X]$/);
             const REGEX_ISBN10              = new RegExp(/^[0-9]{9}[0-9X]$/);
             const ISBN13_PREFIX             = "978";
             const ISBN13_DIGITS             = 13;
@@ -1992,7 +1992,8 @@
                     }
                     else if (REGEX_ISBN13.test(isbn))
                     {
-                        isbnConv = isbn.replace(ISBN13_PREFIX, "");
+                        // Remove prefix
+                        isbnConv = isbn.substr(ISBN13_PREFIX.length);
                     }
                     isbnConv = isbnConv.substr(0, isbnConv.length - 1) + calcISBNCheckDigit(isbnConv);
                 }
