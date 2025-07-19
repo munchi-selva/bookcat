@@ -55822,7 +55822,8 @@
                 ]
             }
         ],
-        "publish_date": "March 7, 2025"
+        "publish_date": "March 7, 2025",
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1141,
@@ -55873,7 +55874,8 @@
         ],
         "languages": [
             "deu"
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1142,
@@ -55908,6 +55910,49 @@
         "publishers": [
             "dtv"
         ],
-        "publish_date": "2023"
+        "publish_date": "2023",
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1143,
+        "purchase_date": {
+            "year": 2025,
+            "month": 7,
+            "day": 17
+        },
+        "isbn_13": "9783742318565",
+        "isbn_10": "374231856X",
+        "flags": 1,
+        "openlib_synch_time": "2025-07-19 15:44:44 GMT+1000 (Australian Eastern Standard Time)",
+        "seller": "Lüthy",
+        "seller_branch": "Sihlcity Zürich",
+        "purchase_currency": "CHF",
+        "purchase_price": 16.9,
+        "authors": [
+            {
+                "surname": "Cnyrim",
+                "given_names": [
+                    "Petra"
+                ]
+            }
+        ],
+        "series": "Erklärs mir, als wäre ich 5",
+        "number_in_series": 4,
+        "title": "Erklärs mir, als wäre ich 5",
+        "subtitle": "Wirtschaft",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "rita Verlag"
+        ],
+        "publish_places": [
+            "München"
+        ],
+        "publish_date": "2025",
+        "dimensions": {
+            "length": 192
+        },
+        "cover_required": " Y (Done)"
     }
 ]
