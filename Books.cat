@@ -55954,5 +55954,367 @@
             "length": 192
         },
         "cover_required": " Y (Done)"
+    },
+    {
+        "id": 1144,
+        "purchase_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 17
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 17
+        },
+        "seller": "Bookshop Palazzo delle Papesse",
+        "seller_branch": "Via di Città 126, Siena",
+        "purchase_currency": "EUR",
+        "purchase_price": 17,
+        "isbn_13": "9788817195898",
+        "isbn_10": "8817195898",
+        "flags": 1,
+        "openlib_synch_time": "2025-09-09 17:11:13 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Pratt",
+                "given_names": [
+                    "Hugo"
+                ]
+            }
+        ],
+        "title": "Corte sconta detta Arcana",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "BUR Rizzoli"
+        ],
+        "publish_date": "2025",
+        "dimensions": {
+            "length": 192
+        }
+    },
+    {
+        "id": 1145,
+        "purchase_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 22
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 22
+        },
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 15,
+        "isbn_13": "9788889073575",
+        "isbn_10": "8889073578",
+        "flags": 1,
+        "openlib_synch_time": "2025-09-09 17:15:24 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Pasquini",
+                "given_names": [
+                    "Stefano"
+                ]
+            }
+        ],
+        "title": "La battaglia di Montaperti nell Divina Commedia",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Accademia Senese degli Intronati"
+        ],
+        "publish_date": "2024",
+        "dimensions": {
+            "length": 176
+        }
+    },
+    {
+        "id": 1146,
+        "purchase_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 22
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 22
+        },
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 20,
+        "isbn_13": "9788804792475",
+        "isbn_10": "8804792477",
+        "flags": 1,
+        "openlib_synch_time": "2025-09-09 17:18:31 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Accademia della Crusca"
+            }
+        ],
+        "title": "Sbagliano s'impari",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Mondadori"
+        ],
+        "publish_date": "2024",
+        "dimensions": {
+            "length": 344
+        }
+    },
+    {
+        "id": 1147,
+        "purchase_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 28
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 28
+        },
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 16,
+        "isbn_13": "9788804783121",
+        "isbn_10": "8804783125",
+        "flags": 1,
+        "openlib_synch_time": "2025-09-09 17:29:58 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Accademia della Crusca"
+            }
+        ],
+        "title": "Giusto, sbagliato, dipende",
+        "subtitle": "Le risposte ai tuoi dubbi sulla lingua italiana",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Mondadori"
+        ],
+        "publish_date": "2024",
+        "dimensions": {
+            "length": 444
+        }
+    },
+    {
+        "id": 1148,
+        "purchase_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 28
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 28
+        },
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 16,
+        "isbn_13": "9788875768096",
+        "isbn_10": "8875768099",
+        "flags": 1,
+        "openlib_synch_time": "2025-09-09 17:32:27 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Marruganti",
+                "given_names": [
+                    "Camilla"
+                ]
+            }
+        ],
+        "title": "Siena misteriosa e arcana",
+        "subtitle": "Un viaggio tra racconti antichi e moderni",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Betti Editrice"
+        ],
+        "publish_date": "2023",
+        "dimensions": {
+            "length": 168
+        }
+    },
+    {
+        "id": 1149,
+        "purchase_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 28
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 28
+        },
+        "seller": "Libreria Senese",
+        "seller_branch": "Siena",
+        "number_in_order": 3,
+        "purchase_currency": "EUR",
+        "purchase_price": 14,
+        "isbn_13": "9788869733451",
+        "isbn_10": "8869733459",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Grillo",
+                    "given_names": [
+                        "Paolo"
+                    ]
+                }
+            ],
+            "languages": [
+                "ita"
+            ],
+            "dimensions": {
+                "length": 166
+            },
+            "key": "/books/OL44380623M",
+            "publishers": [
+                "Salerno editrice"
+            ],
+            "publish_places": [
+                "Roma"
+            ],
+            "publish_date": "2018",
+            "subtitle": "Guelfi e Ghibellini nell'Italia del Duecento",
+            "title": "La falsa inimicizia",
+            "info_url": "https://openlibrary.org/books/OL44380623M/La_falsa_inimicizia"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-09-09 17:34:54 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Grillo",
+                "given_names": [
+                    "Paolo"
+                ]
+            }
+        ],
+        "title": "La falsa inimicizia",
+        "subtitle": "Guelfi e Ghibellini nell'Italia del Duecento",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Salerno editrice"
+        ],
+        "publish_date": "2018",
+        "dimensions": {
+            "length": 168
+        }
+    },
+    {
+        "id": 1150,
+        "purchase_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 31
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 8,
+            "day": 31
+        },
+        "seller": "Libreria Nanni",
+        "seller_branch": "Via Musei 8, Bologna",
+        "purchase_currency": "EUR",
+        "purchase_price": 6,
+        "isbn_13": "9788863114867",
+        "isbn_10": "8863114862",
+        "flags": 1,
+        "openlib_synch_time": "2025-09-09 17:43:02 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Vamba"
+            }
+        ],
+        "title": "Il Giornalino di Gian Burrasca",
+        "languages": [
+            "ita"
+        ]
+    },
+    {
+        "id": 1151,
+        "purchase_date": {
+            "year": 2025,
+            "month": 9,
+            "day": 7
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 9,
+            "day": 7
+        },
+        "seller": "La Feltrinelli",
+        "seller_branch": "Stazione Centrale, Milano",
+        "purchase_currency": "EUR",
+        "purchase_price": 17.5,
+        "isbn_13": "9788806242329",
+        "isbn_10": "8806242326",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Ardone",
+                    "given_names": [
+                        "Viola"
+                    ]
+                }
+            ],
+            "languages": [
+                "ita"
+            ],
+            "dimensions": {
+                "length": 233
+            },
+            "physical_format": "paperback",
+            "key": "/books/OL32183728M",
+            "publishers": [
+                "Einaudi"
+            ],
+            "publish_date": "Sep 24, 2019",
+            "title": "Il treno dei bambini",
+            "info_url": "https://openlibrary.org/books/OL32183728M/Il_treno_dei_bambini"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-09-09 17:52:49 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Ardone",
+                "given_names": [
+                    "Viola"
+                ]
+            }
+        ],
+        "title": "Il treno dei bambini",
+        "languages": [
+            "ita"
+        ],
+        "publishers": [
+            "Einaudi"
+        ],
+        "dimensions": {
+            "length": 248
+        }
     }
 ]
