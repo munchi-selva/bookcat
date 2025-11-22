@@ -55993,7 +55993,8 @@
         "publish_date": "2025",
         "dimensions": {
             "length": 192
-        }
+        },
+        "cover_required": "N"
     },
     {
         "id": 1145,
@@ -56034,7 +56035,8 @@
         "publish_date": "2024",
         "dimensions": {
             "length": 176
-        }
+        },
+        "cover_required": "N"
     },
     {
         "id": 1146,
@@ -56072,7 +56074,8 @@
         "publish_date": "2024",
         "dimensions": {
             "length": 344
-        }
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1147,
@@ -56111,7 +56114,8 @@
         "publish_date": "2024",
         "dimensions": {
             "length": 444
-        }
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1148,
@@ -56153,7 +56157,8 @@
         "publish_date": "2023",
         "dimensions": {
             "length": 168
-        }
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1149,
@@ -56222,7 +56227,8 @@
         "publish_date": "2018",
         "dimensions": {
             "length": 168
-        }
+        },
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1150,
@@ -56252,7 +56258,8 @@
         "title": "Il Giornalino di Gian Burrasca",
         "languages": [
             "ita"
-        ]
+        ],
+        "cover_required": "Y (Done)"
     },
     {
         "id": 1151,
@@ -56315,6 +56322,73 @@
         ],
         "dimensions": {
             "length": 248
-        }
+        },
+        "cover_required": "Y (Done)"
+    },
+    {
+        "id": 1152,
+        "purchase_date": {
+            "year": 2025,
+            "month": 11,
+            "day": 16
+        },
+        "arrival_date": {
+            "year": 2025,
+            "month": 11,
+            "day": 22
+        },
+        "seller": "AbeBooks.co.uk",
+        "seller_branch": "books-livres11.com",
+        "purchase_currency": "CHF",
+        "purchase_price": 5.62,
+        "shipping_price": 0.92,
+        "isbn_13": "9782253142942",
+        "isbn_10": "2253142948",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Simenon",
+                    "given_names": [
+                        "Georges"
+                    ]
+                }
+            ],
+            "languages": [
+                "fre"
+            ],
+            "dimensions": {
+                "height": 17.272,
+                "width": 11.176000000000002,
+                "thickness": 1.524,
+                "length": 191,
+                "mass": 4.2,
+                "mass_units": "ounces"
+            },
+            "physical_format": "Mass Market Paperback",
+            "key": "/books/OL8888150M",
+            "publishers": [
+                "Livre de Poche"
+            ],
+            "publish_date": "January 2, 2003",
+            "title": "Pietr-Le-Letton",
+            "info_url": "https://openlibrary.org/books/OL8888150M/Pietr-Le-Letton"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2025-11-23 02:09:19 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Simenon",
+                "given_names": [
+                    "Georges"
+                ]
+            }
+        ],
+        "title": "Pietr-Le-Letton",
+        "languages": [
+            "fre"
+        ],
+        "publishers": [
+            "Livre de Poche"
+        ]
     }
 ]
