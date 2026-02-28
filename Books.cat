@@ -56389,6 +56389,293 @@
         ],
         "publishers": [
             "Livre de Poche"
+        ],
+        "series": "Maigret",
+        "number_in_series": 1
+    },
+    {
+        "id": 1153,
+        "purchase_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 1
+        },
+        "arrival_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 4
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 1,
+        "purchase_currency": "EUR",
+        "purchase_price": 6.71,
+        "isbn_13": "9782253142973",
+        "isbn_10": "2253142972",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "",
+                    "given_names": []
+                }
+            ],
+            "languages": [
+                "fre"
+            ],
+            "dimensions": {
+                "height": 17.018,
+                "width": 10.921999999999999,
+                "thickness": 1.524,
+                "length": 188,
+                "mass": 5,
+                "mass_units": "ounces"
+            },
+            "physical_format": "Mass Market Paperback",
+            "key": "/books/OL8888153M",
+            "publishers": [
+                "Livre de Poche"
+            ],
+            "publish_date": "February 19, 2003",
+            "title": "Le Charretier De La Providence",
+            "info_url": "https://openlibrary.org/books/OL8888153M/Le_Charretier_De_La_Providence"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2026-02-28 23:01:16 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Simenon",
+                "given_names": [
+                    "Georges"
+                ]
+            }
+        ],
+        "series": "Maigret",
+        "title": "Le Charretier de la a Providence",
+        "publishers": [
+            "Livre de Poche"
+        ],
+        "number_in_series": 2
+    },
+    {
+        "id": 1154,
+        "purchase_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 1
+        },
+        "arrival_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 4
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 2,
+        "purchase_currency": "EUR",
+        "purchase_price": 7.19,
+        "isbn_13": "9782253142560",
+        "isbn_10": "2253142565",
+        "openlib": {
+            "key": "/books/OL26094416M",
+            "publishers": [
+                "Livre de Poche"
+            ],
+            "publish_date": "2004",
+            "title": "Monsieur Gallet, décédé",
+            "info_url": "https://openlibrary.org/books/OL26094416M/Monsieur_Gallet_décédé"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2026-02-28 23:03:43 GMT+1100 (Australian Eastern Daylight Time)",
+        "title": "Monsieur Gallet décédé",
+        "number_in_series": 3,
+        "series": "Maigret",
+        "authors": [
+            {
+                "surname": "Simenon",
+                "given_names": [
+                    "Georges"
+                ]
+            }
+        ],
+        "languages": [
+            "fre"
+        ],
+        "publishers": [
+            "Livre de Poche"
         ]
+    },
+    {
+        "id": 1155,
+        "purchase_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 1
+        },
+        "arrival_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 4
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 3,
+        "purchase_currency": "EUR",
+        "purchase_price": 6.71,
+        "series": "Maigret",
+        "number_in_series": 4,
+        "isbn_13": "9782253142553",
+        "isbn_10": "2253142557",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "",
+                    "given_names": []
+                }
+            ],
+            "languages": [
+                "fre"
+            ],
+            "dimensions": {
+                "length": 187
+            },
+            "key": "/books/OL16385921M",
+            "publishers": [
+                "La Presse de la Cité"
+            ],
+            "publish_places": [
+                "Paris"
+            ],
+            "publish_date": "2004",
+            "title": "Le pendu de Saint-Pholien",
+            "info_url": "https://openlibrary.org/books/OL16385921M/Le_pendu_de_Saint-Pholien"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2026-02-28 23:06:10 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Simenon",
+                "given_names": [
+                    "Georges"
+                ]
+            }
+        ],
+        "title": "Le pendu de Saint-Pholien",
+        "languages": [
+            "fre"
+        ],
+        "publishers": [
+            "Livre de Poche"
+        ]
+    },
+    {
+        "id": 1156,
+        "series": "Maigret",
+        "number_in_series": 5,
+        "purchase_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 1
+        },
+        "arrival_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 4
+        },
+        "seller": "Amazon",
+        "seller_branch": ".fr",
+        "number_in_order": 4,
+        "purchase_currency": "EUR",
+        "purchase_price": 6.71,
+        "isbn_13": "9782253142966",
+        "isbn_10": "2253142964",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Simenon",
+                    "given_names": [
+                        "Georges"
+                    ]
+                }
+            ],
+            "languages": [
+                "fre"
+            ],
+            "dimensions": {
+                "height": 17.272,
+                "width": 10.921999999999999,
+                "thickness": 2.032,
+                "length": 187,
+                "mass": 2.9,
+                "mass_units": "ounces"
+            },
+            "physical_format": "Mass Market Paperback",
+            "key": "/books/OL8888152M",
+            "publishers": [
+                "Livre de Poche"
+            ],
+            "publish_date": "February 19, 2003",
+            "title": "La Tete d'un Homme",
+            "info_url": "https://openlibrary.org/books/OL8888152M/La_Tete_d'un_Homme"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2026-02-28 23:07:23 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Simenon",
+                "given_names": [
+                    "Georges"
+                ]
+            }
+        ],
+        "title": "La Tete d'un Homme",
+        "languages": [
+            "fre"
+        ],
+        "publishers": [
+            "Livre de Poche"
+        ]
+    },
+    {
+        "id": 1157,
+        "purchase_date": {
+            "year": 2026,
+            "month": 2,
+            "day": 26
+        },
+        "arrival_date": {
+            "year": 2026,
+            "month": 3
+        },
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 11.5,
+        "isbn_13": "9783608984736",
+        "isbn_10": "3608984739",
+        "openlib": {
+            "physical_format": "paperback",
+            "key": "/books/OL37048412M",
+            "title": "Menschen neben dem Leben",
+            "info_url": "https://openlibrary.org/books/OL37048412M/Menschen_neben_dem_Leben"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2026-02-28 23:09:13 GMT+1100 (Australian Eastern Daylight Time)",
+        "title": "Menschen neben dem Leben",
+        "authors": [
+            {
+                "surname": "Boschwitz",
+                "given_names": [
+                    "Ulrich",
+                    "Alexander"
+                ]
+            }
+        ],
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Klett-Cotta"
+        ],
+        "notes": "Featured in an NYT review"
     }
 ]
