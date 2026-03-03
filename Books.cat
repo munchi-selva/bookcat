@@ -56486,7 +56486,7 @@
         },
         "flags": 3,
         "openlib_synch_time": "2026-02-28 23:03:43 GMT+1100 (Australian Eastern Daylight Time)",
-        "title": "Monsieur Gallet décédé",
+        "title": "Monsieur Gallet, décédé",
         "number_in_series": 3,
         "series": "Maigret",
         "authors": [
@@ -56644,7 +56644,8 @@
         },
         "arrival_date": {
             "year": 2026,
-            "month": 3
+            "month": 3,
+            "day": 3
         },
         "seller": "Amazon",
         "seller_branch": ".de",
