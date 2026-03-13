@@ -56714,5 +56714,65 @@
             "Klett-Cotta"
         ],
         "notes": "Featured in an NYT review"
+    },
+    {
+        "id": 1159,
+        "purchase_date": {
+            "year": 2026,
+            "month": 3,
+            "day": 12
+        },
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "isbn_13": "9780136816485",
+        "isbn_10": "0136816487",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Stroustrup",
+                    "given_names": [
+                        "Bjarne"
+                    ]
+                }
+            ],
+            "languages": [
+                "eng"
+            ],
+            "dimensions": {
+                "length": 320
+            },
+            "key": "/books/OL34802836M",
+            "publishers": [
+                "Pearson Education, Limited",
+                "Addison-Wesley Professional"
+            ],
+            "publish_date": "2021",
+            "title": "Tour of C++",
+            "info_url": "https://openlibrary.org/books/OL34802836M/Tour_of_C"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2026-03-14 04:23:14 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Stroustrup",
+                "given_names": [
+                    "Bjarne"
+                ]
+            }
+        ],
+        "title": "A Tour of C++ (Third Edition)",
+        "languages": [
+            "eng"
+        ],
+        "publishers": [
+            "Pearson Education, Limited",
+            "Addison-Wesley Professional"
+        ],
+        "purchase_price": 28.98,
+        "arrival_date": {
+            "year": 2026,
+            "month": 3
+        }
     }
 ]
