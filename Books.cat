@@ -55917,6 +55917,42 @@
         "id": 1143,
         "purchase_date": {
             "year": 2025,
+            "month": 5,
+            "day": 17
+        },
+        "isbn_13": "9783755820055",
+        "isbn_10": "3755820056",
+        "flags": 1,
+        "openlib_synch_time": "2026-03-13 20:39:40 GMT+1100 (Australian Eastern Daylight Time)",
+        "seller": "Duplikat Buch & Papier",
+        "seller_branch": "Zentralstrasse, 8003 Zurich",
+        "purchase_currency": "CHF",
+        "authors": [
+            {
+                "surname": "Schenk",
+                "given_names": [
+                    "Arnfrid"
+                ]
+            },
+            {
+                "surname": "Scnhell",
+                "given_names": [
+                    "Stefan"
+                ]
+            }
+        ],
+        "title": "Atlas der vom Aussterben bedrohten Sprachen",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Dumont"
+        ]
+    },
+    {
+        "id": 1144,
+        "purchase_date": {
+            "year": 2025,
             "month": 7,
             "day": 17
         },
@@ -55956,7 +55992,7 @@
         "cover_required": " Y (Done)"
     },
     {
-        "id": 1144,
+        "id": 1145,
         "purchase_date": {
             "year": 2025,
             "month": 8,
@@ -55997,7 +56033,7 @@
         "cover_required": "N"
     },
     {
-        "id": 1145,
+        "id": 1146,
         "purchase_date": {
             "year": 2025,
             "month": 8,
@@ -56039,7 +56075,7 @@
         "cover_required": "N"
     },
     {
-        "id": 1146,
+        "id": 1147,
         "purchase_date": {
             "year": 2025,
             "month": 8,
@@ -56078,7 +56114,7 @@
         "cover_required": "Y (Done)"
     },
     {
-        "id": 1147,
+        "id": 1148,
         "purchase_date": {
             "year": 2025,
             "month": 8,
@@ -56118,7 +56154,7 @@
         "cover_required": "Y (Done)"
     },
     {
-        "id": 1148,
+        "id": 1149,
         "purchase_date": {
             "year": 2025,
             "month": 8,
@@ -56161,7 +56197,7 @@
         "cover_required": "Y (Done)"
     },
     {
-        "id": 1149,
+        "id": 1150,
         "purchase_date": {
             "year": 2025,
             "month": 8,
@@ -56231,7 +56267,7 @@
         "cover_required": "Y (Done)"
     },
     {
-        "id": 1150,
+        "id": 1151,
         "purchase_date": {
             "year": 2025,
             "month": 8,
@@ -56262,7 +56298,7 @@
         "cover_required": "Y (Done)"
     },
     {
-        "id": 1151,
+        "id": 1152,
         "purchase_date": {
             "year": 2025,
             "month": 9,
@@ -56326,7 +56362,7 @@
         "cover_required": "Y (Done)"
     },
     {
-        "id": 1152,
+        "id": 1153,
         "purchase_date": {
             "year": 2025,
             "month": 11,
@@ -56394,7 +56430,7 @@
         "number_in_series": 1
     },
     {
-        "id": 1153,
+        "id": 1154,
         "purchase_date": {
             "year": 2026,
             "month": 2,
@@ -56457,7 +56493,7 @@
         "number_in_series": 2
     },
     {
-        "id": 1154,
+        "id": 1155,
         "purchase_date": {
             "year": 2026,
             "month": 2,
@@ -56505,7 +56541,7 @@
         ]
     },
     {
-        "id": 1155,
+        "id": 1156,
         "purchase_date": {
             "year": 2026,
             "month": 2,
@@ -56568,7 +56604,7 @@
         ]
     },
     {
-        "id": 1156,
+        "id": 1157,
         "series": "Maigret",
         "number_in_series": 5,
         "purchase_date": {
@@ -56636,7 +56672,7 @@
         ]
     },
     {
-        "id": 1157,
+        "id": 1158,
         "purchase_date": {
             "year": 2026,
             "month": 2,
