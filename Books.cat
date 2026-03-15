@@ -56774,5 +56774,62 @@
             "year": 2026,
             "month": 3
         }
+    },
+    {
+        "id": 1160,
+        "purchase_date": {
+            "year": 2026,
+            "month": 3,
+            "day": 14
+        },
+        "arrival_date": {
+            "year": 2026,
+            "month": 3,
+            "day": 14
+        },
+        "seller": "Orell Füssli",
+        "seller_branch": "Zürich",
+        "purchase_currency": "CHF",
+        "purchase_price": 18.9,
+        "purchaser": "Ferientrupp",
+        "isbn_13": "9783608981544",
+        "isbn_10": "3608981543",
+        "openlib": {
+            "authors": [
+                {
+                    "surname": "Boschwitz",
+                    "given_names": [
+                        "Ulrich",
+                        "Alexander"
+                    ]
+                }
+            ],
+            "physical_format": "paperback",
+            "key": "/books/OL30880851M",
+            "publishers": [
+                "Klett-Cotta Verlag"
+            ],
+            "publish_date": "Mar 01, 2019",
+            "title": "Der Reisende",
+            "info_url": "https://openlibrary.org/books/OL30880851M/Der_Reisende"
+        },
+        "flags": 3,
+        "openlib_synch_time": "2026-03-16 01:44:04 GMT+1100 (Australian Eastern Daylight Time)",
+        "authors": [
+            {
+                "surname": "Boschwitz",
+                "given_names": [
+                    "Ulrich",
+                    "Alexander"
+                ]
+            }
+        ],
+        "title": "Der Reisende",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Klett-Cotta Verlag"
+        ]
     }
 ]
