@@ -55925,7 +55925,7 @@
         "flags": 1,
         "openlib_synch_time": "2026-03-13 20:39:40 GMT+1100 (Australian Eastern Daylight Time)",
         "seller": "Duplikat Buch & Papier",
-        "seller_branch": "Zentralstrasse, 8003 Zurich",
+        "seller_branch": "Zentralstrasse 129, 8003 Zurich",
         "purchase_currency": "CHF",
         "authors": [
             {
@@ -56832,5 +56832,46 @@
         "publishers": [
             "Klett-Cotta Verlag"
         ]
+    },
+    {
+        "id": 1161,
+        "purchase_date": {
+            "year": 2026,
+            "month": 5,
+            "day": 17
+        },
+        "arrival_date": {
+            "year": 2026,
+            "month": 5,
+            "day": 22
+        },
+        "seller": "Amazon",
+        "seller_branch": ".de",
+        "purchase_currency": "EUR",
+        "purchase_price": 13.42,
+        "isbn_13": "9783755805786",
+        "isbn_10": "3755805782",
+        "flags": 1,
+        "openlib_synch_time": "2026-05-23 03:42:14 GMT+1000 (Australian Eastern Standard Time)",
+        "authors": [
+            {
+                "surname": "Swann",
+                "given_names": [
+                    "Leonie"
+                ]
+            }
+        ],
+        "title": "Glennkill",
+        "subtitle": "Ein Schafskrimi",
+        "languages": [
+            "deu"
+        ],
+        "publishers": [
+            "Dumont"
+        ],
+        "publish_date": "April, 2026",
+        "dimensions": {
+            "length": 416
+        }
     }
 ]
